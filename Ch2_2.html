@@ -1,0 +1,1498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Section 2.2: Intersecting Planes</title>
+
+      <!-- MathJax configuration -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            },
+            loader: {
+                load: ['input/tex', 'output/chtml']
+            }
+        };
+    </script>
+    <!-- MathJax loader -->
+    <script id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+
+    <style>
+      
+    .nav-button {
+      padding: 10px 20px;
+      background-color: #33AB2B;
+      color: #000000;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+
+    .nav-button:hover,
+    .nav-button:focus {
+      background-color: #33AB2B;
+      outline: none;
+    }     
+/* Layout unchanged */
+.side-toc {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 230px;
+    height: 100vh;
+    background-color: #f0f8ed;
+    border-right: 3px solid #33AB2B;
+    padding: 20px;
+    overflow: hidden;
+}
+.diagram-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(150px, 1fr));
+  gap: 2rem;
+  justify-items: center;   /* centers each column item */
+  align-items: start;
+  margin: 1.5rem 0;
+}
+
+.diagram {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.toc-title {
+    font-size: 1.4em;
+    margin-bottom: 15px;
+    color: #33AB2B;
+}
+
+/* Chapter buttons */
+.toc-chapter {
+    width: 100%;
+    background: none;
+    border: none;
+    text-align: left;
+    font-size: 1em;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    color: #333;
+}
+
+.toc-chapter:hover,
+.toc-chapter:focus {
+    color: #33AB2B;
+}
+
+.arrow {
+    transition: transform 0.25s ease;
+}
+
+/* Rotated when opened */
+.toc-chapter[aria-expanded="true"] .arrow {
+    transform: rotate(90deg);
+}
+
+/* Submenu collapsed by default */
+.toc-submenu {
+    list-style: none;
+    padding-left: 15px;
+    margin: 5px 0 10px 0;
+    display: none;
+}
+
+/* Visible when expanded */
+.toc-submenu.open {
+    display: block;
+}
+
+.toc-submenu li {
+    margin: 6px 0;
+}
+
+.toc-submenu a {
+    color: #333;
+    text-decoration: none;
+}
+
+.toc-submenu a:hover,
+.toc-submenu a:focus {
+    color: #33AB2B;
+    text-decoration: underline;
+}
+
+/* Push main body over */
+body {
+    margin-left: 250px;
+}
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background-color: #ffffff;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #33AB2B;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            border-bottom: 3px solid #33AB2B;
+            padding-bottom: 15px;
+        }
+
+        h2 {
+            color: #33AB2B;
+            font-size: 1.8em;
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            color: #33AB2B;
+            font-size: 1.2em;
+            margin-top: 20px;
+            margin-bottom: 15px;
+        }
+
+        h4 {
+            color: #33AB2B;
+            font-size: 1.1em;
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+
+        .definition-box {
+            background-color: #f0f8ed;
+            border: 2px solid #33AB2B;
+            border-radius: 6px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .definition-box h3 {
+            color: #33AB2B;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            margin-top: 0;
+        }
+
+        .definition-box p {
+            margin-bottom: 15px;
+        }
+
+        .definition-box ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .definition-box li {
+            margin-bottom: 10px;
+        }
+
+        .conversion-box {
+            background-color: #ffffff;
+            border: 2px solid #b84d7e;
+            border-radius: 6px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .conversion-box h3 {
+            color: #b84d7e;
+            margin-top: 0;
+        }
+
+        .conversion-box table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        .conversion-box table th,
+        .conversion-box table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .conversion-box table th {
+            background-color: #f0f0f0;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .orange-box {
+            background-color: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 6px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+
+        .orange-box h3 {
+            margin-top: 0;
+        }
+
+        .orange-box ol {
+            margin-left: 20px;
+        }
+
+        .orange-box li {
+            margin-bottom: 8px;
+        }
+
+        .example {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            margin: 25px 0;
+            overflow: hidden;
+        }
+
+        .example-problem {
+            padding: 15px 20px;
+        }
+
+        .example-problem h3 {
+            color: #33AB2B;
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .example-problem p {
+            margin-bottom: 10px;
+        }
+
+        .example-problem ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .example-problem li {
+            margin-bottom: 8px;
+        }
+
+        .example-problem ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .solution-header {
+            background-color: #33AB2B;
+            color: white;
+            padding: 12px 20px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+            margin-top: 15px;
+            border-radius: 4px;
+            transition: background-color 0.2s ease;
+            border: none;
+            font-size: 1em;
+        }
+
+        .solution-header:hover {
+            background-color: #2a8922;
+        }
+
+        .toggle-arrow {
+            display: inline-block;
+            margin-right: 12px;
+            transition: transform 0.3s ease;
+            font-size: 1.2em;
+        }
+
+        .toggle-arrow.open {
+            transform: rotate(180deg);
+        }
+
+        .example-content {
+            padding: 0;
+            display: none;
+            overflow: hidden;
+        }
+
+        .example-content.open {
+            display: block;
+        }
+
+        .solution {
+            background-color: #f0f8ed;
+            padding: 20px;
+            border-top: 2px solid #33AB2B;
+        }
+
+        .solution h4 {
+            color: #33AB2B;
+            margin-bottom: 15px;
+            margin-top: 0;
+        }
+
+        .solution p {
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        .solution ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .solution li {
+            margin-bottom: 8px;
+        }
+
+        .solution ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        ul li {
+            margin-bottom: 8px;
+        }
+
+        ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        ol li {
+            margin-bottom: 8px;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        strong {
+            font-weight: bold;
+        }
+
+        em {
+            font-style: italic;
+        }
+
+        .blue-text {
+            color: #0066cc;
+        }
+
+        .divider {
+            border-top: 2px dashed #33AB2B;
+            margin: 30px 0;
+        }
+
+        .image-placeholder {
+            background-color: #e0e0e0;
+            border: 2px dashed #999;
+            padding: 40px;
+            margin: 20px 0;
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            border-radius: 4px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table th {
+            background-color: #f0f8ed;
+            color: #33AB2B;
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ccc;
+            font-weight: bold;
+        }
+
+        table td {
+            padding: 12px;
+            border: 1px solid #ccc;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        table tr.highlighted {
+            background-color: #ffff99;
+        }
+
+        .subsection-title {
+            color: #33AB2B;
+            font-size: 1.3em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+    </style>
+<style>
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+</style>
+</head>
+<body>
+<nav class="side-toc" aria-label="Textbook Navigation">
+    <h2 class="toc-title">Contents</h2>
+
+    <!-- Chapter 1 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 1: Financial Literacy</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="MTH154CH1_1.html">1.1 Introduction</a></li>
+        <li><a href="MTH154CH1_2.html">1.2 Problem Solving</a></li>
+        <li><a href="MTH154CH1_3.html">1.3 Simple Interest</a></li>
+ 	<li><a href="MTH154CH1_4.html">1.4 Compound Interest & Annuities</a></li>
+ 	<li><a href="MTH154CH1_5.html">1.5 Installment Loans</a></li>
+ 	<li><a href="MTH154CH1_6.html">1.6 Loans</a></li>
+ 	<li><a href="MTH154CH1_7.html">1.7 Stocks & Bonds</a></li>
+ 	<li><a href="MTH154CH1_8.html">1.8 Taxes</a></li>
+    </ul>
+
+    <!-- Chapter 2 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 2: Modeling Data</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="Ch2_1.html">2.1 Basics of Graphing</a></li>
+        <li><a href="Ch2_2.html">2.2 Relations & Functions</a></li>
+        <li><a href="Ch2_3.html">2.3 Linear Models</a></li>
+        <li><a href="Ch2_4.html">2.4 Rate of Change</a></li>
+        <li><a href="Ch2_5.html">2.5 Scatterplots</a></li>
+    </ul>
+
+    <!-- Chapter 3 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 3: Set Theory</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="Ch3_1.html">3.1 Set Basics</a></li>
+        <li><a href="Ch3_2.html">3.2 Sets</a></li>
+        <li><a href="Ch3_3.html">3.3 Venn Diagrams</a></li>
+        <li><a href="MTH154CH3_4.html">3.4 More with Venn Diagrams</a></li>
+    </ul>
+
+   <!-- Chapter 4 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 4: Logic</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="MTH154CH4_1.html">4.1 Thinking Logically</a></li>
+        <li><a href="MTH154CH4_2.html">4.2 Introduction to Truth Tables</a></li>
+	<li><a href="MTH154CH4_3.html">4.3 Logical Arguments</a></li>
+	<li><a href="MTH154CH4_4.html">4.4 Variations of Statements</a></li>
+    </ul>
+
+   <!-- Chapter 5 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 5: Measurement</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="MTH154CH5_1.html">5.1 Ratios & Proportions</a></li>
+        <li><a href="MTH154CH5_2.html">5.2 Measurement</a></li>
+	<li><a href="MTH154CH5_3.html">5.3 Area, Volume, and Capacity</a></li>
+	<li><a href="MTH154CH5_4.html">5.4 Weight & Temperature</a></li>
+	<li><a href="MTH154CH5_5.html">5.5 Surface Area & Volume</a></li>
+    </ul>
+</nav>
+
+   
+
+<body>
+    <div class="container">
+        <h1>Section 2.2: Intersecting Planes</h1>
+
+        <div class="intro-section">
+            <p>An architect designing a home may have restrictions with both the area and the perimeter of the windows because of energy and structural concerns. The length and width chosen for each window would have to satisfy two equations: one for the area, and the other for the perimeter. Similarly, a banker may have a fixed amount of money to put into two investment funds. A restaurant owner may want to increase profits, but in order to do that, he will need to hire more staff, which would increase his expenses as well. The list can go on and on regarding situations where there are multiple things taken into consideration. Mathematically, if you're trying to solve a problem that has multiple equations, we call this a <strong>System of Equations</strong>.</p>
+
+            <p>A system of equations is when you take two or more equations and try to solve them simultaneously (at the same time). These types of models are frequently used in business to determine profit. The profit a business makes is the difference between the cost and revenue. If the cost is higher than the revenue, a company loses money. But if the revenue is higher than the cost, then the company will make money. But, before we get into all of that, we will look at how to algebraically verify a solution to a system of equations.</p>
+        </div>
+
+        <!-- Example 1 -->
+        <div class="example">
+            <div class="example-problem">
+                <h3>Example 1: Verifying a Solution to a System</h3>
+                <p>Determine if the ordered pair $(2,-1)$ is a solution to the system:</p>
+                <div class="system-equation">
+                    $$\begin{cases}
+                    3x-y=7\\
+                    x-2y=4
+                    \end{cases}$$
+                </div>
+            </div>
+            <button class="solution-header" onclick="toggleExample(this)">
+                <span class="toggle-arrow">▼</span>
+                <span>Show Solution</span>
+            </button>
+            <div class="example-content">
+                <div class="solution">
+                    <h4>Solution</h4>
+                    <p>If this point is a solution to this system, then the coordinate will satisfy both equations by making both equations true statements.</p>
+                    
+                    <div class="two-column">
+                        <div class="column">
+                            <p><strong>Equation 1:</strong> $3x - y = 7$</p>
+                            \begin{align*}
+                            3(2)-(-1)&=7\\
+                            6+1&=7\\
+                            7&=7\\
+                            &\text{True}
+                            \end{align*}
+                        </div>
+                        <div class="column">
+                            <p><strong>Equation 2:</strong> $x - 2y = 4$</p>
+                            \begin{align*}
+                            2-2(-1)&=4\\
+                            2+2&=4\\
+                            4&=4\\
+                            &\text{True}
+                            \end{align*}
+                        </div>
+                    </div>
+
+                    <p>It can be seen that when you substitute $(2,-1)$ into each equation and simplify, you end up with two true statements, verifying that $(2,-1)$ is a solution to the system algebraically.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Try It 1 -->
+        <div class="try-it">
+            <h3>Try It</h3>
+            <p>Determine if the points $(1,-3)$ and $(0,0)$ are ordered pairs of the system:</p>
+            <div class="system-equation">
+                $$\begin{cases}
+                3x+y=0\\
+                x+2y=-5
+                \end{cases}$$
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <h2>Solving Systems by Graphing</h2>
+
+        <div class="intro-section">
+            <p>As we learned in the previous section, the graph of a linear equation is a straight line. Each point on the line is a solution to that particular equation. For a system of equations, you'd graph each line independently of each other. The point(s) where those equations all intersect would be the solution(s) to the system of equations.</p>
+
+            <p>When it comes to systems of equations, there are three options for solution types:</p>
+        </div>
+
+       <style>
+  table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+  }
+
+  th, td {
+    padding: 0.5rem;
+    text-align: center;
+    vertical-align: top;
+  }
+
+  .image-placeholder svg {
+    width: 100%;
+    height: auto;
+    display: block;
+    max-width: 250px; /* optional: controls SVG size in table */
+    margin: 0 auto;
+  }
+
+  .image-placeholder {
+    background-color: transparent;
+  }
+</style>
+
+<table>
+  <thead>
+    <tr>
+      <th>One Solution</th>
+      <th>No Solution</th>
+      <th>Infinite Solutions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <!-- One Solution -->
+      <td>
+        <div class="image-placeholder">
+          <figure role="img" aria-label="Coordinate grid with red and blue intersecting lines. They intersect at one point.">
+            <svg viewBox="-5 -5 10 10" xmlns="http://www.w3.org/2000/svg">
+              <!-- Grid lines -->
+              <g stroke="lightgray" stroke-width="0.01">
+                <line x1="-5" y1="-5" x2="-5" y2="5"/>
+                <line x1="-4" y1="-5" x2="-4" y2="5"/>
+                <line x1="-3" y1="-5" x2="-3" y2="5"/>
+                <line x1="-2" y1="-5" x2="-2" y2="5"/>
+                <line x1="-1" y1="-5" x2="-1" y2="5"/>
+                <line x1="0" y1="-5" x2="0" y2="5"/>
+                <line x1="1" y1="-5" x2="1" y2="5"/>
+                <line x1="2" y1="-5" x2="2" y2="5"/>
+                <line x1="3" y1="-5" x2="3" y2="5"/>
+                <line x1="4" y1="-5" x2="4" y2="5"/>
+              </g>
+              <g stroke="lightgray" stroke-width="0.01">
+                <line x1="-5" y1="-5" x2="5" y2="-5"/>
+                <line x1="-5" y1="-4" x2="5" y2="-4"/>
+                <line x1="-5" y1="-3" x2="5" y2="-3"/>
+                <line x1="-5" y1="-2" x2="5" y2="-2"/>
+                <line x1="-5" y1="-1" x2="5" y2="-1"/>
+                <line x1="-5" y1="0" x2="5" y2="0"/>
+                <line x1="-5" y1="1" x2="5" y2="1"/>
+                <line x1="-5" y1="2" x2="5" y2="2"/>
+                <line x1="-5" y1="3" x2="5" y2="3"/>
+                <line x1="-5" y1="4" x2="5" y2="4"/>
+              </g>
+              <!-- Axes -->
+              <line x1="-5" y1="0" x2="5" y2="0" stroke="black" stroke-width="0.05"/>
+              <line x1="0" y1="-5" x2="0" y2="5" stroke="black" stroke-width="0.05"/>
+              <!-- Tick marks -->
+              <g stroke="black" stroke-width="0.05">
+                <line x1="-4" y1="0.1" x2="-4" y2="-0.1"/>
+                <line x1="-3" y1="0.1" x2="-3" y2="-0.1"/>
+                <line x1="-2" y1="0.1" x2="-2" y2="-0.1"/>
+                <line x1="-1" y1="0.1" x2="-1" y2="-0.1"/>
+                <line x1="1" y1="0.1" x2="1" y2="-0.1"/>
+                <line x1="2" y1="0.1" x2="2" y2="-0.1"/>
+                <line x1="3" y1="0.1" x2="3" y2="-0.1"/>
+                <line x1="4" y1="0.1" x2="4" y2="-0.1"/>
+                <line x1="0.1" y1="-4" x2="-0.1" y2="-4"/>
+                <line x1="0.1" y1="-3" x2="-0.1" y2="-3"/>
+                <line x1="0.1" y1="-2" x2="-0.1" y2="-2"/>
+                <line x1="0.1" y1="-1" x2="-0.1" y2="-1"/>
+                <line x1="0.1" y1="1" x2="-0.1" y2="1"/>
+                <line x1="0.1" y1="2" x2="-0.1" y2="2"/>
+                <line x1="0.1" y1="3" x2="-0.1" y2="3"/>
+                <line x1="0.1" y1="4" x2="-0.1" y2="4"/>
+              </g>
+              <!-- X labels -->
+              <text x="-5" y="0.4" font-size="0.4" text-anchor="middle">-5</text>
+              <text x="-4" y="0.4" font-size="0.4" text-anchor="middle">-4</text>
+              <text x="-3" y="0.4" font-size="0.4" text-anchor="middle">-3</text>
+              <text x="-2" y="0.4" font-size="0.4" text-anchor="middle">-2</text>
+              <text x="-1" y="0.4" font-size="0.4" text-anchor="middle">-1</text>
+              <text x="1" y="0.4" font-size="0.4" text-anchor="middle">1</text>
+              <text x="2" y="0.4" font-size="0.4" text-anchor="middle">2</text>
+              <text x="3" y="0.4" font-size="0.4" text-anchor="middle">3</text>
+              <text x="4" y="0.4" font-size="0.4" text-anchor="middle">4</text>
+              <text x="5" y="0.4" font-size="0.4" text-anchor="middle">5</text>
+              <!-- Y labels -->
+              <text x="-0.3" y="-5" font-size="0.4" text-anchor="end" dominant-baseline="middle">5</text>
+              <text x="-0.3" y="-4" font-size="0.4" text-anchor="end" dominant-baseline="middle">4</text>
+              <text x="-0.3" y="-3" font-size="0.4" text-anchor="end" dominant-baseline="middle">3</text>
+              <text x="-0.3" y="-2" font-size="0.4" text-anchor="end" dominant-baseline="middle">2</text>
+              <text x="-0.3" y="-1" font-size="0.4" text-anchor="end" dominant-baseline="middle">1</text>
+              <text x="-0.3" y="1" font-size="0.4" text-anchor="end" dominant-baseline="middle">-1</text>
+              <text x="-0.3" y="2" font-size="0.4" text-anchor="end" dominant-baseline="middle">-2</text>
+              <text x="-0.3" y="3" font-size="0.4" text-anchor="end" dominant-baseline="middle">-3</text>
+              <text x="-0.3" y="4" font-size="0.4" text-anchor="end" dominant-baseline="middle">-4</text>
+              <text x="-0.3" y="5" font-size="0.4" text-anchor="end" dominant-baseline="middle">-5</text>
+              <!-- Lines -->
+              <line x1="-4" y1="3" x2="4" y2="-3" stroke="blue" stroke-width="0.1"/>
+              <line x1="-4" y1="0" x2="2.5" y2="-5" stroke="red" stroke-width="0.1"/>
+            </svg>
+          </figure>
+        </div>
+        <p>The equations only intersect at one singular point.</p>
+      </td>
+
+      <!-- No Solution -->
+      <td>
+        <div class="image-placeholder">
+          <figure role="img" aria-label="Coordinate grid with red and blue parallel lines. They don't intersect.">
+            <svg viewBox="-5 -5 10 10" xmlns="http://www.w3.org/2000/svg">
+            
+              <!-- Grid lines -->
+              <g stroke="lightgray" stroke-width="0.01">
+                <line x1="-5" y1="-5" x2="-5" y2="5"/>
+                <line x1="-4" y1="-5" x2="-4" y2="5"/>
+                <line x1="-3" y1="-5" x2="-3" y2="5"/>
+                <line x1="-2" y1="-5" x2="-2" y2="5"/>
+                <line x1="-1" y1="-5" x2="-1" y2="5"/>
+                <line x1="0" y1="-5" x2="0" y2="5"/>
+                <line x1="1" y1="-5" x2="1" y2="5"/>
+                <line x1="2" y1="-5" x2="2" y2="5"/>
+                <line x1="3" y1="-5" x2="3" y2="5"/>
+                <line x1="4" y1="-5" x2="4" y2="5"/>
+              </g>
+              <g stroke="lightgray" stroke-width="0.01">
+                <line x1="-5" y1="-5" x2="5" y2="-5"/>
+                <line x1="-5" y1="-4" x2="5" y2="-4"/>
+                <line x1="-5" y1="-3" x2="5" y2="-3"/>
+                <line x1="-5" y1="-2" x2="5" y2="-2"/>
+                <line x1="-5" y1="-1" x2="5" y2="-1"/>
+                <line x1="-5" y1="0" x2="5" y2="0"/>
+                <line x1="-5" y1="1" x2="5" y2="1"/>
+                <line x1="-5" y1="2" x2="5" y2="2"/>
+                <line x1="-5" y1="3" x2="5" y2="3"/>
+                <line x1="-5" y1="4" x2="5" y2="4"/>
+              </g>
+              <!-- Axes -->
+              <line x1="-5" y1="0" x2="5" y2="0" stroke="black" stroke-width="0.05"/>
+              <line x1="0" y1="-5" x2="0" y2="5" stroke="black" stroke-width="0.05"/>
+              <!-- Tick marks -->
+              <g stroke="black" stroke-width="0.05">
+                <line x1="-4" y1="0.1" x2="-4" y2="-0.1"/>
+                <line x1="-3" y1="0.1" x2="-3" y2="-0.1"/>
+                <line x1="-2" y1="0.1" x2="-2" y2="-0.1"/>
+                <line x1="-1" y1="0.1" x2="-1" y2="-0.1"/>
+                <line x1="1" y1="0.1" x2="1" y2="-0.1"/>
+                <line x1="2" y1="0.1" x2="2" y2="-0.1"/>
+                <line x1="3" y1="0.1" x2="3" y2="-0.1"/>
+                <line x1="4" y1="0.1" x2="4" y2="-0.1"/>
+                <line x1="0.1" y1="-4" x2="-0.1" y2="-4"/>
+                <line x1="0.1" y1="-3" x2="-0.1" y2="-3"/>
+                <line x1="0.1" y1="-2" x2="-0.1" y2="-2"/>
+                <line x1="0.1" y1="-1" x2="-0.1" y2="-1"/>
+                <line x1="0.1" y1="1" x2="-0.1" y2="1"/>
+                <line x1="0.1" y1="2" x2="-0.1" y2="2"/>
+                <line x1="0.1" y1="3" x2="-0.1" y2="3"/>
+                <line x1="0.1" y1="4" x2="-0.1" y2="4"/>
+              </g>
+                 <!-- X labels -->
+              <text x="-5" y="0.4" font-size="0.4" text-anchor="middle">-5</text>
+              <text x="-4" y="0.4" font-size="0.4" text-anchor="middle">-4</text>
+              <text x="-3" y="0.4" font-size="0.4" text-anchor="middle">-3</text>
+              <text x="-2" y="0.4" font-size="0.4" text-anchor="middle">-2</text>
+              <text x="-1" y="0.4" font-size="0.4" text-anchor="middle">-1</text>
+              <text x="1" y="0.4" font-size="0.4" text-anchor="middle">1</text>
+              <text x="2" y="0.4" font-size="0.4" text-anchor="middle">2</text>
+              <text x="3" y="0.4" font-size="0.4" text-anchor="middle">3</text>
+              <text x="4" y="0.4" font-size="0.4" text-anchor="middle">4</text>
+              <text x="5" y="0.4" font-size="0.4" text-anchor="middle">5</text>
+              <!-- Y labels -->
+              <text x="-0.3" y="-5" font-size="0.4" text-anchor="end" dominant-baseline="middle">5</text>
+              <text x="-0.3" y="-4" font-size="0.4" text-anchor="end" dominant-baseline="middle">4</text>
+              <text x="-0.3" y="-3" font-size="0.4" text-anchor="end" dominant-baseline="middle">3</text>
+              <text x="-0.3" y="-2" font-size="0.4" text-anchor="end" dominant-baseline="middle">2</text>
+              <text x="-0.3" y="-1" font-size="0.4" text-anchor="end" dominant-baseline="middle">1</text>
+              <text x="-0.3" y="1" font-size="0.4" text-anchor="end" dominant-baseline="middle">-1</text>
+              <text x="-0.3" y="2" font-size="0.4" text-anchor="end" dominant-baseline="middle">-2</text>
+              <text x="-0.3" y="3" font-size="0.4" text-anchor="end" dominant-baseline="middle">-3</text>
+              <text x="-0.3" y="4" font-size="0.4" text-anchor="end" dominant-baseline="middle">-4</text>
+              <text x="-0.3" y="5" font-size="0.4" text-anchor="end" dominant-baseline="middle">-5</text>
+              <!-- Lines -->
+              <line x1="-4" y1="3" x2="4" y2="-3" stroke="blue" stroke-width="0.1"/>
+		 <line x1="-4" y1="0" x2="2.5" y2="-5" stroke="red" stroke-width="0.1"/>
+            </svg>
+          </figure>
+            </svg>
+          </figure>
+        </div>
+        <p>The equations never intersect and are parallel.</p>
+      </td>
+
+      <!-- Infinite Solutions -->
+      <td>
+        <div class="image-placeholder">
+          <figure role="img" aria-label="Coordinate grid with red and blue overlapping lines. They are the same line.">
+            <svg viewBox="-5 -5 10 10" xmlns="http://www.w3.org/2000/svg">
+             
+              <!-- Grid lines -->
+              <g stroke="lightgray" stroke-width="0.01">
+                <line x1="-5" y1="-5" x2="-5" y2="5"/>
+                <line x1="-4" y1="-5" x2="-4" y2="5"/>
+                <line x1="-3" y1="-5" x2="-3" y2="5"/>
+                <line x1="-2" y1="-5" x2="-2" y2="5"/>
+                <line x1="-1" y1="-5" x2="-1" y2="5"/>
+                <line x1="0" y1="-5" x2="0" y2="5"/>
+                <line x1="1" y1="-5" x2="1" y2="5"/>
+                <line x1="2" y1="-5" x2="2" y2="5"/>
+                <line x1="3" y1="-5" x2="3" y2="5"/>
+                <line x1="4" y1="-5" x2="4" y2="5"/>
+              </g>
+              <g stroke="lightgray" stroke-width="0.01">
+                <line x1="-5" y1="-5" x2="5" y2="-5"/>
+                <line x1="-5" y1="-4" x2="5" y2="-4"/>
+                <line x1="-5" y1="-3" x2="5" y2="-3"/>
+                <line x1="-5" y1="-2" x2="5" y2="-2"/>
+                <line x1="-5" y1="-1" x2="5" y2="-1"/>
+                <line x1="-5" y1="0" x2="5" y2="0"/>
+                <line x1="-5" y1="1" x2="5" y2="1"/>
+                <line x1="-5" y1="2" x2="5" y2="2"/>
+                <line x1="-5" y1="3" x2="5" y2="3"/>
+                <line x1="-5" y1="4" x2="5" y2="4"/>
+              </g>
+              <!-- Axes -->
+              <line x1="-5" y1="0" x2="5" y2="0" stroke="black" stroke-width="0.05"/>
+              <line x1="0" y1="-5" x2="0" y2="5" stroke="black" stroke-width="0.05"/>
+              <!-- Tick marks -->
+              <g stroke="black" stroke-width="0.05">
+                <line x1="-4" y1="0.1" x2="-4" y2="-0.1"/>
+                <line x1="-3" y1="0.1" x2="-3" y2="-0.1"/>
+                <line x1="-2" y1="0.1" x2="-2" y2="-0.1"/>
+                <line x1="-1" y1="0.1" x2="-1" y2="-0.1"/>
+                <line x1="1" y1="0.1" x2="1" y2="-0.1"/>
+                <line x1="2" y1="0.1" x2="2" y2="-0.1"/>
+                <line x1="3" y1="0.1" x2="3" y2="-0.1"/>
+                <line x1="4" y1="0.1" x2="4" y2="-0.1"/>
+                <line x1="0.1" y1="-4" x2="-0.1" y2="-4"/>
+                <line x1="0.1" y1="-3" x2="-0.1" y2="-3"/>
+                <line x1="0.1" y1="-2" x2="-0.1" y2="-2"/>
+                <line x1="0.1" y1="-1" x2="-0.1" y2="-1"/>
+                <line x1="0.1" y1="1" x2="-0.1" y2="1"/>
+                <line x1="0.1" y1="2" x2="-0.1" y2="2"/>
+                <line x1="0.1" y1="3" x2="-0.1" y2="3"/>
+                <line x1="0.1" y1="4" x2="-0.1" y2="4"/>
+              </g>
+                <!-- X labels -->
+              <!-- X labels -->
+              <text x="-5" y="0.4" font-size="0.4" text-anchor="middle">-5</text>
+              <text x="-4" y="0.4" font-size="0.4" text-anchor="middle">-4</text>
+              <text x="-3" y="0.4" font-size="0.4" text-anchor="middle">-3</text>
+              <text x="-2" y="0.4" font-size="0.4" text-anchor="middle">-2</text>
+              <text x="-1" y="0.4" font-size="0.4" text-anchor="middle">-1</text>
+              <text x="1" y="0.4" font-size="0.4" text-anchor="middle">1</text>
+              <text x="2" y="0.4" font-size="0.4" text-anchor="middle">2</text>
+              <text x="3" y="0.4" font-size="0.4" text-anchor="middle">3</text>
+              <text x="4" y="0.4" font-size="0.4" text-anchor="middle">4</text>
+              <text x="5" y="0.4" font-size="0.4" text-anchor="middle">5</text>
+              <!-- Y labels -->
+              <text x="-0.3" y="-5" font-size="0.4" text-anchor="end" dominant-baseline="middle">5</text>
+              <text x="-0.3" y="-4" font-size="0.4" text-anchor="end" dominant-baseline="middle">4</text>
+              <text x="-0.3" y="-3" font-size="0.4" text-anchor="end" dominant-baseline="middle">3</text>
+              <text x="-0.3" y="-2" font-size="0.4" text-anchor="end" dominant-baseline="middle">2</text>
+              <text x="-0.3" y="-1" font-size="0.4" text-anchor="end" dominant-baseline="middle">1</text>
+              <text x="-0.3" y="1" font-size="0.4" text-anchor="end" dominant-baseline="middle">-1</text>
+              <text x="-0.3" y="2" font-size="0.4" text-anchor="end" dominant-baseline="middle">-2</text>
+              <text x="-0.3" y="3" font-size="0.4" text-anchor="end" dominant-baseline="middle">-3</text>
+              <text x="-0.3" y="4" font-size="0.4" text-anchor="end" dominant-baseline="middle">-4</text>
+              <text x="-0.3" y="5" font-size="0.4" text-anchor="end" dominant-baseline="middle">-5</text>
+              <!-- Lines -->
+              <line x1="-4" y1="3" x2="4" y2="-3" stroke="blue" stroke-width="0.1" /> 
+		<line x1="-4" y1="3" x2="4" y2="-3" stroke="red" stroke-width="0.1" stroke-dasharray="0.3 0.2"/>
+            </svg>
+          </figure>
+            </svg>
+          </figure>
+        </div>
+        <p>The equations are the same and overlap each other.</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+        <div class="intro-section">
+            <p>Before we get into an example, let's talk about the <strong>slope-intercept</strong> method for graphing linear equations. In the previous unit, we revisited graphing by using an $x/y$ table. With that method, you substitute values in for $x$ to find values of $y$ to plot the ordered pair $(x,y)$. That method can entail a lot of work. While you can always use that method, we will venture into the slope-intercept method. An equation in the form of $y=mx+b$ is an equation in slope-intercept form. The variable $m$ represents the slope, or "rate of change", and the variable $b$ represents the y-intercept (point $(0,b)$).</p>
+        </div>
+
+        <div class="how-to-box">
+            <h3>How to Graph Using Slope-Intercept Method</h3>
+            <p>To use this method, follow these steps:</p>
+            <ol>
+                <li>Place the equation in the form $y=mx+b$, by solving for $y$.</li>
+                <li>Identify the slope $m=\dfrac{\text{rise}}{\text{run}}$. <em>Note: Any whole number can be written as a fraction over 1.</em></li>
+                <li>Identify the y-intercept $(0,b)$.</li>
+                <li>Plot the point $(0,b)$.</li>
+                <li>From that point, rise (fall if negative) the number of spaces in the numerator of the slope, then run the number of spaces in the denominator of the slope, and place a point at the final location.</li>
+                <li>Connect the two points. If needed, the previous step can be repeated over and over again to plot more points.</li>
+            </ol>
+        </div>
+
+        <!-- Example 2 -->
+        <div class="example">
+            <div class="example-problem">
+                <h3>Example 2: Graphing Using Slope-Intercept Method</h3>
+                <p>Graph the equation $-2x+y=4$.</p>
+            </div>
+            <button class="solution-header" onclick="toggleExample(this)">
+                <span class="toggle-arrow">▼</span>
+                <span>Show Solution</span>
+            </button>
+            <div class="example-content">
+                <div class="solution">
+                    <h4>Solution</h4>
+                    <p>The first step we need to take is to solve our equation for $y$.</p>
+                    \begin{align*}
+                    -2x+y&=4\\
+                    y&=2x+4
+                    \end{align*}
+
+                    <p>Next, we need to identify the slope $m=2=\dfrac{2}{1}$. This means we'd rise 2 units and run 1 unit. Our y-intercept is next in the process, which is the point $(0,4)$. To create this graph, we'd first plot the y-intercept, then proceed with using the slope to plot the second point as outlined in the graph below.</p>
+
+                    <div class="image-placeholder">
+                        [Image: Graph showing y=2x+4 with y-intercept at (0,4) and rise/run arrows showing slope of 2/1]
+              <figure role="img" aria-label="Displaying how to graph a line by plotting the y-intercept first and then using the rise over the run to move to the second point. .">
+            <svg viewBox="-5 -5 10 10" xmlns="http://www.w3.org/2000/svg">
+             
+              <!-- Grid lines -->
+              <g stroke="lightgray" stroke-width="0.01">
+                <line x1="-5" y1="-5" x2="-5" y2="5"/>
+                <line x1="-4" y1="-5" x2="-4" y2="5"/>
+                <line x1="-3" y1="-5" x2="-3" y2="5"/>
+                <line x1="-2" y1="-5" x2="-2" y2="5"/>
+                <line x1="-1" y1="-5" x2="-1" y2="5"/>
+                <line x1="0" y1="-5" x2="0" y2="5"/>
+                <line x1="1" y1="-5" x2="1" y2="5"/>
+                <line x1="2" y1="-5" x2="2" y2="5"/>
+                <line x1="3" y1="-5" x2="3" y2="5"/>
+                <line x1="4" y1="-5" x2="4" y2="5"/>
+              </g>
+              <g stroke="lightgray" stroke-width="0.01">
+                <line x1="-5" y1="-5" x2="5" y2="-5"/>
+                <line x1="-5" y1="-4" x2="5" y2="-4"/>
+                <line x1="-5" y1="-3" x2="5" y2="-3"/>
+                <line x1="-5" y1="-2" x2="5" y2="-2"/>
+                <line x1="-5" y1="-1" x2="5" y2="-1"/>
+                <line x1="-5" y1="0" x2="5" y2="0"/>
+                <line x1="-5" y1="1" x2="5" y2="1"/>
+                <line x1="-5" y1="2" x2="5" y2="2"/>
+                <line x1="-5" y1="3" x2="5" y2="3"/>
+                <line x1="-5" y1="4" x2="5" y2="4"/>
+              </g>
+              <!-- Axes -->
+              <line x1="-5" y1="4" x2="5" y2="4" stroke="black" stroke-width="0.05"/>
+              <line x1="0" y1="-5" x2="0" y2="5" stroke="black" stroke-width="0.05"/>
+
+              <!-- Tick marks -->
+              <g stroke="black" stroke-width="0.05">
+                <line x1="-4" y1="4.1" x2="-4" y2="3.9"/>
+                <line x1="-3" y1="4.1" x2="-3" y2="3.9"/>
+                <line x1="-2" y1="4.1" x2="-2" y2="3.9"/>
+                <line x1="-1" y1="4.1" x2="-1" y2="3.9"/>
+                <line x1="1" y1="4.1" x2="1" y2="3.9"/>
+                <line x1="2" y1="4.1" x2="2" y2="3.9"/>
+                <line x1="3" y1="4.1" x2="3" y2="3.9"/>
+                <line x1="4" y1="4.1" x2="4" y2="3.9"/>
+                <line x1="0.1" y1="-4" x2="-0.1" y2="-4"/>
+                <line x1="0.1" y1="-3" x2="-0.1" y2="-3"/>
+                <line x1="0.1" y1="-2" x2="-0.1" y2="-2"/>
+                <line x1="0.1" y1="-1" x2="-0.1" y2="-1"/>
+                <line x1="0.1" y1="1" x2="-0.1" y2="1"/>
+                <line x1="0.1" y1="2" x2="-0.1" y2="2"/>
+                <line x1="0.1" y1="3" x2="-0.1" y2="3"/>
+                <line x1="0.1" y1="4" x2="-0.1" y2="4"/>
+              </g>
+             <!-- X labels -->
+              <text x="-5" y="4.5" font-size="0.4" text-anchor="middle">-5</text>
+              <text x="-4" y="4.5" font-size="0.4" text-anchor="middle">-4</text>
+              <text x="-3" y="4.5" font-size="0.4" text-anchor="middle">-3</text>
+              <text x="-2" y="4.5" font-size="0.4" text-anchor="middle">-2</text>
+              <text x="-1" y="4.5" font-size="0.4" text-anchor="middle">-1</text>
+              <text x="1" y="4.5" font-size="0.4" text-anchor="middle">1</text>
+              <text x="2" y="4.5" font-size="0.4" text-anchor="middle">2</text>
+              <text x="3" y="4.5" font-size="0.4" text-anchor="middle">3</text>
+              <text x="4" y="4.5" font-size="0.4" text-anchor="middle">4</text>
+              <text x="5" y="4.5" font-size="0.4" text-anchor="middle">5</text>
+              <!-- Y labels -->
+              <text x="-0.3" y="-5" font-size="0.4" text-anchor="end" dominant-baseline="middle">5</text>
+              <text x="-0.3" y="-4" font-size="0.4" text-anchor="end" dominant-baseline="middle">8</text>
+              <text x="-0.3" y="-3" font-size="0.4" text-anchor="end" dominant-baseline="middle">7</text>
+              <text x="-0.3" y="-2" font-size="0.4" text-anchor="end" dominant-baseline="middle">6</text>
+              <text x="-0.3" y="-1" font-size="0.4" text-anchor="end" dominant-baseline="middle">5</text>
+	      <text x="-0.3" y="0" font-size="0.4" text-anchor="end" dominant-baseline="middle">4</text>
+              <text x="-0.3" y="1" font-size="0.4" text-anchor="end" dominant-baseline="middle">3</text>
+              <text x="-0.3" y="2" font-size="0.4" text-anchor="end" dominant-baseline="middle">2</text>
+              <text x="-0.3" y="3" font-size="0.4" text-anchor="end" dominant-baseline="middle">1</text>
+              <text x="-0.3" y="4" font-size="0.4" text-anchor="end" dominant-baseline="middle"></text>
+              <text x="-0.3" y="5" font-size="0.4" text-anchor="end" dominant-baseline="middle">-5</text>
+             
+<!-- Rise over Run Graph Overlay -->
+<g>
+ 
+
+  <!-- Rise arrow -->
+  <line x1="0" y1="0.1" x2="0" y2="-2" stroke="orange" stroke-width="0.1" stroke-dasharray="0.2 0.1" marker-end="url(#arrow)"/>
+  <text x="-1" y="-1" font-size="0.5" fill="black" text-anchor="end" dominant-baseline="middle">Rise 2</text>
+ 
+<!-- Y-intercept point -->
+  <circle cx="0" cy="0" r="0.15" fill="blue"/>
+  <text x="0.2" y="0.2" font-size="0.3" fill="black">y-intercept</text>
+
+  <!-- Run arrow -->
+  <line x1="0" y1="-2" x2="1" y2="-2" stroke="magenta" stroke-width="0.1" stroke-dasharray="0.2 0.1" marker-end="url(#arrow)"/>
+  <!-- End point -->
+  <circle cx="1" cy="-2" r="0.15" fill="blue"/>
+
+  <!-- Line y = 2x + 4 -->
+  <line x1="-3" y1="6" x2="3" y2="-6" stroke="blue" stroke-width="0.05"/>
+</g>
+
+            </svg>
+          </figure>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <p>Now that we've outlined that method for graphing equations, let's apply it to a system of equations problem.</p>
+
+        <!-- Example 3 -->
+        <div class="example">
+            <div class="example-problem">
+                <h3>Example 3: Solving a System Graphically</h3>
+                <p>Graphically find the solution(s) to the system:</p>
+                <div class="system-equation">
+                    $$\begin{cases}
+                    2x+y=7\\
+                    x-2y=6
+                    \end{cases}$$
+                </div>
+            </div>
+            <button class="solution-header" onclick="toggleExample(this)">
+                <span class="toggle-arrow">▼</span>
+                <span>Show Solution</span>
+            </button>
+            <div class="example-content">
+                <div class="solution">
+                    <h4>Solution</h4>
+                    <p>To find the solution, we need to graphically plot each line and then find the point(s) at which they intersect. To plot each line, we are going to use the slope-intercept method demonstrated previously. To do that, we need to solve each equation for $y$.</p>
+
+                    <div class="two-column">
+                        <div class="column">
+                            <p><strong>Equation 1:</strong></p>
+                            \begin{align*}
+                            2x+y&=7\\
+                            y&=-2x+7
+                            \end{align*}
+                        </div>
+                        <div class="column">
+                            <p><strong>Equation 2:</strong></p>
+                            \begin{align*}
+                            x-2y&=6\\
+                            -2y&=-x+6\\
+                            \frac{-2y}{-2}&=\frac{-x+6}{-2}\\
+                            y&=\frac{1}{2}x-3
+                            \end{align*}
+                        </div>
+                    </div>
+
+                    <p>Now we are ready to plot the two equations $y=-2x+7$ and $y=\frac{1}{2}x-3$. Next, we will need to identify the slope and y-intercept for each equation.</p>
+
+                    <div class="two-column">
+                        <div class="column">
+                            <p><strong>Equation:</strong> $y=-2x+7$</p>
+                            <p><strong>Slope:</strong> $m=-2=\dfrac{-2}{1}$</p>
+                            <p><strong>y-intercept:</strong> $(0,7)$</p>
+                        </div>
+                        <div class="column">
+                            <p><strong>Equation:</strong> $y=\frac{1}{2}x-3$</p>
+                            <p><strong>Slope:</strong> $m=\dfrac{1}{2}$</p>
+                            <p><strong>y-intercept:</strong> $(0,-3)$</p>
+                        </div>
+                    </div>
+
+                    <p>For reference, the equation $y=-2x+7$ will be plotted in blue and the equation $y=\frac{1}{2}x-3$ will be plotted in green.</p>
+
+                    <div class="image-placeholder">
+                        [Image: Graph showing two lines intersecting at point (4,-1)]
+          <figure role="img" aria-label="Coordinate gride with two equations graphed.Equation \( y=-2x+7 \) in blue and equation \(y=1/2x-3 \) in red.There point of intersection is shown which is the solution\( (-4,1) \)">
+            <svg viewBox="-5 -10 10 30" xmlns="http://www.w3.org/2000/svg">
+             
+              <!-- Grid lines -->
+              <g stroke="lightgray" stroke-width="0.01">
+                <line x1="-5" y1="-8" x2="-5" y2="5"/>
+                <line x1="-4" y1="-8" x2="-4" y2="5"/>
+                <line x1="-3" y1="-8" x2="-3" y2="5"/>
+                <line x1="-2" y1="-8" x2="-2" y2="5"/>
+                <line x1="-1" y1="-8" x2="-1" y2="5"/>
+                <line x1="0" y1="-8" x2="0" y2="5"/>
+                <line x1="1" y1="-8" x2="1" y2="5"/>
+                <line x1="2" y1="-8" x2="2" y2="5"/>
+                <line x1="3" y1="-8" x2="3" y2="5"/>
+                <line x1="4" y1="-8" x2="4" y2="5"/>
+		
+
+            </g>
+              <g stroke="lightgray" stroke-width="0.01">
+                <line x1="-5" y1="-5" x2="5" y2="-5"/>
+                <line x1="-5" y1="-4" x2="5" y2="-4"/>
+                <line x1="-5" y1="-3" x2="5" y2="-3"/>
+                <line x1="-5" y1="-2" x2="5" y2="-2"/>
+                <line x1="-5" y1="-1" x2="5" y2="-1"/>
+                <line x1="-5" y1="0" x2="5" y2="0"/>
+                <line x1="-5" y1="1" x2="5" y2="1"/>
+                <line x1="-5" y1="2" x2="5" y2="2"/>
+                <line x1="-5" y1="3" x2="5" y2="3"/>
+                <line x1="-5" y1="4" x2="5" y2="4"/>
+		<line x1="-5" y1="-6" x2="5" y2="-6"/>
+		<line x1="-5" y1="-7" x2="5" y2="-7"/>
+            </g>
+              <!-- Axes -->
+              <line x1="-5" y1="0" x2="5" y2="0" stroke="black" stroke-width="0.05"/>
+              <line x1="0" y1="-8" x2="0" y2="5" stroke="black" stroke-width="0.05"/>
+
+              <!-- Tick marks -->
+              <g stroke="black" stroke-width="0.05">
+                <line x1="-4" y1=".1" x2="-4" y2="-0.1"/>
+                <line x1="-3" y1=".1" x2="-3" y2="-0.1"/>
+                <line x1="-2" y1=".1" x2="-2" y2="-0.1"/>
+                <line x1="-1" y1=".1" x2="-1" y2="-0.1"/>
+                <line x1="1" y1=".1" x2="1" y2="-0.1"/>
+                <line x1="2" y1=".1" x2="2" y2="-0.1"/>
+                <line x1="3" y1=".1" x2="3" y2="-0.1"/>
+                <line x1="4" y1=".1" x2="4" y2="-0.1"/>
+
+                <line x1="0.1" y1="-4" x2="-0.1" y2="-4"/>
+                <line x1="0.1" y1="-3" x2="-0.1" y2="-3"/>
+                <line x1="0.1" y1="-2" x2="-0.1" y2="-2"/>
+                <line x1="0.1" y1="-1" x2="-0.1" y2="-1"/>
+                <line x1="0.1" y1="1" x2="-0.1" y2="1"/>
+                <line x1="0.1" y1="2" x2="-0.1" y2="2"/>
+                <line x1="0.1" y1="3" x2="-0.1" y2="3"/>
+                <line x1="0.1" y1="-5" x2="-0.1" y2="-5"/>
+		<line x1="0.1" y1="-6" x2="-0.1" y2="-6"/>
+		<line x1="0.1" y1="-7" x2="-0.1" y2="-7"/>
+		<line x1="0.1" y1="-8" x2="-0.1" y2="-8"/>
+              </g>
+             <!-- X labels -->
+              <text x="-5" y="0.5" font-size="0.4" text-anchor="middle">-5</text>
+              <text x="-4" y="0.5" font-size="0.4" text-anchor="middle">-4</text>
+              <text x="-3" y="0.5" font-size="0.4" text-anchor="middle">-3</text>
+              <text x="-2" y="0.5" font-size="0.4" text-anchor="middle">-2</text>
+              <text x="-1" y="0.5" font-size="0.4" text-anchor="middle">-1</text>
+              <text x="1" y="0.5" font-size="0.4" text-anchor="middle">1</text>
+              <text x="2" y="0.5" font-size="0.4" text-anchor="middle">2</text>
+              <text x="3" y="0.5" font-size="0.4" text-anchor="middle">3</text>
+              <text x="4" y="0.5" font-size="0.4" text-anchor="middle">4</text>
+              <text x="5" y="0.5" font-size="0.4" text-anchor="middle">5</text>
+              <!-- Y labels -->
+              <text x="-0.3" y="-8" font-size="0.4" text-anchor="end" dominant-baseline="middle">8</text>
+	      <text x="-0.3" y="-7" font-size="0.4" text-anchor="end" dominant-baseline="middle">7</text>
+	      <text x="-0.3" y="-6" font-size="0.4" text-anchor="end" dominant-baseline="middle">6</text>
+              <text x="-0.3" y="-5" font-size="0.4" text-anchor="end" dominant-baseline="middle">5</text>
+              <text x="-0.3" y="-4" font-size="0.4" text-anchor="end" dominant-baseline="middle">4</text>
+              <text x="-0.3" y="-3" font-size="0.4" text-anchor="end" dominant-baseline="middle">3</text>
+              <text x="-0.3" y="-2" font-size="0.4" text-anchor="end" dominant-baseline="middle">2</text>
+              <text x="-0.3" y="-1" font-size="0.4" text-anchor="end" dominant-baseline="middle">1</text>
+	      <text x="-0.3" y="0" font-size="0.4" text-anchor="end" dominant-baseline="middle"></text>
+              <text x="-0.3" y="1" font-size="0.4" text-anchor="end" dominant-baseline="middle">-1</text>
+              <text x="-0.3" y="2" font-size="0.4" text-anchor="end" dominant-baseline="middle">-2</text>
+              <text x="-0.3" y="3" font-size="0.4" text-anchor="end" dominant-baseline="middle">-3</text>
+              <text x="-0.3" y="4" font-size="0.4" text-anchor="end" dominant-baseline="middle">-4</text>
+              <text x="-0.3" y="5" font-size="0.4" text-anchor="end" dominant-baseline="middle"></text>
+
+<g>
+ 
+	<!-- Red Points  -->
+  		<circle cx="0" cy="3" r="0.15" fill="red"/>
+		<circle cx="2" cy="2" r="0.15" fill="red"/>
+
+
+
+ 	 <!-- blue points -->
+ 		 <circle cx="0" cy="-7" r="0.15" fill="blue"/>
+		 <circle cx="1" cy="-5" r="0.15" fill="blue"/>
+
+	<!-- Solution point -->
+ 		 <circle cx="4" cy="1" r="0.15" fill="black"/>
+
+  <!-- Line y = -2x -7 -->
+  <line x1="-0.5" y1="-8" x2="5" y2="3" stroke="blue" stroke-width="0.05"/>
+
+ <!-- Line y = 1/2x-3 -->
+  <line x1="-1" y1="3.5" x2="6" y2="0" stroke="red" stroke-width="0.05"/>
+</g>
+
+</svg>
+          </figure>
+                    </div>
+
+                    <p>It can be seen from the graph that the two lines intersect at the point $(4,-1)$, which is denoted with a red point on the graph. This is the solution to this system of equations.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Try It 2 -->
+        <div class="try-it">
+            <h3>Try It</h3>
+            <p>Solve the system of equations by graphing:</p>
+            <div class="system-equation">
+                $$\begin{cases}
+                x-3y=-3\\
+                x+y=5
+                \end{cases}$$
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <h2>Applications of Systems of Equations</h2>
+
+        <div class="intro-section">
+            <p>At the beginning of this section, we spoke about the different real-world applications a system of equations can take on. The majority of the time, the actual equations will not be provided. Instead, a verbal argument will be posed, and from that verbal argument, you'll need to write the equations. Let's look at an application problem.</p>
+        </div>
+
+        <!-- Example 4 -->
+        <div class="example">
+            <div class="example-problem">
+                <h3>Example 4: Business Application - Break-Even Analysis</h3>
+                <p>A business wants to manufacture bicycle frames. To be cautious, before they start making the frames, they want to make a model for profit and one for the materials and labor costs. Their accountant determines that it will cost them a start-up fee of \$ 35,000 with a price of \$0.85 per frame produced. They have also decided that they will sell each frame for \$1.55.</p>
+                <ul>
+                    <li>Find the Cost equation.</li>
+                    <li>Find the Revenue equation.</li>
+                    <li>Identify the point in which the company will break-even.</li>
+                </ul>
+            </div>
+            <button class="solution-header" onclick="toggleExample(this)">
+                <span class="toggle-arrow">▼</span>
+                <span>Show Solution</span>
+            </button>
+            <div class="example-content">
+                <div class="solution">
+                    <h4>Solution</h4>
+                    
+                    <p><strong>1. Find the Cost Equation</strong></p>
+                    <p>From the problem, "Their accountant determines that it will cost them a start-up fee of \$35,000 with a price of \$0.85 per frame produced". What this tells us is that we have a starting point, or y-intercept, of \$35,000, and for each frame sold, it will cost an additional \$0.85. This would produce us the equation:</p>
+                    <div class="equation">
+                        $$y=0.85x+35000$$
+                    </div>
+
+                    <p><strong>2. Find the Revenue Equation</strong></p>
+                    <p>Once again looking back at the problem, we see that the company has decided to sell each frame for \$1.55, which would produce us the equation:</p>
+                    <div class="equation">
+                        $$y=1.55x$$
+                    </div>
+                    <p>In both cases, $y$ is the total amount of money to produce $x$ bicycle frames.</p>
+
+                    <p><strong>3. Identify the break-even point</strong></p>
+                    <p>Recall the break-even point is where cost and revenue are equal. Essentially, it is asking us to solve the system of equations:</p>
+                    <div class="system-equation">
+                        $$\begin{cases}
+                        y=0.85x+35000\\
+                        y=1.55x
+                        \end{cases}$$
+                    </div>
+
+                    <p>Next we will graph each of those equations. To do that, we once again will employ one of our graphing methods. Also to put this graph on a scale that works, the $y$-axis needs to be scaled by 10,000 and the $x$-axis needs to be scaled by 10,000. What that means is the point $(5,0)$ represents $5 \times 10,000=50,000$ on the $x$-axis, and the point $(0,3.5)$ represents $3.5 \times 10,000=35,000$ on the $y$-axis. This allows us to plot larger numbers on a smaller scale.</p>
+
+                    <div class="image-placeholder">
+                  
+                       
+<figure role="img" aria-label="Graph showing the intersection of cost and revenue. Cost: y = 0.85x + 3.5 in blue. Revenue: y = 1.55x in purple. Intersection at (5, 7.75)">
+  <svg viewBox="-2 -2 16 16" xmlns="http://www.w3.org/2000/svg">
+
+    <!-- Grid lines -->
+    <g stroke="lightgray" stroke-width="0.01">
+      <!-- Vertical lines -->
+      <line x1="0" y1="0" x2="0" y2="14"/>
+      <line x1="1" y1="0" x2="1" y2="14"/>
+      <line x1="2" y1="0" x2="2" y2="14"/>
+      <line x1="3" y1="0" x2="3" y2="14"/>
+      <line x1="4" y1="0" x2="4" y2="14"/>
+      <line x1="5" y1="0" x2="5" y2="14"/>
+      <line x1="6" y1="0" x2="6" y2="14"/>
+      <line x1="7" y1="0" x2="7" y2="14"/>
+      <line x1="8" y1="0" x2="8" y2="14"/>
+      <line x1="9" y1="0" x2="9" y2="14"/>
+      <line x1="10" y1="0" x2="10" y2="14"/>
+      <line x1="11" y1="0" x2="11" y2="14"/>
+      <line x1="12" y1="0" x2="12" y2="14"/>
+      <line x1="13" y1="0" x2="13" y2="14"/>
+    </g>
+
+    <g stroke="lightgray" stroke-width="0.01">
+      <!-- Horizontal lines -->
+      <line x1="0" y1="0" x2="14" y2="0"/>
+      <line x1="0" y1="1" x2="14" y2="1"/>
+      <line x1="0" y1="2" x2="14" y2="2"/>
+      <line x1="0" y1="3" x2="14" y2="3"/>
+      <line x1="0" y1="4" x2="14" y2="4"/>
+      <line x1="0" y1="5" x2="14" y2="5"/>
+      <line x1="0" y1="6" x2="14" y2="6"/>
+      <line x1="0" y1="7" x2="14" y2="7"/>
+      <line x1="0" y1="8" x2="14" y2="8"/>
+      <line x1="0" y1="9" x2="14" y2="9"/>
+      <line x1="0" y1="10" x2="14" y2="10"/>
+      <line x1="0" y1="11" x2="14" y2="11"/>
+      <line x1="0" y1="12" x2="14" y2="12"/>
+      <line x1="0" y1="13" x2="14" y2="13"/>
+      <line x1="0" y1="14" x2="14" y2="14"/>
+    </g>
+
+    <!-- Axes -->
+    <line x1="0" y1="13" x2="14" y2="13" stroke="black" stroke-width="0.05"/>
+    <line x1="0" y1="0" x2="0" y2="14" stroke="black" stroke-width="0.05"/>
+
+    <!-- Tick marks and labels -->
+    <g stroke="black" stroke-width="0.05">
+      <!-- X ticks -->
+      <line x1="1" y1="13.2" x2="1" y2="12.8"/>
+      <line x1="2" y1="13.2" x2="2" y2="12.8"/>
+      <line x1="3" y1="13.2" x2="3" y2="12.8"/>
+      <line x1="4" y1="13.2" x2="4" y2="12.8"/>
+      <line x1="5" y1="13.2" x2="5" y2="12.8"/>
+      <line x1="6" y1="13.2" x2="6" y2="12.8"/>
+      <line x1="7" y1="13.2" x2="7" y2="12.8"/>
+      <line x1="8" y1="13.2" x2="8" y2="12.8"/>
+      <line x1="9" y1="13.2" x2="9" y2="12.8"/>
+      <line x1="10" y1="13.2" x2="10" y2="12.8"/>
+      <line x1="11" y1="13.2" x2="11" y2="12.8"/>
+      <line x1="12" y1="13.2" x2="12" y2="12.8"/>
+      <line x1="13" y1="13.2" x2="13" y2="12.8"/>
+      
+<!-- Y ticks -->
+      <line x1="0.2" y1="1" x2="-0.2" y2="1"/>
+      <line x1="0.2" y1="2" x2="-0.2" y2="2"/>
+      <line x1="0.2" y1="3" x2="-0.2" y2="3"/>
+      <line x1="0.2" y1="4" x2="-0.2" y2="4"/>
+      <line x1="0.2" y1="5" x2="-0.2" y2="5"/>
+      <line x1="0.2" y1="6" x2="-0.2" y2="6"/>
+      <line x1="0.2" y1="7" x2="-0.2" y2="7"/>
+      <line x1="0.2" y1="8" x2="-0.2" y2="8"/>
+      <line x1="0.2" y1="9" x2="-0.2" y2="9"/>
+      <line x1="0.2" y1="10" x2="-0.2" y2="10"/>
+      <line x1="0.2" y1="11" x2="-0.2" y2="11"/>
+      <line x1="0.2" y1="12" x2="-0.2" y2="12"/>
+      <line x1="0.2" y1="13" x2="-0.2" y2="13"/>
+      <line x1="0.2" y1="14" x2="-0.2" y2="14"/>
+
+ <!-- X labels -->
+              <text x="1" y="13.5" font-size="0.4" text-anchor="middle">1</text>
+              <text x="2" y="13.5" font-size="0.4" text-anchor="middle">2</text>
+		<text x="3" y="13.5" font-size="0.4" text-anchor="middle">3</text>
+		<text x="4" y="13.5" font-size="0.4" text-anchor="middle">4</text>
+		<text x="5" y="13.5" font-size="0.4" text-anchor="middle">5</text>
+		<text x="6" y="13.5" font-size="0.4" text-anchor="middle">6</text>
+		<text x="7" y="13.5" font-size="0.4" text-anchor="middle">7</text>
+		<text x="8" y="13.5" font-size="0.4" text-anchor="middle">8</text>
+		<text x="9" y="13.5" font-size="0.4" text-anchor="middle">9</text>
+		<text x="10" y="13.5" font-size="0.4" text-anchor="middle">10</text>
+		<text x="11" y="13.5" font-size="0.4" text-anchor="middle">11</text>
+		<text x="12" y="13.5" font-size="0.4" text-anchor="middle">12</text>
+		<text x="13" y="13.5" font-size="0.4" text-anchor="middle">13</text>
+ <!-- Y labels -->
+              <text x="-0.3" y="12" font-size="0.4" text-anchor="end" dominant-baseline="middle">1</text>
+	      <text x="-0.3" y="11" font-size="0.4" text-anchor="end" dominant-baseline="middle">2</text>
+		<text x="-0.3" y="10" font-size="0.4" text-anchor="end" dominant-baseline="middle">3</text>
+		<text x="-0.3" y="9" font-size="0.4" text-anchor="end" dominant-baseline="middle">4</text>
+		<text x="-0.3" y="8" font-size="0.4" text-anchor="end" dominant-baseline="middle">5</text>
+		<text x="-0.3" y="7" font-size="0.4" text-anchor="end" dominant-baseline="middle">6</text>
+		<text x="-0.3" y="6" font-size="0.4" text-anchor="end" dominant-baseline="middle">7</text>
+		<text x="-0.3" y="5" font-size="0.4" text-anchor="end" dominant-baseline="middle">8</text>
+		<text x="-0.3" y="4" font-size="0.4" text-anchor="end" dominant-baseline="middle">9</text>
+		<text x="-0.3" y="3" font-size="0.4" text-anchor="end" dominant-baseline="middle">10</text>
+		<text x="-0.3" y="2" font-size="0.4" text-anchor="end" dominant-baseline="middle">11</text>
+		<text x="-0.3" y="1" font-size="0.4" text-anchor="end" dominant-baseline="middle">12</text>
+
+    </g>
+
+    <!-- Labels -->
+    <text x="7" y="14" font-size="0.6" text-anchor="middle">Frames Produced (in ten thousands)</text>
+    <text x="-1.5" y="7" font-size="0.6" text-anchor="end" transform="rotate(-90 -1.5,7)">Dollars (in ten thousands)</text>
+
+    <!-- Cost and Revenue lines -->
+    <line x1="0" y1="9.5" x2="9" y2="1.85" stroke="blue" stroke-width="0.05"/>
+    <line x1="0" y1="13" x2="8" y2=".6 " stroke="purple" stroke-width="0.05"/>
+
+    <!-- Intersection point -->
+    <circle cx="5" cy="5.25" r="0.15" fill="red"/>
+    <text x="5.5" y="5" font-size="0.35"> (5, 7.75)</text>
+
+  </svg>
+</figure>
+
+
+
+
+
+
+                    </div>
+
+                    <p>What this graph tells us is that the company will break-even (cost = revenue) when the company produces $5 \times 10,000=50,000$ bicycle frames. At that point, the cost and the revenue is $7.5 \times 10,000=\$75,000$.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="note-box">
+            <p><strong>Important Note:</strong> When using models, it is extremely important to understand what each variable represents and how they are being scaled. It is important to understand when axes are being scaled by different numbers, this allows the reader to interpret what they are looking at better. For example, in this graph, while the axes were scaled by the same number, it is important for the reader to understand that one unit on the graph actually represents 10,000 units.</p>
+        </div>
+
+
+<nav aria-label="Page navigation">
+  <div class="page-navigation">
+    <div class="page-navigation" style="display:flex; justify-content:space-between; margin-top:40px;">
+        <a href="CH2_1.html" class="nav-button" aria-label="Go to previous section">&larr; Previous</a>
+        <a href="CH2_3.html" class="nav-button" aria-label="Go to next section">Next &rarr;</a>
+    </div>
+  </div>
+</nav>
+</div>
+<script>
+        function toggleExample(button) {
+            const content = button.nextElementSibling;
+            const arrow = button.querySelector('.toggle-arrow');
+            
+            if (content.classList.contains('open')) {
+                content.classList.remove('open');
+                arrow.classList.remove('open');
+                button.querySelector('span:last-child').textContent = 'Show Solution';
+            } else {
+                content.classList.add('open');
+                arrow.classList.add('open');
+                button.querySelector('span:last-child').textContent = 'Hide Solution';
+            }
+        }
+    </script>
+
+    <script>
+        const chapterButtons = document.querySelectorAll(".toc-chapter");
+
+        chapterButtons.forEach(button => {
+            button.addEventListener("click", () => {
+                const expanded = button.getAttribute("aria-expanded") === "true";
+                button.setAttribute("aria-expanded", !expanded);
+
+                const submenu = button.nextElementSibling;
+                submenu.classList.toggle("open");
+            });
+        });
+    </script>
+</body>
+</html>

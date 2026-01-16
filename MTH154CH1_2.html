@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Section 1.2: Budgeting Money</title>
+    <!-- MathJax configuration -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            },
+            loader: {
+                load: ['input/tex', 'output/chtml']
+            }
+        };
+    </script>
+    <!-- MathJax loader -->
+    <script id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+
+    <style>
+      
+    .nav-button {
+      padding: 10px 20px;
+      background-color: #33AB2B;
+      color: #000000;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+
+    .nav-button:hover,
+    .nav-button:focus {
+      background-color: #33AB2B;
+      outline: none;
+    }     
+/* Layout unchanged */
+.side-toc {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 230px;
+    height: 100vh;
+    background-color: #f0f8ed;
+    border-right: 3px solid #33AB2B;
+    padding: 20px;
+    overflow: hidden;
+}
+.diagram-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(150px, 1fr));
+  gap: 2rem;
+  justify-items: center;   /* centers each column item */
+  align-items: start;
+  margin: 1.5rem 0;
+}
+
+.diagram {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.toc-title {
+    font-size: 1.4em;
+    margin-bottom: 15px;
+    color: #33AB2B;
+}
+
+/* Chapter buttons */
+.toc-chapter {
+    width: 100%;
+    background: none;
+    border: none;
+    text-align: left;
+    font-size: 1em;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    color: #333;
+}
+
+.toc-chapter:hover,
+.toc-chapter:focus {
+    color: #33AB2B;
+}
+
+.arrow {
+    transition: transform 0.25s ease;
+}
+
+/* Rotated when opened */
+.toc-chapter[aria-expanded="true"] .arrow {
+    transform: rotate(90deg);
+}
+
+/* Submenu collapsed by default */
+.toc-submenu {
+    list-style: none;
+    padding-left: 15px;
+    margin: 5px 0 10px 0;
+    display: none;
+}
+
+/* Visible when expanded */
+.toc-submenu.open {
+    display: block;
+}
+
+.toc-submenu li {
+    margin: 6px 0;
+}
+
+.toc-submenu a {
+    color: #333;
+    text-decoration: none;
+}
+
+.toc-submenu a:hover,
+.toc-submenu a:focus {
+    color: #33AB2B;
+    text-decoration: underline;
+}
+
+/* Push main body over */
+body {
+    margin-left: 250px;
+}
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background-color: #ffffff;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #33AB2B;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            border-bottom: 3px solid #33AB2B;
+            padding-bottom: 15px;
+        }
+
+        h2 {
+            color: #33AB2B;
+            font-size: 1.8em;
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            color: #33AB2B;
+            font-size: 1.2em;
+            margin-top: 20px;
+            margin-bottom: 15px;
+        }
+
+        h4 {
+            color: #33AB2B;
+            font-size: 1.1em;
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+
+        .definition-box {
+            background-color: #f0f8ed;
+            border: 2px solid #33AB2B;
+            border-radius: 6px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .definition-box h3 {
+            color: #33AB2B;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            margin-top: 0;
+        }
+
+        .definition-box p {
+            margin-bottom: 15px;
+        }
+
+        .definition-box ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .definition-box li {
+            margin-bottom: 10px;
+        }
+
+        .conversion-box {
+            background-color: #ffffff;
+            border: 2px solid #b84d7e;
+            border-radius: 6px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .conversion-box h3 {
+            color: #b84d7e;
+            margin-top: 0;
+        }
+
+        .conversion-box table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        .conversion-box table th,
+        .conversion-box table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .conversion-box table th {
+            background-color: #f0f0f0;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .orange-box {
+            background-color: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 6px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+
+        .orange-box h3 {
+            margin-top: 0;
+        }
+
+        .orange-box ol {
+            margin-left: 20px;
+        }
+
+        .orange-box li {
+            margin-bottom: 8px;
+        }
+
+        .example {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            margin: 25px 0;
+            overflow: hidden;
+        }
+
+        .example-problem {
+            padding: 15px 20px;
+        }
+
+        .example-problem h3 {
+            color: #33AB2B;
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .example-problem p {
+            margin-bottom: 10px;
+        }
+
+        .example-problem ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .example-problem li {
+            margin-bottom: 8px;
+        }
+
+        .example-problem ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .solution-header {
+            background-color: #33AB2B;
+            color: white;
+            padding: 12px 20px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+            margin-top: 15px;
+            border-radius: 4px;
+            transition: background-color 0.2s ease;
+            border: none;
+            font-size: 1em;
+        }
+
+        .solution-header:hover {
+            background-color: #2a8922;
+        }
+
+        .toggle-arrow {
+            display: inline-block;
+            margin-right: 12px;
+            transition: transform 0.3s ease;
+            font-size: 1.2em;
+        }
+
+        .toggle-arrow.open {
+            transform: rotate(180deg);
+        }
+
+        .example-content {
+            padding: 0;
+            display: none;
+            overflow: hidden;
+        }
+
+        .example-content.open {
+            display: block;
+        }
+
+        .solution {
+            background-color: #f0f8ed;
+            padding: 20px;
+            border-top: 2px solid #33AB2B;
+        }
+
+        .solution h4 {
+            color: #33AB2B;
+            margin-bottom: 15px;
+            margin-top: 0;
+        }
+
+        .solution p {
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        .solution ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .solution li {
+            margin-bottom: 8px;
+        }
+
+        .solution ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        ul li {
+            margin-bottom: 8px;
+        }
+
+        ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        ol li {
+            margin-bottom: 8px;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        strong {
+            font-weight: bold;
+        }
+
+        em {
+            font-style: italic;
+        }
+
+        .blue-text {
+            color: #0066cc;
+        }
+
+        .divider {
+            border-top: 2px dashed #33AB2B;
+            margin: 30px 0;
+        }
+
+        .image-placeholder {
+            background-color: #e0e0e0;
+            border: 2px dashed #999;
+            padding: 40px;
+            margin: 20px 0;
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            border-radius: 4px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table th {
+            background-color: #f0f8ed;
+            color: #33AB2B;
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ccc;
+            font-weight: bold;
+        }
+
+        table td {
+            padding: 12px;
+            border: 1px solid #ccc;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        table tr.highlighted {
+            background-color: #ffff99;
+        }
+
+        .subsection-title {
+            color: #33AB2B;
+            font-size: 1.3em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+    </style>
+<style>
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+</style>
+</head>
+<body>
+<nav class="side-toc" aria-label="Textbook Navigation">
+    <h2 class="toc-title">Contents</h2>
+
+    <!-- Chapter 1 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 1: Financial Literacy</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="MTH154CH1_1.html">1.1 Introduction</a></li>
+        <li><a href="MTH154CH1_2.html">1.2 Problem Solving</a></li>
+        <li><a href="MTH154CH1_3.html">1.3 Simple Interest</a></li>
+ 	<li><a href="MTH154CH1_4.html">1.4 Compound Interest & Annuities</a></li>
+ 	<li><a href="MTH154CH1_5.html">1.5 Installment Loans</a></li>
+ 	<li><a href="MTH154CH1_6.html">1.6 Loans</a></li>
+ 	<li><a href="MTH154CH1_7.html">1.7 Stocks & Bonds</a></li>
+ 	<li><a href="MTH154CH1_8.html">1.8 Taxes</a></li>
+    </ul>
+
+    <!-- Chapter 2 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 2: Modeling Data</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="Ch2_1.html">2.1 Basics of Graphing</a></li>
+        <li><a href="Ch2_2.html">2.2 Relations & Functions</a></li>
+        <li><a href="Ch2_3.html">2.3 Linear Models</a></li>
+        <li><a href="Ch2_4.html">2.4 Rate of Change</a></li>
+        <li><a href="Ch2_5.html">2.5 Scatterplots</a></li>
+    </ul>
+
+    <!-- Chapter 3 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 3: Set Theory</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="Ch3_1.html">3.1 Set Basics</a></li>
+        <li><a href="Ch3_2.html">3.2 Sets</a></li>
+        <li><a href="Ch3_3.html">3.3 Venn Diagrams</a></li>
+        <li><a href="MTH154CH3_4.html">3.4 More with Venn Diagrams</a></li>
+    </ul>
+
+   <!-- Chapter 4 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 4: Logic</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="MTH154CH4_1.html">4.1 Thinking Logically</a></li>
+        <li><a href="MTH154CH4_2.html">4.2 Introduction to Truth Tables</a></li>
+	<li><a href="MTH154CH4_3.html">4.3 Logical Arguments</a></li>
+	<li><a href="MTH154CH4_4.html">4.4 Variations of Statements</a></li>
+    </ul>
+
+   <!-- Chapter 5 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 5: Measurement</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="MTH154CH5_1.html">5.1 Ratios & Proportions</a></li>
+        <li><a href="MTH154CH5_2.html">5.2 Measurement</a></li>
+	<li><a href="MTH154CH5_3.html">5.3 Area, Volume, and Capacity</a></li>
+	<li><a href="MTH154CH5_4.html">5.4 Weight & Temperature</a></li>
+	<li><a href="MTH154CH5_5.html">5.5 Surface Area & Volume</a></li>
+    </ul>
+</nav>
+
+
+<body>
+    <div class="container">
+        <h1>Section 1.2: Budgeting Money</h1>
+
+        <div class="intro-section">
+            <p>According to debt.org, the average American aged 18 to 29 owes on average \$12,871 in non-mortgage per capita debt. This is roughly $69 billion in total. This is significantly lower than that of the 30 to 39 age group whose average non-mortgage per capita debt is \$26,532, which is \$1.17 trillion total.</p>
+
+            <p>Whereas according to Forbes, the average nationwide salary in the United States is \$59,428. All while the average cost of living in the United States averages \$3,000 a month, or roughly \$36,000 per year. If we do some simple math, we find that the average American between 30 to 39 would owe \$62,532 a year between debt and cost of living, all while bringing home \$59,428. The average American ages 30 to 39 doesn't make enough money to pay off their debt, or even save money. This is why budgeting money is such an important skill to have. It aids in the financial literacy of our great country. Before we are able to get into too much information, let's cover some vocabulary.</p>
+        </div>
+
+        <div class="definition-box">
+            <h3>Key Terms</h3>
+            <p><strong>Gross Pay:</strong> This is the amount of money an individual makes before deductions have been taken.</p>
+            <p><strong>Net Pay:</strong> This is the amount of money that an individual takes home after deductions have been made. This is also known as a person's <strong>take-home pay</strong>.</p>
+            <p><strong>Deductions:</strong> These are the amounts that are taken out of an individual's gross pay that are contributed to a number of things including but not limited to: taxes, insurance, retirement, or social security. These deductions can vary from paycheck to paycheck or they may remain the same. Another name for deductions are <strong>withholdings</strong>.</p>
+        </div>
+
+        <!-- Example 1 -->
+        <div class="example">
+            <div class="example-problem">
+                <h3>Example 1: Calculating Annual Gross Pay</h3>
+                <p>Let's say that Bart gets paid every other week (bi-weekly). His gross pay per period is $1,023.07. How much does Bart gross per year?</p>
+            </div>
+            <button class="solution-header" onclick="toggleExample(this)">
+                <span class="toggle-arrow">▼</span>
+                <span>Show Solution</span>
+            </button>
+            <div class="example-content">
+                <div class="solution">
+                    <h4>Solution</h4>
+                    <p>First it is important to note that there are about 52 weeks in one year. If Bart gets paid bi-weekly, that means he gets paid 26 weeks out of the year. Thus:</p>
+                    $$26 \times \$1,023.07 = \$26,599.82$$
+                    <p>Meaning that Bart's annual gross pay would be $26,599.82.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Example 2 -->
+        <div class="example">
+            <div class="example-problem">
+                <h3>Example 2: Finding Monthly Net Pay</h3>
+                <p>Let's assume that roughly 25% of Bart's yearly gross income goes towards deductions. What would be his monthly net pay?</p>
+            </div>
+            <button class="solution-header" onclick="toggleExample(this)">
+                <span class="toggle-arrow">▼</span>
+                <span>Show Solution</span>
+            </button>
+            <div class="example-content">
+                <div class="solution">
+                    <h4>Solution</h4>
+                    <p>If 25% goes towards deductions, that means that he gets to keep 100% - 25% = 75% of his annual salary.</p>
+                    $$0.75 \times \$26,599.82 = \$19,949.87$$
+                    <p>If we divide that by 12, because there are 12 months in each year, then Bart's net monthly salary would be:</p>
+                    $$\$19,949.87 \div 12 = \$1,662.49$$
+                    <p><strong>Alternative Method:</strong> Another way to find Bart's net annual salary would be to first find the amount being withheld (deduction), then subtract it from his gross pay.</p>
+                    <p>Deduction: $0.25 \times \$26,599.82 = \$6,649.96$</p>
+                    <p>Net Pay: $\$26,599.82 - \$6,649.96 = \$19,949.87$</p>
+                    <p>As you can see, that matches the same net annual pay that was found with the first calculation. Either method is an acceptable method.</p>
+                </div>
+            </div>
+        </div>
+
+        <h2>Designing a Budget</h2>
+
+        <div class="intro-section">
+            <p>When it comes to trying to learn how to budget money, it can sometimes be tricky to decide how you're going to balance it out. Wells Fargo Bank created a site for learning to budget money. Here are their five steps to create a budget:</p>
+        </div>
+
+        <div style="margin: 20px 0;">
+            <h3 style="color: #33AB2B; margin-top: 20px; margin-bottom: 15px;">Step 1: Organize your financial documents</h3>
+            <p>At its core, a budget is a worksheet with separate categories for income, expenses, and savings. So, you'll need to gather your financial documents, such as pay stubs, credit card and bank account statements, and auto or student loan bills, to ensure you have enough information to get started.</p>
+
+            <h3 style="color: #33AB2B; margin-top: 20px; margin-bottom: 15px;">Step 2: Track your monthly expenses</h3>
+            <p>For one month, keep a detailed log of your spending. Track all your expenses, ranging from larger expenses, such as car, rent, mortgage, or credit card payments down to the amount you spend on daily lunches, or other incidental expenses. Consider using online tools to automate the process of tracking your spending and setting up budget goals.</p>
+
+            <h3 style="color: #33AB2B; margin-top: 20px; margin-bottom: 15px;">Step 3: Analyze your income and expenses</h3>
+            <p>At the end of the month, total your income and your expenses. Then, subtract your expenses from your income. If it doesn't seem right, check that you've captured all of your income and expenses. If your income or expenses change each month, that can have a major impact on your budget. If your expenses add up to less than your income, you're on the right track. If not, examine your spending with two questions in mind: "What can I do without?" and "What's really important?"</p>
+
+            <h3 style="color: #33AB2B; margin-top: 20px; margin-bottom: 15px;">Types of Expenses</h3>
+            <p>There are three types of expenses:</p>
+            <ul style="margin-left: 20px; margin-bottom: 15px;">
+                <li><strong>Fixed expenses</strong> are regular amounts that generally don't change much. They can be monthly expenses, like rent or car payments, or they can be bills you receive less frequently, like car registration or insurance.</li>
+                <li><strong>Variable expenses</strong> also happen on a regular basis and are also for necessities. With variable expenses, you have more control over how much you spend. For example, you control how much you spend on groceries or how many long distance phone calls you make in a month.</li>
+                <li><strong>Discretionary (luxury) expenses</strong> are the expenses you choose to spend, but don't necessarily have to spend on things like clothes, movies, and going out to eat. Another important discretionary expense is savings. It's up to you to decide how much of your money you're going to set aside for your future.</li>
+            </ul>
+
+            <h3 style="color: #33AB2B; margin-top: 20px; margin-bottom: 15px;">Step 4: Categorize and budget your expenses</h3>
+            <p>After looking at all of your expenses, separate them into categories and set a budget for each. If you think you spend too much in a given area, set a goal that will prompt you to actively make changes. According to some sources, a person should split their budget up in a way that 50% of a person's net income should go towards "needs," 30% to "wants", and 20% towards savings.</p>
+
+            <h3 style="color: #33AB2B; margin-top: 20px; margin-bottom: 15px;">Step 5: Review your budget monthly</h3>
+            <p>Make a habit of reviewing your budget every month, particularly in the early stages. It's also helpful to get a qualified second opinion. That might come from a trusted friend or relative who's skillful with spending, savings, and investing. It could also come from an experienced financial planning professional who can review your budget, offer suggestions, and help answer questions.</p>
+        </div>
+
+        <!-- Example 3 -->
+        <div class="example">
+            <div class="example-problem">
+                <h3>Example 3: Analyzing a Budget</h3>
+                <p>Leslie decides that she needs to make some changes in her budget and starts to track her monthly spending habits. Leslie shares an apartment with two of her friends, in which they all split the rent and utilities equally. How much money does Leslie have left for luxury expenses after she's paid all her needs? Assume Leslie's net income is $1,556.27.</p>
+                <table>
+                    <tr>
+                        <th>Expense</th>
+                        <th>Amount</th>
+                        <th>Expense</th>
+                        <th>Amount</th>
+                    </tr>
+                    <tr>
+                        <td>Total Rent</td>
+                        <td>$1,100.00</td>
+                        <td>Total Utilities</td>
+                        <td>$327.00</td>
+                    </tr>
+                    <tr>
+                        <td>Public Transportation</td>
+                        <td>$88.00</td>
+                        <td>Cell Phone</td>
+                        <td>$91.50</td>
+                    </tr>
+                    <tr>
+                        <td>Insurance</td>
+                        <td>$48.20</td>
+                        <td>Gym Membership</td>
+                        <td>$38.95</td>
+                    </tr>
+                </table>
+            </div>
+            <button class="solution-header" onclick="toggleExample(this)">
+                <span class="toggle-arrow">▼</span>
+                <span>Show Solution</span>
+            </button>
+            <div class="example-content">
+                <div class="solution">
+                    <h4>Solution</h4>
+                    <p>Looking over the table above, we'd need to add together all her necessary expenses which are her rent, utilities, transportation, and insurance. Technically, a cell phone is not a need.</p>
+                    $$\frac{\$1,100}{3} + \frac{\$327}{3} + \$88 + \$48.20 = \$611.87$$
+                    <p>Now if we subtract her "needs" from her net income, we'd see that:</p>
+                    $$\$1,556.27 - \$611.87 = \$944.40$$
+                    <p>That leaves Leslie with $944.40 for her wants and savings. Based on the recommended breakdown, Leslie should be saving 20% of her income each month:</p>
+                    $$\$1,556.27 \times 0.20 = \$311.25$$
+                    <p>Thus Leslie really only has $944.40 - $311.25 = $633.15 left for her "wants" if she is budgeting smartly.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="try-it">
+            <h3>Try It!</h3>
+            <p>Create a simple monthly budget for yourself based on your income and expenses. Identify which expenses are fixed, variable, and discretionary. Then calculate what percentage of your net income goes toward each category.</p>
+        </div>
+
+    <nav aria-label="Page navigation">
+  <div class="page-navigation">
+    <div class="page-navigation" style="display:flex; justify-content:space-between; margin-top:40px;">
+        <a href="MTH154CH1_1.html" class="nav-button" aria-label="Go to previous section">&larr; Previous</a>
+        <a href="MTH154CH1_3.html" class="nav-button" aria-label="Go to next section">Next &rarr;</a>
+    </div>
+  </div>
+</nav>
+
+</div>
+<script>
+        function toggleExample(button) {
+            const content = button.nextElementSibling;
+            const arrow = button.querySelector('.toggle-arrow');
+            
+            if (content.classList.contains('open')) {
+                content.classList.remove('open');
+                arrow.classList.remove('open');
+                button.querySelector('span:last-child').textContent = 'Show Solution';
+            } else {
+                content.classList.add('open');
+                arrow.classList.add('open');
+                button.querySelector('span:last-child').textContent = 'Hide Solution';
+            }
+        }
+    </script>
+
+    <script>
+        const chapterButtons = document.querySelectorAll(".toc-chapter");
+
+        chapterButtons.forEach(button => {
+            button.addEventListener("click", () => {
+                const expanded = button.getAttribute("aria-expanded") === "true";
+                button.setAttribute("aria-expanded", !expanded);
+
+                const submenu = button.nextElementSibling;
+                submenu.classList.toggle("open");
+            });
+        });
+    </script>
+</body>
+</html>

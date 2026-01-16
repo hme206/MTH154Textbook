@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Section 1.8: Taxes</title>
+    <!-- MathJax configuration -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            },
+            loader: {
+                load: ['input/tex', 'output/chtml']
+            }
+        };
+    </script>
+    <!-- MathJax loader -->
+    <script id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+
+    <style>
+      
+    .nav-button {
+      padding: 10px 20px;
+      background-color: #33AB2B;
+      color: #000000;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+
+    .nav-button:hover,
+    .nav-button:focus {
+      background-color: #33AB2B;
+      outline: none;
+    }     
+/* Layout unchanged */
+.side-toc {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 230px;
+    height: 100vh;
+    background-color: #f0f8ed;
+    border-right: 3px solid #33AB2B;
+    padding: 20px;
+    overflow: hidden;
+}
+.diagram-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(150px, 1fr));
+  gap: 2rem;
+  justify-items: center;   /* centers each column item */
+  align-items: start;
+  margin: 1.5rem 0;
+}
+
+.diagram {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.toc-title {
+    font-size: 1.4em;
+    margin-bottom: 15px;
+    color: #33AB2B;
+}
+
+/* Chapter buttons */
+.toc-chapter {
+    width: 100%;
+    background: none;
+    border: none;
+    text-align: left;
+    font-size: 1em;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    color: #333;
+}
+
+.toc-chapter:hover,
+.toc-chapter:focus {
+    color: #33AB2B;
+}
+
+.arrow {
+    transition: transform 0.25s ease;
+}
+
+/* Rotated when opened */
+.toc-chapter[aria-expanded="true"] .arrow {
+    transform: rotate(90deg);
+}
+
+/* Submenu collapsed by default */
+.toc-submenu {
+    list-style: none;
+    padding-left: 15px;
+    margin: 5px 0 10px 0;
+    display: none;
+}
+
+/* Visible when expanded */
+.toc-submenu.open {
+    display: block;
+}
+
+.toc-submenu li {
+    margin: 6px 0;
+}
+
+.toc-submenu a {
+    color: #333;
+    text-decoration: none;
+}
+
+.toc-submenu a:hover,
+.toc-submenu a:focus {
+    color: #33AB2B;
+    text-decoration: underline;
+}
+
+/* Push main body over */
+body {
+    margin-left: 250px;
+}
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background-color: #ffffff;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #33AB2B;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            border-bottom: 3px solid #33AB2B;
+            padding-bottom: 15px;
+        }
+
+        h2 {
+            color: #33AB2B;
+            font-size: 1.8em;
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            color: #33AB2B;
+            font-size: 1.2em;
+            margin-top: 20px;
+            margin-bottom: 15px;
+        }
+
+        h4 {
+            color: #33AB2B;
+            font-size: 1.1em;
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+
+        .definition-box {
+            background-color: #f0f8ed;
+            border: 2px solid #33AB2B;
+            border-radius: 6px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .definition-box h3 {
+            color: #33AB2B;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            margin-top: 0;
+        }
+
+        .definition-box p {
+            margin-bottom: 15px;
+        }
+
+        .definition-box ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .definition-box li {
+            margin-bottom: 10px;
+        }
+
+        .conversion-box {
+            background-color: #ffffff;
+            border: 2px solid #b84d7e;
+            border-radius: 6px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .conversion-box h3 {
+            color: #b84d7e;
+            margin-top: 0;
+        }
+
+        .conversion-box table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        .conversion-box table th,
+        .conversion-box table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .conversion-box table th {
+            background-color: #f0f0f0;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .orange-box {
+            background-color: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 6px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+
+        .orange-box h3 {
+            margin-top: 0;
+        }
+
+        .orange-box ol {
+            margin-left: 20px;
+        }
+
+        .orange-box li {
+            margin-bottom: 8px;
+        }
+
+        .example {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            margin: 25px 0;
+            overflow: hidden;
+        }
+
+        .example-problem {
+            padding: 15px 20px;
+        }
+
+        .example-problem h3 {
+            color: #33AB2B;
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .example-problem p {
+            margin-bottom: 10px;
+        }
+
+        .example-problem ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .example-problem li {
+            margin-bottom: 8px;
+        }
+
+        .example-problem ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .solution-header {
+            background-color: #33AB2B;
+            color: white;
+            padding: 12px 20px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+            margin-top: 15px;
+            border-radius: 4px;
+            transition: background-color 0.2s ease;
+            border: none;
+            font-size: 1em;
+        }
+
+        .solution-header:hover {
+            background-color: #2a8922;
+        }
+
+        .toggle-arrow {
+            display: inline-block;
+            margin-right: 12px;
+            transition: transform 0.3s ease;
+            font-size: 1.2em;
+        }
+
+        .toggle-arrow.open {
+            transform: rotate(180deg);
+        }
+
+        .example-content {
+            padding: 0;
+            display: none;
+            overflow: hidden;
+        }
+
+        .example-content.open {
+            display: block;
+        }
+
+        .solution {
+            background-color: #f0f8ed;
+            padding: 20px;
+            border-top: 2px solid #33AB2B;
+        }
+
+        .solution h4 {
+            color: #33AB2B;
+            margin-bottom: 15px;
+            margin-top: 0;
+        }
+
+        .solution p {
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        .solution ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .solution li {
+            margin-bottom: 8px;
+        }
+
+        .solution ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        ul li {
+            margin-bottom: 8px;
+        }
+
+        ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        ol li {
+            margin-bottom: 8px;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        strong {
+            font-weight: bold;
+        }
+
+        em {
+            font-style: italic;
+        }
+
+        .blue-text {
+            color: #0066cc;
+        }
+
+        .divider {
+            border-top: 2px dashed #33AB2B;
+            margin: 30px 0;
+        }
+
+        .image-placeholder {
+            background-color: #e0e0e0;
+            border: 2px dashed #999;
+            padding: 40px;
+            margin: 20px 0;
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            border-radius: 4px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table th {
+            background-color: #f0f8ed;
+            color: #33AB2B;
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ccc;
+            font-weight: bold;
+        }
+
+        table td {
+            padding: 12px;
+            border: 1px solid #ccc;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        table tr.highlighted {
+            background-color: #ffff99;
+        }
+
+        .subsection-title {
+            color: #33AB2B;
+            font-size: 1.3em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+    </style>
+<style>
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+</style>
+</head>
+<body>
+<nav class="side-toc" aria-label="Textbook Navigation">
+    <h2 class="toc-title">Contents</h2>
+
+    <!-- Chapter 1 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 1: Financial Literacy</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="MTH154CH1_1.html">1.1 Introduction</a></li>
+        <li><a href="MTH154CH1_2.html">1.2 Problem Solving</a></li>
+        <li><a href="MTH154CH1_3.html">1.3 Simple Interest</a></li>
+ 	<li><a href="MTH154CH1_4.html">1.4 Compound Interest & Annuities</a></li>
+ 	<li><a href="MTH154CH1_5.html">1.5 Installment Loans</a></li>
+ 	<li><a href="MTH154CH1_6.html">1.6 Loans</a></li>
+ 	<li><a href="MTH154CH1_7.html">1.7 Stocks & Bonds</a></li>
+ 	<li><a href="MTH154CH1_8.html">1.8 Taxes</a></li>
+    </ul>
+
+    <!-- Chapter 2 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 2: Modeling Data</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="Ch2_1.html">2.1 Basics of Graphing</a></li>
+        <li><a href="Ch2_2.html">2.2 Relations & Functions</a></li>
+        <li><a href="Ch2_3.html">2.3 Linear Models</a></li>
+        <li><a href="Ch2_4.html">2.4 Rate of Change</a></li>
+        <li><a href="Ch2_5.html">2.5 Scatterplots</a></li>
+    </ul>
+
+    <!-- Chapter 3 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 3: Set Theory</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="Ch3_1.html">3.1 Set Basics</a></li>
+        <li><a href="Ch3_2.html">3.2 Sets</a></li>
+        <li><a href="Ch3_3.html">3.3 Venn Diagrams</a></li>
+        <li><a href="MTH154CH3_4.html">3.4 More with Venn Diagrams</a></li>
+    </ul>
+
+   <!-- Chapter 4 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 4: Logic</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="MTH154CH4_1.html">4.1 Thinking Logically</a></li>
+        <li><a href="MTH154CH4_2.html">4.2 Introduction to Truth Tables</a></li>
+	<li><a href="MTH154CH4_3.html">4.3 Logical Arguments</a></li>
+	<li><a href="MTH154CH4_4.html">4.4 Variations of Statements</a></li>
+    </ul>
+
+   <!-- Chapter 5 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 5: Measurement</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="MTH154CH5_1.html">5.1 Ratios & Proportions</a></li>
+        <li><a href="MTH154CH5_2.html">5.2 Measurement</a></li>
+	<li><a href="MTH154CH5_3.html">5.3 Area, Volume, and Capacity</a></li>
+	<li><a href="MTH154CH5_4.html">5.4 Weight & Temperature</a></li>
+	<li><a href="MTH154CH5_5.html">5.5 Surface Area & Volume</a></li>
+    </ul>
+</nav>
+<body>
+    <div class="container">
+        <h1>Section 1.8: Taxes</h1>
+
+        <div class="intro-section">
+            <p>If you've ever received a paycheck, I would hope that you've noticed that what you make is not what you take home. As we previously mentioned in this unit, your paycheck has <strong>withholdings</strong>. Withholdings are money that is deducted from your gross pay. Some of those withholdings go towards federal and state taxes. The amount of money that is withheld from your gross pay for federal taxes is based on your <strong>federal tax bracket</strong>. The way the U.S. tax system is designed is such that people who make more money are supposed to pay more in taxes, and vice-versa.</p>
+
+            <p>When you first take a new job, the Human Resource department will have you fill out a W-4 form for payroll. On that form, you will declare your filing status to your employer. Depending on your selections will depend on the "contributions" or withholdings your employer takes out.</p>
+
+            <p>Note that on a W-4 form, a person must select one of the following filing statuses:</p>
+            <ul>
+                <li>Single or Married Filing Separately</li>
+                <li>Married Filing Jointly or Qualifying Surviving Spouse</li>
+                <li>Head of Household</li>
+            </ul>
+
+            <p>The selection will help to put you into a specific federal tax bracket. It is important to note that the tax brackets change yearly.</p>
+        </div>
+
+        <h2>Federal Tax Brackets (2023)</h2>
+
+        <table>
+            <tr>
+                <th>Tax Rate</th>
+                <th>Single</th>
+                <th>Married Filing Jointly or Qualifying Surviving Spouse</th>
+                <th>Married Filing Separately</th>
+                <th>Head of Household</th>
+            </tr>
+            <tr>
+                <td>10%</td>
+                <td>\$0 to \$10,999</td>
+                <td>\$0 to \$21,999</td>
+                <td>\$0 to \$10,999</td>
+                <td>\$0 to \$15,699</td>
+            </tr>
+            <tr>
+                <td>12%</td>
+                <td>\$11,000 to \$44,724</td>
+                <td>\$22,000 to \$89,449</td>
+                <td>\$11,000 to \$44,724</td>
+                <td>\$15,700 to \$59,849</td>
+            </tr>
+            <tr>
+                <td>22%</td>
+                <td>\$44,725 to \$95,374</td>
+                <td>\$89,450 to \$190,749</td>
+                <td>\$44,725 to \$95,374</td>
+                <td>\$59,850 to \$95,349</td>
+            </tr>
+            <tr>
+                <td>24%</td>
+                <td>\$95,375 to \$182,099</td>
+                <td>\$190,750 to \$364,199</td>
+                <td>\$95,375 to \$182,099</td>
+                <td>\$95,350 to \$182,099</td>
+            </tr>
+            <tr>
+                <td>32%</td>
+                <td>\$182,100 to \$231,249</td>
+                <td>\$364,200 to \$462,499</td>
+                <td>\$182,100 to \$231,249</td>
+                <td>\$182,100 to \$231,249</td>
+            </tr>
+            <tr>
+                <td>35%</td>
+                <td>\$231,250 to \$578,124</td>
+                <td>\$462,500 to \$693,749</td>
+                <td>\$231,250 to \$578,124</td>
+                <td>\$231,250 to \$578,099</td>
+            </tr>
+            <tr>
+                <td>37%</td>
+                <td>\$578,125 or more</td>
+                <td>\$693,750 or more</td>
+                <td>\$346,875 or more</td>
+                <td>\$578,100 or more</td>
+            </tr>
+        </table>
+
+        <div class="tax-bracket-info">
+            <h4>Understanding Tax Brackets</h4>
+            <p>Many people misunderstand this table. I'm sure at some point in your life, you will hear someone say something like "I fell into a new tax bracket and that is why I owe the government money." In reality, very few people understand how this table actually works. It works like a ladder, you only pay the rate for each "step" or bracket you are in. For example, if you are a person filing single and your taxable income was \$100,000 last year, you aren't paying 24% of \$100,000, you would only pay 24% of \$100,000 - \$95,374 = \$4,626, and then the rest for each of the other brackets. Twenty-four percent of those two numbers are very different!</p>
+        </div>
+
+        <!-- Example 1 -->
+        <div class="example">
+            <div class="example-problem">
+                <h3>Example 1: Calculating Federal Tax Owed</h3>
+                <p>Tyree had a taxable income of \$52,400 for 2023. If Tyree files his taxes as a single individual, how much money does he owe the federal government?</p>
+            </div>
+            <button class="solution-header" onclick="toggleExample(this)">
+                <span class="toggle-arrow">▼</span>
+                <span>Show Solution</span>
+            </button>
+            <div class="example-content">
+                <div class="solution">
+                    <h4>Solution</h4>
+                    <p>Note that Tyree falls into the 22% bracket, but that doesn't mean he pays 22% of his entire taxable income. We need to break it down into his appropriate brackets like stepping up a ladder.</p>
+
+                    <p><strong>Bracket 1 (10%):</strong></p>
+                    $$\$11,000(0.10) = \$1,100$$
+
+                    <p><strong>Bracket 2 (12%):</strong></p>
+                    $$(\$44,724 - \$11,000) = \$33,725$$
+                    $$\$33,725(0.12) = \$4,047$$
+
+                    <p><strong>Bracket 3 (22%):</strong></p>
+                    $$(\$52,400 - \$44,725) = \$7,675$$
+                    $$\$7,675(0.22) = \$1,688.50$$
+
+                    <p><strong>Total Owed:</strong></p>
+                    $$\$1,100 + \$4,047 + \$1,688.50 = \$6,835.50$$
+                </div>
+            </div>
+        </div>
+
+        <h2>Why File Taxes?</h2>
+
+        <div class="intro-section">
+            <p>Why is it important to file taxes? A number of things can happen if an individual doesn't file their taxes:</p>
+            <ul>
+                <li>A fine can be imposed to be paid immediately</li>
+                <li>The government can garnish your wages</li>
+                <li>Time in prison</li>
+                <li>Repossession of belongings</li>
+            </ul>
+            <p>This is not an inclusive list of all repercussions that can occur from not paying taxes.</p>
+        </div>
+
+        <h2>Federal Budget Allocation</h2>
+
+        <div class="intro-section">
+            <p>Did you know that the money you are taxed or pay the federal government is used to fund a number of different expenses that the United States takes on each year? The breakdown of these funds varies from year to year as the federal government allocates resources according to priorities. The 2023 Fiscal year budget was approximately $7.6 trillion dollars.</p>
+
+            <p><strong>Major Budget Categories (2023):</strong></p>
+            <ul>
+                <li><strong>Health Care:</strong> Largest portion of the budget, including Medicare and Medicaid</li>
+                <li><strong>National Defense:</strong> Military spending and defense initiatives</li>
+                <li><strong>Social Security:</strong> Retirement and disability benefits</li>
+                <li><strong>National Debt Interest:</strong> Approximately 9.9% of the fiscal budget</li>
+                <li><strong>Education:</strong> Approximately 3.2% of the fiscal budget</li>
+                <li><strong>Veteran Benefits:</strong> Approximately 3.2% of the fiscal budget</li>
+            </ul>
+
+            <p>The allocation of federal funds changes based on priorities set by Congress. For example, compared to 2018, the 2023 budget increased spending on education while decreasing spending on veteran benefits. Understanding where tax dollars go can help citizens make informed decisions about budget priorities and government spending.</p>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="try-it">
+            <h3>Try It!</h3>
+            <p>If a single taxpayer had a taxable income of $75,000 in 2023, how much federal income tax would they owe? Use the tax brackets table above and calculate the tax owed step by step for each bracket.</p>
+        </div>
+
+    <nav aria-label="Page navigation">
+  <div class="page-navigation">
+    <div class="page-navigation" style="display:flex; justify-content:space-between; margin-top:40px;">
+        <a href="MTH154CH1_7.html" class="nav-button" aria-label="Go to previous section">&larr; Previous</a>
+        <a href="CH2_1.html" class="nav-button" aria-label="Go to next section">Next &rarr;</a>
+    </div>
+  </div>
+</nav>
+
+</div>
+<script>
+        function toggleExample(button) {
+            const content = button.nextElementSibling;
+            const arrow = button.querySelector('.toggle-arrow');
+            
+            if (content.classList.contains('open')) {
+                content.classList.remove('open');
+                arrow.classList.remove('open');
+                button.querySelector('span:last-child').textContent = 'Show Solution';
+            } else {
+                content.classList.add('open');
+                arrow.classList.add('open');
+                button.querySelector('span:last-child').textContent = 'Hide Solution';
+            }
+        }
+    </script>
+
+    <script>
+        const chapterButtons = document.querySelectorAll(".toc-chapter");
+
+        chapterButtons.forEach(button => {
+            button.addEventListener("click", () => {
+                const expanded = button.getAttribute("aria-expanded") === "true";
+                button.setAttribute("aria-expanded", !expanded);
+
+                const submenu = button.nextElementSibling;
+                submenu.classList.toggle("open");
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Section 1.7: Stocks & Bonds</title>
+       <!-- MathJax configuration -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            },
+            loader: {
+                load: ['input/tex', 'output/chtml']
+            }
+        };
+    </script>
+    <!-- MathJax loader -->
+    <script id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+
+    <style>
+      
+    .nav-button {
+      padding: 10px 20px;
+      background-color: #33AB2B;
+      color: #000000;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+
+    .nav-button:hover,
+    .nav-button:focus {
+      background-color: #33AB2B;
+      outline: none;
+    }     
+/* Layout unchanged */
+.side-toc {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 230px;
+    height: 100vh;
+    background-color: #f0f8ed;
+    border-right: 3px solid #33AB2B;
+    padding: 20px;
+    overflow: hidden;
+}
+.diagram-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(150px, 1fr));
+  gap: 2rem;
+  justify-items: center;   /* centers each column item */
+  align-items: start;
+  margin: 1.5rem 0;
+}
+
+.diagram {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.toc-title {
+    font-size: 1.4em;
+    margin-bottom: 15px;
+    color: #33AB2B;
+}
+
+/* Chapter buttons */
+.toc-chapter {
+    width: 100%;
+    background: none;
+    border: none;
+    text-align: left;
+    font-size: 1em;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    color: #333;
+}
+
+.toc-chapter:hover,
+.toc-chapter:focus {
+    color: #33AB2B;
+}
+
+.arrow {
+    transition: transform 0.25s ease;
+}
+
+/* Rotated when opened */
+.toc-chapter[aria-expanded="true"] .arrow {
+    transform: rotate(90deg);
+}
+
+/* Submenu collapsed by default */
+.toc-submenu {
+    list-style: none;
+    padding-left: 15px;
+    margin: 5px 0 10px 0;
+    display: none;
+}
+
+/* Visible when expanded */
+.toc-submenu.open {
+    display: block;
+}
+
+.toc-submenu li {
+    margin: 6px 0;
+}
+
+.toc-submenu a {
+    color: #333;
+    text-decoration: none;
+}
+
+.toc-submenu a:hover,
+.toc-submenu a:focus {
+    color: #33AB2B;
+    text-decoration: underline;
+}
+
+/* Push main body over */
+body {
+    margin-left: 250px;
+}
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background-color: #ffffff;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #33AB2B;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            border-bottom: 3px solid #33AB2B;
+            padding-bottom: 15px;
+        }
+
+        h2 {
+            color: #33AB2B;
+            font-size: 1.8em;
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            color: #33AB2B;
+            font-size: 1.2em;
+            margin-top: 20px;
+            margin-bottom: 15px;
+        }
+
+        h4 {
+            color: #33AB2B;
+            font-size: 1.1em;
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+
+        .definition-box {
+            background-color: #f0f8ed;
+            border: 2px solid #33AB2B;
+            border-radius: 6px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .definition-box h3 {
+            color: #33AB2B;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            margin-top: 0;
+        }
+
+        .definition-box p {
+            margin-bottom: 15px;
+        }
+
+        .definition-box ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .definition-box li {
+            margin-bottom: 10px;
+        }
+
+        .conversion-box {
+            background-color: #ffffff;
+            border: 2px solid #b84d7e;
+            border-radius: 6px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .conversion-box h3 {
+            color: #b84d7e;
+            margin-top: 0;
+        }
+
+        .conversion-box table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        .conversion-box table th,
+        .conversion-box table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .conversion-box table th {
+            background-color: #f0f0f0;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .orange-box {
+            background-color: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 6px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+
+        .orange-box h3 {
+            margin-top: 0;
+        }
+
+        .orange-box ol {
+            margin-left: 20px;
+        }
+
+        .orange-box li {
+            margin-bottom: 8px;
+        }
+
+        .example {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            margin: 25px 0;
+            overflow: hidden;
+        }
+
+        .example-problem {
+            padding: 15px 20px;
+        }
+
+        .example-problem h3 {
+            color: #33AB2B;
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .example-problem p {
+            margin-bottom: 10px;
+        }
+
+        .example-problem ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .example-problem li {
+            margin-bottom: 8px;
+        }
+
+        .example-problem ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .solution-header {
+            background-color: #33AB2B;
+            color: white;
+            padding: 12px 20px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+            margin-top: 15px;
+            border-radius: 4px;
+            transition: background-color 0.2s ease;
+            border: none;
+            font-size: 1em;
+        }
+
+        .solution-header:hover {
+            background-color: #2a8922;
+        }
+
+        .toggle-arrow {
+            display: inline-block;
+            margin-right: 12px;
+            transition: transform 0.3s ease;
+            font-size: 1.2em;
+        }
+
+        .toggle-arrow.open {
+            transform: rotate(180deg);
+        }
+
+        .example-content {
+            padding: 0;
+            display: none;
+            overflow: hidden;
+        }
+
+        .example-content.open {
+            display: block;
+        }
+
+        .solution {
+            background-color: #f0f8ed;
+            padding: 20px;
+            border-top: 2px solid #33AB2B;
+        }
+
+        .solution h4 {
+            color: #33AB2B;
+            margin-bottom: 15px;
+            margin-top: 0;
+        }
+
+        .solution p {
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        .solution ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .solution li {
+            margin-bottom: 8px;
+        }
+
+        .solution ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        ul li {
+            margin-bottom: 8px;
+        }
+
+        ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        ol li {
+            margin-bottom: 8px;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        strong {
+            font-weight: bold;
+        }
+
+        em {
+            font-style: italic;
+        }
+
+        .blue-text {
+            color: #0066cc;
+        }
+
+        .divider {
+            border-top: 2px dashed #33AB2B;
+            margin: 30px 0;
+        }
+
+        .image-placeholder {
+            background-color: #e0e0e0;
+            border: 2px dashed #999;
+            padding: 40px;
+            margin: 20px 0;
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            border-radius: 4px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table th {
+            background-color: #f0f8ed;
+            color: #33AB2B;
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ccc;
+            font-weight: bold;
+        }
+
+        table td {
+            padding: 12px;
+            border: 1px solid #ccc;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        table tr.highlighted {
+            background-color: #ffff99;
+        }
+
+        .subsection-title {
+            color: #33AB2B;
+            font-size: 1.3em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+    </style>
+<style>
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+</style>
+</head>
+<body>
+<nav class="side-toc" aria-label="Textbook Navigation">
+    <h2 class="toc-title">Contents</h2>
+
+    <!-- Chapter 1 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 1: Financial Literacy</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="MTH154CH1_1.html">1.1 Introduction</a></li>
+        <li><a href="MTH154CH1_2.html">1.2 Problem Solving</a></li>
+        <li><a href="MTH154CH1_3.html">1.3 Simple Interest</a></li>
+ 	<li><a href="MTH154CH1_4.html">1.4 Compound Interest & Annuities</a></li>
+ 	<li><a href="MTH154CH1_5.html">1.5 Installment Loans</a></li>
+ 	<li><a href="MTH154CH1_6.html">1.6 Loans</a></li>
+ 	<li><a href="MTH154CH1_7.html">1.7 Stocks & Bonds</a></li>
+ 	<li><a href="MTH154CH1_8.html">1.8 Taxes</a></li>
+    </ul>
+
+    <!-- Chapter 2 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 2: Modeling Data</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="Ch2_1.html">2.1 Basics of Graphing</a></li>
+        <li><a href="Ch2_2.html">2.2 Relations & Functions</a></li>
+        <li><a href="Ch2_3.html">2.3 Linear Models</a></li>
+        <li><a href="Ch2_4.html">2.4 Rate of Change</a></li>
+        <li><a href="Ch2_5.html">2.5 Scatterplots</a></li>
+    </ul>
+
+    <!-- Chapter 3 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 3: Set Theory</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="Ch3_1.html">3.1 Set Basics</a></li>
+        <li><a href="Ch3_2.html">3.2 Sets</a></li>
+        <li><a href="Ch3_3.html">3.3 Venn Diagrams</a></li>
+        <li><a href="MTH154CH3_4.html">3.4 More with Venn Diagrams</a></li>
+    </ul>
+
+   <!-- Chapter 4 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 4: Logic</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="MTH154CH4_1.html">4.1 Thinking Logically</a></li>
+        <li><a href="MTH154CH4_2.html">4.2 Introduction to Truth Tables</a></li>
+	<li><a href="MTH154CH4_3.html">4.3 Logical Arguments</a></li>
+	<li><a href="MTH154CH4_4.html">4.4 Variations of Statements</a></li>
+    </ul>
+
+   <!-- Chapter 5 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 5: Measurement</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="MTH154CH5_1.html">5.1 Ratios & Proportions</a></li>
+        <li><a href="MTH154CH5_2.html">5.2 Measurement</a></li>
+	<li><a href="MTH154CH5_3.html">5.3 Area, Volume, and Capacity</a></li>
+	<li><a href="MTH154CH5_4.html">5.4 Weight & Temperature</a></li>
+	<li><a href="MTH154CH5_5.html">5.5 Surface Area & Volume</a></li>
+    </ul>
+</nav>
+<body>
+    <div class="container">
+        <h1>Section 1.7: Stocks & Bonds</h1>
+
+        <div class="intro-section">
+            <p>So far in this section, we've discussed saving money and purchasing things without money. But, what about investing your money? Investing happens over your lifetime. In your early adult years, you typically have little surplus to invest. Your first investments are in your home and then perhaps in planning for children's education or for your retirement.</p>
+
+            <p>After a period of just paying the bills, making the mortgage, and trying to put something away for retirement, you may have the chance to accumulate wealth. Your income increases as your career progresses. You have fewer dependents, so your expenses decrease. You may reach this goal sooner than others, but at some point you begin to think about your immediate situation and look to increase your real wealth and your future financial health. Investing is about that future.</p>
+
+            <p>The ways that you can invest money are abundant. However, this is not a course about investing money. This is a course about learning a little about financial options. Of the many types of investment options a person has, we are going to primarily concentrate on that of Stocks and Bonds. Approximately 47% of adult Americans have invested in stocks or bonds, mostly through their retirement accounts, as of 2008.</p>
+        </div>
+
+        <h2>Bonds</h2>
+
+        <div class="intro-section">
+            <p><strong>Bonds</strong> are debt. The bond issuer borrows by selling a bond, <strong>promising</strong> the buyer interest and repayment of the principal at maturity. If a company wants to borrow, it could just go to one lender and borrow. But if the company wants to borrow a lot, it may be difficult to find any one investor with the capital and the inclination to make a large loan, taking a large risk on only one borrower. In this case, the company may need to find a lot of lenders who will each lend a little money, and this is done through selling bonds.</p>
+
+            <p>A bond is a formal contract to repay borrowed money with interest (often referred to as the coupon) at fixed intervals. Corporations and governments (e.g., federal, state, municipal, and foreign) borrow by issuing bonds. The interest rate on the bond may be a fixed interest rate or a variable interest rate like discussed with mortgages. Regardless of the interest rate, interest is typically calculated using simple interest.</p>
+
+            <p>There are many features to bonds other than just the principal and interest, such as the issue price (the price you pay to buy the bond when it is first issued) and the maturity date (when the issuer of the bond has to repay you). Bonds may also be "callable" (redeemable before maturity). Bonds may also be issued with various conditions that the borrower must meet to protect the bondholders and lenders.</p>
+
+            <p>One of the largest issuers of bonds is the U.S. Treasury department, and can be purchased directly through the U.S. government. Other than those bonds, a person must use a broker to purchase bonds.</p>
+        </div>
+
+        <h2>Stocks</h2>
+
+        <div class="intro-section">
+            <p><strong>Stocks</strong>, or equity securities, are shares of ownership. When you buy a share of stock, you buy a share of the corporation. The size of your share of the corporation is proportional to the size of your stock holding. Since corporations exist to create profit for the owners, when you buy a share of the corporation, you buy a share of its future profits. You are literally sharing in the fortunes of the company.</p>
+
+            <p>Unlike bonds, however, shares do not promise you any returns at all. If the company does create a profit, some of that profit may be paid out to owners as a <strong>dividend</strong>, usually in cash but sometimes in additional shares of stock. The company may pay no dividend at all, however, in which case the value of your shares should rise as the company's profits rise. But even if the company is profitable, the value of its shares may not rise for a variety of reasons that have more to do with the markets or the larger economy than with the company itself. Likewise, when you invest in stocks, you share the company's losses, which may decrease the value of your shares.</p>
+
+            <p>Corporations issue shares to raise capital. When shares are issued and traded in a public market such as a stock exchange, the corporation is "publicly traded." There are many stock exchanges in the United States and around the world. The two best known in the United States are the New York Stock Exchange (now NYSE Euronext), founded in 1792, and the NASDAQ, a computerized trading system managed by the National Association of Securities Dealers.</p>
+
+            <p>Only members of an exchange may trade on the exchange, so to buy or sell stocks, you must go through a broker who is a member of the exchange. Brokers also manage your account and offer varying levels of advice and access to research. Most brokers have Web-based trading systems. Some discount brokers offer minimal advice and research along with minimal trading commissions and fees.</p>
+        </div>
+
+        <h2>Investing</h2>
+
+        <div class="intro-section">
+            <p>There are two primary ways that people make money from the stock market:</p>
+            <ol style="margin-left: 20px;">
+                <li>Buying stocks when the price is low and selling stocks when the price is high.</li>
+                <li>Receiving dividends.</li>
+            </ol>
+            <p>As previously mentioned, an individual cannot just simply purchase stocks on their own. Typically, they use a service that will cost them some type of commission. It is also important to note that any capital gain a person makes in trading in the stock market or by dividends is required by federal law to be taxed on that additional income.</p>
+        </div>
+
+        <!-- Example 1 -->
+        <div class="example">
+            <div class="example-problem">
+                <h3>Example 1: Stock Purchase with Commission</h3>
+                <p>Shari purchased 600 shares of Apple Stocks (AAPL) in April 2004 when the cost per share was $12.89, and paid a 2% commission to a brokerage firm. What was the total amount Shari paid for her stocks?</p>
+            </div>
+            <button class="solution-header" onclick="toggleExample(this)">
+                <span class="toggle-arrow">▼</span>
+                <span>Show Solution</span>
+            </button>
+            <div class="example-content">
+                <div class="solution">
+                    <h4>Solution</h4>
+                    <p>First, we would need to calculate the price Shari paid for the 600 stocks.</p>
+                    $$600(\$12.89) = \$7,734$$
+                    <p>Next, we need to calculate the amount of commission that Shari paid.</p>
+                    $$\$7,734(0.02) = \$154.68$$
+                    <p>Lastly, to find the total cost, we add together the amount it cost to purchase the 600 shares and the commission to get:</p>
+                    $$\$7,734 + \$154.68 = \$7,888.68$$
+                </div>
+            </div>
+        </div>
+
+        <!-- Example 2 -->
+        <div class="example">
+            <div class="example-problem">
+                <h3>Example 2: Stock Sale and Capital Gain</h3>
+                <p>Shari needs money and has decided to sell her 600 shares of AAPL at the current price of $171.80 per share. Her new stock broker will collect a 1.5% commission. How much money will Shari make on the sale of her 600 shares? What is her capital gain? (Ignore any gain from dividends collected over the years.)</p>
+            </div>
+            <button class="solution-header" onclick="toggleExample(this)">
+                <span class="toggle-arrow">▼</span>
+                <span>Show Solution</span>
+            </button>
+            <div class="example-content">
+                <div class="solution">
+                    <h4>Solution</h4>
+                    <p>First, we need to calculate what she sold the stocks for.</p>
+                    $$600(\$171.80) = \$103,080.00$$
+                    <p>Next, we need to calculate the cost she will have to pay the broker.</p>
+                    $$\$103,080.00(0.015) = \$1,546.20$$
+                    <p>She would lose that amount from her selling price, meaning she was left with:</p>
+                    $$\$103,080.00 - \$1,546.20 = \$101,533.80$$
+                    <p>This means that Shari received $101,533.80.</p>
+                    <p>Capital gain is calculated by the profit a person makes. If we ignore dividends, what was Shari's capital gain?</p>
+                    $$\$101,533.80 - \$7,888.68 = \$93,645.12$$
+                    <p>Shari will have to pay taxes on $93,645.12. A couple of important things to note are that Shari's initial investment was in 2004 and this was nearly 20 years later, so she benefited from long-term growth. Also, remember stocks are not guaranteed to increase over time. Had Apple not made it as a company Shari would have lost all the money she had invested.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="definition-box">
+            <h3>Return on Investment (ROI)</h3>
+            <p>A <strong>return on investment</strong> measures the gain or loss generated by an investment relative to the amount of money invested. Typically, a return on investment (ROI) is expressed as a percentage, and typically used for personal finance decisions to compare profitability.</p>
+            <div class="equation">
+                $$\text{ROI} = \frac{\text{Profit}}{\text{Investment}}(100\%)$$
+            </div>
+        </div>
+
+        <!-- Example 3 -->
+        <div class="example">
+            <div class="example-problem">
+                <h3>Example 3: Bond Investment and ROI</h3>
+                <p>A bond with face value of \$1,000 accrues simple interest at 6.45% for 12 years was purchased by Lou for \$900. After 3 years, Lou is short on money and decides to sell the bond to his friend Juan for \$1,140. Four years later, Juan sells the bond to Sharon for \$1,495. She keeps the bond until it reaches maturity and then cashes it in. Which investor made the greatest profit? Who had the greatest return on investment?</p>
+            </div>
+            <button class="solution-header" onclick="toggleExample(this)">
+                <span class="toggle-arrow">▼</span>
+                <span>Show Solution</span>
+            </button>
+            <div class="example-content">
+                <div class="solution">
+                    <h4>Solution - Part 1: Greatest Profit</h4>
+                    <p><strong>Lou's Profit:</strong></p>
+                    $$\$1,140 - \$900 = \$240$$
+
+                    <p><strong>Juan's Profit:</strong></p>
+                    $$\$1,495 - \$1,140 = \$355$$
+
+                    <p><strong>Sharon's Profit:</strong></p>
+                    <p>First calculate interest accrued: $I = \$1,000(0.0645)(12) = \$774$</p>
+                    <p>Maturity Value: $\$1,000 + \$774 = \$1,774$</p>
+                    $$\text{Profit} = \$1,774 - \$1,495 = \$279$$
+
+                    <p>Of the three people, <strong>Juan had the largest profit</strong> at $355.</p>
+
+                    <h4>Solution - Part 2: Greatest ROI</h4>
+                    <p><strong>Lou's ROI:</strong></p>
+                    $$\text{ROI} = \frac{\$240}{\$900}(100\%) = 26.67\%$$
+
+                    <p><strong>Juan's ROI:</strong></p>
+                    $$\text{ROI} = \frac{\$355}{\$1,140}(100\%) = 31.14\%$$
+
+                    <p><strong>Sharon's ROI:</strong></p>
+                    $$\text{ROI} = \frac{\$279}{\$1,495}(100\%) = 18.66\%$$
+
+                    <p>Once again, <strong>Juan had the largest return on investment</strong> at 31.14%. It is important to note that largest profit doesn't always correlate to larger return on investment. It is all proportional to the amount spent on the investment and the profit made from the investment. Notice that even though Lou had a smaller profit than Sharon, he also had a larger return on investment, because he didn't invest as much money.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="note-box">
+            <p><strong>Important:</strong> The information in this chapter is solely for educational purposes and should not be used to start investing in the stock market. If you are looking to invest in the stock market, please do your own research and consider consulting with a financial advisor.</p>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="try-it">
+            <h3>Try It!</h3>
+            <p>You purchase 100 shares of a stock at \$45.50 per share and pay a 2.5% commission. Later, you sell all 100 shares at \$62.75 per share with a 2% commission. Calculate your total investment cost, total proceeds from the sale, and your capital gain and ROI.</p>
+        </div>
+
+    <nav aria-label="Page navigation">
+  <div class="page-navigation">
+    <div class="page-navigation" style="display:flex; justify-content:space-between; margin-top:40px;">
+        <a href="MTH154CH1_6.html" class="nav-button" aria-label="Go to previous section">&larr; Previous</a>
+        <a href="MTH154CH1_8.html" class="nav-button" aria-label="Go to next section">Next &rarr;</a>
+    </div>
+  </div>
+</nav>
+
+</div>
+<script>
+        function toggleExample(button) {
+            const content = button.nextElementSibling;
+            const arrow = button.querySelector('.toggle-arrow');
+            
+            if (content.classList.contains('open')) {
+                content.classList.remove('open');
+                arrow.classList.remove('open');
+                button.querySelector('span:last-child').textContent = 'Show Solution';
+            } else {
+                content.classList.add('open');
+                arrow.classList.add('open');
+                button.querySelector('span:last-child').textContent = 'Hide Solution';
+            }
+        }
+    </script>
+
+    <script>
+        const chapterButtons = document.querySelectorAll(".toc-chapter");
+
+        chapterButtons.forEach(button => {
+            button.addEventListener("click", () => {
+                const expanded = button.getAttribute("aria-expanded") === "true";
+                button.setAttribute("aria-expanded", !expanded);
+
+                const submenu = button.nextElementSibling;
+                submenu.classList.toggle("open");
+            });
+        });
+    </script>
+</body>
+</html>

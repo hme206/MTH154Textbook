@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Section 1.4: Compound Interest & Annuities</title>
+      <!-- MathJax configuration -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            },
+            loader: {
+                load: ['input/tex', 'output/chtml']
+            }
+        };
+    </script>
+    <!-- MathJax loader -->
+    <script id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+
+    <style>
+      
+    .nav-button {
+      padding: 10px 20px;
+      background-color: #33AB2B;
+      color: #000000;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+
+    .nav-button:hover,
+    .nav-button:focus {
+      background-color: #33AB2B;
+      outline: none;
+    }     
+/* Layout unchanged */
+.side-toc {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 230px;
+    height: 100vh;
+    background-color: #f0f8ed;
+    border-right: 3px solid #33AB2B;
+    padding: 20px;
+    overflow: hidden;
+}
+.diagram-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(150px, 1fr));
+  gap: 2rem;
+  justify-items: center;   /* centers each column item */
+  align-items: start;
+  margin: 1.5rem 0;
+}
+
+.diagram {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.toc-title {
+    font-size: 1.4em;
+    margin-bottom: 15px;
+    color: #33AB2B;
+}
+
+/* Chapter buttons */
+.toc-chapter {
+    width: 100%;
+    background: none;
+    border: none;
+    text-align: left;
+    font-size: 1em;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    color: #333;
+}
+
+.toc-chapter:hover,
+.toc-chapter:focus {
+    color: #33AB2B;
+}
+
+.arrow {
+    transition: transform 0.25s ease;
+}
+
+/* Rotated when opened */
+.toc-chapter[aria-expanded="true"] .arrow {
+    transform: rotate(90deg);
+}
+
+/* Submenu collapsed by default */
+.toc-submenu {
+    list-style: none;
+    padding-left: 15px;
+    margin: 5px 0 10px 0;
+    display: none;
+}
+
+/* Visible when expanded */
+.toc-submenu.open {
+    display: block;
+}
+
+.toc-submenu li {
+    margin: 6px 0;
+}
+
+.toc-submenu a {
+    color: #333;
+    text-decoration: none;
+}
+
+.toc-submenu a:hover,
+.toc-submenu a:focus {
+    color: #33AB2B;
+    text-decoration: underline;
+}
+
+/* Push main body over */
+body {
+    margin-left: 250px;
+}
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background-color: #ffffff;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #33AB2B;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            border-bottom: 3px solid #33AB2B;
+            padding-bottom: 15px;
+        }
+
+        h2 {
+            color: #33AB2B;
+            font-size: 1.8em;
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            color: #33AB2B;
+            font-size: 1.2em;
+            margin-top: 20px;
+            margin-bottom: 15px;
+        }
+
+        h4 {
+            color: #33AB2B;
+            font-size: 1.1em;
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+
+        .definition-box {
+            background-color: #f0f8ed;
+            border: 2px solid #33AB2B;
+            border-radius: 6px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .definition-box h3 {
+            color: #33AB2B;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            margin-top: 0;
+        }
+
+        .definition-box p {
+            margin-bottom: 15px;
+        }
+
+        .definition-box ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .definition-box li {
+            margin-bottom: 10px;
+        }
+
+        .conversion-box {
+            background-color: #ffffff;
+            border: 2px solid #b84d7e;
+            border-radius: 6px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .conversion-box h3 {
+            color: #b84d7e;
+            margin-top: 0;
+        }
+
+        .conversion-box table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        .conversion-box table th,
+        .conversion-box table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .conversion-box table th {
+            background-color: #f0f0f0;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .orange-box {
+            background-color: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 6px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+
+        .orange-box h3 {
+            margin-top: 0;
+        }
+
+        .orange-box ol {
+            margin-left: 20px;
+        }
+
+        .orange-box li {
+            margin-bottom: 8px;
+        }
+
+        .example {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            margin: 25px 0;
+            overflow: hidden;
+        }
+
+        .example-problem {
+            padding: 15px 20px;
+        }
+
+        .example-problem h3 {
+            color: #33AB2B;
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .example-problem p {
+            margin-bottom: 10px;
+        }
+
+        .example-problem ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .example-problem li {
+            margin-bottom: 8px;
+        }
+
+        .example-problem ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .solution-header {
+            background-color: #33AB2B;
+            color: white;
+            padding: 12px 20px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+            margin-top: 15px;
+            border-radius: 4px;
+            transition: background-color 0.2s ease;
+            border: none;
+            font-size: 1em;
+        }
+
+        .solution-header:hover {
+            background-color: #2a8922;
+        }
+
+        .toggle-arrow {
+            display: inline-block;
+            margin-right: 12px;
+            transition: transform 0.3s ease;
+            font-size: 1.2em;
+        }
+
+        .toggle-arrow.open {
+            transform: rotate(180deg);
+        }
+
+        .example-content {
+            padding: 0;
+            display: none;
+            overflow: hidden;
+        }
+
+        .example-content.open {
+            display: block;
+        }
+
+        .solution {
+            background-color: #f0f8ed;
+            padding: 20px;
+            border-top: 2px solid #33AB2B;
+        }
+
+        .solution h4 {
+            color: #33AB2B;
+            margin-bottom: 15px;
+            margin-top: 0;
+        }
+
+        .solution p {
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        .solution ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .solution li {
+            margin-bottom: 8px;
+        }
+
+        .solution ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        ul li {
+            margin-bottom: 8px;
+        }
+
+        ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        ol li {
+            margin-bottom: 8px;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        strong {
+            font-weight: bold;
+        }
+
+        em {
+            font-style: italic;
+        }
+
+        .blue-text {
+            color: #0066cc;
+        }
+
+        .divider {
+            border-top: 2px dashed #33AB2B;
+            margin: 30px 0;
+        }
+
+        .image-placeholder {
+            background-color: #e0e0e0;
+            border: 2px dashed #999;
+            padding: 40px;
+            margin: 20px 0;
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            border-radius: 4px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table th {
+            background-color: #f0f8ed;
+            color: #33AB2B;
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ccc;
+            font-weight: bold;
+        }
+
+        table td {
+            padding: 12px;
+            border: 1px solid #ccc;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        table tr.highlighted {
+            background-color: #ffff99;
+        }
+
+        .subsection-title {
+            color: #33AB2B;
+            font-size: 1.3em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+    </style>
+<style>
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+</style>
+</head>
+<body>
+<nav class="side-toc" aria-label="Textbook Navigation">
+    <h2 class="toc-title">Contents</h2>
+
+    <!-- Chapter 1 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 1: Financial Literacy</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="MTH154CH1_1.html">1.1 Introduction</a></li>
+        <li><a href="MTH154CH1_2.html">1.2 Problem Solving</a></li>
+        <li><a href="MTH154CH1_3.html">1.3 Simple Interest</a></li>
+ 	<li><a href="MTH154CH1_4.html">1.4 Compound Interest & Annuities</a></li>
+ 	<li><a href="MTH154CH1_5.html">1.5 Installment Loans</a></li>
+ 	<li><a href="MTH154CH1_6.html">1.6 Loans</a></li>
+ 	<li><a href="MTH154CH1_7.html">1.7 Stocks & Bonds</a></li>
+ 	<li><a href="MTH154CH1_8.html">1.8 Taxes</a></li>
+    </ul>
+
+    <!-- Chapter 2 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 2: Modeling Data</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="Ch2_1.html">2.1 Basics of Graphing</a></li>
+        <li><a href="Ch2_2.html">2.2 Relations & Functions</a></li>
+        <li><a href="Ch2_3.html">2.3 Linear Models</a></li>
+        <li><a href="Ch2_4.html">2.4 Rate of Change</a></li>
+        <li><a href="Ch2_5.html">2.5 Scatterplots</a></li>
+    </ul>
+
+    <!-- Chapter 3 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 3: Set Theory</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="Ch3_1.html">3.1 Set Basics</a></li>
+        <li><a href="Ch3_2.html">3.2 Sets</a></li>
+        <li><a href="Ch3_3.html">3.3 Venn Diagrams</a></li>
+        <li><a href="MTH154CH3_4.html">3.4 More with Venn Diagrams</a></li>
+    </ul>
+
+   <!-- Chapter 4 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 4: Logic</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="MTH154CH4_1.html">4.1 Thinking Logically</a></li>
+        <li><a href="MTH154CH4_2.html">4.2 Introduction to Truth Tables</a></li>
+	<li><a href="MTH154CH4_3.html">4.3 Logical Arguments</a></li>
+	<li><a href="MTH154CH4_4.html">4.4 Variations of Statements</a></li>
+    </ul>
+
+   <!-- Chapter 5 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 5: Measurement</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="MTH154CH5_1.html">5.1 Ratios & Proportions</a></li>
+        <li><a href="MTH154CH5_2.html">5.2 Measurement</a></li>
+	<li><a href="MTH154CH5_3.html">5.3 Area, Volume, and Capacity</a></li>
+	<li><a href="MTH154CH5_4.html">5.4 Weight & Temperature</a></li>
+	<li><a href="MTH154CH5_5.html">5.5 Surface Area & Volume</a></li>
+    </ul>
+</nav>
+<body>
+    <div class="container">
+        <h1>Section 1.4: Compound Interest & Annuities</h1>
+
+        <div class="intro-section">
+            <p>With simple interest, we were assuming that we pocketed the interest when we received it. In a standard bank account, any interest we earn is automatically added to our balance, and we earn interest on that interest in the future years. This reinvestment of interest is called <strong>compounding</strong>.</p>
+
+            <p>Suppose that we deposit \$1,000 in a bank account that offers 3% interest compounded monthly. How will our money grow? The 3% interest is an APR. Since interest is being paid monthly, we will earn $\frac{3\%}{12} = 0.25\%$ per month.</p>
+        </div>
+
+        <div class="intro-section" style="background-color: #fff9e6; border-left-color: #ffc107;">
+            <p><strong>In the first month:</strong></p>
+            <p>$P_0 = \$1,000$</p>
+            <p>$r = 0.0025$</p>
+            <p>$I = \$1,000(0.0025)(1) = \$2.50$</p>
+            <p>$A = \$1,000 + \$2.50 = \$1,002.50$</p>
+            <p>In the first month, we will have earned $2.50 in interest, raising our account balance to \$1,002.50.</p>
+            <p><strong>In the second month,</strong> our starting balance is no longer our initial \$1,000. It's now the new starting value of $1,002.50.</p>
+            <p>$I = \$1,002.50(0.0025)(1) = \$2.51$</p>
+            <p>Notice how the second month we made slightly more money on the interest. This is because we didn't just earn interest on our initial investment, we also earned interest on our interest from the previous month.</p>
+        </div>
+
+        <h2>Compound Interest Formula</h2>
+
+        <div class="definition-box">
+            <h3>Compound Interest</h3>
+            <div class="equation">
+                $$A(t) = P_0\left(1 + \frac{r}{n}\right)^{nt}$$
+            </div>
+            <div class="variable-list">
+                <p><strong>$A(t)$:</strong> The future balance in the account after $t$ years</p>
+                <p><strong>$P_0$:</strong> The starting balance in the account or the principal investment</p>
+                <p><strong>$r$:</strong> The annual interest rate in decimal form</p>
+                <p><strong>$n$:</strong> The number of times interest is compounded or calculated</p>
+                <p><strong>$t$:</strong> The time the investment is left alone</p>
+            </div>
+        </div>
+
+        <div class="note-box">
+            <p><strong>Important:</strong> With this formula, we are assuming we deposited money into this account once and haven't touched it until the term is up.</p>
+        </div>
+
+        <!-- Example 1 -->
+        <div class="example">
+            <div class="example-problem">
+                <h3>Example 1: Certificate of Deposit</h3>
+                <p>A certificate of deposit (CD) is a savings instrument that many banks offer. It usually gives a higher interest rate, but you cannot access your investment for a specified length of time. Suppose you deposit $3,000 in a CD that pays 6% interest, compounded monthly. How much money will you have in that account after 20 years?</p>
+            </div>
+            <button class="solution-header" onclick="toggleExample(this)">
+                <span class="toggle-arrow">▼</span>
+                <span>Show Solution</span>
+            </button>
+            <div class="example-content">
+                <div class="solution">
+                    <h4>Solution</h4>
+                    <p>It is important to identify each of our variables and substitute them into the equation correctly.</p>
+                    <div class="variable-list">
+                        <p><strong>$P_0 = \$3,000$</strong></p>
+                        <p><strong>$r = 0.06$</strong></p>
+                        <p><strong>$n = 12$</strong></p>
+                        <p><strong>$t = 20$</strong></p>
+                    </div>
+                    <p>Once we substitute them all into the equation, we would end up with:</p>
+                    $$A(t) = \$3,000\left(1 + \frac{0.06}{12}\right)^{12(20)}$$
+                    $$A(t) = \$3,000(1.005)^{240}$$
+                    $$A(t) = \$3,000(3.3124476)$$
+                    $$A(t) \approx \$9,930.61$$
+                </div>
+            </div>
+        </div>
+
+        <h2>Annuities</h2>
+
+        <div class="intro-section">
+            <p>Most of us aren't able to put a large sum of money in the bank at one given time. Instead, we save for the future by depositing a smaller amount of money from each paycheck into the bank. This idea is called a <strong>savings annuity</strong>. Most retirement plans, like 401k plans or IRA plans, are examples of savings annuities. A savings account can work similarly the same way if it calculates interest as well.</p>
+        </div>
+
+        <div class="definition-box">
+            <h3>Annuity</h3>
+            <p>An annuity is a savings plan wherein equal regular deposits, or payments, are made into an account, and these deposits earn compound interest. The time between payments is called the payment period of the annuity.</p>
+            <div class="equation">
+                $$A(t) = \frac{d\left[\left(1 + \frac{r}{n}\right)^{nt} - 1\right]}{\frac{r}{n}}$$
+            </div>
+            <div class="variable-list">
+                <p><strong>$A(t)$:</strong> The future value of the account after $t$ years</p>
+                <p><strong>$d$:</strong> The regular deposit</p>
+                <p><strong>$r$:</strong> The annual interest rate as a decimal</p>
+                <p><strong>$n$:</strong> The number of times interest is compounded annually</p>
+                <p><strong>$t$:</strong> The time in years</p>
+            </div>
+        </div>
+
+        <!-- Example 2 -->
+        <div class="example">
+            <div class="example-problem">
+                <h3>Example 2: Retirement Account (IRA)</h3>
+                <p>A traditional individual retirement account (IRA) is a special type of retirement account in which the money you invest is exempt from income taxes until you withdraw it. If you deposit \$100 each month into an IRA that earns 6% interest, how much money will you have in the account after 20 years?</p>
+            </div>
+            <button class="solution-header" onclick="toggleExample(this)">
+                <span class="toggle-arrow">▼</span>
+                <span>Show Solution</span>
+            </button>
+            <div class="example-content">
+                <div class="solution">
+                    <h4>Solution</h4>
+                    <p>In this example:</p>
+                    <div class="variable-list">
+                        <p><strong>$d = \$100$</strong> (The monthly deposit)</p>
+                        <p><strong>$r = 0.06$</strong> (6% Annual Interest)</p>
+                        <p><strong>$n = 12$</strong> (Compounded monthly)</p>
+                        <p><strong>$t = 20$</strong> (We want to invest for 20 years)</p>
+                    </div>
+                    <p>By substituting all our pieces into the annuity formula, we would get:</p>
+                    $$A(20) = \frac{\$100\left[\left(1 + \frac{0.06}{12}\right)^{12(20)} - 1\right]}{\frac{0.06}{12}}$$
+                    $$= \frac{\$100\left[(1.005)^{240} - 1\right]}{0.005}$$
+                    $$= \frac{\$100(3.310 - 1)}{0.005}$$
+                    $$= \frac{\$100(2.310)}{0.005}$$
+                    $$= \frac{\$231}{0.005}$$
+                    $$= \$46,200$$
+                    <p>This means that if you deposit \$100 a month for 20 years, you will have saved \$46,200. How much of that is money you invested and how much of that is interest accrued? Think about it. You invested \$100 for $12(20) = 240$ months which means you deposited $\$100(240) = \$24,000$. If you have \$46,200 in the account, that means you accrued $\$46,200 - \$24,000 = \$22,000$ in interest over those 20 years.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Example 3 -->
+        <div class="example">
+            <div class="example-problem">
+                <h3>Example 3: Finding Required Monthly Deposits</h3>
+                <p>You want to save $200,000 to have in an account when you retire in 30 years. Your retirement account earns 8% interest that accrues monthly. How much money do you need to deposit each month to meet your retirement goal?</p>
+            </div>
+            <button class="solution-header" onclick="toggleExample(this)">
+                <span class="toggle-arrow">▼</span>
+                <span>Show Solution</span>
+            </button>
+            <div class="example-content">
+                <div class="solution">
+                    <h4>Solution</h4>
+                    <p>In this example, we are looking for $d$ instead of looking for $A(t)$</p>
+                    <div class="variable-list">
+                        <p><strong>$A(30) = \$200,000$</strong> (Future Value)</p>
+                        <p><strong>$r = 0.08$</strong> (8% Annual Interest)</p>
+                        <p><strong>$n = 12$</strong> (Compounded monthly)</p>
+                        <p><strong>$t = 30$</strong> (We want to invest for 30 years)</p>
+                    </div>
+                    <p>Substitute our values in and work the problem through:</p>
+                    $$\$200,000 = \frac{d\left[\left(1 + \frac{0.08}{12}\right)^{12(30)} - 1\right]}{\frac{0.08}{12}}$$
+                    $$\$200,000 = \frac{d\left[(1.00667)^{360} - 1\right]}{0.00667}$$
+                    $$\$200,000 = \frac{d(10.949 - 1)}{0.00667}$$
+                    $$\$200,000 = \frac{d(9.949)}{0.00667}$$
+                    $$(0.00667)\$200,000 = \frac{d(9.949)}{0.00667}(0.00667)$$
+                    $$\$1,334 = d(9.949)$$
+                    $$\frac{\$1,334}{9.949} = \frac{d(9.949)}{9.949}$$
+                    $$\$134.08 = d$$
+                    <p>Thus, you would need to deposit at least \$134.08 each month for 30 years to have \$200,000 in your retirement account.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="try-it">
+            <h3>Try It!</h3>
+            <p>A more conservative investment account pays 3% interest. If you deposit $5 a day into this account, how much will you have after 10 years? How much interest did you accrue?</p>
+        </div>
+
+    <nav aria-label="Page navigation">
+  <div class="page-navigation">
+    <div class="page-navigation" style="display:flex; justify-content:space-between; margin-top:40px;">
+        <a href="MTH154CH1_3.html" class="nav-button" aria-label="Go to previous section">&larr; Previous</a>
+        <a href="MTH154CH1_5.html" class="nav-button" aria-label="Go to next section">Next &rarr;</a>
+    </div>
+  </div>
+</nav>
+
+</div>
+<script>
+        function toggleExample(button) {
+            const content = button.nextElementSibling;
+            const arrow = button.querySelector('.toggle-arrow');
+            
+            if (content.classList.contains('open')) {
+                content.classList.remove('open');
+                arrow.classList.remove('open');
+                button.querySelector('span:last-child').textContent = 'Show Solution';
+            } else {
+                content.classList.add('open');
+                arrow.classList.add('open');
+                button.querySelector('span:last-child').textContent = 'Hide Solution';
+            }
+        }
+    </script>
+
+    <script>
+        const chapterButtons = document.querySelectorAll(".toc-chapter");
+
+        chapterButtons.forEach(button => {
+            button.addEventListener("click", () => {
+                const expanded = button.getAttribute("aria-expanded") === "true";
+                button.setAttribute("aria-expanded", !expanded);
+
+                const submenu = button.nextElementSibling;
+                submenu.classList.toggle("open");
+            });
+        });
+    </script>
+</body>
+</html>

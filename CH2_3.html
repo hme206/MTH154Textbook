@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Section 2.3: Modeling Linear Data</title>
+
+   <!-- MathJax configuration -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            },
+            loader: {
+                load: ['input/tex', 'output/chtml']
+            }
+        };
+    </script>
+    <!-- MathJax loader -->
+    <script id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+
+    <style>
+      
+    .nav-button {
+      padding: 10px 20px;
+      background-color: #33AB2B;
+      color: #000000;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+
+    .nav-button:hover,
+    .nav-button:focus {
+      background-color: #33AB2B;
+      outline: none;
+    }     
+/* Layout unchanged */
+.side-toc {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 230px;
+    height: 100vh;
+    background-color: #f0f8ed;
+    border-right: 3px solid #33AB2B;
+    padding: 20px;
+    overflow: hidden;
+}
+.diagram-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(150px, 1fr));
+  gap: 2rem;
+  justify-items: center;   /* centers each column item */
+  align-items: start;
+  margin: 1.5rem 0;
+}
+
+.diagram {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.toc-title {
+    font-size: 1.4em;
+    margin-bottom: 15px;
+    color: #33AB2B;
+}
+
+/* Chapter buttons */
+.toc-chapter {
+    width: 100%;
+    background: none;
+    border: none;
+    text-align: left;
+    font-size: 1em;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    color: #333;
+}
+
+.toc-chapter:hover,
+.toc-chapter:focus {
+    color: #33AB2B;
+}
+
+.arrow {
+    transition: transform 0.25s ease;
+}
+
+/* Rotated when opened */
+.toc-chapter[aria-expanded="true"] .arrow {
+    transform: rotate(90deg);
+}
+
+/* Submenu collapsed by default */
+.toc-submenu {
+    list-style: none;
+    padding-left: 15px;
+    margin: 5px 0 10px 0;
+    display: none;
+}
+
+/* Visible when expanded */
+.toc-submenu.open {
+    display: block;
+}
+
+.toc-submenu li {
+    margin: 6px 0;
+}
+
+.toc-submenu a {
+    color: #333;
+    text-decoration: none;
+}
+
+.toc-submenu a:hover,
+.toc-submenu a:focus {
+    color: #33AB2B;
+    text-decoration: underline;
+}
+
+/* Push main body over */
+body {
+    margin-left: 250px;
+}
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background-color: #ffffff;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #33AB2B;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            border-bottom: 3px solid #33AB2B;
+            padding-bottom: 15px;
+        }
+
+        h2 {
+            color: #33AB2B;
+            font-size: 1.8em;
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            color: #33AB2B;
+            font-size: 1.2em;
+            margin-top: 20px;
+            margin-bottom: 15px;
+        }
+
+        h4 {
+            color: #33AB2B;
+            font-size: 1.1em;
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+
+        .definition-box {
+            background-color: #f0f8ed;
+            border: 2px solid #33AB2B;
+            border-radius: 6px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .definition-box h3 {
+            color: #33AB2B;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            margin-top: 0;
+        }
+
+        .definition-box p {
+            margin-bottom: 15px;
+        }
+
+        .definition-box ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .definition-box li {
+            margin-bottom: 10px;
+        }
+
+        .conversion-box {
+            background-color: #ffffff;
+            border: 2px solid #b84d7e;
+            border-radius: 6px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .conversion-box h3 {
+            color: #b84d7e;
+            margin-top: 0;
+        }
+
+        .conversion-box table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        .conversion-box table th,
+        .conversion-box table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .conversion-box table th {
+            background-color: #f0f0f0;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .orange-box {
+            background-color: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 6px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+
+        .orange-box h3 {
+            margin-top: 0;
+        }
+
+        .orange-box ol {
+            margin-left: 20px;
+        }
+
+        .orange-box li {
+            margin-bottom: 8px;
+        }
+
+        .example {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            margin: 25px 0;
+            overflow: hidden;
+        }
+
+        .example-problem {
+            padding: 15px 20px;
+        }
+
+        .example-problem h3 {
+            color: #33AB2B;
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .example-problem p {
+            margin-bottom: 10px;
+        }
+
+        .example-problem ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .example-problem li {
+            margin-bottom: 8px;
+        }
+
+        .example-problem ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .solution-header {
+            background-color: #33AB2B;
+            color: white;
+            padding: 12px 20px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+            margin-top: 15px;
+            border-radius: 4px;
+            transition: background-color 0.2s ease;
+            border: none;
+            font-size: 1em;
+        }
+
+        .solution-header:hover {
+            background-color: #2a8922;
+        }
+
+        .toggle-arrow {
+            display: inline-block;
+            margin-right: 12px;
+            transition: transform 0.3s ease;
+            font-size: 1.2em;
+        }
+
+        .toggle-arrow.open {
+            transform: rotate(180deg);
+        }
+
+        .example-content {
+            padding: 0;
+            display: none;
+            overflow: hidden;
+        }
+
+        .example-content.open {
+            display: block;
+        }
+
+        .solution {
+            background-color: #f0f8ed;
+            padding: 20px;
+            border-top: 2px solid #33AB2B;
+        }
+
+        .solution h4 {
+            color: #33AB2B;
+            margin-bottom: 15px;
+            margin-top: 0;
+        }
+
+        .solution p {
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        .solution ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .solution li {
+            margin-bottom: 8px;
+        }
+
+        .solution ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        ul li {
+            margin-bottom: 8px;
+        }
+
+        ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        ol li {
+            margin-bottom: 8px;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        strong {
+            font-weight: bold;
+        }
+
+        em {
+            font-style: italic;
+        }
+
+        .blue-text {
+            color: #0066cc;
+        }
+
+        .divider {
+            border-top: 2px dashed #33AB2B;
+            margin: 30px 0;
+        }
+
+        .image-placeholder {
+            background-color: #e0e0e0;
+            border: 2px dashed #999;
+            padding: 40px;
+            margin: 20px 0;
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            border-radius: 4px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table th {
+            background-color: #f0f8ed;
+            color: #33AB2B;
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ccc;
+            font-weight: bold;
+        }
+
+        table td {
+            padding: 12px;
+            border: 1px solid #ccc;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        table tr.highlighted {
+            background-color: #ffff99;
+        }
+
+        .subsection-title {
+            color: #33AB2B;
+            font-size: 1.3em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+    </style>
+<style>
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+</style>
+</head>
+<body>
+<nav class="side-toc" aria-label="Textbook Navigation">
+    <h2 class="toc-title">Contents</h2>
+
+    <!-- Chapter 1 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 1: Financial Literacy</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="MTH154CH1_1.html">1.1 Introduction</a></li>
+        <li><a href="MTH154CH1_2.html">1.2 Problem Solving</a></li>
+        <li><a href="MTH154CH1_3.html">1.3 Simple Interest</a></li>
+ 	<li><a href="MTH154CH1_4.html">1.4 Compound Interest & Annuities</a></li>
+ 	<li><a href="MTH154CH1_5.html">1.5 Installment Loans</a></li>
+ 	<li><a href="MTH154CH1_6.html">1.6 Loans</a></li>
+ 	<li><a href="MTH154CH1_7.html">1.7 Stocks & Bonds</a></li>
+ 	<li><a href="MTH154CH1_8.html">1.8 Taxes</a></li>
+    </ul>
+
+    <!-- Chapter 2 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 2: Modeling Data</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="Ch2_1.html">2.1 Basics of Graphing</a></li>
+        <li><a href="Ch2_2.html">2.2 Relations & Functions</a></li>
+        <li><a href="Ch2_3.html">2.3 Linear Models</a></li>
+        <li><a href="Ch2_4.html">2.4 Rate of Change</a></li>
+        <li><a href="Ch2_5.html">2.5 Scatterplots</a></li>
+    </ul>
+
+    <!-- Chapter 3 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 3: Set Theory</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="Ch3_1.html">3.1 Set Basics</a></li>
+        <li><a href="Ch3_2.html">3.2 Sets</a></li>
+        <li><a href="Ch3_3.html">3.3 Venn Diagrams</a></li>
+        <li><a href="MTH154CH3_4.html">3.4 More with Venn Diagrams</a></li>
+    </ul>
+
+   <!-- Chapter 4 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 4: Logic</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="MTH154CH4_1.html">4.1 Thinking Logically</a></li>
+        <li><a href="MTH154CH4_2.html">4.2 Introduction to Truth Tables</a></li>
+	<li><a href="MTH154CH4_3.html">4.3 Logical Arguments</a></li>
+	<li><a href="MTH154CH4_4.html">4.4 Variations of Statements</a></li>
+    </ul>
+
+   <!-- Chapter 5 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 5: Measurement</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="MTH154CH5_1.html">5.1 Ratios & Proportions</a></li>
+        <li><a href="MTH154CH5_2.html">5.2 Measurement</a></li>
+	<li><a href="MTH154CH5_3.html">5.3 Area, Volume, and Capacity</a></li>
+	<li><a href="MTH154CH5_4.html">5.4 Weight & Temperature</a></li>
+	<li><a href="MTH154CH5_5.html">5.5 Surface Area & Volume</a></li>
+    </ul>
+</nav>
+    <div class="container">
+        <h1>Section 2.3: Modeling Linear Data</h1>
+
+        <div class="intro-section">
+            <p>Should you choose to go into the education field once you graduate, you will find there is a heavy emphasis on "what does the data show?" In education, educators are frequently looking at data to determine if there is some type of relationship between a number of different factors. To visually see that data, a person may use something called a <strong> scatter plot</strong>. What a scatter plot does is it allows a person to graph a "cause and effect" type of relationship.</p>
+
+       </div>
+<h2> Scatter Plots</h2>
+<p>Every scatter plot is collection of points\( (x,y) \) in which the x-axis demonstrates the <strong> explanatory variable</strong>, or inputs, and the y-axis demonstrates the <strong> response variable</strong>, or outputs, of the relationship.</p>
+
+	<figure>
+		<!-- Insert Graph here -->
+
+	</figure>
+
+<p> Looking at the above scatter plot, we can really derive a lot of information from the data collected. From the scatter plot, we can see that someone was looking to show a relationship between a student's age and the grade they received on the final exam. We can see that the ages range from about 18 to 40, and the grades range from about 60% to 99%. However, from this scatter plot, we cannot conclude that there is a relationship between the students age and their final exam grade. Throughout the remainder of this unit, we will be discussing how we can determine if a relationship actually exists. In this section, we will really concentrate on looking at linear models.</p>
+
+<p>Recall that a linear model is a set of data that creates a straight line that either increases or decreases. </p>
+
+ 
+
+        <!-- Example 1 -->
+        <div class="example">
+            <div class="example-problem">
+                <h3>Example 1</h3>
+                <p>The scientist is looking to determine if there is a relationship with how much a cricket chirps depending on the air temperature in degrees Fahrenheit. The table below displays the number of chirps a cricket makes in 15 seconds and the air temperature during that data recording. Create a scatter plot and determine whether the data appears to be linearly related?</p>
+                <div class="table-container" style="text-align: center; margin: 20px 0;">
+  <table border="1" cellpadding="8" cellspacing="0" style="margin: 0 auto; border-collapse: collapse;">
+    <caption style="caption-side: top; font-weight: bold; margin-bottom: 10px;">
+      Data values of numbers of chirps and their coordinating temperature.
+    </caption>
+    <thead>
+      <tr>
+        <th scope="col">Chirps</th>
+        <th scope="col">44</th>
+        <th scope="col">35</th>
+        <th scope="col">20.4</th>
+        <th scope="col">33</th>
+        <th scope="col">31</th>
+        <th scope="col">35</th>
+        <th scope="col">18.5</th>
+        <th scope="col">37</th>
+        <th scope="col">26</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">Temperature (°F)</th>
+        <td>80.5</td>
+        <td>70.5</td>
+        <td>57</td>
+        <td>66</td>
+        <td>68</td>
+        <td>72</td>
+        <td>52</td>
+        <td>73.5</td>
+        <td>53</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+          
+            <button class="solution-header" onclick="toggleExample(this)">
+                <span class="toggle-arrow">▼</span>
+                <span>Show Solution</span>
+            </button>
+            <div class="example-content">
+                <div class="solution">
+                    <h4>Solution</h4>
+                    <p>To create this table, we first need to figure out what will go on the $x$-axis and what will go on the $y$-axis. Are we trying to show that the number of chirps is dependent on the temperature, or that the temperature dependent on the number of chirps? It would be silly to assume that the temperature outside is dependent on how many times a cricket chirps. This suggests that our explanatory variable is the temperature and our response variable is the number of chirps. Thus if we create our scatter plot, we'd get:</p>
+                   <div style="text-align: center;"> 
+                   <svg width="600" height="400" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="scatterTitle">
+  <title id="scatterTitle">Scatter plot of the temperature on the x-axis and chirps in 15 seconds on the y-axis.</title>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="600" height="400" fill="#ffffff"/>
+
+  <!-- Plot area -->
+  <rect x="60" y="40" width="500" height="300" fill="none" stroke="#000" stroke-width="1"/>
+
+  <!-- X-axis -->
+  <line x1="60" y1="340" x2="560" y2="340" stroke="#000" stroke-width="1"/>
+  <!-- X-axis ticks and labels -->
+  <text x="60" y="360" font-size="12" text-anchor="middle">40</text>
+  <text x="140" y="360" font-size="12" text-anchor="middle">50</text>
+  <text x="220" y="360" font-size="12" text-anchor="middle">60</text>
+  <text x="300" y="360" font-size="12" text-anchor="middle">70</text>
+  <text x="380" y="360" font-size="12" text-anchor="middle">80</text>
+  <text x="460" y="360" font-size="12" text-anchor="middle">90</text>
+  <!-- X-axis label -->
+  <text x="310" y="390" font-size="14" text-anchor="middle" font-weight="bold">Temperature (°F)</text>
+
+  <!-- Y-axis -->
+  <line x1="60" y1="40" x2="60" y2="340" stroke="#000" stroke-width="1"/>
+  <!-- Y-axis ticks and labels -->
+  <text x="40" y="340" font-size="12" text-anchor="end">0</text>
+  <text x="40" y="280" font-size="12" text-anchor="end">10</text>
+  <text x="40" y="220" font-size="12" text-anchor="end">20</text>
+  <text x="40" y="160" font-size="12" text-anchor="end">30</text>
+  <text x="40" y="100" font-size="12" text-anchor="end">40</text>
+  <text x="40" y="40" font-size="12" text-anchor="end">50</text>
+  <!-- Y-axis label -->
+  <text x="20" y="200" font-size="14" text-anchor="middle" transform="rotate(-90 20,200)" font-weight="bold">Chirps in 15 Seconds</text>
+
+  <!-- Grid lines (horizontal) -->
+  <line x1="60" y1="280" x2="560" y2="280" stroke="#ccc" stroke-dasharray="4"/>
+  <line x1="60" y1="220" x2="560" y2="220" stroke="#ccc" stroke-dasharray="4"/>
+  <line x1="60" y1="160" x2="560" y2="160" stroke="#ccc" stroke-dasharray="4"/>
+  <line x1="60" y1="100" x2="560" y2="100" stroke="#ccc" stroke-dasharray="4"/>
+  <line x1="60" y1="40" x2="560" y2="40" stroke="#ccc" stroke-dasharray="4"/>
+
+  <!-- Data points -->
+  <!-- Scale conversion: 
+       x: 35-90 → 60-560 px
+       y: 0-55 → 340-40 px (inverted)
+  -->
+  <!-- Helper function: x_px = 60 + (temp - 35) * (500 / 55), y_px = 340 - (chirps * 300 / 55) -->
+
+  <!-- Coordinates converted -->
+  <circle cx="520" cy="85" r="5" fill="blue"/>   <!-- (80.35,44) -->
+  <circle cx="450" cy="120" r="5" fill="blue"/>  <!-- (70.5,35) -->
+  <circle cx="280" cy="220" r="5" fill="blue"/>  <!-- (57,20.4) -->
+  <circle cx="350" cy="145" r="5" fill="blue"/>  <!-- (66,33) -->
+  <circle cx="380" cy="160" r="5" fill="blue"/>  <!-- (68,31) -->
+  <circle cx="420" cy="120" r="5" fill="blue"/>  <!-- (72,35) -->
+  <circle cx="200" cy="240" r="5" fill="blue"/>  <!-- (52,18.5) -->
+  <circle cx="440" cy="110" r="5" fill="blue"/>  <!-- (73.5,37) -->
+  <circle cx="210" cy="200" r="5" fill="blue"/>  <!-- (53,26) -->
+
+  <!-- Title -->
+  <text x="310" y="20" font-size="16" text-anchor="middle" font-weight="bold">Temperature vs Chirps</text>
+</svg>
+</div> 
+
+<p> Looking at the scatter plot, we can see that the data trends upwards even though the line is not a perfect straight line. With real data, it will rarely fall on the line 100 % accurately. It can be concluded from looking at the scatter plot that a linear relationship does exist.</p>
+</div>
+</div>
+</div>
+</div>
+
+<h2> Writing Linear Models </h2>
+<div>
+<p>Once we recognize a need for a linear function to model a given set of data, the natural follow-up question is, "How do we write that model?" The non-technological way would be to select two points on the graph and use the slope equation that is learned in Algebra I to identify the slope. Then, find the y-intercept of the graph and write the equation(model) using the point-slope formula. Let's be honest, this is college. The use of technology is to be used to enhance your skills. While we will cover what the slope and y-intercept represent graphically, we are going to allow technology to create that model for us.</p>
+
+<p> </p>
+<p>Recall in high school, or possibly even middle school, you learned about the slope of a line. You were taught that the slope $m=\dfrac{\text{rise}}{\text{run}}=\dfrac{y_2-y_1}{x_2-x_1}$ is the rate-of-change of the linear function. We've previously discussed the $y$-intercept $(0,b)$ where $b$ is the place where the equation crosses through the $y$-axis. Using these two pieces, an equation can be created that will model our data. Typically when technology finds the model of best fit or the linear regression model, they will use the equation $\hat{y}=mx+b$, where $\hat{y}$ is the estimated response variable $y$ value, and $x$ is the input or explanatory variable.</p>
+
+<p>For the purpose of this course, we will primarily use Microsoft Excel or Google Sheets to help us find these models. Should you need tutorials on either of these, please refer to the appendix of the book. Let's see how we would read and interpret the model produced by technology.</p>
+</div>
+    
+ <!-- Example 2 -->
+        <div class="example">
+            <div class="example-problem">
+                <h3>Example 2</h3>
+		<p>Looking back at our cricket data, identify a linear function that would best model the data. Then identify how many chirps we could expect if the temperature was 84$^\circ$F.</p>
+
+ <div class="table-container" style="text-align: center; margin: 20px 0;">
+  <table border="1" cellpadding="8" cellspacing="0" style="margin: 0 auto; border-collapse: collapse;">
+    <caption style="caption-side: top; font-weight: bold; margin-bottom: 10px;">
+      Data values of numbers of chirps and their coordinating temperature.
+    </caption>
+    <thead>
+      <tr>
+        <th scope="col">Chirps</th>
+        <th scope="col">44</th>
+        <th scope="col">35</th>
+        <th scope="col">20.4</th>
+        <th scope="col">33</th>
+        <th scope="col">31</th>
+        <th scope="col">35</th>
+        <th scope="col">18.5</th>
+        <th scope="col">37</th>
+        <th scope="col">26</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">Temperature (°F)</th>
+        <td>80.5</td>
+        <td>70.5</td>
+        <td>57</td>
+        <td>66</td>
+        <td>68</td>
+        <td>72</td>
+        <td>52</td>
+        <td>73.5</td>
+        <td>53</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div style="text-align: center;"> 
+                   <svg width="600" height="400" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="scatterTitle">
+  <title id="scatterTitle">Scatter plot of the temperature on the x-axis and chirps in 15 seconds on the y-axis.</title>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="600" height="400" fill="#ffffff"/>
+
+  <!-- Plot area -->
+  <rect x="60" y="40" width="500" height="300" fill="none" stroke="#000" stroke-width="1"/>
+
+  <!-- X-axis -->
+  <line x1="60" y1="340" x2="560" y2="340" stroke="#000" stroke-width="1"/>
+  <!-- X-axis ticks and labels -->
+  <text x="60" y="360" font-size="12" text-anchor="middle">40</text>
+  <text x="140" y="360" font-size="12" text-anchor="middle">50</text>
+  <text x="220" y="360" font-size="12" text-anchor="middle">60</text>
+  <text x="300" y="360" font-size="12" text-anchor="middle">70</text>
+  <text x="380" y="360" font-size="12" text-anchor="middle">80</text>
+  <text x="460" y="360" font-size="12" text-anchor="middle">90</text>
+  <!-- X-axis label -->
+  <text x="310" y="390" font-size="14" text-anchor="middle" font-weight="bold">Temperature (°F)</text>
+
+  <!-- Y-axis -->
+  <line x1="60" y1="40" x2="60" y2="340" stroke="#000" stroke-width="1"/>
+  <!-- Y-axis ticks and labels -->
+  <text x="40" y="340" font-size="12" text-anchor="end">0</text>
+  <text x="40" y="280" font-size="12" text-anchor="end">10</text>
+  <text x="40" y="220" font-size="12" text-anchor="end">20</text>
+  <text x="40" y="160" font-size="12" text-anchor="end">30</text>
+  <text x="40" y="100" font-size="12" text-anchor="end">40</text>
+  <text x="40" y="40" font-size="12" text-anchor="end">50</text>
+  <!-- Y-axis label -->
+  <text x="20" y="200" font-size="14" text-anchor="middle" transform="rotate(-90 20,200)" font-weight="bold">Chirps in 15 Seconds</text>
+
+  <!-- Grid lines (horizontal) -->
+  <line x1="60" y1="280" x2="560" y2="280" stroke="#ccc" stroke-dasharray="4"/>
+  <line x1="60" y1="220" x2="560" y2="220" stroke="#ccc" stroke-dasharray="4"/>
+  <line x1="60" y1="160" x2="560" y2="160" stroke="#ccc" stroke-dasharray="4"/>
+  <line x1="60" y1="100" x2="560" y2="100" stroke="#ccc" stroke-dasharray="4"/>
+  <line x1="60" y1="40" x2="560" y2="40" stroke="#ccc" stroke-dasharray="4"/>
+
+  <!-- Data points -->
+  <!-- Scale conversion: 
+       x: 35-90 → 60-560 px
+       y: 0-55 → 340-40 px (inverted)
+  -->
+  <!-- Helper function: x_px = 60 + (temp - 35) * (500 / 55), y_px = 340 - (chirps * 300 / 55) -->
+
+  <!-- Coordinates converted -->
+  <circle cx="520" cy="85" r="5" fill="blue"/>   <!-- (80.35,44) -->
+  <circle cx="450" cy="120" r="5" fill="blue"/>  <!-- (70.5,35) -->
+  <circle cx="280" cy="220" r="5" fill="blue"/>  <!-- (57,20.4) -->
+  <circle cx="350" cy="145" r="5" fill="blue"/>  <!-- (66,33) -->
+  <circle cx="380" cy="160" r="5" fill="blue"/>  <!-- (68,31) -->
+  <circle cx="420" cy="120" r="5" fill="blue"/>  <!-- (72,35) -->
+  <circle cx="200" cy="240" r="5" fill="blue"/>  <!-- (52,18.5) -->
+  <circle cx="440" cy="110" r="5" fill="blue"/>  <!-- (73.5,37) -->
+  <circle cx="210" cy="200" r="5" fill="blue"/>  <!-- (53,26) -->
+
+  <!-- Title -->
+  <text x="310" y="20" font-size="16" text-anchor="middle" font-weight="bold">Temperature vs Chirps</text>
+</svg>
+</div>
+
+
+ <button class="solution-header" onclick="toggleExample(this)">
+                <span class="toggle-arrow">▼</span>
+                <span>Show Solution</span>
+            </button>
+            <div class="example-content">
+                <div class="solution">
+                    <h4>Solution</h4>
+
+		<p>First, we would need to put our data into Excel or Google Sheets, placing the Temperature in the first column and the chirps in the second column. From there, you'd insert a scatterplot, add a chart element, and add a linear trendline. Once again, if you're unsure of the steps, please see the appendix. Once you're finished, you'd end up with the following results:</p>
+
+<!--Scatter Plot Graph Needed -->
+<g><figure role="figure" aria-labelledby="excel-fig-caption">
+    <img 
+        src="../Ch2.3_graph1.jpg" 
+        alt="Excel screenshot showing a data table and scatter plot relating temperature to chirp counts. On the left, a two-column table lists Temperature values in the first (left) column and Chirps counts in the second (right) column. On the right, an XY scatter plot graphs Chirps (y-axis) versus Temperature (x-axis), includes a fitted trendline, and displays the regression equation for predicted chirps (y-hat) along with the R-squared value."
+        style="display: block; margin: 0 auto; max-width: 100%; height: auto;"
+    >
+    <figcaption id="excel-fig-caption" style="text-align: center; margin-top: 8px;">
+        Picture of output using Microsoft Excel.
+    </figcaption>
+</figure>
+</g>
+
+<p>From this excel result, we can see on the graph that the equation(model) would be $\hat{y}=0.7955x-21.297$. What this equation tells us is that for every degree the temperature increases, the number of times that a cricket will chirp in 15 seconds is increased by 0.7955 chirps. When the temperature is $0^\circ$F, a cricket will chirp $-21.297$ times in 15 seconds, which we know is not possible. </p>
+
+<p>To answer the second question of how many times will a cricket chirp in 15 seconds if the temperature is $84^\circ$F, we'd take our model and substitute $x=84$ into the equation for $x$.</p>
+$$
+\begin{aligned}
+y&=0.7955x-21.297\\
+y&=0.7955(84)-21.297\\
+y&=66.822-21.297\\
+y&=45.525\\
+\end{aligned}
+$$
+
+<p>We can expect on an $84^\circ$F day that the average cricket will chirp $45.525$ times in 15 seconds. If we were to look at our original scatter plot, we would see that this looks like a reasonable solution or estimate to the problem.</p>
+
+	</div> 
+	</div>
+	</div>
+	</div>
+	<h2>Relationship Strength</h2>
+        <p>When we are creating models to fit data and different types of models, wouldn't it be nice if there was a magical number that tells us if this model is a good fit or not? Luckily for us, there is. It is called the <strong> Correlation Coefficient </strong> and we denote it with the variable $r$. </p>    
+
+<div style="text-align: center;">
+<svg width="500" height="300" viewBox="-10 -1 20 7" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="corr-info">
+    <title id="corr-info">Correlation coefficient information box describing r values and their meanings</title>
+
+    <!-- Background rectangle -->
+    <rect x="-10" y="1" width="20" height="5" fill="#d3d3d3" stroke="black" stroke-width="0.1"></rect>
+
+    <!-- Text lines -->
+    <text x="0" y="5.4" font-size="0.6" font-family="Arial" text-anchor="middle">
+        The <tspan font-weight="bold">Correlation Coefficient</tspan> is a value, r, between -1 and 1.
+    </text>
+
+    <text x="0" y="4.4" font-size="0.6" font-family="Arial" text-anchor="middle">
+        r &gt; 0 suggests a positive (increasing) relationship
+    </text>
+
+    <text x="0" y="3.4" font-size="0.6" font-family="Arial" text-anchor="middle">
+        r &lt; 0 suggests a negative (decreasing) relationship
+    </text>
+
+    <text x="0" y="2.6" font-size="0.6" font-family="Arial" text-anchor="middle">
+        r = 0 suggests no relationship exists
+    </text>
+
+    <text x="0" y="1.8" font-size="0.6" font-family="Arial" text-anchor="middle">
+        The closer |r| is to 1, the stronger the relationship
+    </text>
+</svg>
+</div>
+
+	 <!-- Example 3 -->
+        <div class="example">
+            <div class="example-problem">
+                <h3>Example 3</h3>
+		<p>Given the different correlation coefficients below, order them from strongest to weakest relationship. 
+$$\{-0.98,-.85,0.97,0.86,-0.64,0.06,0.54\}$$ </p>
+
+	
+	
+		<button class="solution-header" onclick="toggleExample(this)">
+                <span class="toggle-arrow">▼</span>
+                <span>Show Solution</span>
+            </button>
+            <div class="example-content">
+                <div class="solution">
+                    <h4>Solution</h4>
+		<p>Since the negative sign has no impact on the strength of the relationship, it just dictates the type of relationship(positive or negative), we will look solely at the numbers and arrange them from largest to smallest. This would give us: 
+$$\{-0.98,0.97,0.86,-0.85,-0.64,0.54,0.06\}$$</p>
+
+</div>
+	</div>
+	</div>
+	</div>
+
+<p>Most technology programs will actually produce us with a <strong> Coefficient of Determination</strong> "$r^2$". The coefficient of determination is related to the correlation coefficient. The coefficient of determination tells a person how much variation or change they can expect between the estimated value $\hat{y}$ and the actual value $y$.</p>
+
+<!--Enter Excel Graph -->	
+<figure role="figure" aria-labelledby="excel-caption">
+    <img 
+        src="../Ch2.3_graph1.jpg"
+        alt="Excel screenshot showing a data table and scatter plot relating temperature to chirp counts. On the left, a two-column table lists Temperature values in the first (left) column and Chirps counts in the second (right) column. On the right, an XY scatter plot graphs Chirps (y-axis) versus Temperature (x-axis), includes a fitted trendline, and displays the regression equation for predicted chirps (y-hat) along with the R-squared value."
+        style="display: block; margin: 0 auto; max-width: 100%; height: auto;"
+    >
+    <figcaption id="excel-caption" style="text-align: center; margin-top: 8px;">
+        Picture of output using Microsoft Excel.
+    </figcaption>
+</figure>
+
+	<p>Looking back at our cricket example, we can see that the coefficient of determination is $r^2=0.9038$ . We can find the correlation coefficient r by taking the square root of that number. $r=\sqrt{0.9038}=0.9507$. This tell us that our cricket to temperature relationship is on the strong end, because $0.9507$ is rather close to 1. Additionally, since it is a positive number, we know that our relationship is a strong positive relationship, as can be seen by the graph. However, there is no mathematical proof to verify our interpretation.</p> 
+
+<p>What does the coefficient of determination tell us about our data? Let's look at the $(68,31)$ datum from our set. We know from our actual data that when it is $68^\circ$F, a cricket will chirp 31 times. If we were you use our model to help us determine our number of chirps, would it be the same? </p>
+$$
+\begin{aligned}
+y&=0.7955x-21.297\\
+y&=0.7955(68)-21.297\\
+y&=54.094-21.297\\
+y&=32.797\\
+\end{aligned}
+$$
+
+<p>According to our model, when the temperature is $68^\circ$F, the cricket should chirp 32.797 times. This number is slightly off from our actual value. This is where that coefficient of determination plays its part. We can express the coefficient of determination as a percentage $0.9038*100\%=90.38\%$ which tells us that approximately 90.38\% of the time the model will accurately predict the number of chirps. Since we are approximating it is going to be off just slightly, this does not make the prediction wrong.</p>	
+
+<p>When using the model to make a prediction or estimation, there are several factors that need to be considered:</p>
+
+<ul>
+    <li>Is the predicted value reasonable?</li>
+    <li>Is it an example of Interpolation?</li>
+    <li>Is it an example of Extrapolation?</li>
+    <li>Is the predicted value realistic?</li>
+    <li>Does the data present a strong relationship?</li>
+</ul>
+
+<p>The purpose of creating a model is so a person can actually use the model to make predictions. When making predictions, if the value that is substituted in is between the lowest $x$-value and highest $x$-value(in the domain), we call this an example of <strong> Interpolation </strong>. If the value that is substituted in is not within the domain of the $x$-values, then it is an example of <strong> Extrapolation </strong>. Extrapolation should really only be done when there is a significantly strong relationship. Otherwise, you run the risk of the solution being unrealistic and unreasonable. If the $x$-value doesn't fall within the red box below, then it would be an example of extrapolation, not interpolation.</p>
+
+<div style="text-align: center;">
+<svg width="550" height="400" viewBox="0 0 550 400" role="img" aria-labelledby="interp-extrap">
+    <title id="interp-extrap">
+        Scatter plot displaying the number of chirps in 15 seconds based on the temperature of the day.
+        A red box surrounds the data to illustrate interpolation and extrapolation regions.
+    </title>
+
+    <!-- Styles -->
+    <style>
+        .axis line, .axis path { stroke: black; stroke-width: 2; }
+        .grid line { stroke: #ccc; stroke-dasharray: 4 4; }
+        .point { fill: blue; }
+    </style>
+
+    <!-- Chart boundaries -->
+    <!-- Graph area: 500×300 inside padding -->
+    <g transform="translate(50,30)">
+        
+        <!-- Grid lines horizontal -->
+        <g class="grid">
+            <!-- y = 0 to 50 in steps of 10 -->
+            <!-- 0 -> y=300; 50 → y=0 -->
+            <!-- scale: each chirp unit = 6 px -->
+            <!-- 50 chirps * 6 = 300 px -->
+            <!-- Lines every 10 (60 px apart) -->
+            <line x1="0" y1="300" x2="500" y2="300"/>
+            <line x1="0" y1="240" x2="500" y2="240"/>
+            <line x1="0" y1="180" x2="500" y2="180"/>
+            <line x1="0" y1="120" x2="500" y2="120"/>
+            <line x1="0" y1="60"  x2="500" y2="60"/>
+            <line x1="0" y1="0"   x2="500" y2="0"/>
+        </g>
+
+        <!-- Axes -->
+        <g class="axis">
+            <!-- Y-axis -->
+            <line x1="0" y1="0" x2="0" y2="300"/>
+            <!-- X-axis -->
+            <line x1="0" y1="300" x2="500" y2="300"/>
+        </g>
+
+        <!-- Axis labels -->
+        <text x="250" y="340" text-anchor="middle" font-size="16">
+            Temperature (Degrees Fahrenheit)
+        </text>
+        <text x="-170" y="-25" transform="rotate(-90)" text-anchor="middle" font-size="16">
+            Chirps in 15 seconds
+        </text>
+
+        <!-- Title -->
+        <text x="250" y="-10" text-anchor="middle" font-size="18" font-weight="bold">
+            Temperature Vs Chirps
+        </text>
+
+        <!-- Data points (scaled) -->
+        <!-- x scale: 35 to 90 maps to 0 to 500 → (x-35)*500/55 -->
+        <!-- y scale: 0–55 maps to 300–0      → 300 - y*300/55 -->
+
+        <!-- Helper: Xmap = (x-35)*9.09; Ymap = 300 - y*5.45 -->
+
+        <!-- (80.35, 44) -->
+        <rect class="point" x="412" y="61" width="10" height="10"/>
+        <!-- (70.5, 35) -->
+        <rect class="point" x="322" y="109" width="10" height="10"/>
+        <!-- (57, 20.4) -->
+        <rect class="point" x="199" y="189" width="10" height="10"/>
+        <!-- (66, 33) -->
+        <rect class="point" x="281" y="119" width="10" height="10"/>
+        <!-- (68, 31) -->
+        <rect class="point" x="299" y="129" width="10" height="10"/>
+        <!-- (72, 35) -->
+        <rect class="point" x="340" y="109" width="10" height="10"/>
+        <!-- (52, 18.5) -->
+        <rect class="point" x="155" y="199" width="10" height="10"/>
+        <!-- (73.5, 37) -->
+        <rect class="point" x="354" y="99" width="10" height="10"/>
+        <!-- (53, 26) -->
+        <rect class="point" x="164" y="166" width="10" height="10"/>
+
+        <!-- Red interpolation/extrapolation box -->
+        <!-- Box corners: (51.5,18) (51.5,45) (81,45) (81,18) -->
+        <rect 
+            x="150" 
+            y="56" 
+            width="273" 
+            height="182" 
+            fill="none" 
+            stroke="red" 
+            stroke-width="3"
+        />
+    </g>
+</svg>
+</div>
+
+<p>So far in this section, we evaluated our model at $84^\circ$F and $68^\circ$F. The first one we evaluated was $84^\circ$F, which is an example of extrapolation, as the $x$-value of 84 is outside out red box and the second one was $68^\circ$F, which is an example of interpolation, as the value of 68 is inside our red box, or within our domain of our data. In either case, we had a strong positive linear relationship, and each of our predictions were reasonable and acceptable.</p>
+  	
+	<!-- Example 4 -->
+        <div class="example">
+            <div class="example-problem">
+                <h3>Example 4</h3>
+ <p>Gasoline consumption in the United States has been steadily increasing. Consumption(in billions of gallons) data from 1994 to 2004 is shown in the table below. Determine whether the trend is linear and if it is, find a linear model to fit the data. Lastly, use the model to predict the consumption in the year 2008. Allow x to be the years since 1994.</p>
+
+<table>
+    <caption>Table displaying the paired data of year and consumption (billions of gallons).</caption>
+    <thead>
+        <tr>
+            <th scope="col">Year</th>
+            <th scope="col">1994</th>
+            <th scope="col">1995</th>
+            <th scope="col">1996</th>
+            <th scope="col">1997</th>
+            <th scope="col">1998</th>
+            <th scope="col">1999</th>
+            <th scope="col">2000</th>
+            <th scope="col">2001</th>
+            <th scope="col">2002</th>
+            <th scope="col">2003</th>
+            <th scope="col">2004</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th scope="row">Consumption</th>
+            <td>113</td>
+            <td>116</td>
+            <td>118</td>
+            <td>119</td>
+            <td>120</td>
+            <td>125</td>
+            <td>126</td>
+            <td>128</td>
+            <td>131</td>
+            <td>133</td>
+            <td>136</td>
+        </tr>
+    </tbody>
+</table>
+
+	<button class="solution-header" onclick="toggleExample(this)">
+                <span class="toggle-arrow">▼</span>
+                <span>Show Solution</span>
+            </button>
+            <div class="example-content">
+                <div class="solution">
+                    <h4>Solution</h4>
+	<p>After we put all of our data into excel or google sheets, column A should be the years, column B should be the years since 1994, and column C should be the Consumption. Then, we can create the plot below, using columns B and C:</p>
+
+<!--Picture-->
+<figure role="figure" aria-labelledby="gasoline-graph">
+    <img src="../Ch2.3_graph2.jpg"
+         alt="Scatter plot output from Microsoft Excel displaying the years since 1994 on the x-axis and consumption of gasoline in billions of gallons on the y-axis. Additionally, the linear regression line was added to the plot."
+         style="display: block; margin: 0 auto; max-width: 100%; height: auto;" />
+    <figcaption id="gasoline-graph" style="text-align: center;">
+        Gasoline consumption (billions of gallons) vs. years since 1994 with linear regression line
+    </figcaption>
+</figure>
+
+
+<p>Based on the plot, we can see that there is a linear relationship with a coefficient of determination of $r^2=0.9931$, which would give us a correlation coefficient of $r=\sqrt{0.9931}=0.9965$, further supporting that there is a strong positive linear relationship. Additionally, we can see from the plot that the model that best represents the linear relationship is $\hat{y}=2.2091x+113.32$. </p>
+
+<p>Lastly to find the amount of gasoline consumption in 2008, we'd need to figure out how many years it was since 1994 $(2008-1994=14)$ and we'd substitute that number into our model for $x$ which would give us:</p>
+$$
+\begin{aligned}
+y&=2.2091(14)+113.32\\
+y&=30.9271+113.32\\
+y&=144.2474\\
+\end{aligned}
+$$
+
+<p>This would be an example of extrapolation since 2008 is outside the domain of our $x$-values. Since we have an extremely strong relationship, it is relatively safe to estimate outside our data. The estimation of 144.2474 billion gallons is both reasonable and acceptable based on the information we have. Especially since in 2004, the data shows there were 136 billion gallons being consumed, and the model is increasing by roughly 2.2091 billion gallons per year. </p>
+
+	</div>
+	</div>
+	</div>
+	</div>
+ <nav aria-label="Page navigation">
+  <div class="page-navigation">
+    <div class="page-navigation" style="display:flex; justify-content:space-between; margin-top:40px;">
+        <a href="CH2_2.html" class="nav-button" aria-label="Go to previous section">&larr; Previous</a>
+        <a href="CH2_4.html" class="nav-button" aria-label="Go to next section">Next &rarr;</a>
+    </div>
+  </div>
+</nav>
+
+</div>
+<script>
+        function toggleExample(button) {
+            const content = button.nextElementSibling;
+            const arrow = button.querySelector('.toggle-arrow');
+            
+            if (content.classList.contains('open')) {
+                content.classList.remove('open');
+                arrow.classList.remove('open');
+                button.querySelector('span:last-child').textContent = 'Show Solution';
+            } else {
+                content.classList.add('open');
+                arrow.classList.add('open');
+                button.querySelector('span:last-child').textContent = 'Hide Solution';
+            }
+        }
+    </script>
+
+    <script>
+        const chapterButtons = document.querySelectorAll(".toc-chapter");
+
+        chapterButtons.forEach(button => {
+            button.addEventListener("click", () => {
+                const expanded = button.getAttribute("aria-expanded") === "true";
+                button.setAttribute("aria-expanded", !expanded);
+
+                const submenu = button.nextElementSibling;
+                submenu.classList.toggle("open");
+            });
+        });
+    </script>
+</body>
+</html>

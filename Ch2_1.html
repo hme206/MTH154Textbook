@@ -1,0 +1,1493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Section 2.1: Basics of Graphing</title>
+    
+   <!-- MathJax configuration -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            },
+            loader: {
+                load: ['input/tex', 'output/chtml']
+            }
+        };
+    </script>
+    <!-- MathJax loader -->
+    <script id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+
+    <style>
+      
+    .nav-button {
+      padding: 10px 20px;
+      background-color: #33AB2B;
+      color: #000000;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+
+    .nav-button:hover,
+    .nav-button:focus {
+      background-color: #33AB2B;
+      outline: none;
+    }     
+/* Layout unchanged */
+.side-toc {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 230px;
+    height: 100vh;
+    background-color: #f0f8ed;
+    border-right: 3px solid #33AB2B;
+    padding: 20px;
+    overflow: hidden;
+}
+.diagram-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(150px, 1fr));
+  gap: 2rem;
+  justify-items: center;   /* centers each column item */
+  align-items: start;
+  margin: 1.5rem 0;
+}
+
+.diagram {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.toc-title {
+    font-size: 1.4em;
+    margin-bottom: 15px;
+    color: #33AB2B;
+}
+
+/* Chapter buttons */
+.toc-chapter {
+    width: 100%;
+    background: none;
+    border: none;
+    text-align: left;
+    font-size: 1em;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    color: #333;
+}
+
+.toc-chapter:hover,
+.toc-chapter:focus {
+    color: #33AB2B;
+}
+
+.arrow {
+    transition: transform 0.25s ease;
+}
+
+/* Rotated when opened */
+.toc-chapter[aria-expanded="true"] .arrow {
+    transform: rotate(90deg);
+}
+
+/* Submenu collapsed by default */
+.toc-submenu {
+    list-style: none;
+    padding-left: 15px;
+    margin: 5px 0 10px 0;
+    display: none;
+}
+
+/* Visible when expanded */
+.toc-submenu.open {
+    display: block;
+}
+
+.toc-submenu li {
+    margin: 6px 0;
+}
+
+.toc-submenu a {
+    color: #333;
+    text-decoration: none;
+}
+
+.toc-submenu a:hover,
+.toc-submenu a:focus {
+    color: #33AB2B;
+    text-decoration: underline;
+}
+
+/* Push main body over */
+body {
+    margin-left: 250px;
+}
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background-color: #ffffff;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #33AB2B;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            border-bottom: 3px solid #33AB2B;
+            padding-bottom: 15px;
+        }
+
+        h2 {
+            color: #33AB2B;
+            font-size: 1.8em;
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            color: #33AB2B;
+            font-size: 1.2em;
+            margin-top: 20px;
+            margin-bottom: 15px;
+        }
+
+        h4 {
+            color: #33AB2B;
+            font-size: 1.1em;
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+
+        .definition-box {
+            background-color: #f0f8ed;
+            border: 2px solid #33AB2B;
+            border-radius: 6px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .definition-box h3 {
+            color: #33AB2B;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            margin-top: 0;
+        }
+
+        .definition-box p {
+            margin-bottom: 15px;
+        }
+
+        .definition-box ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .definition-box li {
+            margin-bottom: 10px;
+        }
+
+        .conversion-box {
+            background-color: #ffffff;
+            border: 2px solid #b84d7e;
+            border-radius: 6px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .conversion-box h3 {
+            color: #b84d7e;
+            margin-top: 0;
+        }
+
+        .conversion-box table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        .conversion-box table th,
+        .conversion-box table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .conversion-box table th {
+            background-color: #f0f0f0;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .orange-box {
+            background-color: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 6px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+
+        .orange-box h3 {
+            margin-top: 0;
+        }
+
+        .orange-box ol {
+            margin-left: 20px;
+        }
+
+        .orange-box li {
+            margin-bottom: 8px;
+        }
+
+        .example {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            margin: 25px 0;
+            overflow: hidden;
+        }
+
+        .example-problem {
+            padding: 15px 20px;
+        }
+
+        .example-problem h3 {
+            color: #33AB2B;
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .example-problem p {
+            margin-bottom: 10px;
+        }
+
+        .example-problem ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .example-problem li {
+            margin-bottom: 8px;
+        }
+
+        .example-problem ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .solution-header {
+            background-color: #33AB2B;
+            color: white;
+            padding: 12px 20px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+            margin-top: 15px;
+            border-radius: 4px;
+            transition: background-color 0.2s ease;
+            border: none;
+            font-size: 1em;
+        }
+
+        .solution-header:hover {
+            background-color: #2a8922;
+        }
+
+        .toggle-arrow {
+            display: inline-block;
+            margin-right: 12px;
+            transition: transform 0.3s ease;
+            font-size: 1.2em;
+        }
+
+        .toggle-arrow.open {
+            transform: rotate(180deg);
+        }
+
+        .example-content {
+            padding: 0;
+            display: none;
+            overflow: hidden;
+        }
+
+        .example-content.open {
+            display: block;
+        }
+
+        .solution {
+            background-color: #f0f8ed;
+            padding: 20px;
+            border-top: 2px solid #33AB2B;
+        }
+
+        .solution h4 {
+            color: #33AB2B;
+            margin-bottom: 15px;
+            margin-top: 0;
+        }
+
+        .solution p {
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        .solution ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .solution li {
+            margin-bottom: 8px;
+        }
+
+        .solution ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        ul li {
+            margin-bottom: 8px;
+        }
+
+        ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        ol li {
+            margin-bottom: 8px;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        strong {
+            font-weight: bold;
+        }
+
+        em {
+            font-style: italic;
+        }
+
+        .blue-text {
+            color: #0066cc;
+        }
+
+        .divider {
+            border-top: 2px dashed #33AB2B;
+            margin: 30px 0;
+        }
+
+        .image-placeholder {
+            background-color: #e0e0e0;
+            border: 2px dashed #999;
+            padding: 40px;
+            margin: 20px 0;
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            border-radius: 4px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table th {
+            background-color: #f0f8ed;
+            color: #33AB2B;
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ccc;
+            font-weight: bold;
+        }
+
+        table td {
+            padding: 12px;
+            border: 1px solid #ccc;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        table tr.highlighted {
+            background-color: #ffff99;
+        }
+
+        .subsection-title {
+            color: #33AB2B;
+            font-size: 1.3em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+    </style>
+<style>
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+</style>
+</head>
+<body>
+<nav class="side-toc" aria-label="Textbook Navigation">
+    <h2 class="toc-title">Contents</h2>
+
+    <!-- Chapter 1 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 1: Financial Literacy</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="MTH154CH1_1.html">1.1 Introduction</a></li>
+        <li><a href="MTH154CH1_2.html">1.2 Problem Solving</a></li>
+        <li><a href="MTH154CH1_3.html">1.3 Simple Interest</a></li>
+ 	<li><a href="MTH154CH1_4.html">1.4 Compound Interest & Annuities</a></li>
+ 	<li><a href="MTH154CH1_5.html">1.5 Installment Loans</a></li>
+ 	<li><a href="MTH154CH1_6.html">1.6 Loans</a></li>
+ 	<li><a href="MTH154CH1_7.html">1.7 Stocks & Bonds</a></li>
+ 	<li><a href="MTH154CH1_8.html">1.8 Taxes</a></li>
+    </ul>
+
+    <!-- Chapter 2 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 2: Modeling Data</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="Ch2_1.html">2.1 Basics of Graphing</a></li>
+        <li><a href="Ch2_2.html">2.2 Relations & Functions</a></li>
+        <li><a href="Ch2_3.html">2.3 Linear Models</a></li>
+        <li><a href="Ch2_4.html">2.4 Rate of Change</a></li>
+        <li><a href="Ch2_5.html">2.5 Scatterplots</a></li>
+    </ul>
+
+    <!-- Chapter 3 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 3: Set Theory</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="Ch3_1.html">3.1 Set Basics</a></li>
+        <li><a href="Ch3_2.html">3.2 Sets</a></li>
+        <li><a href="Ch3_3.html">3.3 Venn Diagrams</a></li>
+        <li><a href="MTH154CH3_4.html">3.4 More with Venn Diagrams</a></li>
+    </ul>
+
+   <!-- Chapter 4 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 4: Logic</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="MTH154CH4_1.html">4.1 Thinking Logically</a></li>
+        <li><a href="MTH154CH4_2.html">4.2 Introduction to Truth Tables</a></li>
+	<li><a href="MTH154CH4_3.html">4.3 Logical Arguments</a></li>
+	<li><a href="MTH154CH4_4.html">4.4 Variations of Statements</a></li>
+    </ul>
+
+   <!-- Chapter 5 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 5: Measurement</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="MTH154CH5_1.html">5.1 Ratios & Proportions</a></li>
+        <li><a href="MTH154CH5_2.html">5.2 Measurement</a></li>
+	<li><a href="MTH154CH5_3.html">5.3 Area, Volume, and Capacity</a></li>
+	<li><a href="MTH154CH5_4.html">5.4 Weight & Temperature</a></li>
+	<li><a href="MTH154CH5_5.html">5.5 Surface Area & Volume</a></li>
+    </ul>
+</nav>
+    <div class="container">
+        <h1>Chapter 2: Modeling Data</h1>
+
+        <h2>Section 2.1: Basics of Graphing</h2>
+
+        <h3>2.1.1 Cartesian Plane</h3>
+
+        <div class="intro-section">
+            <p>An old story describes how seventeenth-century philosopher/mathematician René Descartes invented the system that has become the foundation of algebra while sick in bed. According to the story, Descartes was staring at a fly crawling on the ceiling when he realized that he could describe the fly's location in relation to the perpendicular lines formed by the adjacent walls of his room. He viewed the perpendicular lines as horizontal and vertical axes. Further, by dividing each axis into equal unit lengths, Descartes saw that it was possible to locate any object in a two-dimensional plane using just two numbers: the displacement from the horizontal axis and the displacement from the vertical axis.</p>
+
+            <p>While there is evidence that ideas similar to Descartes' grid system existed centuries earlier, it was Descartes who introduced the components that comprise the <strong>Cartesian coordinate system</strong>, a grid system having perpendicular axes. Descartes named the horizontal axis the x-axis and the vertical axis the y-axis. The Cartesian System, also called the rectangular coordinate system, is based on a two-dimensional plane consisting of the x-axis and the y-axis. Perpendicular to each other, the axes divide the plane into four sections. Each section is called a <strong>quadrant</strong>; the quadrants are numbered counterclockwise as shown in <strong>Figure 2.1</strong>.</p>
+        </div>
+
+         <figure aria-labelledby="fig1-title" role="group">
+    <svg class="grid-svg svg-wrap" viewBox="-250 -250 500 500" role="img" aria-labelledby="fig1-title fig1-desc" xmlns="http://www.w3.org/2000/svg" focusable="false">
+  <title id="fig1-title">Cartesian coordinate quadrants</title>
+  <desc id="fig1-desc">A Cartesian grid with centered axes.</desc>
+
+  <!-- grid pattern -->
+  <defs>
+    <pattern id="grid" width="25" height="25" patternUnits="userSpaceOnUse">
+      <path d="M 25 0 L 0 0 0 25" fill="none" stroke="#e6e6e6" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <!-- centered grid -->
+  <rect x="-220" y="-220" width="440" height="440" fill="url(#grid)" />
+
+  <!-- axes -->
+  <g stroke="#000" stroke-width="4" stroke-linecap="round">
+    <line x1="0" y1="-220" x2="0" y2="220" />
+    <line x1="-220" y1="0" x2="220" y2="0" />
+  </g>
+
+  <!-- arrows -->
+  <polygon points="0,-220  -5,-208 5,-208" fill="#000" />
+  <polygon points="220,0 208,-5 208,5" fill="#000" />
+
+  <!-- labels -->
+  <text x="180" y="18" font-size="18" fill="#000">x-axis</text>
+  <text x="8" y="-200" font-size="18" fill="#000">y-axis</text>
+
+  <!-- quadrant labels -->
+  <text x="80" y="-80" font-size="18" fill="#000">Quadrant I</text>
+  <text x="-180" y="-80" font-size="18" fill="#000">Quadrant II</text>
+  <text x="-180" y="140" font-size="18" fill="#000">Quadrant III</text>
+  <text x="80" y="140" font-size="18" fill="#000">Quadrant IV</text>
+</svg>
+
+      <figcaption>Figure 2.1 — Cartesian coordinate quadrants. The x-axis is horizontal and the y-axis is vertical; quadrants are numbered counterclockwise.</figcaption>
+    </figure>
+
+
+        <p>The center where the axes cross is the <strong>origin</strong> $(0, 0)$. Positive numbers increase to the right on the x-axis and up the y-axis; negatives go left and down. Each point is given as an <strong>ordered pair</strong> $(x, y)$.</p>
+
+        <h4>Plotting a Point</h4>
+
+        <p>Each point in the plane is identified by its <strong>x-coordinate</strong>, or horizontal displacement from the origin, and its <strong>y-coordinate</strong>, or vertical displacement from the origin. Together, we write them as an <strong>ordered pair</strong>, indicating the combined distance from the origin in the form $(x,y)$. An ordered pair is also known as a coordinate pair because it consists of x- and y-coordinates. For example, we can represent the point $(3,-4)$ in the plane by moving three units to the right of the origin in the horizontal direction, then four units down in the vertical direction. See <strong>Figure 2.2</strong>:</p>
+
+        <figure aria-labelledby="fig-plotted-title" role="group">
+      <svg class="grid-svg svg-wrap" viewBox="-250 -250 500 500" role="img" aria-labelledby="fig-plotted-title fig-plotted-desc" xmlns="http://www.w3.org/2000/svg" focusable="false">
+  <title id="fig-plotted-title">Plotting the point (3, -4) on a Cartesian grid</title>
+  <desc id="fig-plotted-desc">Grid with axes, labeled from -9 to 9, showing an orange arrow moving right 3 units, then a red arrow moving down 4 units; final point marked in blue labeled (3,-4).</desc>
+
+  <!-- background grid -->
+  <defs>
+    <pattern id="g2" width="25" height="25" patternUnits="userSpaceOnUse">
+      <path d="M 25 0 L 0 0 0 25" fill="none" stroke="#eee" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect x="-225" y="-225" width="450" height="450" fill="url(#g2)" />
+
+  <!-- axes -->
+  <g stroke="#000" stroke-width="2">
+    <line x1="0" y1="-225" x2="0" y2="225" /> <!-- vertical axis -->
+    <line x1="-225" y1="0" x2="225" y2="0" /> <!-- horizontal axis -->
+  </g>
+
+  <!-- axis labels -->
+  <text x="210" y="-5" font-size="16" fill="#000">x-axis</text>
+  <text x="5" y="-210" font-size="16" fill="#000">y-axis</text>
+
+  <!-- x-axis ticks and labels (-9 to 9, skipping 0) -->
+  <g font-size="10" fill="#000">
+    <line x1="-225" y1="-5" x2="-225" y2="5"/><text x="-230" y="20">-9</text>
+    <line x1="-200" y1="-5" x2="-200" y2="5"/><text x="-205" y="20">-8</text>
+    <line x1="-175" y1="-5" x2="-175" y2="5"/><text x="-180" y="20">-7</text>
+    <line x1="-150" y1="-5" x2="-150" y2="5"/><text x="-155" y="20">-6</text>
+    <line x1="-125" y1="-5" x2="-125" y2="5"/><text x="-130" y="20">-5</text>
+    <line x1="-100" y1="-5" x2="-100" y2="5"/><text x="-105" y="20">-4</text>
+    <line x1="-75" y1="-5" x2="-75" y2="5"/><text x="-80" y="20">-3</text>
+    <line x1="-50" y1="-5" x2="-50" y2="5"/><text x="-55" y="20">-2</text>
+    <line x1="-25" y1="-5" x2="-25" y2="5"/><text x="-30" y="20">-1</text>
+    <line x1="25" y1="-5" x2="25" y2="5"/><text x="20" y="20">1</text>
+    <line x1="50" y1="-5" x2="50" y2="5"/><text x="45" y="20">2</text>
+    <line x1="75" y1="-5" x2="75" y2="5"/><text x="70" y="20">3</text>
+    <line x1="100" y1="-5" x2="100" y2="5"/><text x="95" y="20">4</text>
+    <line x1="125" y1="-5" x2="125" y2="5"/><text x="120" y="20">5</text>
+    <line x1="150" y1="-5" x2="150" y2="5"/><text x="145" y="20">6</text>
+    <line x1="175" y1="-5" x2="175" y2="5"/><text x="170" y="20">7</text>
+    <line x1="200" y1="-5" x2="200" y2="5"/><text x="195" y="20">8</text>
+    <line x1="225" y1="-5" x2="225" y2="5"/><text x="220" y="20">9</text>
+  </g>
+
+  <!-- y-axis ticks and labels (-9 to 9, skipping 0) -->
+  <g font-size="10" fill="#000">
+    <line x1="-5" y1="-225" x2="5" y2="-225"/><text x="-20" y="-222">9</text>
+    <line x1="-5" y1="-200" x2="5" y2="-200"/><text x="-20" y="-197">8</text>
+    <line x1="-5" y1="-175" x2="5" y2="-175"/><text x="-20" y="-172">7</text>
+    <line x1="-5" y1="-150" x2="5" y2="-150"/><text x="-20" y="-147">6</text>
+    <line x1="-5" y1="-125" x2="5" y2="-125"/><text x="-20" y="-122">5</text>
+    <line x1="-5" y1="-100" x2="5" y2="-100"/><text x="-20" y="-97">4</text>
+    <line x1="-5" y1="-75" x2="5" y2="-75"/><text x="-20" y="-72">3</text>
+    <line x1="-5" y1="-50" x2="5" y2="-50"/><text x="-20" y="-47">2</text>
+    <line x1="-5" y1="-25" x2="5" y2="-25"/><text x="-20" y="-22">1</text>
+    <line x1="-5" y1="25" x2="5" y2="25"/><text x="-25" y="28">-1</text>
+    <line x1="-5" y1="50" x2="5" y2="50"/><text x="-25" y="53">-2</text>
+    <line x1="-5" y1="75" x2="5" y2="75"/><text x="-25" y="78">-3</text>
+    <line x1="-5" y1="100" x2="5" y2="100"/><text x="-25" y="103">-4</text>
+    <line x1="-5" y1="125" x2="5" y2="125"/><text x="-25" y="128">-5</text>
+    <line x1="-5" y1="150" x2="5" y2="150"/><text x="-25" y="153">-6</text>
+    <line x1="-5" y1="175" x2="5" y2="175"/><text x="-25" y="178">-7</text>
+    <line x1="-5" y1="200" x2="5" y2="200"/><text x="-25" y="203">-8</text>
+    <line x1="-5" y1="225" x2="5" y2="225"/><text x="-25" y="228">-9</text>
+  </g>
+
+  <!-- arrows showing moves -->
+  <g stroke-linecap="round">
+    <!-- right 3 units -->
+    <line x1="0" y1="0" x2="75" y2="0" stroke="#ff8c00" stroke-width="2" stroke-dasharray="8 4" />
+    <polygon points="75,0 67,-7 67,7" fill="#ff8c00" />
+    <!-- down 4 units -->
+    <line x1="75" y1="0" x2="75" y2="-100" stroke="#d9534f" stroke-width="2" stroke-dasharray="6 4" />
+    <polygon points="75,-100 67,-93 83,-93" fill="#d9534f" />
+  </g>
+
+  <!-- plotted point -->
+  <circle cx="75" cy="-100" r="4" fill="#0074D9" stroke="#003e7a" stroke-width=".5" />
+  <text x="85" y="-90" font-size="12"> (3,-4)</text>
+</svg>
+
+
+      <figcaption>Figure 2.2 — Plotting the point \( (3, −4) \): first move right 3, then down 4.</figcaption>
+    </figure>
+
+
+        <p>When dividing the axes into equally spaced increments, note that the x-axis may be considered separate from the y-axis. In other words, while the x-axis may be divided and labeled according to consecutive integers, the y-axis may be divided and labeled by increments of 2, 10, or even 100. In fact, the axes may represent other units, such as years against the balance in a savings account, or quantity against cost, and so on. Consider the rectangular coordinate system primarily as a method for showing the relationship between two quantities.</p>
+
+        <div class="definition-box">
+            <h3>Cartesian Coordinate System</h3>
+            <p>A two-dimensional place where the:</p>
+            <ul>
+                <li>x-axis is the horizontal axis</li>
+                <li>y-axis is the vertical axis</li>
+            </ul>
+            <p>A point in the plane is defined as an ordered pair, $(x,y)$, such that $x$ is the horizontal distance from the origin and $y$ is the vertical distance from the origin.</p>
+        </div>
+
+        <!-- Example 1 -->
+        <div class="example">
+            <div class="example-problem">
+                <h3>Example 1</h3>
+                <p>Plot the points $(-2,4)$, $(3,3)$, and $(0,-3)$ in the plane, and identify the quadrant or axis each point lies on.</p>
+            </div>
+            <button class="solution-header" onclick="toggleExample(this)">
+                <span class="toggle-arrow">▼</span>
+                <span>Show Solution</span>
+            </button>
+            <div class="example-content">
+                <div class="solution">
+                    <h4>Solution</h4>
+                    <ol>
+                        <li>To plot the point $(-2,4)$, begin at the origin. Move $-2$ places horizontally (left) along the x-axis, then move $4$ places vertically (up). Identified by the orange on the graph.</li>
+                        <li>To plot the point $(3,3)$, begin at the origin. Move $3$ places horizontally (right) along the x-axis, then move $3$ places vertically (up). Identified by the blue on the graph.</li>
+                        <li>To plot the point $(0,-3)$, begin at the origin. Move $0$ places horizontally along the x-axis, then move $-3$ places vertically (down). Identified by the red on the graph.</li>
+                    </ol>
+
+                   <figure role="img" aria-labelledby="ex1-fig-title">
+           <svg class="grid-svg svg-wrap" viewBox="-250 -250 500 500" xmlns="http://www.w3.org/2000/svg" aria-labelledby="ex1-fig-title ex1-fig-desc" focusable="false">
+  <title id="ex1-fig-title">Plotted points (-2,4), (3,3), (0,-3)</title>
+  <desc id="ex1-fig-desc">Grid with three colored moves along axes: orange marker at (-2,4), blue at (3,3), red at (0,-3); axes labeled.</desc>
+
+  <!-- background grid -->
+  <defs>
+    <pattern id="g3" width="25" height="25" patternUnits="userSpaceOnUse">
+      <path d="M 25 0 L 0 0 0 25" fill="none" stroke="#eee" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect x="-225" y="-225" width="450" height="450" fill="url(#g3)" />
+
+  <!-- axes -->
+  <g stroke="#000" stroke-width="2">
+    <line x1="0" y1="-225" x2="0" y2="225" /> <!-- vertical axis -->
+    <line x1="-225" y1="0" x2="225" y2="0" /> <!-- horizontal axis -->
+  </g>
+
+  <!-- axis labels -->
+  <text x="210" y="-5" font-size="16" fill="#000">x-axis</text>
+  <text x="5" y="-210" font-size="16" fill="#000">y-axis</text>
+
+  <!-- ticks and labels (-9 to 9) -->
+  <g font-size="10" fill="#000">
+    <!-- x-axis -->
+    <line x1="-225" y1="-5" x2="-225" y2="5"/><text x="-230" y="20">-9</text>
+    <line x1="-200" y1="-5" x2="-200" y2="5"/><text x="-205" y="20">-8</text>
+    <line x1="-175" y1="-5" x2="-175" y2="5"/><text x="-180" y="20">-7</text>
+    <line x1="-150" y1="-5" x2="-150" y2="5"/><text x="-155" y="20">-6</text>
+    <line x1="-125" y1="-5" x2="-125" y2="5"/><text x="-130" y="20">-5</text>
+    <line x1="-100" y1="-5" x2="-100" y2="5"/><text x="-105" y="20">-4</text>
+    <line x1="-75" y1="-5" x2="-75" y2="5"/><text x="-80" y="20">-3</text>
+    <line x1="-50" y1="-5" x2="-50" y2="5"/><text x="-55" y="20">-2</text>
+    <line x1="-25" y1="-5" x2="-25" y2="5"/><text x="-30" y="20">-1</text>
+    <line x1="25" y1="-5" x2="25" y2="5"/><text x="20" y="20">1</text>
+    <line x1="50" y1="-5" x2="50" y2="5"/><text x="45" y="20">2</text>
+    <line x1="75" y1="-5" x2="75" y2="5"/><text x="70" y="20">3</text>
+    <line x1="100" y1="-5" x2="100" y2="5"/><text x="95" y="20">4</text>
+    <line x1="125" y1="-5" x2="125" y2="5"/><text x="120" y="20">5</text>
+    <line x1="150" y1="-5" x2="150" y2="5"/><text x="145" y="20">6</text>
+    <line x1="175" y1="-5" x2="175" y2="5"/><text x="170" y="20">7</text>
+    <line x1="200" y1="-5" x2="200" y2="5"/><text x="195" y="20">8</text>
+    <line x1="225" y1="-5" x2="225" y2="5"/><text x="220" y="20">9</text>
+
+    <!-- y-axis -->
+    <line x1="-5" y1="-225" x2="5" y2="-225"/><text x="-20" y="-222">9</text>
+    <line x1="-5" y1="-200" x2="5" y2="-200"/><text x="-20" y="-197">8</text>
+    <line x1="-5" y1="-175" x2="5" y2="-175"/><text x="-20" y="-172">7</text>
+    <line x1="-5" y1="-150" x2="5" y2="-150"/><text x="-20" y="-147">6</text>
+    <line x1="-5" y1="-125" x2="5" y2="-125"/><text x="-20" y="-122">5</text>
+    <line x1="-5" y1="-100" x2="5" y2="-100"/><text x="-20" y="-97">4</text>
+    <line x1="-5" y1="-75" x2="5" y2="-75"/><text x="-20" y="-72">3</text>
+    <line x1="-5" y1="-50" x2="5" y2="-50"/><text x="-20" y="-47">2</text>
+    <line x1="-5" y1="-25" x2="5" y2="-25"/><text x="-20" y="-22">1</text>
+    <line x1="-5" y1="25" x2="5" y2="25"/><text x="-25" y="28">-1</text>
+    <line x1="-5" y1="50" x2="5" y2="50"/><text x="-25" y="53">-2</text>
+    <line x1="-5" y1="75" x2="5" y2="75"/><text x="-25" y="78">-3</text>
+  </g>
+
+  <!-- plotted points with correct "L-shaped" moves -->
+  <g stroke-linecap="round">
+    <!-- orange (-2,4) -->
+    <line x1="0" y1="0" x2="-50" y2="0" stroke="#ff8c00" stroke-width="2" />
+    <line x1="-50" y1="0" x2="-50" y2="-100" stroke="#ff8c00" stroke-width="2" />
+    <circle cx="-50" cy="-100" r="4" fill="#ff8c00" stroke="#8a5b00" />
+    <text x="-70" y="-105" font-size="10">(-2,4)</text>
+
+    <!-- blue (3,3) -->
+    <line x1="0" y1="0" x2="75" y2="0" stroke="#0074D9" stroke-width="2" />
+    <line x1="75" y1="0" x2="75" y2="-75" stroke="#0074D9" stroke-width="2" />
+    <circle cx="75" cy="-75" r="4" fill="#0074D9" stroke="#003e7a" />
+    <text x="80" y="-80" font-size="10">(3,3)</text>
+
+    <!-- red (0,-3) -->
+    <line x1="0" y1="0" x2="0" y2="75" stroke="#d9534f" stroke-width="2" />
+    <circle cx="0" cy="75" r="4" fill="#d9534f" stroke="#7a2b2b" />
+    <text x="5" y="85" font-size="10">(0,-3)</text>
+  </g>
+</svg>
+
+            <figcaption>Figure 2.3 — Plotted points with move vectors (orange, blue, red).</figcaption>
+          </figure>
+
+
+                    <ol>
+                        <li>From the graph, we can identify that the point $(-2,4)$ is in quadrant II.</li>
+                        <li>From the graph, we can identify that the point $(3,3)$ is in quadrant I.</li>
+                        <li>From the graph, we can identify that the point $(0,-3)$ is on the negative y-axis.</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <h3>2.1.2 Graphing Equations by Plotting Points</h3>
+
+        <p>Now that we've covered how to plot points in the coordinate plane, we will next talk about how to plot equations by plotting points in the coordinate plane. Graphically, an equation is a collection of multiple points used to create a picture of sorts. That picture can also be represented by a "model" or equation. In a linear model, the equation contains both an $x$ and a $y$ variable, thus it is called an <strong>equation in two variables</strong>. Likewise, its graph is also called a <strong>graph in two variables</strong>. Any graph in two variables is a graph in a two-dimensional plane.</p>
+
+        <p>Suppose we want to graph the equation $y=2x-1$. We can begin by choosing $x$ values that can be substituted into the equation for the variable $x$ to solve for the $y$ variable. By doing this, we find ourselves an ordered pair that can be plotted. When plotting an equation using this method, ultimately the decision is yours as to what $x$ values you would like to substitute in. For this example, we are going to use the integer values from $-3$ to $3$. The table below shows the ordered pairs we'd end up with.</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>$x$</th>
+                    <th>$y=2x-1$</th>
+                    <th>$(x,y)$</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>$-3$</td>
+                    <td>$y=2(-3)-1$</td>
+                    <td>$(-3,-7)$</td>
+                </tr>
+                <tr>
+                    <td>$-2$</td>
+                    <td>$y=2(-2)-1$</td>
+                    <td>$(-2,-5)$</td>
+                </tr>
+                <tr>
+                    <td>$-1$</td>
+                    <td>$y=2(-1)-1$</td>
+                    <td>$(-1,-3)$</td>
+                </tr>
+                <tr>
+                    <td>$0$</td>
+                    <td>$y=2(0)-1$</td>
+                    <td>$(0,-1)$</td>
+                </tr>
+                <tr>
+                    <td>$1$</td>
+                    <td>$y=2(1)-1$</td>
+                    <td>$(1,1)$</td>
+                </tr>
+                <tr>
+                    <td>$2$</td>
+                    <td>$y=2(2)-1$</td>
+                    <td>$(2,3)$</td>
+                </tr>
+                <tr>
+                    <td>$3$</td>
+                    <td>$y=2(3)-1$</td>
+                    <td>$(3,5)$</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p>Using those points, we can then plot each ordered pair and connect the points using a line. Technically speaking, you only need two points to form a line. If you're a country music fan, think about the Dixie Chicks. They had an entire song where they said "<em>...the shortest distance between two points is a straight line...</em>". However, the more points you plot, the more accurate you can draw the line.</p>
+
+        <figure aria-labelledby="fig-line1-title" role="group">
+     <svg class="grid-svg svg-wrap" viewBox="-250 -250 500 500" xmlns="http://www.w3.org/2000/svg" aria-labelledby="fig-line1-title fig-line1-desc" focusable="false">
+  <title id="fig-line1-title">Graph of y = 2x − 1 with plotted points</title>
+  <desc id="fig-line1-desc">Grid with plotted points from the table and the line through them.</desc>
+
+  <!-- background grid -->
+  <defs>
+    <pattern id="g4" width="25" height="25" patternUnits="userSpaceOnUse">
+      <path d="M 25 0 L 0 0 0 25" fill="none" stroke="#eee" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect x="-225" y="-225" width="450" height="450" fill="url(#g4)" />
+
+  <!-- axes -->
+  <g stroke="#000" stroke-width="2">
+    <line x1="0" y1="-225" x2="0" y2="225" /> <!-- vertical axis -->
+    <line x1="-225" y1="0" x2="225" y2="0" /> <!-- horizontal axis -->
+  </g>
+
+  <!-- axis labels -->
+  <text x="210" y="-5" font-size="16" fill="#000">x-axis</text>
+  <text x="5" y="-210" font-size="16" fill="#000">y-axis</text>
+
+  <!-- ticks and labels (-9 to 9) -->
+  <g font-size="10" fill="#000">
+    <!-- x-axis ticks -->
+    <line x1="-225" y1="-5" x2="-225" y2="5"/><text x="-230" y="20">-9</text>
+    <line x1="-200" y1="-5" x2="-200" y2="5"/><text x="-205" y="20">-8</text>
+    <line x1="-175" y1="-5" x2="-175" y2="5"/><text x="-180" y="20">-7</text>
+    <line x1="-150" y1="-5" x2="-150" y2="5"/><text x="-155" y="20">-6</text>
+    <line x1="-125" y1="-5" x2="-125" y2="5"/><text x="-130" y="20">-5</text>
+    <line x1="-100" y1="-5" x2="-100" y2="5"/><text x="-105" y="20">-4</text>
+    <line x1="-75" y1="-5" x2="-75" y2="5"/><text x="-80" y="20">-3</text>
+    <line x1="-50" y1="-5" x2="-50" y2="5"/><text x="-55" y="20">-2</text>
+    <line x1="-25" y1="-5" x2="-25" y2="5"/><text x="-30" y="20">-1</text>
+    <line x1="25" y1="-5" x2="25" y2="5"/><text x="20" y="20">1</text>
+    <line x1="50" y1="-5" x2="50" y2="5"/><text x="45" y="20">2</text>
+    <line x1="75" y1="-5" x2="75" y2="5"/><text x="70" y="20">3</text>
+    <line x1="100" y1="-5" x2="100" y2="5"/><text x="95" y="20">4</text>
+    <line x1="125" y1="-5" x2="125" y2="5"/><text x="120" y="20">5</text>
+    <line x1="150" y1="-5" x2="150" y2="5"/><text x="145" y="20">6</text>
+    <line x1="175" y1="-5" x2="175" y2="5"/><text x="170" y="20">7</text>
+    <line x1="200" y1="-5" x2="200" y2="5"/><text x="195" y="20">8</text>
+    <line x1="225" y1="-5" x2="225" y2="5"/><text x="220" y="20">9</text>
+
+    <!-- y-axis ticks -->
+    <line x1="-5" y1="-225" x2="5" y2="-225"/><text x="-20" y="-222">9</text>
+    <line x1="-5" y1="-200" x2="5" y2="-200"/><text x="-20" y="-197">8</text>
+    <line x1="-5" y1="-175" x2="5" y2="-175"/><text x="-20" y="-172">7</text>
+    <line x1="-5" y1="-150" x2="5" y2="-150"/><text x="-20" y="-147">6</text>
+    <line x1="-5" y1="-125" x2="5" y2="-125"/><text x="-20" y="-122">5</text>
+    <line x1="-5" y1="-100" x2="5" y2="-100"/><text x="-20" y="-97">4</text>
+    <line x1="-5" y1="-75" x2="5" y2="-75"/><text x="-20" y="-72">3</text>
+    <line x1="-5" y1="-50" x2="5" y2="-50"/><text x="-20" y="-47">2</text>
+    <line x1="-5" y1="-25" x2="5" y2="-25"/><text x="-20" y="-22">1</text>
+    <line x1="-5" y1="25" x2="5" y2="25"/><text x="-25" y="28">-1</text>
+    <line x1="-5" y1="50" x2="5" y2="50"/><text x="-25" y="53">-2</text>
+    <line x1="-5" y1="75" x2="5" y2="75"/><text x="-25" y="78">-3</text>
+    <line x1="-5" y1="100" x2="5" y2="100"/><text x="-25" y="103">-4</text>
+    <line x1="-5" y1="125" x2="5" y2="125"/><text x="-25" y="130">-5</text>
+    <line x1="-5" y1="150" x2="5" y2="150"/><text x="-25" y="155">-6</text>
+    <line x1="-5" y1="175" x2="5" y2="175"/><text x="-25" y="180">-7</text>
+  </g>
+
+  <!-- plotted points -->
+  <g>
+    <circle cx="-75" cy="175" r="4" fill="#000" /><text x="-65" y="183">(-3,-7)</text>
+    <circle cx="-50" cy="125" r="4" fill="#000" /><text x="-40" y="133">(-2,-5)</text>
+    <circle cx="-25" cy="75" r="4" fill="#000" /><text x="-15" y="83">(-1,-3)</text>
+    <circle cx="0" cy="25" r="4" fill="#000" /><text x="10" y="33">(0,-1)</text>
+    <circle cx="25" cy="-25" r="4" fill="#000" /><text x="35" y="-18">(1,1)</text>
+    <circle cx="50" cy="-75" r="4" fill="#000" /><text x="60" y="-68">(2,3)</text>
+    <circle cx="75" cy="-125" r="4" fill="#000" /><text x="85" y="-118">(3,5)</text>
+  </g>
+
+  <!-- line y = 2x - 1 -->
+  <line x1="-100" y1="225" x2="100" y2="-175" stroke="#000" stroke-width="2" stroke-linecap="round" />
+</svg>
+
+      <figcaption>Figure — Graph of \( y = 2x − 1\) using the table points.</figcaption>
+    </figure>
+
+
+        <div class="definition-box">
+            <h3>How To Graph Equations</h3>
+            <p>Given an equation in the form $y=mx+b$, graph the equation by following the steps below.</p>
+            <ol>
+                <li>Make a table with one column labeled $x$, a second column labeled with the equation, and a third column listing the resulting ordered pairs.</li>
+                <li>Enter x-values down the first column using positive and negative values. Try selecting the values in numerical order (smallest to greatest).</li>
+                <li>Substitute the x-values in and calculate the y-values.</li>
+                <li>Plot the ordered pairs.</li>
+                <li>Connect the points to form a line.</li>
+            </ol>
+        </div>
+
+        <!-- Example 2 -->
+        <div class="example">
+            <div class="example-problem">
+                <h3>Example 2</h3>
+                <p>Graph the equation $y=-x+2$ by plotting points.</p>
+            </div>
+            <button class="solution-header" onclick="toggleExample(this)">
+                <span class="toggle-arrow">▼</span>
+                <span>Show Solution</span>
+            </button>
+            <div class="example-content">
+                <div class="solution">
+                    <h4>Solution</h4>
+                    <p>First, you will need to select 5 to 7 x-values to plug into an x/y table to calculate $y$ and find the coordinate pair.</p>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>$x$</th>
+                                <th>$y=-x+2$</th>
+                                <th>$(x,y)$</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>$-3$</td>
+                                <td>$y=-(-3)+2$</td>
+                                <td>$(-3,5)$</td>
+                            </tr>
+                            <tr>
+                                <td>$-2$</td>
+                                <td>$y=-(-2)+2$</td>
+                                <td>$(-2,4)$</td>
+                            </tr>
+                            <tr>
+                                <td>$-1$</td>
+                                <td>$y=-(-1)+2$</td>
+                                <td>$(-1,3)$</td>
+                            </tr>
+                            <tr>
+                                <td>$0$</td>
+                                <td>$y=-(0)+2$</td>
+                                <td>$(0,2)$</td>
+                            </tr>
+                            <tr>
+                                <td>$1$</td>
+                                <td>$y=-(1)+2$</td>
+                                <td>$(1,1)$</td>
+                            </tr>
+                            <tr>
+                                <td>$2$</td>
+                                <td>$y=-(2)+2$</td>
+                                <td>$(2,0)$</td>
+                            </tr>
+                            <tr>
+                                <td>$3$</td>
+                                <td>$y=-(3)+2$</td>
+                                <td>$(3,-1)$</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <p>Next, you'll need to take those ordered pairs in your last column, plot them, and draw a line that connects all the dots.</p>
+
+                     <figure role="img" aria-label="Coordinate grid with red and blue intersecting lines. They intersect at one point.">
+            <svg viewBox="-6 -6 12 12" xmlns="http://www.w3.org/2000/svg">
+              <!-- Grid lines -->
+              <g stroke="lightgray" stroke-width="0.01">
+                <line x1="-5" y1="-5" x2="-5" y2="5"/>
+                <line x1="-4" y1="-5" x2="-4" y2="5"/>
+                <line x1="-3" y1="-5" x2="-3" y2="5"/>
+                <line x1="-2" y1="-5" x2="-2" y2="5"/>
+                <line x1="-1" y1="-5" x2="-1" y2="5"/>
+                <line x1="0" y1="-5" x2="0" y2="5"/>
+                <line x1="1" y1="-5" x2="1" y2="5"/>
+                <line x1="2" y1="-5" x2="2" y2="5"/>
+                <line x1="3" y1="-5" x2="3" y2="5"/>
+                <line x1="4" y1="-5" x2="4" y2="5"/>
+              </g>
+              <g stroke="lightgray" stroke-width="0.01">
+                <line x1="-5" y1="-5" x2="5" y2="-5"/>
+                <line x1="-5" y1="-4" x2="5" y2="-4"/>
+                <line x1="-5" y1="-3" x2="5" y2="-3"/>
+                <line x1="-5" y1="-2" x2="5" y2="-2"/>
+                <line x1="-5" y1="-1" x2="5" y2="-1"/>
+                <line x1="-5" y1="0" x2="5" y2="0"/>
+                <line x1="-5" y1="1" x2="5" y2="1"/>
+                <line x1="-5" y1="2" x2="5" y2="2"/>
+                <line x1="-5" y1="3" x2="5" y2="3"/>
+                <line x1="-5" y1="4" x2="5" y2="4"/>
+              </g>
+              <!-- Axes -->
+              <line x1="-5" y1="0" x2="5" y2="0" stroke="black" stroke-width="0.05"/>
+              <line x1="0" y1="-5" x2="0" y2="5" stroke="black" stroke-width="0.05"/>
+              <!-- Tick marks -->
+              <g stroke="black" stroke-width="0.05">
+                <line x1="-4" y1="0.1" x2="-4" y2="-0.1"/>
+                <line x1="-3" y1="0.1" x2="-3" y2="-0.1"/>
+                <line x1="-2" y1="0.1" x2="-2" y2="-0.1"/>
+                <line x1="-1" y1="0.1" x2="-1" y2="-0.1"/>
+                <line x1="1" y1="0.1" x2="1" y2="-0.1"/>
+                <line x1="2" y1="0.1" x2="2" y2="-0.1"/>
+                <line x1="3" y1="0.1" x2="3" y2="-0.1"/>
+                <line x1="4" y1="0.1" x2="4" y2="-0.1"/>
+                <line x1="0.1" y1="-4" x2="-0.1" y2="-4"/>
+                <line x1="0.1" y1="-3" x2="-0.1" y2="-3"/>
+                <line x1="0.1" y1="-2" x2="-0.1" y2="-2"/>
+                <line x1="0.1" y1="-1" x2="-0.1" y2="-1"/>
+                <line x1="0.1" y1="1" x2="-0.1" y2="1"/>
+                <line x1="0.1" y1="2" x2="-0.1" y2="2"/>
+                <line x1="0.1" y1="3" x2="-0.1" y2="3"/>
+                <line x1="0.1" y1="4" x2="-0.1" y2="4"/>
+              </g>
+              <!-- X labels -->
+              <text x="-5" y="0.4" font-size="0.4" text-anchor="middle">-5</text>
+              <text x="-4" y="0.4" font-size="0.4" text-anchor="middle">-4</text>
+              <text x="-3" y="0.4" font-size="0.4" text-anchor="middle">-3</text>
+              <text x="-2" y="0.4" font-size="0.4" text-anchor="middle">-2</text>
+              <text x="-1" y="0.4" font-size="0.4" text-anchor="middle">-1</text>
+              <text x="1" y="0.4" font-size="0.4" text-anchor="middle">1</text>
+              <text x="2" y="0.4" font-size="0.4" text-anchor="middle">2</text>
+              <text x="3" y="0.4" font-size="0.4" text-anchor="middle">3</text>
+              <text x="4" y="0.4" font-size="0.4" text-anchor="middle">4</text>
+              <text x="5" y="0.4" font-size="0.4" text-anchor="middle">5</text>
+              <!-- Y labels -->
+              <text x="-0.3" y="-5" font-size="0.4" text-anchor="end" dominant-baseline="middle">5</text>
+              <text x="-0.3" y="-4" font-size="0.4" text-anchor="end" dominant-baseline="middle">4</text>
+              <text x="-0.3" y="-3" font-size="0.4" text-anchor="end" dominant-baseline="middle">3</text>
+              <text x="-0.3" y="-2" font-size="0.4" text-anchor="end" dominant-baseline="middle">2</text>
+              <text x="-0.3" y="-1" font-size="0.4" text-anchor="end" dominant-baseline="middle">1</text>
+              <text x="-0.3" y="1" font-size="0.4" text-anchor="end" dominant-baseline="middle">-1</text>
+              <text x="-0.3" y="2" font-size="0.4" text-anchor="end" dominant-baseline="middle">-2</text>
+              <text x="-0.3" y="3" font-size="0.4" text-anchor="end" dominant-baseline="middle">-3</text>
+              <text x="-0.3" y="4" font-size="0.4" text-anchor="end" dominant-baseline="middle">-4</text>
+              <text x="-0.3" y="5" font-size="0.4" text-anchor="end" dominant-baseline="middle">-5</text>
+            
+	 <!-- Lines -->
+              <line x1="-3" y1="-5" x2="5" y2="3" stroke="blue" stroke-width="0.05"/>
+         <!-- plotted points -->
+  <g>
+<circle cx="-3" cy="-5" r="0.09" fill="blue"/>
+<circle cx="-2" cy="-4" r="0.09" fill="blue"/>
+<circle cx="-1" cy="-3" r="0.09" fill="blue"/>
+<circle cx="0" cy="-2" r="0.09" fill="blue"/>
+<circle cx="1" cy="-1" r="0.09" fill="blue"/>
+<circle cx="2" cy="0" r="0.09" fill="blue"/>
+<circle cx="3" cy="1" r="0.09" fill="blue"/>
+    
+            </svg>
+ <figcaption>Figure — Graph of \( y = 2x − 1\) using the table points.</figcaption>
+          </figure>
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="try-it">
+            <h3>Try It</h3>
+            <p>Construct a table and graph the equation by plotting points for $y=\frac{1}{2}x+2$.</p>
+        </div>
+
+        <div class="divider"></div>
+
+        <h3>2.1.3 Finding Intercepts</h3>
+
+        <p>The <strong>Intercepts</strong> of a graph are the points at which the graph crosses the $x$ and $y$ axis. The <strong>x-intercept</strong> is the point at which the graph crosses the x-axis. At this point, the y-coordinate is zero and the point is $(x,0)$. The <strong>y-intercept</strong> is the point at which the graph crosses the y-axis. At this point, the x-coordinate is zero and the point is $(0,y)$.</p>
+
+        <p>To determine the x-intercept, you would substitute $y=0$ into the equation and solve for x. For example, let's find the intercepts of the equation $y=3x-1$.</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Algebra</th>
+                    <th>Explanation</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>$y=3x-1$</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>$0=3x-1$</td>
+                    <td>1. Substitute $y=0$ into the equation.</td>
+                </tr>
+                <tr>
+                    <td>$1=3x$</td>
+                    <td>2. Add $1$ to both sides.</td>
+                </tr>
+                <tr>
+                    <td>$\frac{1}{3}=x$</td>
+                    <td>3. Divide both sides by $3$.</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>4. The x-intercept is $\left(\frac{1}{3}, 0\right)$.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p>To find the y-intercept, we do similarly the same thing, except we substitute $x=0$ into the equation and then solve for $y$.</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Algebra</th>
+                    <th>Explanation</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>$y=3x-1$</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>$y=3(0)-1$</td>
+                    <td>1. Substitute $x=0$ into the equation.</td>
+                </tr>
+                <tr>
+                    <td>$y=0-1$</td>
+                    <td>2. Multiply $3*0=0$.</td>
+                </tr>
+                <tr>
+                    <td>$y=-1$</td>
+                    <td>3. Simplify the right side to get $-1$.</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>4. This would give us the y-intercept of $(0,-1)$.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p>Looking at the graph below of $y=3x-1$, we can confirm these solutions and see that the point where it crosses the x-axis is indeed $\left(\frac{1}{3},0\right)$ and the point where it crosses the y-axis is indeed $(0,-1)$.</p>
+
+        <figure role="group" aria-labelledby="fig-intercepts-title">
+     <svg class="svg-wrap grid-svg" viewBox="-250 -250 500 500" xmlns="http://www.w3.org/2000/svg" aria-labelledby="fig-intercepts-title fig-intercepts-desc" focusable="false">
+  <title id="fig-intercepts-title">Graph of y = 3x − 1 showing intercepts</title>
+  <desc id="fig-intercepts-desc">A plotted line for y=3x-1 with red markers at the x- and y-intercepts.</desc>
+
+  <!-- grid -->
+  <defs>
+    <pattern id="grid" width="25" height="25" patternUnits="userSpaceOnUse">
+      <path d="M 25 0 L 0 0 0 25" fill="none" stroke="#eee" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect x="-225" y="-225" width="450" height="450" fill="url(#grid)" />
+
+  <!-- axes -->
+  <g stroke="#000" stroke-width="2">
+    <line x1="0" y1="-225" x2="0" y2="225" />
+    <line x1="-225" y1="0" x2="225" y2="0" />
+  </g>
+
+  <!-- axis labels -->
+  <text x="210" y="-10" font-size="16" fill="#000">x-axis</text>
+  <text x="10" y="-210" font-size="16" fill="#000">y-axis</text>
+
+  <!-- x-axis ticks and labels -->
+  <g font-size="10" fill="#000">
+    <!-- x ticks from -9 to 9 -->
+    <!-- include all -225 to 225 steps of 25 pixels -->
+    <line x1="-225" y1="-5" x2="-225" y2="5"/><text x="-230" y="20">-9</text>
+    <line x1="-200" y1="-5" x2="-200" y2="5"/><text x="-205" y="20">-8</text>
+    <line x1="-175" y1="-5" x2="-175" y2="5"/><text x="-180" y="20">-7</text>
+    <line x1="-150" y1="-5" x2="-150" y2="5"/><text x="-155" y="20">-6</text>
+    <line x1="-125" y1="-5" x2="-125" y2="5"/><text x="-130" y="20">-5</text>
+    <line x1="-100" y1="-5" x2="-100" y2="5"/><text x="-105" y="20">-4</text>
+    <line x1="-75" y1="-5" x2="-75" y2="5"/><text x="-80" y="20">-3</text>
+    <line x1="-50" y1="-5" x2="-50" y2="5"/><text x="-55" y="20">-2</text>
+    <line x1="-25" y1="-5" x2="-25" y2="5"/><text x="-30" y="20">-1</text>
+    <line x1="25" y1="-5" x2="25" y2="5"/><text x="20" y="20">1</text>
+    <line x1="50" y1="-5" x2="50" y2="5"/><text x="45" y="20">2</text>
+    <line x1="75" y1="-5" x2="75" y2="5"/><text x="70" y="20">3</text>
+    <line x1="100" y1="-5" x2="100" y2="5"/><text x="95" y="20">4</text>
+    <line x1="125" y1="-5" x2="125" y2="5"/><text x="120" y="20">5</text>
+    <line x1="150" y1="-5" x2="150" y2="5"/><text x="145" y="20">6</text>
+    <line x1="175" y1="-5" x2="175" y2="5"/><text x="170" y="20">7</text>
+    <line x1="200" y1="-5" x2="200" y2="5"/><text x="195" y="20">8</text>
+    <line x1="225" y1="-5" x2="225" y2="5"/><text x="220" y="20">9</text>
+  </g>
+
+  <!-- y-axis ticks and labels -->
+  <g font-size="10" fill="#000">
+    <line x1="-5" y1="-225" x2="5" y2="-225"/><text x="-20" y="-222">9</text>
+    <line x1="-5" y1="-200" x2="5" y2="-200"/><text x="-20" y="-197">8</text>
+    <line x1="-5" y1="-175" x2="5" y2="-175"/><text x="-20" y="-172">7</text>
+    <line x1="-5" y1="-150" x2="5" y2="-150"/><text x="-20" y="-147">6</text>
+    <line x1="-5" y1="-125" x2="5" y2="-125"/><text x="-20" y="-122">5</text>
+    <line x1="-5" y1="-100" x2="5" y2="-100"/><text x="-20" y="-97">4</text>
+    <line x1="-5" y1="-75" x2="5" y2="-75"/><text x="-20" y="-72">3</text>
+    <line x1="-5" y1="-50" x2="5" y2="-50"/><text x="-20" y="-47">2</text>
+    <line x1="-5" y1="-25" x2="5" y2="-25"/><text x="-20" y="-22">1</text>
+    <line x1="-5" y1="25" x2="5" y2="25"/><text x="-25" y="28">-1</text>
+    <line x1="-5" y1="50" x2="5" y2="50"/><text x="-25" y="53">-2</text>
+    <line x1="-5" y1="75" x2="5" y2="75"/><text x="-25" y="78">-3</text>
+    <line x1="-5" y1="100" x2="5" y2="100"/><text x="-25" y="103">-4</text>
+    <line x1="-5" y1="125" x2="5" y2="125"/><text x="-25" y="130">-5</text>
+    <line x1="-5" y1="150" x2="5" y2="150"/><text x="-25" y="155">-6</text>
+    <line x1="-5" y1="175" x2="5" y2="175"/><text x="-25" y="180">-7</text>
+    <line x1="-5" y1="200" x2="5" y2="200"/><text x="-25" y="205">-8</text>
+    <line x1="-5" y1="225" x2="5" y2="225"/><text x="-25" y="230">-9</text>
+  </g>
+
+  <!-- plotted line y=3x-1 clipped to grid -->
+  <line x1="-66.7" y1="225" x2="83.33" y2="-225" stroke="#000" stroke-width="2" stroke-linecap="round" />
+
+  <!-- intercept points -->
+  <circle cx="0" cy="25" r="6" fill="#d9534f" aria-hidden="true" /> <!-- y-intercept -->
+  <circle cx="8.33" cy="0" r="6" fill="#d9534f" aria-hidden="true" /> <!-- x-intercept -->
+  <text x="10" y="35" font-size="12">(0, −1)</text>
+  <text x="20" y="5" font-size="12">(1/3, 0)</text>
+</svg>
+
+      <figcaption>Graph of \( y = 3x − 1 \), showing intercepts: y-intercept (0, −1) and x-intercept (1/3, 0).</figcaption>
+    </figure>
+
+
+        <!-- Example 3 -->
+        <div class="example">
+            <div class="example-problem">
+                <h3>Example 3</h3>
+                <p>Find the intercepts of the equation $y=-\frac{1}{3}x-4$. Then, use a graphing utility to verify your answer.</p>
+            </div>
+            <button class="solution-header" onclick="toggleExample(this)">
+                <span class="toggle-arrow">▼</span>
+                <span>Show Solution</span>
+            </button>
+            <div class="example-content">
+                <div class="solution">
+                    <h4>Solution</h4>
+                    
+                    <p><strong>Finding the x-intercept:</strong></p>
+                    <p>To find our x-intercept, we substitute $y=0$ in and solve for $x$.</p>
+                    \begin{align*}
+                    y&=-\frac{1}{3}x-4\\
+                    0&=-\frac{1}{3}x-4\\
+                    4&=-\frac{1}{3}x\\
+                    -\frac{3}{1}*4&=x\\
+                    -12&=x
+                    \end{align*}
+
+                    <p><strong>Finding the y-intercept:</strong></p>
+                    <p>To find our y-intercept, we substitute $x=0$ in and solve for $y$.</p>
+                    \begin{align*}
+                    y&=-\frac{1}{3}x-4\\
+                    y&=-\frac{1}{3}(0)-4\\
+                    y&=0-4\\
+                    y&=-4
+                    \end{align*}
+
+                    <p>This means our x-intercept is $(-12,0)$ and our y-intercept is $(0,-4)$. We can verify that answer graphically below.</p>
+
+                    <figure role="group" aria-labelledby="fig-intercepts-title">
+     <svg class="svg-wrap grid-svg" viewBox="-250 -250 500 500" xmlns="http://www.w3.org/2000/svg" aria-labelledby="fig-intercepts-title fig-intercepts-desc" focusable="false">
+  <title id="fig-intercepts-title">Graph of y = 3x − 1 showing intercepts</title>
+  <desc id="fig-intercepts-desc">A plotted line for y=3x-1 with red markers at the x- and y-intercepts.</desc>
+
+  <!-- grid -->
+  <defs>
+    <pattern id="grid" width="25" height="25" patternUnits="userSpaceOnUse">
+      <path d="M 25 0 L 0 0 0 25" fill="none" stroke="#eee" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect x="-225" y="-225" width="450" height="450" fill="url(#grid)" />
+
+  <!-- axes -->
+  <g stroke="#000" stroke-width="2">
+    <line x1="100" y1="-225" x2="100" y2="225" />
+    <line x1="-225" y1="0" x2="225" y2="0" />
+  </g>
+
+  <!-- axis labels -->
+  <text x="210" y="-10" font-size="16" fill="#000">x-axis</text>
+  <text x="10" y="-210" font-size="16" fill="#000">y-axis</text>
+
+  <!-- x-axis ticks and labels -->
+  <g font-size="10" fill="#000">
+    <!-- x ticks from -9 to 9 -->
+    <!-- include all -225 to 225 steps of 25 pixels -->
+    <line x1="-225" y1="-5" x2="-225" y2="5"/><text x="-230" y="20">-12</text>
+    <line x1="-200" y1="-5" x2="-200" y2="5"/><text x="-205" y="20">-11</text>
+    <line x1="-175" y1="-5" x2="-175" y2="5"/><text x="-180" y="20">-10</text>
+    <line x1="-150" y1="-5" x2="-150" y2="5"/><text x="-155" y="20">-9</text>
+    <line x1="-125" y1="-5" x2="-125" y2="5"/><text x="-130" y="20">-8</text>
+    <line x1="-100" y1="-5" x2="-100" y2="5"/><text x="-105" y="20">-4</text>
+    <line x1="-75" y1="-5" x2="-75" y2="5"/><text x="-80" y="20">-7</text>
+    <line x1="-50" y1="-5" x2="-50" y2="5"/><text x="-55" y="20">-6</text>
+    <line x1="-25" y1="-5" x2="-25" y2="5"/><text x="-30" y="20">-5</text>
+    <line x1="25" y1="-5" x2="25" y2="5"/><text x="20" y="20">-3</text>
+    <line x1="50" y1="-5" x2="50" y2="5"/><text x="45" y="20">-2</text>
+    <line x1="75" y1="-5" x2="75" y2="5"/><text x="70" y="20">-1</text>
+    <line x1="100" y1="-5" x2="100" y2="5"/><text x="95" y="20"></text>
+    <line x1="125" y1="-5" x2="125" y2="5"/><text x="120" y="20">1</text>
+    <line x1="150" y1="-5" x2="150" y2="5"/><text x="145" y="20">2</text>
+    <line x1="175" y1="-5" x2="175" y2="5"/><text x="170" y="20">3</text>
+    <line x1="200" y1="-5" x2="200" y2="5"/><text x="195" y="20">4</text>
+    <line x1="225" y1="-5" x2="225" y2="5"/><text x="220" y="20">5</text>
+  </g>
+
+  <!-- y-axis ticks and labels -->
+  <g font-size="10" fill="#000">
+    <line x1="-105" y1="-225" x2="5" y2="-225"/><text x="110" y="-222">9</text>
+    <line x1="-5" y1="-200" x2="5" y2="-200"/><text x="110" y="-197">8</text>
+    <line x1="-5" y1="-175" x2="5" y2="-175"/><text x="110" y="-172">7</text>
+    <line x1="-5" y1="-150" x2="5" y2="-150"/><text x="110" y="-147">6</text>
+    <line x1="-5" y1="-125" x2="5" y2="-125"/><text x="110" y="-122">5</text>
+    <line x1="-5" y1="-100" x2="5" y2="-100"/><text x="110" y="-97">4</text>
+    <line x1="-5" y1="-75" x2="5" y2="-75"/><text x="110" y="-72">3</text>
+    <line x1="-5" y1="-50" x2="5" y2="-50"/><text x="110" y="-47">2</text>
+    <line x1="-5" y1="-25" x2="5" y2="-25"/><text x="110" y="-22">1</text>
+    <line x1="-5" y1="25" x2="5" y2="25"/><text x="110" y="28">-1</text>
+    <line x1="-5" y1="50" x2="5" y2="50"/><text x="110" y="53">-2</text>
+    <line x1="-5" y1="75" x2="5" y2="75"/><text x="110" y="78">-3</text>
+    <line x1="-5" y1="100" x2="5" y2="100"/><text x="110" y="103">-4</text>
+    <line x1="-5" y1="125" x2="5" y2="125"/><text x="110" y="130">-5</text>
+    <line x1="-5" y1="150" x2="5" y2="150"/><text x="110" y="155">-6</text>
+    <line x1="-5" y1="175" x2="5" y2="175"/><text x="110" y="180">-7</text>
+    <line x1="-5" y1="200" x2="5" y2="200"/><text x="110" y="205">-8</text>
+    <line x1="-5" y1="225" x2="5" y2="225"/><text x="110" y="230">-9</text>
+  </g>
+
+  <!-- plotted line y=3x-1 clipped to grid -->
+  <line x1="-220" y1="0" x2="190" y2="127" stroke="#000" stroke-width="2" stroke-linecap="round" />
+
+  <!-- intercept points -->
+  <circle cx="100" cy="100" r="4" fill="#000" aria-hidden="true" /> <!-- y-intercept -->
+  <circle cx="-220" cy="0" r="4" fill="#000" aria-hidden="true" /> <!-- x-intercept -->
+  <text x="110" y="98" font-size="12">(0, −4)</text>
+  <text x="-220" y="-5" font-size="12">(-12, 0)</text>
+</svg>
+
+      <figcaption>Graph of \( y = 3x − 1 \), showing intercepts: y-intercept (0, −1) and x-intercept (1/3, 0).</figcaption>
+    </figure>
+
+                </div>
+            </div>
+        </div>
+
+        <h3>2.1.4 Exercises</h3>
+
+        <p>In Exercises 1-8, plot each point on the coordinate axis and identify the quadrant or axis it falls in or on.</p>
+
+        <ol>
+            <li>$(-4,5)$</li>
+            <li>$(-3,-2)$</li>
+            <li>$(0,-5)$</li>
+            <li>$(-1,0)$</li>
+            <li>$(3,5)$</li>
+            <li>$(4,-2)$</li>
+            <li>$(1,0)$</li>
+            <li>$(0,4)$</li>
+        </ol>
+
+        <p>In Exercises 9-16, graph each equation by creating a table.</p>
+
+        <ol start="9">
+            <li>$y=3x-4$</li>
+            <li>$y=-\frac{2}{3}x+2$</li>
+            <li>$-x-4=y$</li>
+            <li>$y=\frac{2}{3}x-7$</li>
+            <li>$y=\frac{5}{4}x-1$</li>
+            <li>$y=-2x+3$</li>
+            <li>$3x+4=y$</li>
+            <li>$y=2x-1$</li>
+        </ol>
+
+        <p>In Exercises 17-24, find the $x$ and $y$-intercepts. Verify your answer using a graphing utility.</p>
+
+        <ol start="17">
+            <li>$y=\frac{1}{3}x-4$</li>
+            <li>$y=-\frac{3}{2}x+5$</li>
+            <li>$-2x-4=y$</li>
+            <li>$y=\frac{2}{3}x+5$</li>
+            <li>$y=-\frac{5}{4}x-1$</li>
+            <li>$y=-2x+5$</li>
+            <li>$\frac{1}{2}x+4=y$</li>
+            <li>$y=2x-3$</li>
+        </ol>
+
+    <nav aria-label="Page navigation">
+  <div class="page-navigation">
+    <div class="page-navigation" style="display:flex; justify-content:space-between; margin-top:40px;">
+        <a href="MTH154CH1_8.html" class="nav-button" aria-label="Go to previous section">&larr; Previous</a>
+        <a href="CH2_2.html" class="nav-button" aria-label="Go to next section">Next &rarr;</a>
+    </div>
+  </div>
+</nav>
+
+</div>
+<script>
+        function toggleExample(button) {
+            const content = button.nextElementSibling;
+            const arrow = button.querySelector('.toggle-arrow');
+            
+            if (content.classList.contains('open')) {
+                content.classList.remove('open');
+                arrow.classList.remove('open');
+                button.querySelector('span:last-child').textContent = 'Show Solution';
+            } else {
+                content.classList.add('open');
+                arrow.classList.add('open');
+                button.querySelector('span:last-child').textContent = 'Hide Solution';
+            }
+        }
+    </script>
+
+    <script>
+        const chapterButtons = document.querySelectorAll(".toc-chapter");
+
+        chapterButtons.forEach(button => {
+            button.addEventListener("click", () => {
+                const expanded = button.getAttribute("aria-expanded") === "true";
+                button.setAttribute("aria-expanded", !expanded);
+
+                const submenu = button.nextElementSibling;
+                submenu.classList.toggle("open");
+            });
+        });
+    </script>
+</body>
+</html>

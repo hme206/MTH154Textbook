@@ -1,0 +1,1347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 3: Sets - Section 3.4: More with Venn Diagrams</title>
+    
+    <!-- MathJax configuration -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            },
+            loader: {
+                load: ['input/tex', 'output/chtml']
+            }
+        };
+    </script>
+    <!-- MathJax loader -->
+    <script id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+
+    <style>
+      
+    .nav-button {
+      padding: 10px 20px;
+      background-color: #33AB2B;
+      color: #000000;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+
+    .nav-button:hover,
+    .nav-button:focus {
+      background-color: #33AB2B;
+      outline: none;
+    }     
+/* Layout unchanged */
+.side-toc {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 230px;
+    height: 100vh;
+    background-color: #f0f8ed;
+    border-right: 3px solid #33AB2B;
+    padding: 20px;
+    overflow: hidden;
+}
+.diagram-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(150px, 1fr));
+  gap: 2rem;
+  justify-items: center;   /* centers each column item */
+  align-items: start;
+  margin: 1.5rem 0;
+}
+
+.diagram {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.toc-title {
+    font-size: 1.4em;
+    margin-bottom: 15px;
+    color: #33AB2B;
+}
+
+/* Chapter buttons */
+.toc-chapter {
+    width: 100%;
+    background: none;
+    border: none;
+    text-align: left;
+    font-size: 1em;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    color: #333;
+}
+
+.toc-chapter:hover,
+.toc-chapter:focus {
+    color: #33AB2B;
+}
+
+.arrow {
+    transition: transform 0.25s ease;
+}
+
+/* Rotated when opened */
+.toc-chapter[aria-expanded="true"] .arrow {
+    transform: rotate(90deg);
+}
+
+/* Submenu collapsed by default */
+.toc-submenu {
+    list-style: none;
+    padding-left: 15px;
+    margin: 5px 0 10px 0;
+    display: none;
+}
+
+/* Visible when expanded */
+.toc-submenu.open {
+    display: block;
+}
+
+.toc-submenu li {
+    margin: 6px 0;
+}
+
+.toc-submenu a {
+    color: #333;
+    text-decoration: none;
+}
+
+.toc-submenu a:hover,
+.toc-submenu a:focus {
+    color: #33AB2B;
+    text-decoration: underline;
+}
+
+/* Push main body over */
+body {
+    margin-left: 250px;
+}
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background-color: #ffffff;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #33AB2B;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            border-bottom: 3px solid #33AB2B;
+            padding-bottom: 15px;
+        }
+
+        h2 {
+            color: #33AB2B;
+            font-size: 1.8em;
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            color: #33AB2B;
+            font-size: 1.2em;
+            margin-top: 20px;
+            margin-bottom: 15px;
+        }
+
+        h4 {
+            color: #33AB2B;
+            font-size: 1.1em;
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+
+        .definition-box {
+            background-color: #f0f8ed;
+            border: 2px solid #33AB2B;
+            border-radius: 6px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .definition-box h3 {
+            color: #33AB2B;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            margin-top: 0;
+        }
+
+        .definition-box p {
+            margin-bottom: 15px;
+        }
+
+        .definition-box ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .definition-box li {
+            margin-bottom: 10px;
+        }
+
+        .conversion-box {
+            background-color: #ffffff;
+            border: 2px solid #b84d7e;
+            border-radius: 6px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .conversion-box h3 {
+            color: #b84d7e;
+            margin-top: 0;
+        }
+
+        .conversion-box table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        .conversion-box table th,
+        .conversion-box table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .conversion-box table th {
+            background-color: #f0f0f0;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .orange-box {
+            background-color: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 6px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+
+        .orange-box h3 {
+            margin-top: 0;
+        }
+
+        .orange-box ol {
+            margin-left: 20px;
+        }
+
+        .orange-box li {
+            margin-bottom: 8px;
+        }
+
+        .example {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            margin: 25px 0;
+            overflow: hidden;
+        }
+
+        .example-problem {
+            padding: 15px 20px;
+        }
+
+        .example-problem h3 {
+            color: #33AB2B;
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .example-problem p {
+            margin-bottom: 10px;
+        }
+
+        .example-problem ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .example-problem li {
+            margin-bottom: 8px;
+        }
+
+        .example-problem ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .solution-header {
+            background-color: #33AB2B;
+            color: white;
+            padding: 12px 20px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+            margin-top: 15px;
+            border-radius: 4px;
+            transition: background-color 0.2s ease;
+            border: none;
+            font-size: 1em;
+        }
+
+        .solution-header:hover {
+            background-color: #2a8922;
+        }
+
+        .toggle-arrow {
+            display: inline-block;
+            margin-right: 12px;
+            transition: transform 0.3s ease;
+            font-size: 1.2em;
+        }
+
+        .toggle-arrow.open {
+            transform: rotate(180deg);
+        }
+
+        .example-content {
+            padding: 0;
+            display: none;
+            overflow: hidden;
+        }
+
+        .example-content.open {
+            display: block;
+        }
+
+        .solution {
+            background-color: #f0f8ed;
+            padding: 20px;
+            border-top: 2px solid #33AB2B;
+        }
+
+        .solution h4 {
+            color: #33AB2B;
+            margin-bottom: 15px;
+            margin-top: 0;
+        }
+
+        .solution p {
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        .solution ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .solution li {
+            margin-bottom: 8px;
+        }
+
+        .solution ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        ul li {
+            margin-bottom: 8px;
+        }
+
+        ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        ol li {
+            margin-bottom: 8px;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        strong {
+            font-weight: bold;
+        }
+
+        em {
+            font-style: italic;
+        }
+
+        .blue-text {
+            color: #0066cc;
+        }
+
+        .divider {
+            border-top: 2px dashed #33AB2B;
+            margin: 30px 0;
+        }
+
+        .image-placeholder {
+            background-color: #e0e0e0;
+            border: 2px dashed #999;
+            padding: 40px;
+            margin: 20px 0;
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            border-radius: 4px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table th {
+            background-color: #f0f8ed;
+            color: #33AB2B;
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ccc;
+            font-weight: bold;
+        }
+
+        table td {
+            padding: 12px;
+            border: 1px solid #ccc;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        table tr.highlighted {
+            background-color: #ffff99;
+        }
+
+        .subsection-title {
+            color: #33AB2B;
+            font-size: 1.3em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+    </style>
+<style>
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+</style>
+</head>
+<body>
+<nav class="side-toc" aria-label="Textbook Navigation">
+    <h2 class="toc-title">Contents</h2>
+
+    <!-- Chapter 1 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 1: Financial Literacy</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="MTH154CH1_1.html">1.1 Introduction</a></li>
+        <li><a href="MTH154CH1_2.html">1.2 Problem Solving</a></li>
+        <li><a href="MTH154CH1_3.html">1.3 Simple Interest</a></li>
+ 	<li><a href="MTH154CH1_4.html">1.4 Compound Interest & Annuities</a></li>
+ 	<li><a href="MTH154CH1_5.html">1.5 Installment Loans</a></li>
+ 	<li><a href="MTH154CH1_6.html">1.6 Loans</a></li>
+ 	<li><a href="MTH154CH1_7.html">1.7 Stocks & Bonds</a></li>
+ 	<li><a href="MTH154CH1_8.html">1.8 Taxes</a></li>
+    </ul>
+
+    <!-- Chapter 2 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 2: Modeling Data</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="Ch2_1.html">2.1 Basics of Graphing</a></li>
+        <li><a href="Ch2_2.html">2.2 Relations & Functions</a></li>
+        <li><a href="Ch2_3.html">2.3 Linear Models</a></li>
+        <li><a href="Ch2_4.html">2.4 Rate of Change</a></li>
+        <li><a href="Ch2_5.html">2.5 Scatterplots</a></li>
+    </ul>
+
+    <!-- Chapter 3 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 3: Set Theory</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="Ch3_1.html">3.1 Set Basics</a></li>
+        <li><a href="Ch3_2.html">3.2 Sets</a></li>
+        <li><a href="Ch3_3.html">3.3 Venn Diagrams</a></li>
+        <li><a href="MTH154CH3_4.html">3.4 More with Venn Diagrams</a></li>
+    </ul>
+
+   <!-- Chapter 4 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 4: Logic</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="MTH154CH4_1.html">4.1 Thinking Logically</a></li>
+        <li><a href="MTH154CH4_2.html">4.2 Introduction to Truth Tables</a></li>
+	<li><a href="MTH154CH4_3.html">4.3 Logical Arguments</a></li>
+	<li><a href="MTH154CH4_4.html">4.4 Variations of Statements</a></li>
+    </ul>
+
+   <!-- Chapter 5 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 5: Measurement</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="MTH154CH5_1.html">5.1 Ratios & Proportions</a></li>
+        <li><a href="MTH154CH5_2.html">5.2 Measurement</a></li>
+	<li><a href="MTH154CH5_3.html">5.3 Area, Volume, and Capacity</a></li>
+	<li><a href="MTH154CH5_4.html">5.4 Weight & Temperature</a></li>
+	<li><a href="MTH154CH5_5.html">5.5 Surface Area & Volume</a></li>
+    </ul>
+</nav>
+    <div class="container">
+        <h1>Chapter 3: Sets</h1>
+
+        <h2>Section 3.4: More with Venn Diagrams</h2>
+
+        <p>So far in this unit, we've talked about sets and Venn Diagrams, as well as everything that goes into them. In the previous lesson, we learned about creating Venn Diagrams with two sets or two circles. In this section, we are going to be working with Venn Diagrams involving three sets or three circles. It is important to note that Venn Diagrams do not have a limit to the number of sets you can use. Once you move beyond three sets, the complexity of the Venn diagram increases significantly.</p>
+
+        <p>Three-circle Venn Diagrams are useful when trying to make conclusions about different sets. It holds the same ideas and principals that two-circle Venn Diagrams have. Let's look at what a three-circle Venn diagram tells us in the figure below.</p>
+
+        <figure style="display:block; text-align:center; margin:20px 0;">
+  <svg width="450" height="350" viewBox="-6 -6 12 10"
+       xmlns="http://www.w3.org/2000/svg"
+       role="img"
+       aria-labelledby="titleThreeVenn">
+    <title id="titleThreeVenn">General three-circle Venn Diagram with section numbers in Roman Numerals, and sets in capital letters.</title>
+
+    <!-- Outer universal set rectangle -->
+    <rect x="-5" y="-5" width="10" height="8" fill="none"
+          stroke="black" stroke-width="0.05" />
+    <text x="4.5" y="2.5" text-anchor="end" font-size="0.6">U</text>
+    
+
+    <!-- Three circles -->
+    <circle cx="1.5" cy="-2" r="2" fill="none" stroke="black" stroke-width="0.05" />
+    <circle cx="-1.5" cy="-2" r="2" fill="none" stroke="black" stroke-width="0.05" />
+    <circle cx="0" cy="0" r="2" fill="none" stroke="black" stroke-width="0.05" />
+
+    <!-- Labels -->
+    <text x="1.5" y="-2" text-anchor="middle" font-size="0.6">B</text>
+    <text x="-1.5" y="-2" text-anchor="middle" font-size="0.6">A</text>
+    
+    <text x="0" y="1.7" text-anchor="middle" font-size="0.6">C</text>
+
+    <!-- Region labels -->
+    <text x="2" y="-3" text-anchor="middle" font-size="0.45">III</text>
+    <text x="-2" y="-3" text-anchor="middle" font-size="0.45">I</text>
+    <text x="0" y="-2.2" text-anchor="middle" font-size="0.45">II</text>
+    <text x="0.7" y="-1" text-anchor="start" font-size="0.45">IV</text>
+    <text x="0" y="1" text-anchor="middle" font-size="0.45">V</text>
+    <text x="-0.7" y="-1" text-anchor="end" font-size="0.45">VI</text>
+    <text x="0" y="-1.2" text-anchor="middle" font-size="0.45">VII</text>
+    <text x="4.5" y="-4" text-anchor="end" font-size="0.45">VIII</text>
+  </svg>
+
+  <figcaption>Figure 3.4.1 - General three-circle Venn Diagram with section numbers in Roman Numerals.</figcaption>
+</figure>
+
+
+        <p>We can see the similarity between this and the two-circle Venn diagram found in the previous section. From looking at the three-circle Venn diagram, we can conclude that each set contains the following sections/regions:</p>
+
+        <ul>
+            <li><strong>Set A</strong> contains regions $\{I,II,VI,VII\}$</li>
+            <li><strong>Set B</strong> contains regions $\{II,III,IV,VII\}$</li>
+            <li><strong>Set C</strong> contains regions $\{IV,V,VI,VII\}$</li>
+            <li><strong>Set U</strong> contains regions $\{I,II,III,IV,V,VI,VII,VIII\}$</li>
+        </ul>
+
+        <p>Now let's look at what each region tells us specifically about each set:</p>
+
+        <ul>
+            <li><strong>Region I</strong> - This represents the set of all elements that are only in Set A.</li>
+            <li><strong>Region II</strong> - This represents the set of all elements that are in Set A and Set B, but not Set C.</li>
+            <li><strong>Region III</strong> - This represents the set of all elements that are only in Set B.</li>
+            <li><strong>Region IV</strong> - This represents the set of all elements that are in Set B and Set C, but not Set A.</li>
+            <li><strong>Region V</strong> - This represents the set of all elements that are only in Set C.</li>
+            <li><strong>Region VI</strong> - This represents the set of all elements that are in Set A and Set C, but not Set B.</li>
+            <li><strong>Region VII</strong> - This represents the set of all elements that are in Set A, Set B, and Set C.</li>
+            <li><strong>Region VIII</strong> - This represents the set of all elements that are not in Set A, Set B, or Set C, but are in the universal Set U.</li>
+        </ul>
+
+        <p>Just like with two-circle Venn diagrams, it is important to know what each section/region represents in order to help us solve problems and/or identify sets.</p>
+
+        <!-- Example 1 -->
+        <div class="example">
+            <div class="example-problem">
+                <h3>Example 1</h3>
+                <p>A survey was conducted about radio listening habits of adults in the ages of 18 to 45. Those surveyed were asked to identify which genre of music they listen to: Hip-Hop, Country, or Rock-and-Roll. Construct a generic Venn diagram that would represent the results of this survey, then identify the set of people and the sections represented by $H\cap (C\cap R)'$ where:</p>
+
+                <p>H = The set of all people who listen to Hip-Hop</p>
+                <p>C = The set of all people who listen to Country</p>
+                <p>R = The set of all people who listen to Rock-and-Roll</p>
+            </div>
+
+<button class="solution-header" onclick="toggleExample(this)">
+                <span class="toggle-arrow">▼</span>
+                <span>Show Solution</span>
+            </button>
+
+            <div class="example-content">
+                <div class="solution">
+                    <h4>Solution</h4>
+                    <p>This is where we are going to employ the process that we learned in the previous section to help us.</p>
+
+                    <ol>
+                        <li>Construct a Venn diagram with the section/region numbers and each sets' name.
+                            <figure style="display:block; text-align:center; margin:20px 0;">
+  <svg width="450" height="350" viewBox="-6 -6 12 10"
+       xmlns="http://www.w3.org/2000/svg"
+       role="img"
+       aria-labelledby="titleThreeVenn">
+    <title id="titleThreeVenn">General three-circle Venn Diagram with section numbers in Roman Numerals, and sets in capital letters.</title>
+
+    <!-- Outer universal set rectangle -->
+    <rect x="-5" y="-5" width="10" height="8" fill="none"
+          stroke="black" stroke-width="0.05" />
+    <text x="4.5" y="2.5" text-anchor="end" font-size="0.6">U</text>
+    
+
+    <!-- Three circles -->
+    <circle cx="1.5" cy="-2" r="2" fill="none" stroke="black" stroke-width="0.05" />
+    <circle cx="-1.5" cy="-2" r="2" fill="none" stroke="black" stroke-width="0.05" />
+    <circle cx="0" cy="0" r="2" fill="none" stroke="black" stroke-width="0.05" />
+
+    <!-- Labels -->
+    <text x="1.5" y="-2" text-anchor="middle" font-size="0.6">C</text>
+    <text x="-1.5" y="-2" text-anchor="middle" font-size="0.6">H</text>
+    
+    <text x="0" y="1.7" text-anchor="middle" font-size="0.6">R</text>
+
+    <!-- Region labels -->
+    <text x="2" y="-3" text-anchor="middle" font-size="0.45">III</text>
+    <text x="-2" y="-3" text-anchor="middle" font-size="0.45">I</text>
+    <text x="0" y="-2.2" text-anchor="middle" font-size="0.45">II</text>
+    <text x="0.7" y="-1" text-anchor="start" font-size="0.45">IV</text>
+    <text x="0" y="1" text-anchor="middle" font-size="0.45">V</text>
+    <text x="-0.7" y="-1" text-anchor="end" font-size="0.45">VI</text>
+    <text x="0" y="-1.2" text-anchor="middle" font-size="0.45">VII</text>
+    <text x="4.5" y="-4" text-anchor="end" font-size="0.45">VIII</text>
+  </svg>
+
+  <figcaption>Figure 3.4.2 - General three-circle Venn Diagram for Example 1</figcaption>
+</figure>
+                        </li>
+
+                        <li>Identify the regions enclosed by each set:
+                            <ul>
+                                <li>Set H $=\{I,II,VI,VII\}$</li>
+                                <li>Set R $=\{II,III,IV,VII\}$</li>
+                                <li>Set C $=\{IV,V,VI,VII\}$</li>
+                                <li>Set U $=\{I,II,III,IV,V,VI,VII,VIII\}$</li>
+                            </ul>
+                        </li>
+
+                        <li>Find the regions included in $H\cap (C\cap R)'$. To find this, we first need to start inside our parenthesis, just like order of operation:
+                            <p>$$C\cap R = \{IV,V,VI,VII\}\cap \{II,III,IV,VII\}=\{IV,VII\}$$</p>
+                            <p>Next, we find the compliment of that, so everything that is in Set U but not in that set.</p>
+                            <p>$$(C\cap R)'=\{I,II,III,IV,V,VI,VII,VIII\}-\{IV,VII\}=\{I,II,III,V,VI,VIII\}$$</p>
+                            <p>Lastly, intersect that with Set H:</p>
+                            <p>$$H\cap (C\cap R)'=\{I,II,VI,VII\}\cap \{I,II,III,V,VI,VIII\}=\{I,II,VI\}$$</p>
+                        </li>
+
+                        <li>Shade the Venn diagram
+
+                            <figure style="display:block; text-align:center; margin:20px 0;">
+  <svg width="450" height="350" viewBox="-6 -6 12 10"
+       xmlns="http://www.w3.org/2000/svg"
+       role="img"
+       aria-labelledby="titleThreeVenn">
+    <title id="titleThreeVenn">Three Circle Venn Diagram with set H in the upper left circle, R in the upper right circle, and C in the lower middle circle. Regions I, II, and VI are highlighted in yellow.</title>
+
+    <!-- Outer universal set rectangle -->
+    <rect x="-5" y="-5" width="10" height="8" fill="none"
+          stroke="black" stroke-width="0.05" />
+    <text x="4.5" y="2.5" text-anchor="end" font-size="0.6">U</text>
+    
+
+    <!-- Three circles -->
+    <circle cx="1.5" cy="-2" r="2" fill="none" stroke="black" stroke-width="0.05" />
+    <circle cx="-1.5" cy="-2" r="2" fill="none" stroke="black" stroke-width="0.05" />
+    <circle cx="0" cy="0" r="2" fill="none" stroke="black" stroke-width="0.05" />
+
+    <!-- Labels -->
+    <text x="1.5" y="-2" text-anchor="middle" font-size="0.6">C</text>
+    <text x="-1.5" y="-2" text-anchor="middle" font-size="0.6">H</text>
+    
+    <text x="0" y="1.7" text-anchor="middle" font-size="0.6">R</text>
+
+<defs>
+  <!-- clip paths for easy intersection operations -->
+  <clipPath id="clipLeft"><circle cx="-1.5" cy="-2" r="2"/></clipPath>
+  <clipPath id="clipRight"><circle cx="1.5" cy="-2" r="2"/></clipPath>
+  <clipPath id="clipBottom"><circle cx="0" cy="0" r="2"/></clipPath>
+
+  <!-- mask: show only left circle minus (right ∪ bottom)  -->
+  <mask id="maskLeftOnly">
+    <!-- start hidden -->
+    <rect x="-6" y="-6" width="12" height="12" fill="black"/>
+    <!-- show left entire -->
+    <circle cx="-1.5" cy="-2" r="2" fill="white"/>
+    <!-- subtract right and bottom -->
+    <circle cx="1.5" cy="-2" r="2" fill="black"/>
+    <circle cx="0" cy="0" r="2" fill="black"/>
+  </mask>
+
+  <!-- mask to remove bottom from a drawing (white=keep, black=remove) -->
+  <mask id="maskNoBottom">
+    <rect x="-6" y="-6" width="12" height="12" fill="white"/>
+    <circle cx="0" cy="0" r="2" fill="black"/>
+  </mask>
+
+  <!-- mask to remove right from a drawing -->
+  <mask id="maskNoRight">
+    <rect x="-6" y="-6" width="12" height="12" fill="white"/>
+    <circle cx="1.5" cy="-2" r="2" fill="black"/>
+  </mask>
+</defs>
+
+<!-- === Region I: left-only (Left \ (Right ∪ Bottom)) === -->
+<rect x="-6" y="-6" width="12" height="12"
+      fill="yellow" fill-opacity="0.5" mask="url(#maskLeftOnly)" />
+
+<!-- === Region II: (Left ∩ Right) \ Bottom ===
+     Achieved by clipping to Left, drawing Right (so we get Left∩Right),
+     then masking out Bottom. -->
+<g clip-path="url(#clipLeft)" mask="url(#maskNoBottom)">
+  <circle cx="1.5" cy="-2" r="2" fill="yellow" fill-opacity="0.5" />
+</g>
+
+<!-- === Region VI: (Left ∩ Bottom) \ Right ===
+     Clip to Left, draw Bottom, then mask out Right. -->
+<g clip-path="url(#clipLeft)" mask="url(#maskNoRight)">
+  <circle cx="0" cy="0" r="2" fill="yellow" fill-opacity="0.5" />
+</g>
+
+
+    <!-- Region labels -->
+    <text x="2" y="-3" text-anchor="middle" font-size="0.45">III</text>
+    <text x="-2" y="-3" text-anchor="middle" font-size="0.45">I</text>
+    <text x="0" y="-2.2" text-anchor="middle" font-size="0.45">II</text>
+    <text x="0.7" y="-1" text-anchor="start" font-size="0.45">IV</text>
+    <text x="0" y="1" text-anchor="middle" font-size="0.45">V</text>
+    <text x="-0.7" y="-1" text-anchor="end" font-size="0.45">VI</text>
+    <text x="0" y="-1.2" text-anchor="middle" font-size="0.45">VII</text>
+    <text x="4.5" y="-4" text-anchor="end" font-size="0.45">VIII</text>
+  </svg>
+
+  <figcaption>Figure 3.4.3 - Shaded Venn Diagram for Solution to Example 1</figcaption>
+</figure>
+
+
+                            <p>We can see from the Venn diagram that this represents the set of all people who like Hip-Hop music, Hip-Hop and Rock-and-Roll, and Hip-Hop and Country, but do not like all three.</p>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <h3>Problem Solving Using Venn Diagrams</h3>
+
+        <p>Sometimes we need to solve problems involving three-circle Venn diagrams. To do that, we will employ the same process that we did with two-circle Venn diagrams. As we increase in difficulty with each problem, it becomes even more important that we understand what each region of the circle represents.</p>
+
+        <!-- Example 2 -->
+        <div class="example">
+            <div class="example-problem">
+                <h3>Example 2</h3>
+                <p>Fifty students were surveyed and asked if they were taking a Social Science (SS), Humanities (HM), or a Natural Science (NS) course in their next semester. It was found that 21 students were taking a Social Science course, 19 were taking a Natural Science course, and 26 were taking a Humanities course. Additionally, it was found that 7 were taking a Social Science and Natural Science course, 9 were taking a Social Science and Humanities course, and 10 were taking a Humanities and Natural Science course. Further results also showed that 3 students were taking all three courses, and that 7 students were taking none of the three courses in the next semester. How many students are only taking a Social Science course?</p>
+            </div>
+
+            <button class="solution-header" onclick="toggleExample(this)">
+                <span class="toggle-arrow">▼</span>
+                <span>Show Solution</span>
+            </button>
+
+            <div class="example-content">
+                <div class="solution">
+                    <h4>Solution</h4>
+                    <p>To start finding the solution, let's first look at the Venn diagram and the regions:</p>
+
+                    <figure style="display:block; text-align:center; margin:20px 0;">
+  <svg width="450" height="350" viewBox="-6 -6 12 10"
+       xmlns="http://www.w3.org/2000/svg"
+       role="img"
+       aria-labelledby="titleThreeVenn">
+    <title id="titleThreeVenn">Venn Diagram displaying SS in the upper left circle, HM in the upper right circle, and NS in the lower middle circle, with section numbers.</title>
+
+    <!-- Outer universal set rectangle -->
+    <rect x="-5" y="-5" width="10" height="8" fill="none"
+          stroke="black" stroke-width="0.05" />
+    <text x="4.5" y="2.5" text-anchor="end" font-size="0.6">U</text>
+    
+
+    <!-- Three circles -->
+    <circle cx="1.5" cy="-2" r="2" fill="none" stroke="black" stroke-width="0.05" />
+    <circle cx="-1.5" cy="-2" r="2" fill="none" stroke="black" stroke-width="0.05" />
+    <circle cx="0" cy="0" r="2" fill="none" stroke="black" stroke-width="0.05" />
+
+    <!-- Labels -->
+    <text x="1.5" y="-2" text-anchor="middle" font-size="0.6">HM</text>
+    <text x="-1.5" y="-2" text-anchor="middle" font-size="0.6">SS</text>
+    
+    <text x="0" y="1.7" text-anchor="middle" font-size="0.6">NS</text>
+
+    <!-- Region labels -->
+    <text x="2" y="-3" text-anchor="middle" font-size="0.45">III</text>
+    <text x="-2" y="-3" text-anchor="middle" font-size="0.45">I</text>
+    <text x="0" y="-2.2" text-anchor="middle" font-size="0.45">II</text>
+    <text x="0.7" y="-1" text-anchor="start" font-size="0.45">IV</text>
+    <text x="0" y="1" text-anchor="middle" font-size="0.45">V</text>
+    <text x="-0.7" y="-1" text-anchor="end" font-size="0.45">VI</text>
+    <text x="0" y="-1.2" text-anchor="middle" font-size="0.45">VII</text>
+    <text x="4.5" y="-4" text-anchor="end" font-size="0.45">VIII</text>
+  </svg>
+
+  <figcaption>Figure 3.4.4 - General Venn Diagram for Example 2</figcaption>
+</figure>
+
+                    <p>$$\text{SS} =\{I,II,VI,VII\}$$</p>
+                    <p>$$\text{HM} =\{II,III,IV,VII\}$$</p>
+                    <p>$$\text{NS} =\{IV,V,VI,VII\}$$</p>
+
+                    <p>Now let's pull the numbers from the problem and see if we can arrive at a conclusion. We were told the following:</p>
+
+                    <table>
+                        <tr>
+                            <th>Cardinality</th>
+                            <th>Section Numbers</th>
+                            <th>Cardinality</th>
+                            <th>Section Numbers</th>
+                        </tr>
+                        <tr>
+                            <td>n(SS)=21</td>
+                            <td>{I,II,VI,VII}</td>
+                            <td>n(HM)=26</td>
+                            <td>{II,III,IV,VII}</td>
+                        </tr>
+                        <tr>
+                            <td>n(NS)=19</td>
+                            <td>{IV,V,VI,VII}</td>
+                            <td>n(SS ∩ NS)=7</td>
+                            <td>{VI,VII}</td>
+                        </tr>
+                        <tr>
+                            <td>n(SS ∩ HM)=9</td>
+                            <td>{II,VII}</td>
+                            <td>n(HM ∩ NS)=10</td>
+                            <td>{IV,VII}</td>
+                        </tr>
+                        <tr>
+                            <td>n(SS ∩ NS ∩ HM)=3</td>
+                            <td>{VII}</td>
+                            <td>n(none)=7</td>
+                            <td>{VIII}</td>
+                        </tr>
+                    </table>
+
+                    <p>When we look at all the information like that, it really starts to help us paint a picture. We can see that most of the cardinalities are represented by multiple regions except two. To start figuring out the number of elements (cardinality) in each region, it will be easiest to start with the innermost region of our diagram (VII) and start to spiral our way out.</p>
+
+                    <p>Since we see that 3 students are in section VII, we can move out of the innermost part and into the intersections of two of the circles. In this case, we will move to the intersection of Social Science and Humanities, which tells us there are 9 total students in the regions II and VII. If we know there are 3 students in region VII, that means region II has $9-3 =6$ students. Next, we would move onto another intersection, Humanities and Natural Science. They have 10 between both sections, meaning that section IV would contain $10-3 =7$. Lastly, move to the last intersection to find that region VI would contain $7-3=4$. Before we move on to the individual regions of I, III, and V, let's look at our Venn diagram:</p>
+
+                   <figure style="display:block; text-align:center; margin:20px 0;">
+  <svg width="450" height="350" viewBox="-6 -6 12 10"
+       xmlns="http://www.w3.org/2000/svg"
+       role="img"
+       aria-labelledby="titleThreeVenn2">
+    <title id="titleThreeVenn2">Venn diagram for Example 2 with cardinalities in sections II, IV,VI, and VII</title>
+
+    <!-- Outer universal set rectangle -->
+    <rect x="-5" y="-5" width="10" height="8" fill="none"
+          stroke="black" stroke-width="0.05" />
+    <text x="4.5" y="2.5" text-anchor="end" font-size="0.6">U</text>
+    
+
+    <!-- Three circles -->
+    <circle cx="1.5" cy="-2" r="2" fill="none" stroke="black" stroke-width="0.05" />
+    <circle cx="-1.5" cy="-2" r="2" fill="none" stroke="black" stroke-width="0.05" />
+    <circle cx="0" cy="0" r="2" fill="none" stroke="black" stroke-width="0.05" />
+
+    <!-- Labels -->
+    <text x="1.5" y="-2" text-anchor="middle" font-size="0.6">HM</text>
+    <text x="-1.5" y="-2" text-anchor="middle" font-size="0.6">SS</text>
+    
+    <text x="0" y="1.7" text-anchor="middle" font-size="0.6">NS</text>
+
+    <!-- Region labels -->
+    <text x="2" y="-3" text-anchor="middle" font-size="0.45">III</text>
+    <text x="-2" y="-3" text-anchor="middle" font-size="0.45">I</text>
+    <text x="0" y="-2.2" text-anchor="middle" font-size="0.45">6</text>
+    <text x="0.7" y="-1" text-anchor="start" font-size="0.45">7</text>
+    <text x="0" y="1" text-anchor="middle" font-size="0.45">V</text>
+    <text x="-0.7" y="-1" text-anchor="end" font-size="0.45">4</text>
+    <text x="0" y="-1.2" text-anchor="middle" font-size="0.45">3</text>
+    <text x="4.5" y="-4" text-anchor="end" font-size="0.45">VIII</text>
+  </svg>
+
+  <figcaption>Figure 3.4.5 -Venn Diagram for Example 2 with some cardinalities.</figcaption>
+</figure>
+
+                    <p>Note that in the above Venn diagram, we replaced the section numbers with the cardinality; we just did this for the sake of space. The regions are still labeled accordingly. Next, we are going to find the remaining people who would be in regions I, III, and V.</p>
+
+                    <p>The number of elements in region I $=21-6-3-4=8$.</p>
+
+                    <p>The number of elements in region III $=26-6-3-7=10$.</p>
+
+                    <p>The number of elements in region V $=19-7-4-3=5$.</p>
+
+                    <p>Finally producing us with our finished Venn diagram:</p>
+
+                    <figure style="display:block; text-align:center; margin:20px 0;">
+  <svg width="450" height="350" viewBox="-6 -6 12 10"
+       xmlns="http://www.w3.org/2000/svg"
+       role="img"
+       aria-labelledby="titleThreeVenn3">
+    <title id="titleThreeVenn3">Venn diagram for Example 2 with all cardinalities in sections.</title>
+
+    <!-- Outer universal set rectangle -->
+    <rect x="-5" y="-5" width="10" height="8" fill="none"
+          stroke="black" stroke-width="0.05" />
+    <text x="4.5" y="2.5" text-anchor="end" font-size="0.6">U</text>
+    
+
+    <!-- Three circles -->
+    <circle cx="1.5" cy="-2" r="2" fill="none" stroke="black" stroke-width="0.05" />
+    <circle cx="-1.5" cy="-2" r="2" fill="none" stroke="black" stroke-width="0.05" />
+    <circle cx="0" cy="0" r="2" fill="none" stroke="black" stroke-width="0.05" />
+
+    <!-- Labels -->
+    <text x="1.5" y="-2" text-anchor="middle" font-size="0.6">HM</text>
+    <text x="-1.5" y="-2" text-anchor="middle" font-size="0.6">SS</text>
+    
+    <text x="0" y="1.7" text-anchor="middle" font-size="0.6">NS</text>
+
+    <!-- Region labels -->
+    <text x="2" y="-3" text-anchor="middle" font-size="0.45">10</text>
+    <text x="-2" y="-3" text-anchor="middle" font-size="0.45">8</text>
+    <text x="0" y="-2.2" text-anchor="middle" font-size="0.45">6</text>
+    <text x="0.7" y="-1" text-anchor="start" font-size="0.45">7</text>
+    <text x="0" y="1" text-anchor="middle" font-size="0.45">5</text>
+    <text x="-0.7" y="-1" text-anchor="end" font-size="0.45">4</text>
+    <text x="0" y="-1.2" text-anchor="middle" font-size="0.45">3</text>
+    <text x="4.5" y="-4" text-anchor="end" font-size="0.45">7</text>
+  </svg>
+
+  <figcaption>Figure 3.4.6 -Venn Diagram for Example 2 with all cardinalities.</figcaption>
+</figure>
+
+                    <p>Now we can answer the question of "How many students are only taking a Social Science course?" Based on our Venn diagram, that would be the set of students who fell only in region I, which is a total of 8 students.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Example 3 -->
+        <div class="example">
+            <div class="example-problem">
+                <h3>Example 3</h3>
+                <p>One hundred-fifty people were surveyed and asked if they believed in UFOs, Ghosts, and Bigfoot. The results are given below:</p>
+
+                <table>
+                    <tr>
+                        <td>43 believed in UFOs</td>
+                        <td>44 believed in ghosts</td>
+                    </tr>
+                    <tr>
+                        <td>25 believed in Bigfoot</td>
+                        <td>10 believed in UFOs and ghosts</td>
+                    </tr>
+                    <tr>
+                        <td>8 believed in ghosts and Bigfoot</td>
+                        <td>5 believed in UFOs and Bigfoot</td>
+                    </tr>
+                    <tr>
+                        <td>2 believed in all three</td>
+                        <td></td>
+                    </tr>
+                </table>
+
+                <p>How many people surveyed believed in at least one of these things?</p>
+            </div>
+
+            <button class="solution-header" onclick="toggleExample(this)">
+                <span class="toggle-arrow">▼</span>
+                <span>Show Solution</span>
+            </button>
+
+            <div class="example-content">
+                <div class="solution">
+                    <h4>Solution</h4>
+                    <p>To find the solution to this problem, we will approach it very similar to the previous example. This time, we aren't going to break it down as far. Since this problem models the same idea as the previous problem, we will start at the very center of our Venn diagram with the intersection of all three circles (region VII), and then spiral our way out.</p>
+
+                    <figure style="display:block; text-align:center; margin:20px 0;">
+  <svg width="450" height="350" viewBox="-6 -6 12 10"
+       xmlns="http://www.w3.org/2000/svg"
+       role="img"
+       aria-labelledby="titleThreeVenn4">
+    <title id="titleThreeVenn4">Venn Diagram displaying UFO's in the upper left circle, Ghosts's in the upper right circle, and Bigfoot in the lower middle circle, with section numbers.</title>
+
+    <!-- Outer universal set rectangle -->
+    <rect x="-5" y="-5" width="10" height="8" fill="none"
+          stroke="black" stroke-width="0.05" />
+    <text x="4.5" y="2.5" text-anchor="end" font-size="0.6">U</text>
+    
+
+    <!-- Three circles -->
+    <circle cx="1.5" cy="-2" r="2" fill="none" stroke="black" stroke-width="0.05" />
+    <circle cx="-1.5" cy="-2" r="2" fill="none" stroke="black" stroke-width="0.05" />
+    <circle cx="0" cy="0" r="2" fill="none" stroke="black" stroke-width="0.05" />
+
+    <!-- Labels -->
+    <text x="1.5" y="-2" text-anchor="middle" font-size="0.6">Ghosts</text>
+    <text x="-1.5" y="-2" text-anchor="middle" font-size="0.6">UFO's</text>
+    
+    <text x="0" y="1.7" text-anchor="middle" font-size="0.6">Bigfoot</text>
+
+    <!-- Region labels -->
+    <text x="2" y="-3" text-anchor="middle" font-size="0.45">III</text>
+    <text x="-2" y="-3" text-anchor="middle" font-size="0.45">I</text>
+    <text x="0" y="-2.2" text-anchor="middle" font-size="0.45">II</text>
+    <text x="0.7" y="-1" text-anchor="start" font-size="0.45">IV</text>
+    <text x="0" y="1" text-anchor="middle" font-size="0.45">V</text>
+    <text x="-0.7" y="-1" text-anchor="end" font-size="0.45">VI</text>
+    <text x="0" y="-1.2" text-anchor="middle" font-size="0.45">VII</text>
+    <text x="4.5" y="-4" text-anchor="end" font-size="0.45">VIII</text>
+  </svg>
+
+  <figcaption>Figure 3.4.7 -Basic Venn Diagram for Example 3.</figcaption>
+</figure>
+
+                    <p><strong>Region VII:</strong> This would be the two who believed in all three.</p>
+
+                    <p><strong>Region II:</strong> This would be UFOs and ghosts plus the center, thus $10-2=8$</p>
+
+                    <p><strong>Region IV:</strong> This would be ghosts and Bigfoot plus the center, thus $8-2=6$</p>
+
+                    <p><strong>Region VI:</strong> This would be UFOs and Bigfoot plus the center, thus $5-2=3$</p>
+
+                    <p>Now we can start to find how many in the remaining areas.</p>
+
+                    <p><strong>Region I:</strong> UFOs $43-8-2-3=30$</p>
+
+                    <p><strong>Region III:</strong> Ghosts $44-8-6-2=28$</p>
+
+                    <p><strong>Region V:</strong> Bigfoot $25-3-2-6=14$</p>
+
+                    <p>Lastly, we would need to find out how many are in region VIII $150-30-8-28-6-14-3-2=59$. This gives us our final Venn diagram of:</p>
+
+ <figure style="display:block; text-align:center; margin:20px 0;">
+  <svg width="450" height="350" viewBox="-6 -6 12 10"
+       xmlns="http://www.w3.org/2000/svg"
+       role="img"
+       aria-labelledby="titleThreeVenn5">
+    <title id="titleThreeVenn5">Venn Diagram displaying UFO's in the upper left circle, Ghosts's in the upper right circle, and Bigfoot in the lower middle circle, wit section cardinalities.</title>
+
+    <!-- Outer universal set rectangle -->
+    <rect x="-5" y="-5" width="10" height="8" fill="none"
+          stroke="black" stroke-width="0.05" />
+    <text x="4.5" y="2.5" text-anchor="end" font-size="0.6">U</text>
+    
+
+    <!-- Three circles -->
+    <circle cx="1.5" cy="-2" r="2" fill="none" stroke="black" stroke-width="0.05" />
+    <circle cx="-1.5" cy="-2" r="2" fill="none" stroke="black" stroke-width="0.05" />
+    <circle cx="0" cy="0" r="2" fill="none" stroke="black" stroke-width="0.05" />
+
+    <!-- Labels -->
+    <text x="1.5" y="-2" text-anchor="middle" font-size="0.6">Ghosts</text>
+    <text x="-1.5" y="-2" text-anchor="middle" font-size="0.6">UFO's</text>
+    
+    <text x="0" y="1.7" text-anchor="middle" font-size="0.6">Bigfoot</text>
+
+    <!-- Region labels -->
+    <text x="2" y="-3" text-anchor="middle" font-size="0.45">28</text>
+    <text x="-2" y="-3" text-anchor="middle" font-size="0.45">30</text>
+    <text x="0" y="-2.2" text-anchor="middle" font-size="0.45">8</text>
+    <text x="0.7" y="-1" text-anchor="start" font-size="0.45">6</text>
+    <text x="0" y="1" text-anchor="middle" font-size="0.45">14</text>
+    <text x="-0.7" y="-1" text-anchor="end" font-size="0.45">3</text>
+    <text x="0" y="-1.2" text-anchor="middle" font-size="0.45">2</text>
+    <text x="4.5" y="-4" text-anchor="end" font-size="0.45">59</text>
+  </svg>
+
+  <figcaption>Figure 3.4.8 -Venn Diagram for Example 3 with Cardinalities.</figcaption>
+</figure>
+                   
+
+
+
+                    <p>From this, we can conclude that $150-59 =91$ people believed in at least one of these three things.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Example 4 -->
+        <div class="example">
+            <div class="example-problem">
+                <h3>Example 4</h3>
+                <p>A researcher was interested in finding three ways to live a healthier lifestyle. In a study of 690 people, it was found that the following were the best ways to improve health: Sixty-two said diet only, 36 said exercise only, and 93 said sleep habits only. There were 370 total people who suggested diet as a factor, 159 said that sleep habits and diet but not exercise was a factor, and 23 said that exercises and diet but not sleep habits was a factor. Lastly, 585 people said that at least one of these three factors impact a healthier lifestyle. Draw the Venn diagram and answer the following questions.</p>
+
+                <ol>
+                    <li>How many people thought that all three factors were important for a healthier lifestyle?</li>
+                    <li>How many people suggested exactly two of the three factors?</li>
+                    <li>What percentage of the people felt that exercise was an important factor of a healthier lifestyle?</li>
+                </ol>
+            </div>
+
+            <button class="solution-header" onclick="toggleExample(this)">
+                <span class="toggle-arrow">▼</span>
+                <span>Show Solution</span>
+            </button>
+
+            <div class="example-content">
+                <div class="solution">
+                    <h4>Solution</h4>
+                    <p>First we need to start pulling out the important information in this question and putting it into some notation that we understand.</p>
+
+                    <ul>
+                        <li>"In a study of 690 people..." $n(U)=690$</li>
+                        <li>"Sixty-two said diet only..." $n(I)=62$</li>
+                        <li>"36 said exercise only" $n(III)=36$</li>
+                        <li>"93 said sleep habits only" $n(V)=93$</li>
+                        <li>"370 total people who suggested diet" $n(I,II,VI,VII)=370$</li>
+                        <li>"159 said that sleep habits and diet but not exercise" $n(VI)=159$</li>
+                        <li>"23 said that exercises and diet but not sleep habits" $n(II)=23$</li>
+                        <li>"585 people said that at least one of these three" $n(I,II,III,IV,V,VI,VII)=585$</li>
+                    </ul>
+
+             
+ <figure style="display:block; text-align:center; margin:20px 0;">
+  <svg width="450" height="350" viewBox="-6 -6 12 10"
+       xmlns="http://www.w3.org/2000/svg"
+       role="img"
+       aria-labelledby="titleThreeVenn6">
+    <title id="titleThreeVenn6">Venn Diagram displaying Diet in the upper left circle, Exercise in the upper right circle, and Sleep in the lower middle circle, with section numbers.</title>
+
+    <!-- Outer universal set rectangle -->
+    <rect x="-5" y="-5" width="10" height="8" fill="none"
+          stroke="black" stroke-width="0.05" />
+    <text x="4.5" y="2.5" text-anchor="end" font-size="0.6">U</text>
+    
+
+    <!-- Three circles -->
+    <circle cx="1.5" cy="-2" r="2" fill="none" stroke="black" stroke-width="0.05" />
+    <circle cx="-1.5" cy="-2" r="2" fill="none" stroke="black" stroke-width="0.05" />
+    <circle cx="0" cy="0" r="2" fill="none" stroke="black" stroke-width="0.05" />
+
+    <!-- Labels -->
+    <text x="1.6" y="-2" text-anchor="middle" font-size="0.6">Exercise</text>
+    <text x="-1.5" y="-2" text-anchor="middle" font-size="0.6">Diet</text>
+    
+    <text x="0" y="1.7" text-anchor="middle" font-size="0.6">Sleep</text>
+
+    <!-- Region labels -->
+    <text x="2" y="-3" text-anchor="middle" font-size="0.45">III</text>
+    <text x="-2" y="-3" text-anchor="middle" font-size="0.45">I</text>
+    <text x="0" y="-2.2" text-anchor="middle" font-size="0.45">II</text>
+    <text x="0.7" y="-1" text-anchor="start" font-size="0.45">IV</text>
+    <text x="0" y="1" text-anchor="middle" font-size="0.45">V</text>
+    <text x="-0.7" y="-1" text-anchor="end" font-size="0.45">VI</text>
+    <text x="0" y="-1.2" text-anchor="middle" font-size="0.45">VII</text>
+    <text x="4.5" y="-4" text-anchor="end" font-size="0.45">VIII</text>
+  </svg>
+
+  <figcaption>Figure 3.4.9 - Basic Venn Diagram for Example 4 .</figcaption>
+</figure>
+           
+
+
+                    <p>Unlike the other examples, we were not given the innermost part region VII. Instead, we were given other pieces and from those we have to start and build this puzzle. First, start by entering the single sections we do have:</p>
+
+ <figure style="display:block; text-align:center; margin:20px 0;">
+  <svg width="450" height="350" viewBox="-6 -6 12 10"
+       xmlns="http://www.w3.org/2000/svg"
+       role="img"
+       aria-labelledby="titleThreeVenn7">
+    <title id="titleThreeVenn7">Venn Diagram displaying Diet in the upper left circle, Exercise in the upper right circle, and Sleep in the lower middle circle, with some cardinalities.</title>
+
+    <!-- Outer universal set rectangle -->
+    <rect x="-5" y="-5" width="10" height="8" fill="none"
+          stroke="black" stroke-width="0.05" />
+    <text x="4.5" y="2.5" text-anchor="end" font-size="0.6">U</text>
+    
+
+    <!-- Three circles -->
+    <circle cx="1.5" cy="-2" r="2" fill="none" stroke="black" stroke-width="0.05" />
+    <circle cx="-1.5" cy="-2" r="2" fill="none" stroke="black" stroke-width="0.05" />
+    <circle cx="0" cy="0" r="2" fill="none" stroke="black" stroke-width="0.05" />
+
+    <!-- Labels -->
+    <text x="1.6" y="-2" text-anchor="middle" font-size="0.6">Exercise</text>
+    <text x="-1.5" y="-2" text-anchor="middle" font-size="0.6">Diet</text>
+    
+    <text x="0" y="1.7" text-anchor="middle" font-size="0.6">Sleep</text>
+
+    <!-- Region labels -->
+    <text x="2" y="-3" text-anchor="middle" font-size="0.45">36</text>
+    <text x="-2" y="-3" text-anchor="middle" font-size="0.45">62</text>
+    <text x="0" y="-2.2" text-anchor="middle" font-size="0.45">23</text>
+    <text x="0.7" y="-1" text-anchor="start" font-size="0.45">IV</text>
+    <text x="0" y="1" text-anchor="middle" font-size="0.45">93</text>
+    <text x="-0.7" y="-1" text-anchor="end" font-size="0.45">159</text>
+    <text x="0" y="-1.2" text-anchor="middle" font-size="0.45">VII</text>
+    <text x="4.5" y="-4" text-anchor="end" font-size="0.45">VIII</text>
+  </svg>
+
+  <figcaption>Figure 3.4.10 - Venn Diagram for Example 4 with some cardinalities .</figcaption>
+</figure>
+
+                    <p>Next, look to see what is left in the list created and see what can be determined from that. Looking at the list, it can be seen at bullet 5 that $n(I,II,VI,VII)=370$. Looking at our diagram, it can be seen that we have all but VII. Thus, if we subtract all the other sections from 370, we'd end up with the number for section VII, $370-62-23-159=126$. This means there are 126 people who felt that diet, exercise, and sleep were important factors of a healthier lifestyle. Placing that number in the correction section of the Venn diagram shows us that the only section we have left to find inside the circles is IV. This can be found by using the information in our last bullet $585-62-23-36-93-159-126=86$. To finish out this diagram, we need to identify how many people didn't feel that any of these are factors of a healthier lifestyle. To do that, we would use the information from our last bullet to get $690-585=105$ people. This provides us with the diagram of:</p>
+
+                   
+
+ <figure style="display:block; text-align:center; margin:20px 0;">
+  <svg width="450" height="350" viewBox="-6 -6 12 10"
+       xmlns="http://www.w3.org/2000/svg"
+       role="img"
+       aria-labelledby="titleThreeVenn8">
+    <title id="titleThreeVenn8">Venn Diagram displaying Diet in the upper left circle, Exercise in the upper right circle, and Sleep in the lower middle circle, with all cardinalities.</title>
+
+    <!-- Outer universal set rectangle -->
+    <rect x="-5" y="-5" width="10" height="8" fill="none"
+          stroke="black" stroke-width="0.05" />
+    <text x="4.5" y="2.5" text-anchor="end" font-size="0.6">U</text>
+    
+
+    <!-- Three circles -->
+    <circle cx="1.5" cy="-2" r="2" fill="none" stroke="black" stroke-width="0.05" />
+    <circle cx="-1.5" cy="-2" r="2" fill="none" stroke="black" stroke-width="0.05" />
+    <circle cx="0" cy="0" r="2" fill="none" stroke="black" stroke-width="0.05" />
+
+    <!-- Labels -->
+    <text x="1.6" y="-2" text-anchor="middle" font-size="0.6">Exercise</text>
+    <text x="-1.5" y="-2" text-anchor="middle" font-size="0.6">Diet</text>
+    
+    <text x="0" y="1.7" text-anchor="middle" font-size="0.6">Sleep</text>
+
+    <!-- Region labels -->
+    <text x="2" y="-3" text-anchor="middle" font-size="0.45">36</text>
+    <text x="-2" y="-3" text-anchor="middle" font-size="0.45">62</text>
+    <text x="0" y="-2.2" text-anchor="middle" font-size="0.45">23</text>
+    <text x="0.7" y="-1" text-anchor="start" font-size="0.45">86</text>
+    <text x="0" y="1" text-anchor="middle" font-size="0.45">93</text>
+    <text x="-0.7" y="-1" text-anchor="end" font-size="0.45">159</text>
+    <text x="0" y="-1.2" text-anchor="middle" font-size="0.45">126</text>
+    <text x="4.5" y="-4" text-anchor="end" font-size="0.45">105</text>
+  </svg>
+
+  <figcaption>Figure 3.4.11 - Venn Diagram for Example 4 with all cardinalities.</figcaption>
+</figure>
+
+                    <p>Now we are ready to answer the questions.</p>
+
+                    <ol>
+                        <li><strong>How many people thought that all three factors were important for a healthier lifestyle?</strong>
+                            <p>$n(\text{Diet}\cap\text{Exercise}\cap\text{Sleep})=126$</p>
+                        </li>
+
+                        <li><strong>How many people suggested exactly two of the three factors?</strong>
+                            <p>There are three sections that are exactly two of the three factors. This would be regions II, IV, and VI, meaning our answer is $23+86+159=268$.</p>
+                        </li>
+
+                        <li><strong>What percentage of the people felt that exercise was an important factor of a healthier lifestyle?</strong>
+                            <p>Lastly, the number of people who felt exercise was factor is $23+36+86+126=271$. To find the percentage, we take the part and divide it by the whole to get $271/690 = 0.39$ and then multiply it by $100\%$, which would give us $39\%$.</p>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <p>When it comes to solving problems involving Venn Diagrams, it is extremely important to pick up on the words that signify each individual region and what they represent in terms of the entire operation. If the problem had been talking about "only", then we would be interested in just a single section. When we talk about generalizations, it broadens the number of sections/regions we are looking at.</p>
+
+    <nav aria-label="Page navigation">
+  <div class="page-navigation">
+    <div class="page-navigation" style="display:flex; justify-content:space-between; margin-top:40px;">
+        <a href="CH3_3.html" class="nav-button" aria-label="Go to previous section">&larr; Previous</a>
+        <a href="MTH154CH4_1.html" class="nav-button" aria-label="Go to next section">Next &rarr;</a>
+    </div>
+  </div>
+</nav>
+
+</div>
+<script>
+        function toggleExample(button) {
+            const content = button.nextElementSibling;
+            const arrow = button.querySelector('.toggle-arrow');
+            
+            if (content.classList.contains('open')) {
+                content.classList.remove('open');
+                arrow.classList.remove('open');
+                button.querySelector('span:last-child').textContent = 'Show Solution';
+            } else {
+                content.classList.add('open');
+                arrow.classList.add('open');
+                button.querySelector('span:last-child').textContent = 'Hide Solution';
+            }
+        }
+    </script>
+
+    <script>
+        const chapterButtons = document.querySelectorAll(".toc-chapter");
+
+        chapterButtons.forEach(button => {
+            button.addEventListener("click", () => {
+                const expanded = button.getAttribute("aria-expanded") === "true";
+                button.setAttribute("aria-expanded", !expanded);
+
+                const submenu = button.nextElementSibling;
+                submenu.classList.toggle("open");
+            });
+        });
+    </script>
+</body>
+</html>

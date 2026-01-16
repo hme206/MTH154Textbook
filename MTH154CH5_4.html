@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 5: Measurement - Section 5.3: Area, Volume, and Capacity</title>
+    
+    <!-- MathJax configuration -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            },
+            loader: {
+                load: ['input/tex', 'output/chtml']
+            }
+        };
+    </script>
+    <!-- MathJax loader -->
+    <script id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+
+    <style>
+      
+    .nav-button {
+      padding: 10px 20px;
+      background-color: #33AB2B;
+      color: #000000;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+
+    .nav-button:hover,
+    .nav-button:focus {
+      background-color: #33AB2B;
+      outline: none;
+    }     
+/* Layout unchanged */
+.side-toc {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 230px;
+    height: 100vh;
+    background-color: #f0f8ed;
+    border-right: 3px solid #33AB2B;
+    padding: 20px;
+    overflow: hidden;
+}
+
+.toc-title {
+    font-size: 1.4em;
+    margin-bottom: 15px;
+    color: #33AB2B;
+}
+
+/* Chapter buttons */
+.toc-chapter {
+    width: 100%;
+    background: none;
+    border: none;
+    text-align: left;
+    font-size: 1em;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    color: #333;
+}
+
+.toc-chapter:hover,
+.toc-chapter:focus {
+    color: #33AB2B;
+}
+
+.arrow {
+    transition: transform 0.25s ease;
+}
+
+/* Rotated when opened */
+.toc-chapter[aria-expanded="true"] .arrow {
+    transform: rotate(90deg);
+}
+
+/* Submenu collapsed by default */
+.toc-submenu {
+    list-style: none;
+    padding-left: 15px;
+    margin: 5px 0 10px 0;
+    display: none;
+}
+
+/* Visible when expanded */
+.toc-submenu.open {
+    display: block;
+}
+
+.toc-submenu li {
+    margin: 6px 0;
+}
+
+.toc-submenu a {
+    color: #333;
+    text-decoration: none;
+}
+
+.toc-submenu a:hover,
+.toc-submenu a:focus {
+    color: #33AB2B;
+    text-decoration: underline;
+}
+
+/* Push main body over */
+body {
+    margin-left: 250px;
+}
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background-color: #ffffff;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #33AB2B;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            border-bottom: 3px solid #33AB2B;
+            padding-bottom: 15px;
+        }
+
+        h2 {
+            color: #33AB2B;
+            font-size: 1.8em;
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            color: #33AB2B;
+            font-size: 1.2em;
+            margin-top: 20px;
+            margin-bottom: 15px;
+        }
+
+        h4 {
+            color: #33AB2B;
+            font-size: 1.1em;
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+
+        .definition-box {
+            background-color: #f0f8ed;
+            border: 2px solid #33AB2B;
+            border-radius: 6px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .definition-box h3 {
+            color: #33AB2B;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            margin-top: 0;
+        }
+
+        .definition-box p {
+            margin-bottom: 15px;
+        }
+
+        .definition-box ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .definition-box li {
+            margin-bottom: 10px;
+        }
+
+        .conversion-box {
+            background-color: #ffffff;
+            border: 2px solid #b84d7e;
+            border-radius: 6px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .conversion-box h3 {
+            color: #b84d7e;
+            margin-top: 0;
+        }
+
+        .conversion-box table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        .conversion-box table th,
+        .conversion-box table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .conversion-box table th {
+            background-color: #f0f0f0;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .orange-box {
+            background-color: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 6px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+
+        .orange-box h3 {
+            margin-top: 0;
+        }
+
+        .orange-box ol {
+            margin-left: 20px;
+        }
+
+        .orange-box li {
+            margin-bottom: 8px;
+        }
+
+        .example {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            margin: 25px 0;
+            overflow: hidden;
+        }
+
+        .example-problem {
+            padding: 15px 20px;
+        }
+
+        .example-problem h3 {
+            color: #33AB2B;
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .example-problem p {
+            margin-bottom: 10px;
+        }
+
+        .example-problem ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .example-problem li {
+            margin-bottom: 8px;
+        }
+
+        .example-problem ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .solution-header {
+            background-color: #33AB2B;
+            color: white;
+            padding: 12px 20px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+            margin-top: 15px;
+            border-radius: 4px;
+            transition: background-color 0.2s ease;
+            border: none;
+            font-size: 1em;
+        }
+
+        .solution-header:hover {
+            background-color: #2a8922;
+        }
+
+        .toggle-arrow {
+            display: inline-block;
+            margin-right: 12px;
+            transition: transform 0.3s ease;
+            font-size: 1.2em;
+        }
+
+        .toggle-arrow.open {
+            transform: rotate(180deg);
+        }
+
+        .example-content {
+            padding: 0;
+            display: none;
+            overflow: hidden;
+        }
+
+        .example-content.open {
+            display: block;
+        }
+
+        .solution {
+            background-color: #f0f8ed;
+            padding: 20px;
+            border-top: 2px solid #33AB2B;
+        }
+
+        .solution h4 {
+            color: #33AB2B;
+            margin-bottom: 15px;
+            margin-top: 0;
+        }
+
+        .solution p {
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        .solution ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .solution li {
+            margin-bottom: 8px;
+        }
+
+        .solution ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        ul li {
+            margin-bottom: 8px;
+        }
+
+        ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        ol li {
+            margin-bottom: 8px;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        strong {
+            font-weight: bold;
+        }
+
+        em {
+            font-style: italic;
+        }
+
+        .blue-text {
+            color: #0066cc;
+        }
+
+        .divider {
+            border-top: 2px dashed #33AB2B;
+            margin: 30px 0;
+        }
+
+        .image-placeholder {
+            background-color: #e0e0e0;
+            border: 2px dashed #999;
+            padding: 40px;
+            margin: 20px 0;
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            border-radius: 4px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table th {
+            background-color: #f0f8ed;
+            color: #33AB2B;
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ccc;
+            font-weight: bold;
+        }
+
+        table td {
+            padding: 12px;
+            border: 1px solid #ccc;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        table tr.highlighted {
+            background-color: #ffff99;
+        }
+
+        .subsection-title {
+            color: #33AB2B;
+            font-size: 1.3em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+    </style>
+<style>
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+</style>
+</head>
+<body>
+<nav class="side-toc" aria-label="Textbook Navigation">
+    <h2 class="toc-title">Contents</h2>
+
+    <!-- Chapter 1 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 1: Financial Literacy</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="MTH154CH1_1.html">1.1 Introduction</a></li>
+        <li><a href="MTH154CH1_2.html">1.2 Problem Solving</a></li>
+        <li><a href="MTH154CH1_3.html">1.3 Simple Interest</a></li>
+ 	<li><a href="MTH154CH1_4.html">1.4 Compound Interest & Annuities</a></li>
+ 	<li><a href="MTH154CH1_5.html">1.5 Installment Loans</a></li>
+ 	<li><a href="MTH154CH1_6.html">1.6 Loans</a></li>
+ 	<li><a href="MTH154CH1_7.html">1.7 Stocks & Bonds</a></li>
+ 	<li><a href="MTH154CH1_8.html">1.8 Taxes</a></li>
+    </ul>
+
+    <!-- Chapter 2 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 2: Modeling Data</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="Ch2_1.html">2.1 Basics of Graphing</a></li>
+        <li><a href="Ch2_2.html">2.2 Relations & Functions</a></li>
+        <li><a href="Ch2_3.html">2.3 Linear Models</a></li>
+        <li><a href="Ch2_4.html">2.4 Rate of Change</a></li>
+        <li><a href="Ch2_5.html">2.5 Scatterplots</a></li>
+    </ul>
+
+    <!-- Chapter 3 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 3: Set Theory</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="Ch3_1.html">3.1 Set Basics</a></li>
+        <li><a href="Ch3_2.html">3.2 Sets</a></li>
+        <li><a href="Ch3_3.html">3.3 Venn Diagrams</a></li>
+        <li><a href="MTH154CH3_4.html">3.4 More with Venn Diagrams</a></li>
+    </ul>
+
+   <!-- Chapter 4 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 4: Logic</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="MTH154CH4_1.html">4.1 Thinking Logically</a></li>
+        <li><a href="MTH154CH4_2.html">4.2 Introduction to Truth Tables</a></li>
+	<li><a href="MTH154CH4_3.html">4.3 Logical Arguments</a></li>
+	<li><a href="MTH154CH4_4.html">4.4 Variations of Statements</a></li>
+    </ul>
+
+   <!-- Chapter 5 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 5: Measurement</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="MTH154CH5_1.html">5.1 Ratios & Proportions</a></li>
+        <li><a href="MTH154CH5_2.html">5.2 Measurement</a></li>
+	<li><a href="MTH154CH5_3.html">5.3 Area, Volume, and Capacity</a></li>
+	<li><a href="MTH154CH5_4.html">5.4 Weight & Temperature</a></li>
+	<li><a href="MTH154CH5_5.html">5.5 Surface Area & Volume</a></li>
+    </ul>
+</nav>
+
+   <div class="container">
+        <h1>Chapter 5: Measurement</h1>
+
+        <h2>Section 5.4: Weight & Temperature</h2>
+        <h2>Weight</h2>
+<p>
+I think we have all heard someone say that they'd like their weight better if they were on the Moon. Why? Well, because when you're on the Moon there is less gravitational force than there is on Earth. According to Google, the gravitational force on the Moon is 1.62 meters per second squared, while the gravitational force on Earth is 9.807 meters per second squared. That is slightly six times stronger than the Moon. Fun fact! You really don't want to weigh yourself on Jupiter where the force of gravity is 24.79 meters per second squared.
+</p>
+<p>
+As we've learned multiple times throughout this chapter, we do things slightly different in the United States than the majority of the world. I'm sure most of you were raised using units like pounds and ounces to weigh yourself. In the United States, when a baby is born, they declare that it weighs something like eight pounds, seven ounces and is 21 inches long. However, other countries will say a baby weighs 3.83 kg and is 53.3 cm long.
+</p>
+<p>
+What really is the difference between English measurements for weight and the Metric measurement for weight? Well, for starters, a gram is not a measurement of weight; it is a measurement for <strong class="text-blue">Mass</strong>! The <strong class="text-blue">weight</strong> of an object is the measure of gravitational pull on it, thus a person’s weight can vary based on their distance from the equator. Whereas mass is a constant measure of the physical size of an object regardless of location. Meaning, that 50 kg on the Moon is the same as 50 kg on Earth.
+</p>
+
+<div class="definition-box">
+<h3>Units of Weight / Mass</h3>
+<table>
+  <thead>
+    <tr>
+      <th>English Units</th>
+      <th>Metric Units</th>
+      <th>Conversions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>16 ounces (oz) = 1 pound (lb)</td>
+      <td>1 kilogram (kg) = 1,000 grams (g)</td>
+      <td>1 kg ≈ 2.2 lbs</td>
+    </tr>
+    <tr>
+      <td>2,000 lbs = 1 ton (T)</td>
+      <td>1,000 kg = 1 Metric Ton (t)</td>
+      <td>1 oz ≈ 28 g</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<!--Example 1-->
+<div class="example">
+    <div class="example-problem">
+        <h3>Example 1</h3>
+        <p>
+        In Men's Bodybuilding there are typically multiple weight classes. Those that fall into the Middleweight class have to weigh between 157 lbs to 176 lbs. If Rico weighs 81 kg, will he make weight for the Middleweight class? What is his weight in grams?
+        </p>
+    </div>    
+    <!--Solution-->
+        <button class="solution-header" onclick="toggleExample(this)" aria-expanded="false">
+        <span class="toggle-arrow">▼</span>
+        <span>Show Solution</span>
+        </button>
+
+    <div class="example-content">
+        <div class="solution">
+        <div class="solution-box">
+            <p>
+            First, convert Rico's weight into pounds. Using the conversion factor 1 kg ≈ 2.2 lbs:
+            </p>
+            <p>
+            $$
+            \frac{81\ \text{kg}}{1} * \frac{2.2\ \text{lbs}}{1\ \text{kg}} = 178.2\ \text{lbs}
+            $$
+            </p>
+            <p>
+            178.2 lbs is outside the range of 157–176 lbs, so Rico cannot compete in the Middleweight class.
+            </p>
+            <p>
+            Next, convert his weight to grams. Moving from kilo to grams means multiplying by $10^3$:
+            </p>
+            <p>
+            $$
+            81\ \text{kg} * 10^3 = 81,000\ \text{g}
+            $$
+            </p>
+        </div>
+        </div>
+    </div>
+</div>   
+
+<!--Example 2-->
+<div class="example">
+    <div class="example-problem">
+        <h3>Example 2</h3>
+        <p>
+        While on vacation in Cabo, Mexico, you get sick. You pick up some medicine from the drug store and the package says to take 15 mg per kg of body weight. The packaging says one dose of medicine is 200 mg. If you weigh 178 lbs, how many doses do you need?
+        </p>
+    </div>
+  <!--Solution-->
+        <button class="solution-header" onclick="toggleExample(this)" aria-expanded="false">
+        <span class="toggle-arrow">▼</span>
+        <span>Show Solution</span>
+        </button>
+
+ <div class="example-content">
+        <div class="solution">
+        <div class="solution-box">
+        <p>
+        Start by converting your weight into kg using the same factor as before:
+        </p>
+        <p>
+        $$
+        \frac{178\ \text{lbs}}{1} * \frac{1\ \text{kg}}{2.2\ \text{lbs}} = 80.9\ \text{kg}
+        $$
+        </p>
+        <p>
+        Next, multiply by 15 mg per kg:
+        </p>
+        <p>
+        $$
+        80.9\ \text{kg} * 15\ \text{mg/kg} = 1213.5\ \text{mg}
+        $$
+        </p>
+        <p>
+        Divide by 200 mg per dose:
+        </p>
+        <p>
+        $$
+        \frac{1213.5\ \text{mg}}{200\ \text{mg}} = 6.07\ \text{doses}
+        $$
+        </p>
+        <p>
+        You will need 6 doses (cannot take a fraction of a dose).
+        </p>
+        </div>
+        </div>
+    </div>
+</div>
+
+
+<h2>Temperature</h2>
+<p>
+I think most people can agree that they like to be thrifty shoppers. But sometimes, when being thrifty, we forget to check boxes for 
+instructions. While shopping at an outlet grocery store, I found a large self-rising crust supreme pizza for \$0.50. I get home and 
+see the directions say to bake for 20 minutes at $107^\circ$C. My oven only has Fahrenheit, so I need to convert.
+</p>
+
+<div class="definition-box">
+<h3>Temperature</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Fahrenheit</th>
+      <th></th>
+      <th>Celsius</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>F = (9/5)C + 32</td>
+      <td></td>
+      <td>C = (5/9)(F - 32)</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>
+In the English system we use <strong class="text-blue">Fahrenheit</strong> (freezing 32°F, boiling 212°F, body 98.6°F). In the Metric system, they measure temperature in <strong class="text-blue">Celsius</strong>. Freezing is 0°C, boiling is 100°C, body temperature is 37°C.
+</p>
+
+<!--Example 3-->
+<div class="example">
+    <div class="example-problem">
+        <h3>Example 3</h3>
+<p>
+Looking back at the pizza issue, what temperature would I need to set my oven to if the box said $107^\circ$C?
+</p>
+    </div>
+
+
+<!--Solution-->
+        <button class="solution-header" onclick="toggleExample(this)" aria-expanded="false">
+        <span class="toggle-arrow">▼</span>
+        <span>Show Solution</span>
+        </button>
+
+ <div class="example-content">
+        <div class="solution">
+        <div class="solution-box">
+<p>
+$$
+F = \frac{9}{5}(107) + 32
+$$
+$$
+F = 192.6 + 32
+$$
+$$
+F \approx 225^\circ\text{F}
+$$
+<p>Meaning I would set the oven to 225°F.</p>
+</div>
+        </div>
+    </div>      
+</div>
+
+
+<!--Example 4-->
+<div class="example">
+    <div class="example-problem">
+        <h3>Example 4</h3>
+<p>
+You've invited your friend from Australia. The weather will be around 97°F. What temperature is that in Celsius?
+</p>
+    </div>
+    
+<!--Solution-->
+        <button class="solution-header" onclick="toggleExample(this)" aria-expanded="false">
+        <span class="toggle-arrow">▼</span>
+        <span>Show Solution</span>
+        </button>
+
+ <div class="example-content">
+        <div class="solution">
+        <div class="solution-box">
+<p>
+$$
+C = \frac{5}{9}(97 - 32)
+$$
+$$
+C = \frac{5}{9}(65)
+$$
+$$
+C \approx 36^\circ \text{C}
+$$
+<p>Your friend will be comfortable as that is close to normal body temperature of 37°C.</p>
+</div>
+        </div>
+    </div>  
+</div>
+
+
+
+<h2>Exercises</h2>
+<ol>
+<li>A weather app shows that it is 86°F in Miami today. Convert this temperature to degrees Celsius.</li>
+<li>During a science experiment, the lab thermometer reads 20°C. What is this temperature in Fahrenheit?</li>
+<li>A cake recipe from France says to bake at 180°C. What is this temperature in Fahrenheit?</li>
+<li>A forecast in Canada mentions a daytime high of -5°C. What would this be in degrees Fahrenheit?</li>
+<li>A car parked in the sun reached an interior temperature of 110°F. What is this temperature in Celsius?</li>
+<li>On a winter trip to Sweden, the temperature outside is -15°C. Convert this to Fahrenheit to get a better sense of the cold.</li>
+<li>The boiling point of water is commonly known as 100°C. Convert this to degrees Fahrenheit.</li>
+<li>A U.S. science textbook lists body temperature as 98.6°F. What is this in Celsius?</li>
+<li>A European spa maintains its hot tub at 40°C. How many degrees Fahrenheit is that?</li>
+<li>You’re planning a trip to Australia, and the forecast shows a high of 35°C. What should you expect in Fahrenheit?</li>
+</ol>
+
+
+
+
+
+
+
+
+
+        <nav aria-label="Page navigation">
+  <div class="page-navigation">
+    <div class="page-navigation" style="display:flex; justify-content:space-between; margin-top:40px;">
+        <a href="MTH154CH5_3.html" class="nav-button" aria-label="Go to previous section">&larr; Previous</a>
+        <a href="MTH154CH5_5.html" class="nav-button" aria-label="Go to next section">Next &rarr;</a>
+    </div>
+  </div>
+</nav>
+
+</div>
+<script>
+        function toggleExample(button) {
+            const content = button.nextElementSibling;
+            const arrow = button.querySelector('.toggle-arrow');
+            
+            if (content.classList.contains('open')) {
+                content.classList.remove('open');
+                arrow.classList.remove('open');
+                button.querySelector('span:last-child').textContent = 'Show Solution';
+            } else {
+                content.classList.add('open');
+                arrow.classList.add('open');
+                button.querySelector('span:last-child').textContent = 'Hide Solution';
+            }
+        }
+    </script>
+
+    <script>
+        const chapterButtons = document.querySelectorAll(".toc-chapter");
+
+        chapterButtons.forEach(button => {
+            button.addEventListener("click", () => {
+                const expanded = button.getAttribute("aria-expanded") === "true";
+                button.setAttribute("aria-expanded", !expanded);
+
+                const submenu = button.nextElementSibling;
+                submenu.classList.toggle("open");
+            });
+        });
+    </script>
+</body>
+</html>

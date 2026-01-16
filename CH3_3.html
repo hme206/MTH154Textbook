@@ -1,0 +1,1608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 3: Sets - Section 3.3: Venn Diagrams</title>
+    
+   <!-- MathJax configuration -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            },
+            loader: {
+                load: ['input/tex', 'output/chtml']
+            }
+        };
+    </script>
+    <!-- MathJax loader -->
+    <script id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+
+    <style>
+      
+    .nav-button {
+      padding: 10px 20px;
+      background-color: #33AB2B;
+      color: #000000;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+
+    .nav-button:hover,
+    .nav-button:focus {
+      background-color: #33AB2B;
+      outline: none;
+    }     
+/* Layout unchanged */
+.side-toc {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 230px;
+    height: 100vh;
+    background-color: #f0f8ed;
+    border-right: 3px solid #33AB2B;
+    padding: 20px;
+    overflow: hidden;
+}
+.diagram-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(150px, 1fr));
+  gap: 2rem;
+  justify-items: center;   /* centers each column item */
+  align-items: start;
+  margin: 1.5rem 0;
+}
+
+.diagram {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.toc-title {
+    font-size: 1.4em;
+    margin-bottom: 15px;
+    color: #33AB2B;
+}
+
+/* Chapter buttons */
+.toc-chapter {
+    width: 100%;
+    background: none;
+    border: none;
+    text-align: left;
+    font-size: 1em;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    color: #333;
+}
+
+.toc-chapter:hover,
+.toc-chapter:focus {
+    color: #33AB2B;
+}
+
+.arrow {
+    transition: transform 0.25s ease;
+}
+
+/* Rotated when opened */
+.toc-chapter[aria-expanded="true"] .arrow {
+    transform: rotate(90deg);
+}
+
+/* Submenu collapsed by default */
+.toc-submenu {
+    list-style: none;
+    padding-left: 15px;
+    margin: 5px 0 10px 0;
+    display: none;
+}
+
+/* Visible when expanded */
+.toc-submenu.open {
+    display: block;
+}
+
+.toc-submenu li {
+    margin: 6px 0;
+}
+
+.toc-submenu a {
+    color: #333;
+    text-decoration: none;
+}
+
+.toc-submenu a:hover,
+.toc-submenu a:focus {
+    color: #33AB2B;
+    text-decoration: underline;
+}
+
+/* Push main body over */
+body {
+    margin-left: 250px;
+}
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background-color: #ffffff;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #33AB2B;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            border-bottom: 3px solid #33AB2B;
+            padding-bottom: 15px;
+        }
+
+        h2 {
+            color: #33AB2B;
+            font-size: 1.8em;
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            color: #33AB2B;
+            font-size: 1.2em;
+            margin-top: 20px;
+            margin-bottom: 15px;
+        }
+
+        h4 {
+            color: #33AB2B;
+            font-size: 1.1em;
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+
+        .definition-box {
+            background-color: #f0f8ed;
+            border: 2px solid #33AB2B;
+            border-radius: 6px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .definition-box h3 {
+            color: #33AB2B;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            margin-top: 0;
+        }
+
+        .definition-box p {
+            margin-bottom: 15px;
+        }
+
+        .definition-box ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .definition-box li {
+            margin-bottom: 10px;
+        }
+
+        .conversion-box {
+            background-color: #ffffff;
+            border: 2px solid #b84d7e;
+            border-radius: 6px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .conversion-box h3 {
+            color: #b84d7e;
+            margin-top: 0;
+        }
+
+        .conversion-box table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        .conversion-box table th,
+        .conversion-box table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .conversion-box table th {
+            background-color: #f0f0f0;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .orange-box {
+            background-color: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 6px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+
+        .orange-box h3 {
+            margin-top: 0;
+        }
+
+        .orange-box ol {
+            margin-left: 20px;
+        }
+
+        .orange-box li {
+            margin-bottom: 8px;
+        }
+
+        .example {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            margin: 25px 0;
+            overflow: hidden;
+        }
+
+        .example-problem {
+            padding: 15px 20px;
+        }
+
+        .example-problem h3 {
+            color: #33AB2B;
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .example-problem p {
+            margin-bottom: 10px;
+        }
+
+        .example-problem ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .example-problem li {
+            margin-bottom: 8px;
+        }
+
+        .example-problem ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .solution-header {
+            background-color: #33AB2B;
+            color: white;
+            padding: 12px 20px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+            margin-top: 15px;
+            border-radius: 4px;
+            transition: background-color 0.2s ease;
+            border: none;
+            font-size: 1em;
+        }
+
+        .solution-header:hover {
+            background-color: #2a8922;
+        }
+
+        .toggle-arrow {
+            display: inline-block;
+            margin-right: 12px;
+            transition: transform 0.3s ease;
+            font-size: 1.2em;
+        }
+
+        .toggle-arrow.open {
+            transform: rotate(180deg);
+        }
+
+        .example-content {
+            padding: 0;
+            display: none;
+            overflow: hidden;
+        }
+
+        .example-content.open {
+            display: block;
+        }
+
+        .solution {
+            background-color: #f0f8ed;
+            padding: 20px;
+            border-top: 2px solid #33AB2B;
+        }
+
+        .solution h4 {
+            color: #33AB2B;
+            margin-bottom: 15px;
+            margin-top: 0;
+        }
+
+        .solution p {
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        .solution ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .solution li {
+            margin-bottom: 8px;
+        }
+
+        .solution ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        ul li {
+            margin-bottom: 8px;
+        }
+
+        ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        ol li {
+            margin-bottom: 8px;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        strong {
+            font-weight: bold;
+        }
+
+        em {
+            font-style: italic;
+        }
+
+        .blue-text {
+            color: #0066cc;
+        }
+
+        .divider {
+            border-top: 2px dashed #33AB2B;
+            margin: 30px 0;
+        }
+
+        .image-placeholder {
+            background-color: #e0e0e0;
+            border: 2px dashed #999;
+            padding: 40px;
+            margin: 20px 0;
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            border-radius: 4px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table th {
+            background-color: #f0f8ed;
+            color: #33AB2B;
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ccc;
+            font-weight: bold;
+        }
+
+        table td {
+            padding: 12px;
+            border: 1px solid #ccc;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        table tr.highlighted {
+            background-color: #ffff99;
+        }
+
+        .subsection-title {
+            color: #33AB2B;
+            font-size: 1.3em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+    </style>
+<style>
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+</style>
+</head>
+<body>
+<nav class="side-toc" aria-label="Textbook Navigation">
+    <h2 class="toc-title">Contents</h2>
+
+    <!-- Chapter 1 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 1: Financial Literacy</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="MTH154CH1_1.html">1.1 Introduction</a></li>
+        <li><a href="MTH154CH1_2.html">1.2 Problem Solving</a></li>
+        <li><a href="MTH154CH1_3.html">1.3 Simple Interest</a></li>
+ 	<li><a href="MTH154CH1_4.html">1.4 Compound Interest & Annuities</a></li>
+ 	<li><a href="MTH154CH1_5.html">1.5 Installment Loans</a></li>
+ 	<li><a href="MTH154CH1_6.html">1.6 Loans</a></li>
+ 	<li><a href="MTH154CH1_7.html">1.7 Stocks & Bonds</a></li>
+ 	<li><a href="MTH154CH1_8.html">1.8 Taxes</a></li>
+    </ul>
+
+    <!-- Chapter 2 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 2: Modeling Data</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="Ch2_1.html">2.1 Basics of Graphing</a></li>
+        <li><a href="Ch2_2.html">2.2 Relations & Functions</a></li>
+        <li><a href="Ch2_3.html">2.3 Linear Models</a></li>
+        <li><a href="Ch2_4.html">2.4 Rate of Change</a></li>
+        <li><a href="Ch2_5.html">2.5 Scatterplots</a></li>
+    </ul>
+
+    <!-- Chapter 3 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 3: Set Theory</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="Ch3_1.html">3.1 Set Basics</a></li>
+        <li><a href="Ch3_2.html">3.2 Sets</a></li>
+        <li><a href="Ch3_3.html">3.3 Venn Diagrams</a></li>
+        <li><a href="MTH154CH3_4.html">3.4 More with Venn Diagrams</a></li>
+    </ul>
+
+   <!-- Chapter 4 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 4: Logic</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="MTH154CH4_1.html">4.1 Thinking Logically</a></li>
+        <li><a href="MTH154CH4_2.html">4.2 Introduction to Truth Tables</a></li>
+	<li><a href="MTH154CH4_3.html">4.3 Logical Arguments</a></li>
+	<li><a href="MTH154CH4_4.html">4.4 Variations of Statements</a></li>
+    </ul>
+
+   <!-- Chapter 5 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 5: Measurement</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="MTH154CH5_1.html">5.1 Ratios & Proportions</a></li>
+        <li><a href="MTH154CH5_2.html">5.2 Measurement</a></li>
+	<li><a href="MTH154CH5_3.html">5.3 Area, Volume, and Capacity</a></li>
+	<li><a href="MTH154CH5_4.html">5.4 Weight & Temperature</a></li>
+	<li><a href="MTH154CH5_5.html">5.5 Surface Area & Volume</a></li>
+    </ul>
+</nav>
+    <div class="container">
+        <h1>Chapter 3: Sets</h1>
+
+        <h2>Section 3.3: Venn Diagrams</h2>
+
+        <p>Now that we've talked about what creates a set, how to set up sets, and how to read sets and their operations, it is time to move on to how to create a Venn diagram when two sets are involved.</p>
+
+        <div class="definition-box">
+            <h3>Venn Diagram</h3>
+            <p>A <strong>Venn diagram</strong> represents each set by a circle, usually drawn inside of a containing box representing the universal set. Overlapping areas (regions) indicate elements that are common to all sets involved.</p>
+        </div>
+
+        <p>A basic Venn diagram can illustrate the relationship, or interaction, between two different sets in a visual manner. Looking at the diagram below, we will see how the two interact.</p>
+
+<figure role="figure"
+        aria-label="Venn diagram showing two overlapping sets A and B within the universal set U. Regions I, II, III, and IV are labeled."
+        style="display: block; text-align: center; margin: 20px 0;">
+
+    <svg width="400" height="250"
+         viewBox="-6 -4 12 8"
+         xmlns="http://www.w3.org/2000/svg"
+         style="display: block; margin: 0 auto;">
+
+        <!-- Universal set rectangle -->
+        <rect x="-5" y="-3" width="10" height="6"
+              fill="none" stroke="black" stroke-width="0.08" />
+        <text x="-4.8" y="2.7" font-size="0.35" fill="black">U</text>
+
+        <!-- Left circle (A) -->
+        <circle cx="-1.5" cy="0" r="2"
+                fill="none" stroke="black" stroke-width="0.08" />
+
+        <!-- Right circle (B) -->
+        <circle cx="1.5" cy="0" r="2"
+                fill="none" stroke="black" stroke-width="0.08" />
+
+        <!-- Labels A and B -->
+        <text x="-1.6" y="-1" font-size="0.5" fill="black">A</text>
+        <text x="1.4" y="-1" font-size="0.5" fill="black">B</text>
+
+        <!-- Region labels -->
+        <text x="-1" y="0" font-size="0.45" fill="black">I</text>
+        <text x="0" y="0" font-size="0.45" fill="black" text-anchor="middle">II</text>
+        <text x="1" y="0" font-size="0.45" fill="black">III</text>
+        <text x="4" y="-2" font-size="0.45" fill="black" text-anchor="middle">IV</text>
+
+    </svg>
+
+    <figcaption>Figure 3.3.1 Basic Venn diagram</figcaption>
+</figure>
+
+
+        <p>In Figure 3.3.1, we can see that Roman numerals were used to denote regions or sections of the diagram, and capital letters were used to denote the set names. Looking at the Venn diagram, we can determine that:</p>
+
+        <ul>
+            <li>Set A = Regions I and II</li>
+            <li>Set B = Regions II and III</li>
+            <li>Set U = Regions I, II, III, and IV (this is the universal set which contains everything contained by the outer box.)</li>
+        </ul>
+
+        <p>More specifically each region represents:</p>
+        <ul>
+            <li>Region I - Represents the elements that are ONLY in Set A.</li>
+            <li>Region II - Represents the elements that are in Set A and Set B (intersection).</li>
+            <li>Region III - Represents the elements that are ONLY in Set B.</li>
+            <li>Region IV - Represents the elements that are in Set U but not in Set A or Set B.</li>
+        </ul>
+
+        <!-- Example 1 -->
+        <div class="example">
+            <div class="example-problem">
+                <h3>Example 1</h3>
+                <p>Construct a Venn diagram for the Universal Set of ice cream flavors where $U=\{\text{Vanilla},\text{Chocolate},\text{Strawberry},\text{Cookie Dough},\text{Mint Chip}, \text{Cookies N Cream}$,$\text{Pistachio}, \text{Moose Tracks},\text{Birthday Cake}, \text{Cotton Candy}\}$.</p> 
+<p>Allow set $A=\{\text{Vanilla},\text{Cookie Dough},\text{Mint Chip}, \text{Moose Tracks},\text{Birthday Cake}\}$, and $B=\{\text{Cookie Dough},\text{Mint Chip}, \text{Moose Tracks}, \text{Cotton Candy}\}$</p>
+            </div>
+
+            <button class="solution-header" onclick="toggleExample(this)">
+                <span class="toggle-arrow">▼</span>
+                <span>Show Solution</span>
+            </button>
+
+            <div class="example-content">
+                <div class="solution">
+                    <h4>Solution</h4>
+                    <p>Sometimes to set up this type of Venn diagram, it may be easiest to highlight or group the elements they have in common; the intersection of the two sets A and B.</p>
+                    <p>
+A = { 
+Vanilla, 
+<span style="color:red; font-style:italic;"><em>Cookie Dough</em></span>, 
+<span style="color:red; font-style:italic;"><em>Mint Chip</em></span>, 
+<span style="color:red; font-style:italic;"><em>Moose Tracks</em></span>, 
+Birthday Cake 
+}
+</p>
+
+<p>
+B = { 
+<span style="color:red; font-style:italic;"><em>Cookie Dough</em></span>, 
+<span style="color:red; font-style:italic;"><em>Mint Chip</em></span>, 
+<span style="color:red; font-style:italic;"><em>Moose Tracks</em></span>, 
+Cotton Candy 
+}
+</p>
+
+
+
+
+
+                    <figure role="figure"
+        aria-label="Venn diagram showing the relationship between sets A and B and their ice cream flavors."
+        style="display:block; text-align:center; margin:20px 0;">
+
+  <svg width="480" height="320" viewBox="-4 -3 8 6"
+       xmlns="http://www.w3.org/2000/svg"
+       role="img"
+       aria-hidden="false"
+       style="display:block; margin:0 auto;">
+       
+    <title>Venn diagram of ice cream flavors in sets A and B</title>
+    <desc>
+      Two overlapping circles representing sets A and B inside universal set U.
+      A contains Vanilla and Birthday Cake. 
+      B contains Cotton Candy. 
+      The intersection contains Cookie Dough, Mint Chip, and Moose Tracks.
+    </desc>
+
+    <!-- Universal Set Rectangle -->
+    <rect x="-4" y="-3" width="8" height="6"
+          fill="none" stroke="black" stroke-width="0.06"/>
+    <text x="-3.9" y="2.3" font-size="0.35" fill="black" text-anchor="start">U</text>
+
+    <!-- Set A Circle (centered at -1,0) -->
+    <circle cx="-1" cy="0" r="2" fill="none" stroke="black" stroke-width="0.06"/>
+
+    <!-- Set B Circle (centered at 1,0) -->
+    <circle cx="1" cy="0" r="2" fill="none" stroke="black" stroke-width="0.06"/>
+
+    <!-- Set Labels A and B -->
+    <text x="-1" y="-1.5" font-size="0.45" fill="black" text-anchor="middle">A</text>
+    <text x="1" y="-1.5" font-size="0.45" fill="black" text-anchor="middle">B</text>
+
+    <!-- A Flavors -->
+    <text x="-1" y="2" font-size="0.30" fill="black"
+          text-anchor="middle" transform="translate(-1,-1)">
+      Vanilla
+    </text>
+
+    <text x="-1" y="2" font-size="0.30" fill="black"
+          text-anchor="middle" transform="translate(-1,-1.5)">
+      Birthday Cake
+    </text>
+
+    <!-- B Flavors -->
+    <text x="1" y="2" font-size="0.30" fill="black"
+          text-anchor="middle" transform="translate(0.75,-1)">
+      Cotton Candy
+    </text>
+
+    <!-- Intersection Flavors -->
+    <text x="0" y="0.5" font-size="0.30" fill="black" text-anchor="middle">
+      Cookie Dough
+    </text>
+
+    <text x="0" y="0" font-size="0.30" fill="black" text-anchor="middle">
+      Mint Chip
+    </text>
+
+    <text x="0" y="-0.5" font-size="0.30" fill="black" text-anchor="middle">
+      Moose Tracks
+    </text>
+
+  </svg>
+
+  <figcaption>Figure 3.3.2 Venn Diagram with Ice Cream Flavors.</figcaption>
+</figure>
+
+
+
+
+
+
+                    <p>Next, we need to finish this diagram up by placing the elements that are not in set A or Set B, but are in the Universal Set. To do this, it may be easiest to look at each set and find the elements in U that are in either set A or set B. The elements in red are the elements that are in Set A and in Set B, whereas the elements in blue are the elements that are just in Set A or just in Set B.</p>
+  
+<p>
+U = { 
+<span style="color:blue; font-weight:bold;">Vanilla</span>, 
+Chocolate, 
+Strawberry, 
+<span style="color:red; font-style:italic;">Cookie Dough</span>, 
+<span style="color:red; font-style:italic;">Mint Chip</span>, 
+Cookies N Cream, 
+Pistachio, 
+<span style="color:red; font-style:italic;">Moose Tracks</span>, 
+<span style="color:blue; font-weight:bold;">Birthday Cake</span>, 
+<span style="color:blue; font-weight:bold;">Cotton Candy</span> 
+}
+</p>
+
+<p>
+A = { 
+<span style="color:blue; font-weight:bold;">Vanilla</span>, 
+<span style="color:red; font-style:italic;">Cookie Dough</span>, 
+<span style="color:red; font-style:italic;">Mint Chip</span>, 
+<span style="color:red; font-style:italic;">Moose Tracks</span>, 
+<span style="color:blue; font-weight:bold;">Birthday Cake</span> 
+}
+</p>
+
+<p>
+B = { 
+<span style="color:red; font-style:italic;">Cookie Dough</span>, 
+<span style="color:red; font-style:italic;">Mint Chip</span>, 
+<span style="color:red; font-style:italic;">Moose Tracks</span>, 
+<span style="color:blue; font-weight:bold;">Cotton Candy</span> 
+}
+</p>
+
+
+                    <figure role="figure"
+        aria-label="Venn diagram showing the relationship between ice cream flavors and sets A and B."
+        style="display:block; text-align:center; margin:20px 0;">
+
+  <svg width="480" height="320" viewBox="-4 -3 8 6"
+       xmlns="http://www.w3.org/2000/svg"
+       role="img"
+       aria-hidden="false"
+       style="display:block; margin:0 auto;">
+
+    <title>Venn diagram of ice cream flavors in sets A and B with additional flavors outside both sets</title>
+    <desc>
+      Two overlapping circles representing sets A and B inside universal set U.
+      A contains Vanilla and Birthday Cake.
+      B contains Cotton Candy.
+      The intersection contains Cookie Dough, Mint Chip, and Moose Tracks.
+      Outside both sets in region IV are Chocolate, Strawberry, Cookies N Cream, and Pistachio.
+    </desc>
+
+    <!-- Universal Set Rectangle -->
+    <rect x="-4" y="-3" width="8" height="6"
+          fill="none" stroke="black" stroke-width="0.06"/>
+    <text x="-3.9" y="2.3" font-size="0.35" fill="black" text-anchor="start">U</text>
+
+    <!-- Set A Circle -->
+    <circle cx="-1" cy="0" r="2" fill="none" stroke="black" stroke-width="0.06"/>
+
+    <!-- Set B Circle -->
+    <circle cx="1" cy="0" r="2" fill="none" stroke="black" stroke-width="0.06"/>
+
+    <!-- Labels A and B -->
+    <text x="-1" y="-1.5" font-size="0.45" fill="black" text-anchor="middle">A</text>
+    <text x="1" y="-1.5" font-size="0.45" fill="black" text-anchor="middle">B</text>
+
+    <!-- A Flavors -->
+    <text x="-1" y="2" font-size="0.30" fill="black"
+          text-anchor="middle" transform="translate(-1,-1)">
+      Vanilla
+    </text>
+
+    <text x="-1" y="2" font-size="0.30" fill="black"
+          text-anchor="middle" transform="translate(-1,-1.5)">
+      Birthday Cake
+    </text>
+
+    <!-- B Flavors -->
+    <text x="1" y="2" font-size="0.30" fill="black"
+          text-anchor="middle" transform="translate(0.75,-1)">
+      Cotton Candy
+    </text>
+
+    <!-- Intersection Flavors -->
+    <text x="0" y="0.5" font-size="0.30" fill="black" text-anchor="middle">
+      Cookie Dough
+    </text>
+
+    <text x="0" y="0" font-size="0.30" fill="black" text-anchor="middle">
+      Mint Chip
+    </text>
+
+    <text x="0" y="-0.5" font-size="0.30" fill="black" text-anchor="middle">
+      Moose Tracks
+    </text>
+
+    <!-- Outside Region (IV) Flavors -->
+    <!-- Base point was (4,-2) with shifts applied -->
+
+    <text x="4" y="-2" font-size="0.30" fill="black"
+          text-anchor="middle" transform="translate(-0.65,1)">
+      Chocolate
+    </text>
+
+    <text x="4" y="-2" font-size="0.30" fill="black"
+          text-anchor="end" transform="translate(0,0.5)">
+      Strawberry
+    </text>
+
+    <text x="4" y="-2" font-size="0.30" fill="black"
+          text-anchor="end" transform="translate(0,0)">
+      Cookies N Cream
+    </text>
+
+    <text x="4" y="-2" font-size="0.30" fill="black"
+          text-anchor="end" transform="translate(0,-0.5)">
+      Pistachio
+    </text>
+
+  </svg>
+
+  <figcaption>Figure 3.3.3 Final Venn Diagram for Example 1.</figcaption>
+</figure>
+
+
+
+                </div>
+            </div>
+        </div>
+
+        <p>It is pretty straight forward to create a Venn diagram for this example, but what if the example isn't so easy? Let's set up a set of steps that will help us in setting up a Venn diagram for a given problem.</p>
+
+        <div class="orange-box">
+            <strong>Setting Up Venn Diagrams</strong>
+            <ol>
+                <li>Draw a diagram for the sets, with Roman numerals in each region.</li>
+                <li>Using those Roman numerals, list the regions described by each set.</li>
+                <li>Find the set of numerals that correspond to the set given in the statement.</li>
+                <li>Shade the area corresponding to the set of numerals found in step 3.</li>
+            </ol>
+        </div>
+
+        <!-- Example 2 -->
+        <div class="example">
+            <div class="example-problem">
+                <h3>Example 2</h3>
+                <p>Draw a Venn diagram to illustrate the set of $(A\cap B)'$</p>
+            </div>
+
+            <button class="solution-header" onclick="toggleExample(this)">
+                <span class="toggle-arrow">▼</span>
+                <span>Show Solution</span>
+            </button>
+
+            <div class="example-content">
+                <div class="solution">
+                    <h4>Solution</h4>
+                    <ol>
+                        <li>We first need to start by drawing the Venn diagram and labeling all of the sections and sets as shown below.
+
+
+
+
+<figure role="figure"
+        aria-label="Venn diagram showing the relationship between two sets A and B."
+        style="display:block; text-align:center; margin:20px 0;">
+
+  <svg width="480" height="320" viewBox="-4 -3 8 6"
+       xmlns="http://www.w3.org/2000/svg"
+       role="img"
+       aria-hidden="false"
+       style="display:block; margin:0 auto;">
+
+    <title>Two circle venn diagram</title>
+    <desc>
+      Two overlapping circles representing sets A and B inside universal set U.
+    </desc>
+
+  <!-- Universal set rectangle -->
+  <rect x="-4" y="-3" width="8" height="6" fill="none" stroke="black" stroke-width="0.05"/>
+  <text x="-3.9" y="2.8" font-size="0.5">U</text>
+
+  <!-- Circle A -->
+  <circle cx="-1.5" cy="0" r="2" fill="none" stroke="black" stroke-width="0.05"/>
+  <text x="-1.5" y="-1.5" text-anchor="middle" font-size="0.5">A</text>
+
+  <!-- Circle B -->
+  <circle cx="1.5" cy="0" r="2" fill="none" stroke="black" stroke-width="0.05"/>
+  <text x="1.5" y="-1.5" text-anchor="middle" font-size="0.5">B</text>
+
+  <!-- Regions -->
+  <text x="-2" y="0" text-anchor="middle" font-size="0.5">I</text>
+  <text x="0" y="0" text-anchor="middle" font-size="0.5">II</text>
+  <text x="2" y="0" text-anchor="middle" font-size="0.5">III</text>
+  <text x="3.5" y="-2.5" text-anchor="end" font-size="0.5">IV</text>
+</svg>
+<figcaption>Figure 3.3.5 Initial Venn Diagram for Example 2 .</figcaption>
+</figure>
+                        </li>
+
+                        <li>Next, we need to identify which sections are in each set:
+                            <ul>
+                                <li>Set A = $\{I,II\}$</li>
+                                <li>Set B = $\{II,III\}$</li>
+                                <li>Set U = $\{I,II,III,IV\}$</li>
+                            </ul>
+                        </li>
+
+                        <li>We are looking for the set created by $(A\cap B)'$, which means we have to start working on the inside of the parenthesis just like order of operations. First find $A\cap B$:
+                            <p>$$A\cap B = \{I,II\} \cap \{II,III\}=\{II\}$$</p>
+                            <p>Next, we need to identify the sections that are not in that solution, but are in the Set U:</p>
+                            <p>$$(A\cap B)'= \{II\}'=\{I,III,IV\}$$</p>
+                        </li>
+
+                        <li>Lastly, we need to highlight the area that represents that set of selected sections:
+                           
+<figure role="figure"
+        aria-label="Venn diagram showing the relationship between ice cream flavors and sets A and B."
+        style="display:block; text-align:center; margin:20px 0;">
+
+  <svg width="480" height="320" viewBox="-4 -3 8 6"
+       xmlns="http://www.w3.org/2000/svg"
+       role="img"
+       aria-hidden="false"
+       style="display:block; margin:0 auto;">
+
+    <title>Venn diagram of ice cream flavors in sets A and B with additional flavors outside both sets</title>
+    <desc>
+      Two overlapping circles representing sets A and B inside universal set U. With regions I, III and IV highlighted.
+     
+    </desc>
+
+  <!-- Universal set rectangle (yellow background) -->
+  <rect x="-4" y="-3" width="8" height="6" fill="yellow" stroke="black" stroke-width="0.05"/>
+  <text x="-3.9" y="2.8" font-size="0.5">U</text>
+
+  <!-- Circle definitions -->
+  <circle id="circleA" cx="-1.5" cy="0" r="2" fill="none" stroke="black" stroke-width="0.05"/>
+  <circle id="circleB" cx="1.5" cy="0" r="2" fill="none" stroke="black" stroke-width="0.05"/>
+
+  <!-- Labels -->
+  <text x="-1.5" y="-1.5" text-anchor="middle" font-size="0.5">A</text>
+  <text x="1.5" y="-1.5" text-anchor="middle" font-size="0.5">B</text>
+  <text x="-2" y="0" text-anchor="middle" font-size="0.5">I</text>
+  <text x="2" y="0" text-anchor="middle" font-size="0.5">III</text>
+  <text x="3" y="-2.5" text-anchor="end" font-size="0.5">IV</text>
+  
+
+  <!-- Shading (A union B complementing the intersection) -->
+  <defs>
+    <mask id="maskIntersection">
+      <!-- White = visible, Black = hidden -->
+      <rect x="-4" y="-3" width="8" height="6" fill="white"/>
+      <circle cx="-1.5" cy="0" r="2" fill="black"/>
+      <circle cx="1.5" cy="0" r="2" fill="white"/>
+    </mask>
+  </defs>
+  <circle cx="-1.5" cy="0" r="2" fill="white" mask="url(#maskIntersection)"/>
+<text x="0" y="0" text-anchor="middle" font-size="0.5">II</text>
+</svg>
+<figcaption>Figure 3.3.6 Final Venn Diagram for Example 2 .</figcaption>
+</figure>
+
+
+
+
+                            <p>Verbally, this would be the set of all elements except those that are in Set A <strong>and</strong> Set B.</p>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- Example 3 -->
+        <div class="example">
+            <div class="example-problem">
+                <h3>Example 3</h3>
+                <p>Shade the Venn diagram of the set illustrated by $A'\cup B$.</p>
+            </div>
+
+            <button class="solution-header" onclick="toggleExample(this)">
+                <span class="toggle-arrow">▼</span>
+                <span>Show Solution</span>
+            </button>
+
+            <div class="example-content">
+                <div class="solution">
+                    <h4>Solution</h4>
+                    <ol>
+                        <li>We first need to start by drawing the Venn diagram and labeling all of the sections and sets as shown below.
+                            
+<figure role="figure"
+        aria-label="Venn diagram showing the relationship between two sets A and B."
+        style="display:block; text-align:center; margin:20px 0;">
+
+  <svg width="480" height="320" viewBox="-4 -3 8 6"
+       xmlns="http://www.w3.org/2000/svg"
+       role="img"
+       aria-hidden="false"
+       style="display:block; margin:0 auto;">
+
+    <title>Two circle venn diagram</title>
+    <desc>
+      Two overlapping circles representing sets A and B inside universal set U.
+    </desc>
+
+  <!-- Universal set rectangle -->
+  <rect x="-4" y="-3" width="8" height="6" fill="none" stroke="black" stroke-width="0.05"/>
+  <text x="-3.9" y="2.8" font-size="0.5">U</text>
+
+  <!-- Circle A -->
+  <circle cx="-1.5" cy="0" r="2" fill="none" stroke="black" stroke-width="0.05"/>
+  <text x="-1.5" y="-1.5" text-anchor="middle" font-size="0.5">A</text>
+
+  <!-- Circle B -->
+  <circle cx="1.5" cy="0" r="2" fill="none" stroke="black" stroke-width="0.05"/>
+  <text x="1.5" y="-1.5" text-anchor="middle" font-size="0.5">B</text>
+
+  <!-- Regions -->
+  <text x="-2" y="0" text-anchor="middle" font-size="0.5">I</text>
+  <text x="0" y="0" text-anchor="middle" font-size="0.5">II</text>
+  <text x="2" y="0" text-anchor="middle" font-size="0.5">III</text>
+  <text x="3.5" y="-2.5" text-anchor="end" font-size="0.5">IV</text>
+</svg>
+<figcaption>Figure 3.3.7 Initial Venn Diagram for Example 3 .</figcaption>
+</figure>
+
+                        </li>
+
+                        <li>Next, we need to identify which sections are in each set:
+                            <ul>
+                                <li>Set A = $\{I,II\}$</li>
+                                <li>Set B = $\{II,III\}$</li>
+                                <li>Set U = $\{I,II,III,IV\}$</li>
+                            </ul>
+                        </li>
+
+                        <li>We are looking for the set created by $A'\cup B$. First find $A'=\{III,IV\}$, next we need to find the union of $A'$ and $B$, which means we put all the elements together (or sections in this case).
+                            <p>$$A'\cup B = \{III,IV\}\cup \{II,III\}=\{II,III,IV\}$$</p>
+                        </li>
+
+                        <li>Lastly, we need to highlight the area that represents that set of selected sections:
+                           
+<figure role="figure"
+        aria-label="Venn diagram showing the relationship between two sets A and B."
+        style="display:block; text-align:center; margin:20px 0;">
+
+  <svg width="480" height="320" viewBox="-4 -3 8 6"
+       xmlns="http://www.w3.org/2000/svg"
+       role="img"
+       aria-hidden="false"
+       style="display:block; margin:0 auto;">
+
+    <title>Two circle venn diagram</title>
+    <desc>
+      Two overlapping circles representing sets A and B inside universal set U. Where the operation A' u B denoted by sections II, III and IV are highlighted to represent the solution.
+    </desc>
+
+  <!-- Universal set rectangle (yellow background) -->
+  <rect x="-4" y="-3" width="8" height="6" fill="yellow" stroke="black" stroke-width="0.05"/>
+  <text x="-3.9" y="2.8" font-size="0.5">U</text>
+
+  <!-- Circles -->
+  <circle id="circleB" cx="1.5" cy="0" r="2" fill="none" stroke="black" stroke-width="0.05"/>
+  <circle id="circleA" cx="-1.5" cy="0" r="2" fill="none" stroke="black" stroke-width="0.05"/>
+
+  <!-- Labels -->
+  
+ 
+  <text x="2" y="0" text-anchor="middle" font-size="0.5">III</text>
+  <text x="3" y="-2.5" text-anchor="end" font-size="0.5">IV</text>
+  <text x="0" y="0" text-anchor="middle" font-size="0.5">II</text>
+
+  <!-- Shading for A'U B -->
+  <defs>
+    <mask id="maskAOnly">
+      <!-- Black = hidden, White = visible -->
+      <rect x="-4" y="-3" width="8" height="6" fill="white"/>
+      <circle cx="1.5" cy="0" r="2" fill="black"/>
+    </mask>
+  </defs>
+  <circle cx="-1.5" cy="0" r="2" fill="white" mask="url(#maskAOnly)"/>
+ <text x="-1" y="0" text-anchor="middle" font-size="0.5">I</text>
+<text x="-2" y="-1.5" text-anchor="middle" font-size="0.5">A</text>
+ <text x="1.5" y=-2.5" text-anchor="middle" font-size="0.5">B</text>
+</svg>
+<figcaption>Figure 3.3.8 Completed Venn Diagram for Example 3 .</figcaption>
+</figure>
+
+
+                            <p>Verbally, this would be the set of all elements except those that are <strong>only</strong> in Set A.</p>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <p>While at this stage, it may seem silly to take all of these steps to get to a rather simple answer, we are creating a process so as this gets harder, we have a process in place to make the task simpler.</p>
+
+        <p>In Set Theory, there are two very well known formulas that are used for simplifying. They're named in honor of a Mathematician from the 19th century by the name of Augustus De Morgan. I guess you could say he is partially to blame for introducing the Alphabet into Mathematics as he was one of the first Mathematicians to recognize the purely symbolic nature of Algebra.</p>
+
+        <div class="definition-box">
+            <h3>De Morgan's First Law</h3>
+            <p>For any two sets A and B</p>
+            <p>$$(A\cup B)'\equiv A'\cap B'$$</p>
+        </div>
+
+        <div class="definition-box">
+            <h3>De Morgan's Second Law</h3>
+            <p>For any two sets A and B</p>
+            <p>$$(A\cap B)'\equiv A'\cup B'$$</p>
+        </div>
+
+        <p>Note that these two laws are very similar to each other. It isn't as simple as just distributing the 'not' sign through. This means you cannot say that $(A\cup B)'\equiv A'\cup B'$; this is not a true statement. Both of these laws can be useful in their own way, but are not something you "have" to use.</p>
+
+        <h3>Cardinality of a Union</h3>
+
+        <p>Remembering back to the beginning of this unit we discussed that the <strong>Cardinality</strong> of a set is the number of elements that are contained within that specific set. The <strong>Cardinality of a Union</strong> is the number of elements contained in the union of multiple sets.</p>
+
+        <div class="definition-box">
+            <h3>Cardinality of a Union</h3>
+            <p>If $n(A)$ represents the cardinality of Set A and $n(B)$ represents the cardinality of Set B, then for any two finite sets A and B</p>
+            <p>$$n(A\cup B)=n(A)+n(B)-n(A\cap B)$$</p>
+        </div>
+
+        <p>Essentially, it is just the sum of the number of elements in Set A and Set B, minus the elements that they share in common.</p>
+
+        <!-- Example 4 -->
+        <div class="example">
+            <div class="example-problem">
+                <h3>Example 4</h3>
+                <p>In a survey of 100 people, it was found that 42 have dogs, 51 have cats, and 12 have both dogs and cats. How many of these people have a cat or a dog?</p>
+            </div>
+
+            <button class="solution-header" onclick="toggleExample(this)">
+                <span class="toggle-arrow">▼</span>
+                <span>Show Solution</span>
+            </button>
+
+            <div class="example-content">
+                <div class="solution">
+                    <h4>Solution</h4>
+                    <p>Notice that the problem doesn't say that 42 have only dogs. It says that 42 have dogs. This means that they could have cats too. So what we need to do is figure out how many people have just dogs and just cats and then the overlap. To do this, we will use the Cardinality of a Union formula.</p>
+                    <p>$$n(\text{dogs})+n(\text{cats})-n(\text{dogs}\cap\text{cats})=42+51-12=81$$</p>
+                    <p>What would the Venn diagram for this problem look like? Well, first we would need to figure out how many people have just dogs? To do that, we have to think about the regions that make up our Set A (dogs). We know that Set $A=\{I,II\}$ which means according to our data, there are $42$ people who have dogs, but we also know that there are $12$ people who have both dogs and cats. This means $A\cap B= \{II\}$ telling us that $n(A\cap B) = 12$, thus the number of people who just have dogs would be $42-12=30$. Next, we would need to find the number of people who just have cats. We'd take that same approach giving us $51-12=39$, which would provide us the Venn diagram of:</p>
+                    
+ <figure role="figure"
+        aria-label="Venn diagram showing the relationship between sets A and B and their ice cream flavors."
+        style="display:block; text-align:center; margin:20px 0;">
+
+  <svg width="480" height="320" viewBox="-4 -3 8 6"
+       xmlns="http://www.w3.org/2000/svg"
+       role="img"
+       aria-hidden="false"
+       style="display:block; margin:0 auto;">
+       
+    <title>Venn diagram of animal preference in sets A and B</title>
+    <desc>
+      Two overlapping circles representing sets A and B inside universal set U.
+      A is the set of people who like dogs. 
+      B is the set of people who like cats. 
+   
+    </desc>
+
+    <!-- Universal Set Rectangle -->
+    <rect x="-4" y="-3" width="8" height="6"
+          fill="none" stroke="black" stroke-width="0.06"/>
+    <text x="-3.9" y="2.3" font-size="0.35" fill="black" text-anchor="start">U</text>
+
+    <!-- Set A Circle (centered at -1,0) -->
+    <circle cx="-1" cy="0" r="2" fill="none" stroke="black" stroke-width="0.06"/>
+
+    <!-- Set B Circle (centered at 1,0) -->
+    <circle cx="1" cy="0" r="2" fill="none" stroke="black" stroke-width="0.06"/>
+
+    <!-- Set Labels A and B -->
+    <text x="-1" y="-1.5" font-size="0.45" fill="black" text-anchor="middle">Dogs</text>
+    <text x="1" y="-1.5" font-size="0.45" fill="black" text-anchor="middle">Cats</text>
+
+    <!-- A Flavors -->
+    <text x="-1" y="2" font-size="0.30" fill="black"
+          text-anchor="middle" transform="translate(-1,-1)">
+      30
+    </text>
+
+   
+
+    <!-- B Flavors -->
+    <text x="1" y="2" font-size="0.30" fill="black"
+          text-anchor="middle" transform="translate(0.75,-1)">
+      13
+    </text>
+
+    <!-- Intersection Flavors -->
+    <text x="0" y="0.5" font-size="0.30" fill="black" text-anchor="middle">
+      12
+    </text>
+
+
+	<!--Universal Cardinality-->	
+<text x="3.5" y="2" font-size="0.30" fill="black" text-anchor="middle">
+      IV
+    </text>
+  </svg>
+
+  <figcaption>Figure 3.3.9 Venn Diagram with Dog or Cat relationship.</figcaption>
+</figure>
+
+
+
+
+
+                    <p>Lastly, let's find how many of the 100 people did not have a cat nor a dog. Well, this would be the complement of the set of people that had a cat or a dog ($n(A\cup B )'$). To find this, we'd take $100-n(A\cup B)=100-81=19$ giving us the completed Venn diagram of:</p>
+                 
+ <figure role="figure"
+        aria-label="Venn diagram showing the relationship between sets A and B and their ice cream flavors."
+        style="display:block; text-align:center; margin:20px 0;">
+
+  <svg width="480" height="320" viewBox="-4 -3 8 6"
+       xmlns="http://www.w3.org/2000/svg"
+       role="img"
+       aria-hidden="false"
+       style="display:block; margin:0 auto;">
+       
+    <title>Venn diagram of animal preference in sets A and B</title>
+    <desc>
+      The diagrams shows that 30 people only like dogs, 12 people like cats and dogs in region II, and 13 people only like cats in region III, while 19 people don't like cats nor dogs in region IV. The regions are not listed.  
+   
+    </desc>
+
+    <!-- Universal Set Rectangle -->
+    <rect x="-4" y="-3" width="8" height="6"
+          fill="none" stroke="black" stroke-width="0.06"/>
+    <text x="-3.9" y="2.3" font-size="0.35" fill="black" text-anchor="start">U</text>
+
+    <!-- Set A Circle (centered at -1,0) -->
+    <circle cx="-1" cy="0" r="2" fill="none" stroke="black" stroke-width="0.06"/>
+
+    <!-- Set B Circle (centered at 1,0) -->
+    <circle cx="1" cy="0" r="2" fill="none" stroke="black" stroke-width="0.06"/>
+
+    <!-- Set Labels A and B -->
+    <text x="-1" y="-1.5" font-size="0.45" fill="black" text-anchor="middle">Dogs</text>
+    <text x="1" y="-1.5" font-size="0.45" fill="black" text-anchor="middle">Cats</text>
+
+    <!-- A Flavors -->
+    <text x="-1" y="2" font-size="0.30" fill="black"
+          text-anchor="middle" transform="translate(-1,-1)">
+      30
+    </text>
+
+   
+
+    <!-- B Flavors -->
+    <text x="1" y="2" font-size="0.30" fill="black"
+          text-anchor="middle" transform="translate(0.75,-1)">
+      13
+    </text>
+
+    <!-- Intersection Flavors -->
+    <text x="0" y="0.5" font-size="0.30" fill="black" text-anchor="middle">
+      12
+    </text>
+
+
+	<!--Universal Cardinality-->	
+<text x="3.5" y="2" font-size="0.30" fill="black" text-anchor="middle">
+      19
+    </text>
+  </svg>
+
+  <figcaption>Figure 3.3.10 Venn Diagram showing number of people liking neither.</figcaption>
+</figure>
+
+                    <p>When solving problems like this one, it first might be easiest to create the Venn diagram so we know the cardinality of each section/region, and then answer the question that is being asked.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Example 5 -->
+        <div class="example">
+            <div class="example-problem">
+                <h3>Example 5</h3>
+                <p>A survey asks 200 people, "What beverage do you drink in the morning?" and offers the choices:
+                <ul>
+                    <li>Tea Only</li>
+                    <li>Coffee Only</li>
+                    <li>Both Coffee and Tea</li>
+                </ul>
+                Suppose 20 respondents reported tea only, 80 respondents reported coffee only, and 40 respondents chose both. How many people drink tea in the morning? How many people drink neither coffee nor tea?</p>
+            </div>
+
+            <button class="solution-header" onclick="toggleExample(this)">
+                <span class="toggle-arrow">▼</span>
+                <span>Show Solution</span>
+            </button>
+
+            <div class="example-content">
+                <div class="solution">
+                    <h4>Solution</h4>
+                    <p>To begin finding these solutions, it may be easiest to create the Venn diagram first to display the data that was collected.</p>
+                    <p>First, let's look at the wording and see that this time it says 'only' for our tea and coffee sections. This is different than our previous example.</p>
+                    <p>$$n(A\hspace{0.25cm} \text{only})=20 - \text{section}\{I\}$$
+                    $$n(B\hspace{0.25cm} \text{only})=80 - \text{section}\{III\}$$
+                    $$n(A\cap B)=40- \text{section}\{II\}$$</p>
+                    <p>To figure out how many people don't drink tea or coffee, we would need to subtract the number of people in each section from the total number polled to get $200-20-80-40=60$</p>
+
+<figure role="figure"
+        aria-label="Venn diagram showing the relationship between sets A and B and their ice cream flavors."
+        style="display:block; text-align:center; margin:20px 0;">
+
+  <svg width="480" height="320" viewBox="-4 -3 8 6"
+       xmlns="http://www.w3.org/2000/svg"
+       role="img"
+       aria-hidden="false"
+       style="display:block; margin:0 auto;">
+
+<title>Venn diagram showing relationship for Tea and Coffee drinkers</title>
+    <desc>
+      The diagrams shows that 20 people only like tea, 40 people like tea and coffee in region II, and 80 people only like coffee in region III, while 60 people don't like tea nor coffee in region IV. The regions are not listed.  
+   
+    </desc>
+
+    <!-- Universal Set Rectangle -->
+    <rect x="-4" y="-3" width="8" height="6"
+          fill="none" stroke="black" stroke-width="0.06"/>
+    <text x="-3.9" y="2.3" font-size="0.35" fill="black" text-anchor="start">U</text>
+
+    <!-- Set A Circle (centered at -1,0) -->
+    <circle cx="-1" cy="0" r="2" fill="none" stroke="black" stroke-width="0.06"/>
+
+    <!-- Set B Circle (centered at 1,0) -->
+    <circle cx="1" cy="0" r="2" fill="none" stroke="black" stroke-width="0.06"/>
+
+    <!-- Set Labels A and B -->
+    <text x="-1" y="-1.5" font-size="0.45" fill="black" text-anchor="middle">Tea</text>
+    <text x="1" y="-1.5" font-size="0.45" fill="black" text-anchor="middle">Coffee</text>
+
+    <!-- A Flavors -->
+    <text x="-1" y="2" font-size="0.30" fill="black"
+          text-anchor="middle" transform="translate(-1,-1)">
+      20
+    </text>
+
+   
+
+    <!-- B Flavors -->
+    <text x="1" y="2" font-size="0.30" fill="black"
+          text-anchor="middle" transform="translate(0.75,-1)">
+      80
+    </text>
+
+    <!-- Intersection Flavors -->
+    <text x="0" y="0.5" font-size="0.30" fill="black" text-anchor="middle">
+      40
+    </text>
+
+
+	<!--Universal Cardinality-->	
+<text x="3.5" y="2" font-size="0.30" fill="black" text-anchor="middle">
+      60
+    </text>
+  </svg>
+
+  <figcaption>Figure 3.3.11 Venn Diagram Cardinality of people liking neither coffee nor tea.</figcaption>
+</figure>
+
+
+
+
+                    <p>Now that we've completed the Venn diagram, we can answer the questions by just looking at the chart. The first question asked is, "How many people drink tea in the morning?" This would be those in our sections I and II, thus we'd just add those two numbers together to get $20+40=60$. This means a total of 60 people consume tea as a beverage of choice in the morning.</p>
+                    <p>Our second part of this question asked us how many people drink neither coffee nor tea; this would be the section that is not contained by the circles but is contained by the outer box, giving us $60$ total people who don't drink coffee and they don't drink tea.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Example 6 -->
+        <div class="example">
+            <div class="example-problem">
+                <h3>Example 6</h3>
+                <p>A survey asks: "Which online services have you used in the last month? (Select all that apply)" and the options were:
+                <ul>
+                    <li>Twitter</li>
+                    <li>Facebook</li>
+                    <li>Neither</li>
+                </ul>
+                The results show $40\%$ of those surveyed have used Twitter, $70\%$ have used Facebook, and $20\%$ have used both Facebook and Twitter. How many people have used neither Twitter nor Facebook?</p>
+            </div>
+
+            <button class="solution-header" onclick="toggleExample(this)">
+                <span class="toggle-arrow">▼</span>
+                <span>Show Solution</span>
+            </button>
+
+            <div class="example-content">
+                <div class="solution">
+                    <h4>Solution</h4>
+                    <p>In this situation, we don't have numbers, but we know in general that each piece of this chart is a part of a whole. This means the whole would be $100\%$. For this situation, let's allow Set A to be T representing Twitter, and let's allow Set B to be F for Facebook.</p>
+                    <p>This set up is similar to Example 5, where we were told the totals for each circle but not each section. Thus we have to work from the inside out. Working from the inside out let's figure out what percent of people <strong>only</strong> use Twitter and what percent of people <strong>only</strong> use Facebook.</p>
+                    <p>(T) Twitter Only: $40\%-20\%=20\%$<br>
+                    (F) Facebook Only: $70\%-20\%=50\%$</p>
+                    <p>Now draw the Venn diagram that represents what we have found:</p>
+                    
+
+<figure role="figure"
+        aria-label="Venn diagram showing the relationship between sets A and B and their ice cream flavors."
+        style="display:block; text-align:center; margin:20px 0;">
+
+  <svg width="480" height="320" viewBox="-4 -3 8 6"
+       xmlns="http://www.w3.org/2000/svg"
+       role="img"
+       aria-hidden="false"
+       style="display:block; margin:0 auto;">
+
+<title>Venn diagram showing relationship for Social Media users</title>
+    <desc>
+      The diagrams shows that 20% of people like Twitter only(region I), 20% like Twitter and Facebook (region II), and 50% of people like Facebook only(region III). We still need to find region IV.  
+   
+    </desc>
+
+    <!-- Universal Set Rectangle -->
+    <rect x="-4" y="-3" width="8" height="6"
+          fill="none" stroke="black" stroke-width="0.06"/>
+    <text x="-3.9" y="2.3" font-size="0.35" fill="black" text-anchor="start">U</text>
+
+    <!-- Set A Circle (centered at -1,0) -->
+    <circle cx="-1" cy="0" r="2" fill="none" stroke="black" stroke-width="0.06"/>
+
+    <!-- Set B Circle (centered at 1,0) -->
+    <circle cx="1" cy="0" r="2" fill="none" stroke="black" stroke-width="0.06"/>
+
+    <!-- Set Labels A and B -->
+    <text x="-1" y="-1.5" font-size="0.35" fill="black" text-anchor="middle">Twitter</text>
+    <text x="1.1" y="-1.5" font-size="0.35" fill="black" text-anchor="middle">Facebook</text>
+
+    <!-- A Flavors -->
+    <text x="-1" y="2" font-size="0.30" fill="black"
+          text-anchor="middle" transform="translate(-1,-1)">
+      20%
+    </text>
+
+   
+
+    <!-- B Flavors -->
+    <text x="1" y="2" font-size="0.30" fill="black"
+          text-anchor="middle" transform="translate(0.75,-1)">
+      50%
+    </text>
+
+    <!-- Intersection Flavors -->
+    <text x="0" y="0.5" font-size="0.30" fill="black" text-anchor="middle">
+      20%
+    </text>
+
+
+	<!--Universal Cardinality-->	
+<text x="3.5" y="2" font-size="0.30" fill="black" text-anchor="middle">
+      IV
+    </text>
+  </svg>
+
+  <figcaption>Figure 3.3.12 Initial Venn Diagram setup for Exmple 6 .</figcaption>
+</figure>
+
+                    <p>Next, we just need to identify how many would have neither Facebook nor Twitter. This means we'd need to subtract each section from the whole ($100\%$), $100\%-20\%-20\%-50\%=10\%$ giving us our solution and allowing us to fill in the "??" in our Venn diagram.</p>
+
+<figure role="figure"
+        aria-label="Venn diagram showing the relationship between sets A and B and their ice cream flavors."
+        style="display:block; text-align:center; margin:20px 0;">
+
+  <svg width="480" height="320" viewBox="-4 -3 8 6"
+       xmlns="http://www.w3.org/2000/svg"
+       role="img"
+       aria-hidden="false"
+       style="display:block; margin:0 auto;">
+
+<title>Venn diagram showing relationship for Social Media users II</title>
+    <desc>
+     The diagrams shows that 20% of people like Twitter only(region I), 20% like Twitter and Facebook (region II), and 50% of people like Facebook only(region III). Lastly, 10% of people use neither Facebook nor Twitter.  
+   
+    </desc>
+
+    <!-- Universal Set Rectangle -->
+    <rect x="-4" y="-3" width="8" height="6"
+          fill="none" stroke="black" stroke-width="0.06"/>
+    <text x="-3.9" y="2.3" font-size="0.35" fill="black" text-anchor="start">U</text>
+
+    <!-- Set A Circle (centered at -1,0) -->
+    <circle cx="-1" cy="0" r="2" fill="none" stroke="black" stroke-width="0.06"/>
+
+    <!-- Set B Circle (centered at 1,0) -->
+    <circle cx="1" cy="0" r="2" fill="none" stroke="black" stroke-width="0.06"/>
+
+    <!-- Set Labels A and B -->
+    <text x="-1" y="-1.5" font-size="0.35" fill="black" text-anchor="middle">Twitter</text>
+    <text x="1.1" y="-1.5" font-size="0.35" fill="black" text-anchor="middle">Facebook</text>
+
+    <!-- A Flavors -->
+    <text x="-1" y="2" font-size="0.30" fill="black"
+          text-anchor="middle" transform="translate(-1,-1)">
+      20%
+    </text>
+
+   
+
+    <!-- B Flavors -->
+    <text x="1" y="2" font-size="0.30" fill="black"
+          text-anchor="middle" transform="translate(0.75,-1)">
+      50%
+    </text>
+
+    <!-- Intersection Flavors -->
+    <text x="0" y="0.5" font-size="0.30" fill="black" text-anchor="middle">
+      20%
+    </text>
+
+
+	<!--Universal Cardinality-->	
+<text x="3.5" y="2" font-size="0.30" fill="black" text-anchor="middle">
+      10%
+    </text>
+  </svg>
+
+  <figcaption>Figure 3.3.13 Final Venn Diagram for example 6.</figcaption>
+</figure>
+
+
+
+                    <p>Now we could use this Venn diagram to answer any question that was to follow. It is important to note that a Venn diagram is not required to answer any of these types of questions, however they are helpful if you are a visual learner.</p>
+                </div>
+            </div>
+        </div>
+
+     <nav aria-label="Page navigation">
+  <div class="page-navigation">
+    <div class="page-navigation" style="display:flex; justify-content:space-between; margin-top:40px;">
+        <a href="CH3_2.html" class="nav-button" aria-label="Go to previous section">&larr; Previous</a>
+        <a href="MTH154CH3_4.html" class="nav-button" aria-label="Go to next section">Next &rarr;</a>
+    </div>
+  </div>
+</nav>
+
+</div>
+<script>
+        function toggleExample(button) {
+            const content = button.nextElementSibling;
+            const arrow = button.querySelector('.toggle-arrow');
+            
+            if (content.classList.contains('open')) {
+                content.classList.remove('open');
+                arrow.classList.remove('open');
+                button.querySelector('span:last-child').textContent = 'Show Solution';
+            } else {
+                content.classList.add('open');
+                arrow.classList.add('open');
+                button.querySelector('span:last-child').textContent = 'Hide Solution';
+            }
+        }
+    </script>
+
+    <script>
+        const chapterButtons = document.querySelectorAll(".toc-chapter");
+
+        chapterButtons.forEach(button => {
+            button.addEventListener("click", () => {
+                const expanded = button.getAttribute("aria-expanded") === "true";
+                button.setAttribute("aria-expanded", !expanded);
+
+                const submenu = button.nextElementSibling;
+                submenu.classList.toggle("open");
+            });
+        });
+    </script>
+</body>
+</html>

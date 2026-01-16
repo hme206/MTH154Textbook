@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 5: Measurement - Section 5.3: Area, Volume, and Capacity</title>
+    
+    <!-- MathJax configuration -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            },
+            loader: {
+                load: ['input/tex', 'output/chtml']
+            }
+        };
+    </script>
+    <!-- MathJax loader -->
+    <script id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+
+    <style>
+      
+    .nav-button {
+      padding: 10px 20px;
+      background-color: #33AB2B;
+      color: #000000;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+
+    .nav-button:hover,
+    .nav-button:focus {
+      background-color: #33AB2B;
+      outline: none;
+    }     
+/* Layout unchanged */
+.side-toc {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 230px;
+    height: 100vh;
+    background-color: #f0f8ed;
+    border-right: 3px solid #33AB2B;
+    padding: 20px;
+    overflow: hidden;
+}
+
+.toc-title {
+    font-size: 1.4em;
+    margin-bottom: 15px;
+    color: #33AB2B;
+}
+
+/* Chapter buttons */
+.toc-chapter {
+    width: 100%;
+    background: none;
+    border: none;
+    text-align: left;
+    font-size: 1em;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    color: #333;
+}
+
+.toc-chapter:hover,
+.toc-chapter:focus {
+    color: #33AB2B;
+}
+
+.arrow {
+    transition: transform 0.25s ease;
+}
+
+/* Rotated when opened */
+.toc-chapter[aria-expanded="true"] .arrow {
+    transform: rotate(90deg);
+}
+
+/* Submenu collapsed by default */
+.toc-submenu {
+    list-style: none;
+    padding-left: 15px;
+    margin: 5px 0 10px 0;
+    display: none;
+}
+
+/* Visible when expanded */
+.toc-submenu.open {
+    display: block;
+}
+
+.toc-submenu li {
+    margin: 6px 0;
+}
+
+.toc-submenu a {
+    color: #333;
+    text-decoration: none;
+}
+
+.toc-submenu a:hover,
+.toc-submenu a:focus {
+    color: #33AB2B;
+    text-decoration: underline;
+}
+
+/* Push main body over */
+body {
+    margin-left: 250px;
+}
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background-color: #ffffff;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #33AB2B;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            border-bottom: 3px solid #33AB2B;
+            padding-bottom: 15px;
+        }
+
+        h2 {
+            color: #33AB2B;
+            font-size: 1.8em;
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            color: #33AB2B;
+            font-size: 1.2em;
+            margin-top: 20px;
+            margin-bottom: 15px;
+        }
+
+        h4 {
+            color: #33AB2B;
+            font-size: 1.1em;
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+
+        .definition-box {
+            background-color: #f0f8ed;
+            border: 2px solid #33AB2B;
+            border-radius: 6px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .definition-box h3 {
+            color: #33AB2B;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            margin-top: 0;
+        }
+
+        .definition-box p {
+            margin-bottom: 15px;
+        }
+
+        .definition-box ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .definition-box li {
+            margin-bottom: 10px;
+        }
+
+        .conversion-box {
+            background-color: #ffffff;
+            border: 2px solid #b84d7e;
+            border-radius: 6px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .conversion-box h3 {
+            color: #b84d7e;
+            margin-top: 0;
+        }
+
+        .conversion-box table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        .conversion-box table th,
+        .conversion-box table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .conversion-box table th {
+            background-color: #f0f0f0;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .orange-box {
+            background-color: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 6px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+
+        .orange-box h3 {
+            margin-top: 0;
+        }
+
+        .orange-box ol {
+            margin-left: 20px;
+        }
+
+        .orange-box li {
+            margin-bottom: 8px;
+        }
+
+        .example {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            margin: 25px 0;
+            overflow: hidden;
+        }
+
+        .example-problem {
+            padding: 15px 20px;
+        }
+
+        .example-problem h3 {
+            color: #33AB2B;
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .example-problem p {
+            margin-bottom: 10px;
+        }
+
+        .example-problem ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .example-problem li {
+            margin-bottom: 8px;
+        }
+
+        .example-problem ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .solution-header {
+            background-color: #33AB2B;
+            color: white;
+            padding: 12px 20px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+            margin-top: 15px;
+            border-radius: 4px;
+            transition: background-color 0.2s ease;
+            border: none;
+            font-size: 1em;
+        }
+
+        .solution-header:hover {
+            background-color: #2a8922;
+        }
+
+        .toggle-arrow {
+            display: inline-block;
+            margin-right: 12px;
+            transition: transform 0.3s ease;
+            font-size: 1.2em;
+        }
+
+        .toggle-arrow.open {
+            transform: rotate(180deg);
+        }
+
+        .example-content {
+            padding: 0;
+            display: none;
+            overflow: hidden;
+        }
+
+        .example-content.open {
+            display: block;
+        }
+
+        .solution {
+            background-color: #f0f8ed;
+            padding: 20px;
+            border-top: 2px solid #33AB2B;
+        }
+
+        .solution h4 {
+            color: #33AB2B;
+            margin-bottom: 15px;
+            margin-top: 0;
+        }
+
+        .solution p {
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        .solution ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .solution li {
+            margin-bottom: 8px;
+        }
+
+        .solution ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        ul li {
+            margin-bottom: 8px;
+        }
+
+        ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        ol li {
+            margin-bottom: 8px;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        strong {
+            font-weight: bold;
+        }
+
+        em {
+            font-style: italic;
+        }
+
+        .blue-text {
+            color: #0066cc;
+        }
+
+        .divider {
+            border-top: 2px dashed #33AB2B;
+            margin: 30px 0;
+        }
+
+        .image-placeholder {
+            background-color: #e0e0e0;
+            border: 2px dashed #999;
+            padding: 40px;
+            margin: 20px 0;
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            border-radius: 4px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table th {
+            background-color: #f0f8ed;
+            color: #33AB2B;
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ccc;
+            font-weight: bold;
+        }
+
+        table td {
+            padding: 12px;
+            border: 1px solid #ccc;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        table tr.highlighted {
+            background-color: #ffff99;
+        }
+
+        .subsection-title {
+            color: #33AB2B;
+            font-size: 1.3em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+    </style>
+<style>
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+</style>
+</head>
+<body>
+<nav class="side-toc" aria-label="Textbook Navigation">
+    <h2 class="toc-title">Contents</h2>
+
+    <!-- Chapter 1 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 1: Financial Literacy</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="MTH154CH1_1.html">1.1 Introduction</a></li>
+        <li><a href="MTH154CH1_2.html">1.2 Problem Solving</a></li>
+        <li><a href="MTH154CH1_3.html">1.3 Simple Interest</a></li>
+ 	<li><a href="MTH154CH1_4.html">1.4 Compound Interest & Annuities</a></li>
+ 	<li><a href="MTH154CH1_5.html">1.5 Installment Loans</a></li>
+ 	<li><a href="MTH154CH1_6.html">1.6 Loans</a></li>
+ 	<li><a href="MTH154CH1_7.html">1.7 Stocks & Bonds</a></li>
+ 	<li><a href="MTH154CH1_8.html">1.8 Taxes</a></li>
+    </ul>
+
+    <!-- Chapter 2 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 2: Modeling Data</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="Ch2_1.html">2.1 Basics of Graphing</a></li>
+        <li><a href="Ch2_2.html">2.2 Relations & Functions</a></li>
+        <li><a href="Ch2_3.html">2.3 Linear Models</a></li>
+        <li><a href="Ch2_4.html">2.4 Rate of Change</a></li>
+        <li><a href="Ch2_5.html">2.5 Scatterplots</a></li>
+    </ul>
+
+    <!-- Chapter 3 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 3: Set Theory</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="Ch3_1.html">3.1 Set Basics</a></li>
+        <li><a href="Ch3_2.html">3.2 Sets</a></li>
+        <li><a href="Ch3_3.html">3.3 Venn Diagrams</a></li>
+        <li><a href="MTH154CH3_4.html">3.4 More with Venn Diagrams</a></li>
+    </ul>
+
+   <!-- Chapter 4 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 4: Logic</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="MTH154CH4_1.html">4.1 Thinking Logically</a></li>
+        <li><a href="MTH154CH4_2.html">4.2 Introduction to Truth Tables</a></li>
+	<li><a href="MTH154CH4_3.html">4.3 Logical Arguments</a></li>
+	<li><a href="MTH154CH4_4.html">4.4 Variations of Statements</a></li>
+    </ul>
+
+   <!-- Chapter 5 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 5: Measurement</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="MTH154CH5_1.html">5.1 Ratios & Proportions</a></li>
+        <li><a href="MTH154CH5_2.html">5.2 Measurement</a></li>
+	<li><a href="MTH154CH5_3.html">5.3 Area, Volume, and Capacity</a></li>
+	<li><a href="MTH154CH5_4.html">5.4 Weight & Temperature</a></li>
+	<li><a href="MTH154CH5_5.html">5.5 Surface Area & Volume</a></li>
+    </ul>
+</nav>
+
+   <div class="container">
+        <h1>Chapter 5: Measurement</h1>
+
+        <h2>Section 5.3: Area, Volume, and Capacity</h2>
+
+<p>The purpose of taking measurements is to eventually use them for some type of application. A number of the trades fields require the use of measurements as well as the topic of this section which is area, volume, and capacity.</p>
+
+<div class="definition-box">
+    <h3>Area</h3>
+    <p><span class="blue-text"><strong>Area</strong></span>: Is how much flat space an object has. (2-Dimensional) Think about the amount of paint to cover a wall.</p>
+</div>
+
+<div class="definition-box">
+    <h3>Volume</h3>
+    <p><span class="blue-text"><strong>Volume</strong></span>: how much space an object holds. (3-Dimensional) Think about how much concrete it would take to fill an old swimming pool, or the amount of mulch needed for a flower bed.</p>
+</div>
+
+<div class="definition-box">
+    <h3>Capacity</h3>
+    <p><span class="blue-text"><strong>Capacity</strong></span>: A form of volume pertaining to the amount of liquid a container can hold.</p>
+</div>
+
+<h3 style="color: #5a8f4a; margin-top: 30px;">Common Formulas</h3>
+
+  <table aria-label="Area formulas">
+        <tbody>
+            <tr>
+                <th scope="row"><strong>Shape Name</strong></th>
+                <td>Rectangle/Square</td>
+                <td>Circle</td>
+                <td>Cylinder</td>
+            </tr>
+            <tr>
+                <th scope="row"><strong>Shape</strong></th>
+                <td style="text-align: center; vertical-align: middle; height:150px;">
+                    <svg width="120" height="80" aria-labelledby="title rectangle-desc" role="img">
+                    <!-- Rectangle -->
+                    <rect x="20" y="20" width="80" height="40" fill="none" stroke="black" stroke-width="2"/>
+
+                    <!-- Labels -->
+                    <text x="60" y="15" font-size="12" text-anchor="middle">l</text>
+                    <text x="5" y="40" font-size="12" text-anchor="middle" transform="rotate(-90 5,40)">w</text>
+                    </svg>
+                </td>
+                <td style="text-align: center; vertical-align: middle; height:150px;">
+                    <svg width="100" height="100" aria-labelledby="title circle-desc" role="img">  
+                    <title id="circle-title">Circle diagram</title>
+                    <!-- Circle -->
+                    <circle cx="50" cy="50" r="30" fill="none" stroke="black" stroke-width="2"/>
+                    <!-- Radius line -->
+                    <line x1="50" y1="50" x2="80" y2="50" stroke="black" stroke-width="1" marker-end="url(#arrow)"/>
+                    <!-- Label for radius -->
+                    <text x="65" y="45" font-size="12">r</text>
+                    </svg>
+                </td>
+                <td style="text-align: center; vertical-align: middle; height:150px;">
+                    <svg width="150" height="200" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Top ellipse -->
+                    <ellipse cx="75" cy="50" rx="40" ry="15" fill="lightblue" stroke="black" stroke-width="2"/>
+  
+                    <!-- Radius line -->
+                    <line x1="75" y1="50" x2="115" y2="50" stroke="black" stroke-width="1"/>
+                    <text x="95" y="45" font-size="12">r</text>
+
+                    <!-- Side lines -->
+                    <line x1="115" y1="50" x2="115" y2="150" stroke="black" stroke-width="2"/>
+                    <line x1="35" y1="50" x2="35" y2="150" stroke="black" stroke-width="2"/>
+
+                    <!-- Height line (dashed) -->
+                    <line x1="75" y1="50" x2="75" y2="150" stroke="black" stroke-width="1" stroke-dasharray="4"/>
+                    <text x="80" y="100" font-size="12">h</text>
+
+                    <!-- Bottom ellipse -->
+                    <ellipse cx="75" cy="150" rx="40" ry="15" fill="lightblue" stroke="black" stroke-width="2"/>
+                     </svg>
+                </td>
+
+             
+            </tr>
+            <tr>
+                <th scope="row"><strong>Formula</strong></th>
+                <td>Area = $l*w$</td>
+                <td>Area=$\pi r^2$</td>
+                <td>Volume = $\pi r^2h$</td>
+            </tr>
+          
+        </tbody>
+    </table>
+
+   <table aria-label="Area formulas" border="1" style="border-collapse: collapse; width: 100%;">
+  <tbody>
+    <!-- Header row -->
+    <tr>
+      <th scope="row"><strong>Shape Name</strong></th>
+      <td>Box</td>
+      <td>Sphere</td>
+      <td>Cone</td>
+    </tr>
+
+    <!-- Shape row -->
+    <tr>
+      <th scope="row"><strong>Shape</strong></th>
+
+      <!-- Box -->
+      <td style="text-align: center; vertical-align: middle; height:200px;">
+        <svg width="150" height="150" role="img" aria-labelledby="boxTitle boxDesc" xmlns="http://www.w3.org/2000/svg">
+          <title id="boxTitle">3D box diagram</title>
+          <desc id="boxDesc">A 3D rectangular box with length labeled l, width labeled w, and height labeled h.</desc>
+          <!-- Front face -->
+          <polygon points="20,100 100,100 100,50 20,50" fill="lightblue" stroke="black" stroke-width="2"/>
+          <!-- Top face -->
+          <polygon points="20,50 100,50 110,40 30,40" fill="skyblue" stroke="black" stroke-width="2"/>
+          <!-- Right face -->
+          <polygon points="100,100 110,90 110,40 100,50" fill="steelblue" stroke="black" stroke-width="2"/>
+          <!-- Depth lines -->
+          <line x1="20" y1="100" x2="30" y2="90" stroke="black" stroke-width="2"/>
+          <line x1="100" y1="100" x2="110" y2="90" stroke="black" stroke-width="2"/>
+          <line x1="20" y1="50" x2="30" y2="40" stroke="black" stroke-width="2"/>
+          <line x1="100" y1="50" x2="110" y2="40" stroke="black" stroke-width="2"/>
+          <line x1="30" y1="40" x2="110" y2="40" stroke="black" stroke-width="2"/>
+          <line x1="30" y1="40" x2="30" y2="90" stroke="black" stroke-width="2"/>
+          <line x1="110" y1="40" x2="110" y2="90" stroke="black" stroke-width="2"/>
+          <!-- Labels -->
+          <text x="60" y="105" font-size="12" text-anchor="middle">l</text>
+          <text x="115" y="95" font-size="12" text-anchor="middle">w</text>
+          <text x="115" y="60" font-size="12" text-anchor="middle">h</text>
+        </svg>
+      </td>
+
+       <!-- Sphere -->
+      <td style="text-align: center; vertical-align: middle; height:150px;">
+        <svg width="150" height="150" role="img" aria-labelledby="sphereTitle sphereDesc" xmlns="http://www.w3.org/2000/svg">
+          <title id="sphereTitle">Sphere diagram</title>
+          <desc id="sphereDesc">A sphere with radius labeled r, showing horizontal and vertical ellipses for perspective.</desc>
+          <!-- Circle (sphere) -->
+          <circle cx="75" cy="75" r="50" fill="lightblue" stroke="black" stroke-width="2"/>
+          <!-- Horizontal ellipse -->
+          <ellipse cx="75" cy="75" rx="50" ry="12" fill="none" stroke="black" stroke-dasharray="4"/>
+          <!-- Vertical ellipse -->
+          <ellipse cx="75" cy="75" rx="12" ry="50" fill="none" stroke="black" stroke-dasharray="4"/>
+          <!-- Radius line -->
+          <line x1="75" y1="75" x2="125" y2="75" stroke="black" stroke-width="1"/>
+          <!-- Radius label -->
+          <text x="100" y="70" font-size="12">r</text>
+        </svg>
+      </td>
+
+      <!-- Cone -->
+      <td style="text-align: center; vertical-align: middle; height:150px;">
+        <svg width="150" height="150" role="img" aria-labelledby="coneTitle coneDesc" xmlns="http://www.w3.org/2000/svg">
+          <title id="coneTitle">Cone diagram</title>
+          <desc id="coneDesc">A cone with height labeled h and base radius labeled r, showing dashed lines for hidden edges.</desc>
+          <!-- Base ellipse -->
+          <ellipse cx="75" cy="125" rx="50" ry="12" fill="lightblue" stroke="black" stroke-width="2"/>
+          <!-- Sides -->
+          <line x1="25" y1="125" x2="75" y2="25" stroke="black" stroke-width="2"/>
+          <line x1="125" y1="125" x2="75" y2="25" stroke="black" stroke-width="2"/>
+          <!-- Hidden back edge of base -->
+          <path d="M25,125 A50,12 0 0 1 125,125" fill="none" stroke="black" stroke-width="1" stroke-dasharray="4"/>
+          <!-- Height line -->
+          <line x1="75" y1="125" x2="75" y2="25" stroke="black" stroke-width="1" stroke-dasharray="4"/>
+          <text x="80" y="75" font-size="12">h</text>
+          <!-- Radius label -->
+          <line x1="75" y1="125" x2="125" y2="125" stroke="black" stroke-width="1"/>
+          <text x="100" y="120" font-size="12">r</text>
+        </svg>
+      </td>
+    </tr>
+
+    <!-- Formula row -->
+    <tr>
+      <th scope="row"><strong>Formula</strong></th>
+      <td>Volume =$l * w * h$</td>
+      <td>Volume = $4/3 π r³$</td>
+      <td>Volume = $1/3 π r² h$</td>
+    </tr>
+  </tbody>
+</table>
+
+
+<!-- Example 1 -->
+<div class="example">
+    <div class="example-problem">
+        <h3>Example 1</h3>
+        <p>If a 12 inch diameter pizza requires 10 ounces of dough. How much dough is needed for a 16 inch pizza?</p>
+    </div>
+
+    <button class="solution-header" onclick="toggleExample(this)" aria-expanded="false">
+        <span class="toggle-arrow">▼</span>
+        <span>Show Solution</span>
+    </button>
+
+    <div class="example-content">
+        <div class="solution">
+            <h4>Solution</h4>
+            <p>To answer this question, we need to consider how the weight of the dough will scale to the size of the pizza. The amount of dough needed is an example of volume. However, since both pizzas will be about the same thickness, the weight will scale with the area of the top of the pizza. We can find the area of each pizza using the formula for a circle:</p>
+
+            <p>$$A = \pi r^2$$</p>
+
+            <p>A 12&quot; pizza would have a radius of 6&quot; <em>(12 / 2)</em>, giving us an area of: <span style="color:purple;">$$A = \pi r^2 = \pi(6)^2 = 36\pi \approx 113.04 \text{ in}^2$$</span></p>
+
+            <p>A 16&quot; pizza would have a radius of 8&quot; <em>(16 / 2)</em>, giving us an area of: <span style="color:purple;">$$A = \pi r^2 = \pi(8)^2 = 64\pi \approx 200.96 \text{ in}^2$$</span></p>
+
+            <p>Notice that if both pizzas were 1 inch thick, their volumes would be 113 in³ and 201 in³ respectively, which is the same ratio as the area. Since the thickness is the same for both pizzas, we can safely ignore the thickness, since it is unknown.</p>
+
+            <p>Using proportional reasoning that was learned in Chapter 5.1, we can make a proportion of the amount of dough to the area of the pizza:</p>
+
+            <p>
+                \[\frac{10\text{ oz}}{113\text{ in}^2} = \frac{x\text{ oz}}{201\text{ in}^2}\]\[201 \cdot 10 = 113 \cdot x\]
+                \[2010 = 113 x\]\[x = \frac{2010}{113}\]\[x \approx 17.788\]
+            </p>
+
+            <p>This means that for a 16 inch pizza we'd need approximately 18 oz of dough.</p>
+
+
+        </div>
+    </div>
+</div>
+<!-- Example 2 -->
+<div class="example">
+    <div class="example-problem">
+        <h3>Example 2</h3>
+        <p>Your grandmother has asked you to help her with her flower beds. She has one flower bed as outlined in the figure below. 
+            If she wants to apply mulch that is 3 inches deep. How many cubic yards of mulch does she need?</p>
+            <div style="text-align: center;">
+            <svg width="200" height="150" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="flowerBedTitle flowerBedDesc">
+            <title id="flowerBedTitle">Grandma's Flower Bed Dimensions</title>
+            <desc id="flowerBedDesc">A polygon representing Grandma's flower bed with labeled sides: 15 ft, 8 ft, 7 ft, and 15 ft.</desc>
+
+             <!-- Polygon for flower bed -->
+            <polygon points="0,100 160,100 160,60 80,60 80,0 0,0" fill="#80c080" stroke="black" stroke-width="2"/>
+
+            <!-- Labels -->
+            <text x="80" y="115" font-size="14" text-anchor="middle">15 ft</text> <!-- bottom -->
+            <text x="165" y="80" font-size="14" text-anchor="start">8 ft</text>   <!-- right -->
+            <text x="120" y="55" font-size="14" text-anchor="middle">7 ft</text> <!-- top horizontal -->
+            <text x="-5" y="50" font-size="14" text-anchor="end">15 ft</text>   <!-- left -->
+            </svg>
+        </div>
+
+    </div>
+ <button class="solution-header" onclick="toggleExample(this)" aria-expanded="false">
+        <span class="toggle-arrow">▼</span>
+        <span>Show Solution</span>
+    </button>
+
+    <div class="example-content">
+        <div class="solution">
+            <p>First we need to "cut" the shape into two shapes that we are able to find the area of. There are multiple ways this could be done. We are going to cut this into two trapezoids. But you could opt to cut it into rectangles. At this time we are also going to label each shape for ease of identity.</p>
+
+<!-- Flower bed SVG with trapezoids -->
+<div style="text-align: center; margin: 20px 0;">
+  <svg width="300" height="200" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="flowerBedTitle flowerBedDesc">
+    <title id="flowerBedTitle">Grandma's Flower Bed - Trapezoid Cut</title>
+    <desc id="flowerBedDesc">A polygon representing Grandma's flower bed cut into two trapezoids labeled T1 and T2. Sides are labeled 15 ft, 8 ft, 7 ft, and 15 ft.</desc>
+
+    <!-- Main polygon -->
+    <polygon points="50,150 250,150 250,100 150,100 150,0 50,0" fill="#80c080" stroke="black" stroke-width="2"/>
+
+    <!-- Cut line between trapezoids -->
+    <line x1="50" y1="150" x2="150" y2="100" stroke="black" stroke-width="2"/>
+
+    <!-- Labels for sides -->
+    <text x="150" y="165" font-size="14" text-anchor="middle">15 ft</text> <!-- bottom -->
+    <text x="260" y="125" font-size="14" text-anchor="start">8 ft</text>   <!-- right -->
+    <text x="200" y="95" font-size="14" text-anchor="middle">7 ft</text>  <!-- top horizontal -->
+    <text x="45" y="75" font-size="14" text-anchor="end">15 ft</text>    <!-- left -->
+
+    <!-- Trapezoid labels -->
+    <text x="100" y="65" font-size="14" text-anchor="middle">T1</text>
+    <text x="200" y="125" font-size="14" text-anchor="middle">T2</text>
+  </svg>
+</div>
+
+<p>The area of a trapezoid is:</p>
+<p>$$A = \frac{1}{2}(b_1+b_2) h$$</p>
+
+<p>Looking at T1 we can see that we are missing one of the bases and the vertical height. Using simple math we can locate the height of this trapezoid to be:</p>
+<p>$$15 - 7 = 8 \text{ ft}$$</p>
+<p>and the second base:</p>
+<p>$$15 - 8 = 7 \text{ ft}$$</p>
+<p>It just happens that T1 is the same size trapezoid as T2. This means we can find the area of one trapezoid and then multiply it by 2.</p>
+
+<div style="text-align: center;">
+\[
+\begin{aligned}
+A &= \frac{1}{2}(15+7) \cdot 8 \\
+A &= \frac{1}{2}(22)(8) \\
+A &= 11 \cdot 8 \\
+A &= 88
+\end{aligned}
+\]
+</div>
+
+<p>This means the area of Grandma's flower bed is:</p>
+<p>$$2 \cdot 88 = 176 \text{ sq ft}$$</p>
+
+<p>Next we need the volume. Grandma wanted the mulch to be 3 inches thick. Since the area is in square feet, we convert the thickness to feet:</p>
+<p>$$3 \text{ in} = \frac{3}{12} \text{ ft} = 0.25 \text{ ft}$$</p>
+
+<p>Volume of the flower bed:</p>
+<p>$$0.25 \cdot 176 = 44 \text{ cubic feet}$$</p>
+
+<p>Mulch is sold by the cubic yard. Recall that:</p>
+<p>$$1 \text{ yard} = 3 \text{ feet}$$</p>
+<p>Cubing this to convert cubic measurements:</p>
+
+<div style="text-align:center;">
+\[
+\begin{aligned}
+(1 \text{ yd} &= 3 \text{ ft})^3 \\
+1^3 \text{ yd}^3 &= 3^3 \text{ ft}^3 \\
+1 \text{ yd}^3 &= 27 \text{ ft}^3
+\end{aligned}
+\]
+</div>
+
+<p>Now convert cubic feet to cubic yards:</p>
+<p>$$\frac{44 \text{ ft}^3}{1} \cdot \frac{1 \text{ yd}^3}{27 \text{ ft}^3} = \frac{44}{27} \text{ yd}^3 \approx 1.63 \text{ yd}^3$$</p>
+
+<p>If each bag of mulch covers 0.43 cubic yards, the number of bags needed is:</p>
+<p>$$\frac{1.63}{0.43} \approx 3.79 \text{ bags}$$</p>
+
+<p>This means you'll need to pick up 4 bags total to cover Grandma's flower bed.</p>
+
+        </div>
+    </div>
+</div>
+
+<p>There are endless ways to apply this information to problem-solving in the real world. It can be difficult to navigate at times, but breaking the problem into smaller pieces, like we did with trapezoids, helps simplify the calculations.</p>
+    <div class="definition-box">
+        <h3>Problem Solving Process</h3>
+         <ol>
+            <li>Identify the question you're being asked to answer.</li>
+            <li>Work backwards, identifying the information you need and the relationships you will use to answer that question.</li>
+            <li>Continue working backwards, creating a solution pathway.</li>
+            <li>If you are missing necessary information, look it up or estimate it. If you have unnecessary information, ignore it.</li>
+            <li>Solve the problem, following your solution pathway.</li>
+        </ol>
+    </div>
+<!-- Example 3 -->
+<div class="example">
+    <div class="example-problem">
+        <h3>Example 3</h3>
+        <p>Kareem is looking to replace his old deck by upgrading it to a new deck that using composite decking. The decking he is interested in only comes in 12 foot lengths by 8 inch width. He needs to build the deck such that the boards run perpendicular with 
+            his house. His deck is 22 feet wide by 10 feet long.
+        </p>
+            <div style="text-align:center; margin:20px 0;">
+                <svg width="300" height="200" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="houseTitle houseDesc">
+                <title id="houseTitle">House dimensions</title>
+                <desc id="houseDesc">A rectangle representing a house labeled 22 feet wide and 10 feet tall with vertical dashed lines inside. The top is labeled 'House'.</desc>
+
+                <!-- House rectangle -->
+                <rect x="50" y="50" width="200" height="100" fill="#a0522d" stroke="black" stroke-width="2"/>
+
+                <!-- Labels -->
+                <text x="150" y="45" font-size="14" text-anchor="middle">House</text> <!-- top -->
+                <text x="150" y="158" font-size="14" text-anchor="middle">22 feet</text> <!-- bottom -->
+                <text x="255" y="100" font-size="14" text-anchor="start" dominant-baseline="middle">10 feet</text> <!-- right -->
+
+                <!-- Vertical dashed lines -->
+                <line x1="50" y1="50" x2="50" y2="150" stroke="black" stroke-width="1" stroke-dasharray="4"/>
+                <line x1="86" y1="50" x2="86" y2="150" stroke="black" stroke-width="1" stroke-dasharray="4"/>
+                <line x1="121" y1="50" x2="121" y2="150" stroke="black" stroke-width="1" stroke-dasharray="4"/>
+                <line x1="157" y1="50" x2="157" y2="150" stroke="black" stroke-width="1" stroke-dasharray="4"/>
+                <line x1="193" y1="50" x2="193" y2="150" stroke="black" stroke-width="1" stroke-dasharray="4"/>
+                <line x1="229" y1="50" x2="229" y2="150" stroke="black" stroke-width="1" stroke-dasharray="4"/>
+                </svg>
+            </div>
+        <p>How many boards does Kareem need to order? </p>
+
+    </div>
+
+    <button class="solution-header" onclick="toggleExample(this)" aria-expanded="false">
+        <span class="toggle-arrow">▼</span>
+        <span>Show Solution</span>
+    </button>
+
+    <div class="example-content">
+        <div class="solution">
+            <p>To figure out how many boards Kareem needs, he needs to take the 22 feet and divide it by 8 in. However, we know that you have to have common units to do this correctly. At this point he could either convert the 22 feet into inches or convert the 8 in into feet. We will opt to convert 8 in into feet, which would be:</p>
+
+            <p>$$\frac{8}{12} = \frac{2}{3} \text{ foot}$$</p>
+
+            <p>Next, we take the 22 feet and divide it by the fraction:</p>
+
+            <p>$$\frac{22}{\frac{2}{3}} = \frac{22}{1} \cdot \frac{3}{2} = 33$$</p>
+
+            <p>Remember that dividing by a fraction is the same as multiplying by the reciprocal of the fraction (flip it over). According to the math, Kareem would need <strong>33 boards</strong> to redo his deck.</p>
+
+            <p>Now let's talk a little about <strong>capacity</strong>. Capacity is the amount of liquid that an object can hold. The Metric system uses the measurement <em>Liter (L)</em> to measure liquids, while the English system uses the measurements below.</p>
+
+        </div>
+    </div>
+</div>
+<h2>Capacity Conversions</h2>
+<!-- Units of Capacity (English System) -->
+<div class="definition-box">
+  <h3>Units of Capacity (English System)</h3>
+  <ul>
+    <li>1 cup = 8 fluid ounces (oz)</li>
+    <li>2 cups = 1 pint (pt)</li>
+    <li>1 pint = 16 fluid ounces</li>
+    <li>1 quart (qt) = 2 pints</li>
+    <li>1 gallon (gal) = 4 quarts</li>
+  </ul>
+  <p>One thing to note about English units of capacity is that a fluid ounce is a measure of volume, it is not a weight of an object. For example, if you took 8 fluid ounces of milk and compared it to 8 fluid ounces of water, they would have different weights in ounces. We will discuss weight more in the next section.</p>
+</div>
+
+<!-- Capacity Conversion Factors -->
+<div class="definition-box">
+  <h3>Capacity Conversion Factors</h3>
+  <table border="1" cellpadding="5" cellspacing="0">
+    <tbody>
+      <tr>
+        <td>1 ft³ ≈ 7.48 gal</td>
+        <td>1 yd³ ≈ 202 gal</td>
+        <td>1 gal ≈ 231 in³</td>
+      </tr>
+      <tr>
+        <td>1 Liter ≈ 1.06 qts</td>
+        <td>1 mL ≈ 1 cm³</td>
+        <td>1 Liter ≈ 0.264 gal</td>
+      </tr>
+      <tr>
+        <td>1 ft³ (freshwater) ≈ 62.5 lbs</td>
+        <td>1 ft³ (saltwater) ≈ 64 lbs</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<!--Example 4-->
+<div class="example">
+    <div class="example-problem">
+        <h3>Example 4</h3>
+  <     p>You're trying to help your friend Meriam, who lives in Paris, France. She has a recipe that calls for 1 pint of milk. How many mL does she need?</p>
+    </div>
+
+        <!--Solution-->
+<button class="solution-header" onclick="toggleExample(this)" aria-expanded="false">
+<span class="toggle-arrow">▼</span>
+<span>Show Solution</span>
+</button>
+
+    <div class="example-content">
+        <div class="solution">
+        <div class="solution-box">
+            <p>We know that there is 1 liter in 1.06 qts, and that there are 2 pts for every 1 qt. Using dimensional analysis:</p>
+            <p>$$\frac{1\ \text{pt}}{1} \cdot \frac{1\ \text{qt}}{2\ \text{pt}} \cdot \frac{1\ \text{L}}{1.06\ \text{qt}} = \frac{1}{2(1.06)} = \frac{1}{2.12} \approx 0.472\ \text{L}$$</p>
+
+            <p>Next, convert liters to milliliters using the metric ladder method (milli = 10⁻³):</p>
+            <p>$$0.472 \cdot 10^3 = 0.472 \cdot 1000 = 472\ \text{mL}$$</p>
+
+            <p>Meriam would need <strong>472 mL</strong> of milk to make the recipe.</p>
+        </div>
+        </div>
+    </div>
+    </div>
+<!--Example 5-->
+<div class="example">
+    <div class="example-problem">
+        <h3>Example 5</h3>
+        <p>Charlie is looking to install a freshwater fish tank that holds 100 gallons of water. How many cubic feet of water does he need to fill the tank, and how much will the water weigh?</p>
+    </div>
+
+
+  <!--Solution-->
+<button class="solution-header" onclick="toggleExample(this)" aria-expanded="false">
+<span class="toggle-arrow">▼</span>
+<span>Show Solution</span>
+</button>
+
+    <div class="example-content">
+        <div class="solution">
+        <div class="solution-box">
+            <p>First, convert gallons to cubic feet:</p>
+            <p>$$\frac{100\ \text{gal}}{1} \cdot \frac{1\ \text{ft}^3}{7.48\ \text{gal}} \approx 13.37\ \text{ft}^3$$</p>
+
+            <p>Next, multiply by the weight of 1 cubic foot of freshwater (62.5 lbs):</p>
+            <p>$$13.37 \cdot 62.5 \approx 835.63\ \text{lbs}$$</p>
+
+            <p>Charlie will need approximately <strong>13 cubic feet</strong> of water weighing approximately <strong>836 lbs</strong>.</p>
+        </div>
+        </div>
+    </div>  
+</div>
+
+<!--Example 6-->
+<div class="example">
+    <div class="example-problem">
+        <h3>Example 6</h3>
+            <p>According to a study, an average of 2,476,000 cubic centimeters of Cola are consumed worldwide every second. How many kiloliters is that? How many gallons?</p>
+    </div>
+
+<!--Solution-->
+<button class="solution-header" onclick="toggleExample(this)" aria-expanded="false">
+<span class="toggle-arrow">▼</span>
+<span>Show Solution</span>
+</button>
+
+    <div class="example-content">
+        <div class="solution">
+        <div class="solution-box">
+            <p>First, convert cubic centimeters to kiloliters (1 kL = 10⁶ mL, 1 cm³ = 1 mL):</p>
+            <p>$$\frac{2,476,000\ \text{cm}^3}{1} \cdot \frac{1\ \text{mL}}{1\ \text{cm}^3} \cdot \frac{1}{10^6} = \frac{2,476,000}{1,000,000} = 2.476\ \text{kL}$$</p>
+
+            <p>Next, convert liters to gallons (1 L ≈ 0.264 gal). First, convert cm³ to L by moving up 3 steps (divide by 10³):</p>
+            <p>$$\frac{2,476,000\ \text{cm}^3}{1} \cdot \frac{1\ \text{mL}}{1\ \text{cm}^3} \cdot \frac{1}{10^3} \cdot \frac{0.264\ \text{gal}}{1\ \text{L}} = 656.14\ \text{gal}$$</p>
+
+            <p>This means that on average, <strong>656 gallons</strong> of Cola are consumed every second.</p>
+        </div>
+        </div>
+    </div>
+</div>
+<nav aria-label="Page navigation">
+  <div class="page-navigation">
+    <div class="page-navigation" style="display:flex; justify-content:space-between; margin-top:40px;">
+        <a href="MTH154CH5_2.html" class="nav-button" aria-label="Go to previous section">&larr; Previous</a>
+        <a href="MTH154CH5_4.html" class="nav-button" aria-label="Go to next section">Next &rarr;</a>
+    </div>
+  </div>
+</nav>
+
+</div>
+<script>
+        function toggleExample(button) {
+            const content = button.nextElementSibling;
+            const arrow = button.querySelector('.toggle-arrow');
+            
+            if (content.classList.contains('open')) {
+                content.classList.remove('open');
+                arrow.classList.remove('open');
+                button.querySelector('span:last-child').textContent = 'Show Solution';
+            } else {
+                content.classList.add('open');
+                arrow.classList.add('open');
+                button.querySelector('span:last-child').textContent = 'Hide Solution';
+            }
+        }
+    </script>
+
+    <script>
+        const chapterButtons = document.querySelectorAll(".toc-chapter");
+
+        chapterButtons.forEach(button => {
+            button.addEventListener("click", () => {
+                const expanded = button.getAttribute("aria-expanded") === "true";
+                button.setAttribute("aria-expanded", !expanded);
+
+                const submenu = button.nextElementSibling;
+                submenu.classList.toggle("open");
+            });
+        });
+    </script>
+</body>
+</html>

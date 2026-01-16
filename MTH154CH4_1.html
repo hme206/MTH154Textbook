@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 4: Logic - Section 4.1: Thinking Logically</title>
+    
+   <!-- MathJax configuration -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            },
+            loader: {
+                load: ['input/tex', 'output/chtml']
+            }
+        };
+    </script>
+    <!-- MathJax loader -->
+    <script id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+
+    <style>
+      
+    .nav-button {
+      padding: 10px 20px;
+      background-color: #33AB2B;
+      color: #000000;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+
+    .nav-button:hover,
+    .nav-button:focus {
+      background-color: #33AB2B;
+      outline: none;
+    }     
+/* Layout unchanged */
+.side-toc {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 230px;
+    height: 100vh;
+    background-color: #f0f8ed;
+    border-right: 3px solid #33AB2B;
+    padding: 20px;
+    overflow: hidden;
+}
+.diagram-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(150px, 1fr));
+  gap: 2rem;
+  justify-items: center;   /* centers each column item */
+  align-items: start;
+  margin: 1.5rem 0;
+}
+
+.diagram {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.toc-title {
+    font-size: 1.4em;
+    margin-bottom: 15px;
+    color: #33AB2B;
+}
+
+/* Chapter buttons */
+.toc-chapter {
+    width: 100%;
+    background: none;
+    border: none;
+    text-align: left;
+    font-size: 1em;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    color: #333;
+}
+
+.toc-chapter:hover,
+.toc-chapter:focus {
+    color: #33AB2B;
+}
+
+.arrow {
+    transition: transform 0.25s ease;
+}
+
+/* Rotated when opened */
+.toc-chapter[aria-expanded="true"] .arrow {
+    transform: rotate(90deg);
+}
+
+/* Submenu collapsed by default */
+.toc-submenu {
+    list-style: none;
+    padding-left: 15px;
+    margin: 5px 0 10px 0;
+    display: none;
+}
+
+/* Visible when expanded */
+.toc-submenu.open {
+    display: block;
+}
+
+.toc-submenu li {
+    margin: 6px 0;
+}
+
+.toc-submenu a {
+    color: #333;
+    text-decoration: none;
+}
+
+.toc-submenu a:hover,
+.toc-submenu a:focus {
+    color: #33AB2B;
+    text-decoration: underline;
+}
+
+/* Push main body over */
+body {
+    margin-left: 250px;
+}
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background-color: #ffffff;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #33AB2B;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            border-bottom: 3px solid #33AB2B;
+            padding-bottom: 15px;
+        }
+
+        h2 {
+            color: #33AB2B;
+            font-size: 1.8em;
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            color: #33AB2B;
+            font-size: 1.2em;
+            margin-top: 20px;
+            margin-bottom: 15px;
+        }
+
+        h4 {
+            color: #33AB2B;
+            font-size: 1.1em;
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+
+        .definition-box {
+            background-color: #f0f8ed;
+            border: 2px solid #33AB2B;
+            border-radius: 6px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .definition-box h3 {
+            color: #33AB2B;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            margin-top: 0;
+        }
+
+        .definition-box p {
+            margin-bottom: 15px;
+        }
+
+        .definition-box ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .definition-box li {
+            margin-bottom: 10px;
+        }
+
+        .conversion-box {
+            background-color: #ffffff;
+            border: 2px solid #b84d7e;
+            border-radius: 6px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .conversion-box h3 {
+            color: #b84d7e;
+            margin-top: 0;
+        }
+
+        .conversion-box table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        .conversion-box table th,
+        .conversion-box table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .conversion-box table th {
+            background-color: #f0f0f0;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .orange-box {
+            background-color: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 6px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+
+        .orange-box h3 {
+            margin-top: 0;
+        }
+
+        .orange-box ol {
+            margin-left: 20px;
+        }
+
+        .orange-box li {
+            margin-bottom: 8px;
+        }
+
+        .example {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            margin: 25px 0;
+            overflow: hidden;
+        }
+
+        .example-problem {
+            padding: 15px 20px;
+        }
+
+        .example-problem h3 {
+            color: #33AB2B;
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .example-problem p {
+            margin-bottom: 10px;
+        }
+
+        .example-problem ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .example-problem li {
+            margin-bottom: 8px;
+        }
+
+        .example-problem ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .solution-header {
+            background-color: #33AB2B;
+            color: white;
+            padding: 12px 20px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+            margin-top: 15px;
+            border-radius: 4px;
+            transition: background-color 0.2s ease;
+            border: none;
+            font-size: 1em;
+        }
+
+        .solution-header:hover {
+            background-color: #2a8922;
+        }
+
+        .toggle-arrow {
+            display: inline-block;
+            margin-right: 12px;
+            transition: transform 0.3s ease;
+            font-size: 1.2em;
+        }
+
+        .toggle-arrow.open {
+            transform: rotate(180deg);
+        }
+
+        .example-content {
+            padding: 0;
+            display: none;
+            overflow: hidden;
+        }
+
+        .example-content.open {
+            display: block;
+        }
+
+        .solution {
+            background-color: #f0f8ed;
+            padding: 20px;
+            border-top: 2px solid #33AB2B;
+        }
+
+        .solution h4 {
+            color: #33AB2B;
+            margin-bottom: 15px;
+            margin-top: 0;
+        }
+
+        .solution p {
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        .solution ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .solution li {
+            margin-bottom: 8px;
+        }
+
+        .solution ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        ul li {
+            margin-bottom: 8px;
+        }
+
+        ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        ol li {
+            margin-bottom: 8px;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        strong {
+            font-weight: bold;
+        }
+
+        em {
+            font-style: italic;
+        }
+
+        .blue-text {
+            color: #0066cc;
+        }
+
+        .divider {
+            border-top: 2px dashed #33AB2B;
+            margin: 30px 0;
+        }
+
+        .image-placeholder {
+            background-color: #e0e0e0;
+            border: 2px dashed #999;
+            padding: 40px;
+            margin: 20px 0;
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            border-radius: 4px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table th {
+            background-color: #f0f8ed;
+            color: #33AB2B;
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ccc;
+            font-weight: bold;
+        }
+
+        table td {
+            padding: 12px;
+            border: 1px solid #ccc;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        table tr.highlighted {
+            background-color: #ffff99;
+        }
+
+        .subsection-title {
+            color: #33AB2B;
+            font-size: 1.3em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+    </style>
+<style>
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+</style>
+</head>
+<body>
+<nav class="side-toc" aria-label="Textbook Navigation">
+    <h2 class="toc-title">Contents</h2>
+
+    <!-- Chapter 1 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 1: Financial Literacy</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="MTH154CH1_1.html">1.1 Introduction</a></li>
+        <li><a href="MTH154CH1_2.html">1.2 Problem Solving</a></li>
+        <li><a href="MTH154CH1_3.html">1.3 Simple Interest</a></li>
+ 	<li><a href="MTH154CH1_4.html">1.4 Compound Interest & Annuities</a></li>
+ 	<li><a href="MTH154CH1_5.html">1.5 Installment Loans</a></li>
+ 	<li><a href="MTH154CH1_6.html">1.6 Loans</a></li>
+ 	<li><a href="MTH154CH1_7.html">1.7 Stocks & Bonds</a></li>
+ 	<li><a href="MTH154CH1_8.html">1.8 Taxes</a></li>
+    </ul>
+
+    <!-- Chapter 2 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 2: Modeling Data</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="Ch2_1.html">2.1 Basics of Graphing</a></li>
+        <li><a href="Ch2_2.html">2.2 Relations & Functions</a></li>
+        <li><a href="Ch2_3.html">2.3 Linear Models</a></li>
+        <li><a href="Ch2_4.html">2.4 Rate of Change</a></li>
+        <li><a href="Ch2_5.html">2.5 Scatterplots</a></li>
+    </ul>
+
+    <!-- Chapter 3 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 3: Set Theory</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="Ch3_1.html">3.1 Set Basics</a></li>
+        <li><a href="Ch3_2.html">3.2 Sets</a></li>
+        <li><a href="Ch3_3.html">3.3 Venn Diagrams</a></li>
+        <li><a href="MTH154CH3_4.html">3.4 More with Venn Diagrams</a></li>
+    </ul>
+
+   <!-- Chapter 4 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 4: Logic</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="MTH154CH4_1.html">4.1 Thinking Logically</a></li>
+        <li><a href="MTH154CH4_2.html">4.2 Introduction to Truth Tables</a></li>
+	<li><a href="MTH154CH4_3.html">4.3 Logical Arguments</a></li>
+	<li><a href="MTH154CH4_4.html">4.4 Variations of Statements</a></li>
+    </ul>
+
+   <!-- Chapter 5 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 5: Measurement</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="MTH154CH5_1.html">5.1 Ratios & Proportions</a></li>
+        <li><a href="MTH154CH5_2.html">5.2 Measurement</a></li>
+	<li><a href="MTH154CH5_3.html">5.3 Area, Volume, and Capacity</a></li>
+	<li><a href="MTH154CH5_4.html">5.4 Weight & Temperature</a></li>
+	<li><a href="MTH154CH5_5.html">5.5 Surface Area & Volume</a></li>
+    </ul>
+</nav>
+    <div class="container">
+        <h1>Chapter 4: Logic</h1>
+
+        <h2>Section 4.1: Thinking Logically</h2>
+
+        <p>Logic is basically the study of valid reasoning. When searching the internet, we use <span class="blue-text"><strong>Boolean logic</strong></span> terms, like "and" and "or", to help us find specific web pages that fit in the sets we are interested in. After exploring this form of logic, we will look at logical arguments and how we can determine the validity of a claim or argument.</p>
+
+        <p>We can often classify items as belonging to set, like what was covered in the previous lesson. If you went to the library to find a specific book and the librarian asked you to express your search criteria in terms of unions, intersections, and compliments of sets, you would probably look at the librarian like they were crazy. Instead, we typically use words like "and", "or", and "not" to connect our keywords together to form a search. These words, which form the basics of Boolean logic<sup>1</sup>, are directly related to our set operations that were learned in the previous chapter.</p>
+
+        <div class="definition-box">
+            <h3>Boolean Logic</h3>
+            <p>Boolean logic combines multiple statements that are either true or false into an expression that is either true or false.</p>
+        </div>
+
+        <p>First, let's look at what makes something a <span class="blue-text"><strong>statement</strong></span>. Not all sentences are statements. A statement is a declarative sentence that can be objectively determined to be either true or false, but not both.</p>
+
+        <!-- Example 1 -->
+        <div class="example">
+            <div class="example-problem">
+                <h3>Example 1</h3>
+                <p>Determine if the following are statements or not. If they are statements, declare their truth value. If they are not statements, identify what they are.</p>
+                <ol>
+                    <li>Where in the world is Carmen SanDiego?</li>
+                    <li>Dude, where's my car?</li>
+                    <li>Go get me a cheeseburger.</li>
+                    <li>That movie was horrible!</li>
+                    <li>A horse is a mammal.</li>
+                </ol>
+            </div>
+
+            <button class="solution-header" onclick="toggleExample(this)">
+                <span class="toggle-arrow">▼</span>
+                <span>Show Solution</span>
+            </button>
+
+            <div class="example-content">
+                <div class="solution">
+                    <h4>Solution</h4>
+                    <ol>
+                        <li>Not a statement - This is a question. It does not have a definitive true or false value.</li>
+                        <li>Not a statement - This is also a question.</li>
+                        <li>Not a statement - This is a directive. It does not have a definitive true or false value.</li>
+                        <li>Not a statement - This is an opinion. While it will have a true or false value, that value is not definitive as each person has their own opinion.</li>
+                        <li>Statement - This is a true statement. Horses are mammals.</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <h3>Simple and Compound Statements</h3>
+
+        <p>Not all logic is Boolean logic. Boolean logic uses multiple conjoined statements to make up a logical thought. While sometimes statements are just <span class="blue-text"><strong>simple</strong></span> statements, a simple statement is a statement that doesn't use any connectives. <span class="blue-text"><strong>Connectives</strong></span> are words that join one or more sentences together to create a <span class="blue-text"><strong>compound statement</strong></span>. Also, sometimes in Boolean logic, we also need to negate a statement. <span class="blue-text"><strong>Negations</strong></span> typically use the word "not" and they change the truth value of the statement. It is important to note that a negation is not a connective. We will list it in the table below:</p>
+
+        <div class="definition-box">
+            <h3>Connectives</h3>
+            <p>Words that are used to create compound statements:</p>
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Word</th>
+                    <th>Symbol</th>
+                </tr>
+                <tr>
+                    <td>Conjunction</td>
+                    <td>"and"</td>
+                    <td>$\wedge$</td>
+                </tr>
+                <tr>
+                    <td>Disjunction</td>
+                    <td>"or"</td>
+                    <td>$\vee$</td>
+                </tr>
+                <tr>
+                    <td>Conditional</td>
+                    <td>"If...then..."</td>
+                    <td>$\rightarrow$</td>
+                </tr>
+                <tr>
+                    <td>Biconditional</td>
+                    <td>"...if and only if..."</td>
+                    <td>$\leftrightarrow$</td>
+                </tr>
+                <tr>
+                    <td>Negation</td>
+                    <td>"not"</td>
+                    <td>$\sim$</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Example 2 -->
+        <div class="example">
+            <div class="example-problem">
+                <h3>Example 2</h3>
+                <p>Identify the following statements as either simple or compound. If the statement is compound, identify the connective.</p>
+                <ol>
+                    <li>"Carlos studied for 5 hours and got an A on his exam."</li>
+                    <li>"Mary is taking a History class this semester."</li>
+                    <li>"If the women's softball team practices every day, then they will have a winning season."</li>
+                    <li>"I will go to the beach if and only if I complete my homework."</li>
+                    <li>"I will either go to the baseball game or to the movies."</li>
+                </ol>
+            </div>
+
+            <button class="solution-header" onclick="toggleExample(this)">
+                <span class="toggle-arrow">▼</span>
+                <span>Show Solution</span>
+            </button>
+
+            <div class="example-content">
+                <div class="solution">
+                    <h4>Solution</h4>
+                    <ol>
+                        <li>"Carlos studied for 5 hours <span class="orange-text">and</span> got an A on his exam."
+                            <ol>
+                                <li><span class="blue-text">Compound</span> - It has a connective.</li>
+                                <li><span class="orange-text">"and" Conjunction</span></li>
+                            </ol>
+                        </li>
+                        <li>"Mary is taking a History class this semester."
+                            <ol>
+                                <li><span class="blue-text">Simple</span> - No connective.</li>
+                            </ol>
+                        </li>
+                        <li>"<span class="orange-text">If</span> the women's softball team practices every day, <span class="orange-text">then</span> they will have a winning season."
+                            <ol>
+                                <li><span class="blue-text">Compound</span> - It has a connective.</li>
+                                <li><span class="orange-text">"If...then..." Conditional</span></li>
+                            </ol>
+                        </li>
+                        <li>"I will go to the beach <span class="orange-text">if and only if</span> I complete my homework."
+                            <ol>
+                                <li><span class="blue-text">Compound</span> - It has a connective.</li>
+                                <li><span class="orange-text">"...if and only if..." Biconditional</span></li>
+                            </ol>
+                        </li>
+                        <li>"I will either go to the baseball game <span class="orange-text">or</span> to the movies."
+                            <ol>
+                                <li><span class="blue-text">Compound</span> - It has a connective.</li>
+                                <li><span class="orange-text">"or" Disjunction</span></li>
+                            </ol>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- Example 3 -->
+        <div class="example">
+            <div class="example-problem">
+                <h3>Example 3</h3>
+                <p>Write the negation of the following statements.</p>
+                <ol>
+                    <li>The sun will come out today.</li>
+                    <li>I will not go to the movies this week.</li>
+                </ol>
+            </div>
+
+            <button class="solution-header" onclick="toggleExample(this)">
+                <span class="toggle-arrow">▼</span>
+                <span>Show Solution</span>
+            </button>
+
+            <div class="example-content">
+                <div class="solution">
+                    <h4>Solution</h4>
+                    <ol>
+                        <li>The sun will <em>not</em> come out today.
+                            <p>In English we could also re-phrase this to say, "It will be cloudy today". While that isn't the same sentence, it has the opposite truth value of what was previously written.</p>
+                        </li>
+                        <li>I will go to the movies this week.
+                            <p>It would sound funny to say "I will not not go to the movies this week." That would be a double negative, thus the two "not's" cancel each other out.</p>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <h3>Symbolic Logic</h3>
+
+        <p>If we refer back to the definition of connectives, we can see the symbols that are given for each connective. It should be no surprise that in Mathematics, we'd rather use symbols than words. After all, Mathematicians prefer numbers and symbols to words.</p>
+
+        <!-- Example 4 -->
+        <div class="example">
+            <div class="example-problem">
+                <h3>Example 4</h3>
+                <p>Allow p = "I like chicken" and q = "I like potatoes." Write the verbal form of the symbolic logic below:</p>
+                <ol>
+                    <li>$p\vee q$</li>
+                    <li>$\sim p\wedge q$</li>
+                    <li>$q\rightarrow \sim p$</li>
+                    <li>$q \leftrightarrow p$</li>
+                </ol>
+            </div>
+
+            <button class="solution-header" onclick="toggleExample(this)">
+                <span class="toggle-arrow">▼</span>
+                <span>Show Solution</span>
+            </button>
+
+            <div class="example-content">
+                <div class="solution">
+                    <h4>Solution</h4>
+                    <ol>
+                        <li>"I like chicken or I like potatoes." This could also be written as "I like chicken or potatoes."</li>
+                        <li>"I don't like chicken and I like potatoes."</li>
+                        <li>"If I like potatoes, then I don't like chicken."</li>
+                        <li>"I like potatoes if and only if I like chicken."</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- Example 5 -->
+        <div class="example">
+            <div class="example-problem">
+                <h3>Example 5</h3>
+                <p>Translate each statement into symbolic notation. Allow p to represent "I like Pepsi" and let q represent "I like Coke".</p>
+                <ol>
+                    <li>"I like Pepsi or I like Coke."</li>
+                    <li>"I like Pepsi and I like Coke."</li>
+                    <li>"It is not the case that I like Pepsi or Coke."</li>
+                    <li>"If I like Pepsi, then I don't like Coke."</li>
+                </ol>
+            </div>
+
+            <button class="solution-header" onclick="toggleExample(this)">
+                <span class="toggle-arrow">▼</span>
+                <span>Show Solution</span>
+            </button>
+
+            <div class="example-content">
+                <div class="solution">
+                    <h4>Solution</h4>
+                    <ol>
+                        <li>$p\vee q$ - The connective in this problem is "or".</li>
+                        <li>$p\wedge q$ - The connective in this problem is "and".</li>
+                        <li>$\sim (p\vee q)$ - Notice that it says "it is not the case". That means not for what's following that.</li>
+                        <li>$p\rightarrow \sim q$ - This example used the words "If...then..." and the word "not".</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <h3>Quantified Statements</h3>
+
+        <p>Words that describe an entire set, such as "all", "every" or "none", are all called <span class="blue-text"><strong>Universal Quantifiers</strong></span> because that set could be considered a Universal set. In contrast, words or phrases such as "some", "one", or "at least one", are called <span class="blue-text"><strong>Existential Quantifier</strong></span> because they describe the existence of at least one element in a set.</p>
+
+        <div class="definition-box">
+            <h3>Quantifiers</h3>
+            <p>A <strong>Universal Quantifier</strong> states that an entire set of things share a characteristic.</p>
+            <p>An <strong>Existential Quantifier</strong> states that a set contains at least one element.</p>
+        </div>
+
+        <!-- Example 6 -->
+        <div class="example">
+            <div class="example-problem">
+                <h3>Example 6</h3>
+                <p>Identify if the following are Universally or Existentially quantified:</p>
+                <ol>
+                    <li>"There exists a house with three sides."</li>
+                    <li>"No one will pass this math class."</li>
+                </ol>
+            </div>
+
+            <button class="solution-header" onclick="toggleExample(this)">
+                <span class="toggle-arrow">▼</span>
+                <span>Show Solution</span>
+            </button>
+
+            <div class="example-content">
+                <div class="solution">
+                    <h4>Solution</h4>
+                    <ol>
+                        <li>This statement is <em>Existentially</em> quantified, because it is referring to at least one, and not all.</li>
+                        <li>This statement is <em>Universally</em> quantified because it is referring to everyone.</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <p>However, when we negate a quantified statement, it isn't as simple as just adding in a "not" to the statement. In order to negate a quantified statement, you'd replace a Universal quantifier with an Existential quantifier and vice-versa.</p>
+
+        <div class="orange-box">
+            <h3>Negating a Quantified Statement</h3>
+            <ul>
+                <li>The negation of "All A are B" would be "At least one A is not B".</li>
+                <li>The negation of "No A are B" would be "At least one A is B".</li>
+                <li>The negation of "At least one A is B" would be "No A are B".</li>
+                <li>The negation of "At least one A is not B" would be "All A are B".</li>
+            </ul>
+        </div>
+
+        <!-- Example 7 -->
+        <div class="example">
+            <div class="example-problem">
+                <h3>Example 7</h3>
+                <p>Negate the quantified statements below:</p>
+                <ol>
+                    <li>"Somebody brought a flashlight."</li>
+                    <li>"There are no even prime numbers."</li>
+                    <li>"Everybody cheats on their taxes."</li>
+                </ol>
+            </div>
+
+            <button class="solution-header" onclick="toggleExample(this)">
+                <span class="toggle-arrow">▼</span>
+                <span>Show Solution</span>
+            </button>
+
+            <div class="example-content">
+                <div class="solution">
+                    <h4>Solution</h4>
+                    <ol>
+                        <li>"Somebody brought a flashlight." This is an Existential statement, thus the negation would be, <span class="orange-text">"Nobody brought a flashlight."</span></li>
+                        <li>"There are no even prime numbers." This is an example of a Universal quantified statement, making the negation, <span class="orange-text">"There exists at least one even prime number."</span></li>
+                        <li>"Everybody cheats on their taxes." Once again, this is a Universal quantified statement, making the negation, <span class="orange-text">"At least one person doesn't cheat on their taxes."</span></li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+     <nav aria-label="Page navigation">
+  <div class="page-navigation">
+    <div class="page-navigation" style="display:flex; justify-content:space-between; margin-top:40px;">
+        <a href="MTH154CH3_4.html" class="nav-button" aria-label="Go to previous section">&larr; Previous</a>
+        <a href="MTH154CH4_2.html" class="nav-button" aria-label="Go to next section">Next &rarr;</a>
+    </div>
+  </div>
+</nav>
+
+</div>
+<script>
+        function toggleExample(button) {
+            const content = button.nextElementSibling;
+            const arrow = button.querySelector('.toggle-arrow');
+            
+            if (content.classList.contains('open')) {
+                content.classList.remove('open');
+                arrow.classList.remove('open');
+                button.querySelector('span:last-child').textContent = 'Show Solution';
+            } else {
+                content.classList.add('open');
+                arrow.classList.add('open');
+                button.querySelector('span:last-child').textContent = 'Hide Solution';
+            }
+        }
+    </script>
+
+    <script>
+        const chapterButtons = document.querySelectorAll(".toc-chapter");
+
+        chapterButtons.forEach(button => {
+            button.addEventListener("click", () => {
+                const expanded = button.getAttribute("aria-expanded") === "true";
+                button.setAttribute("aria-expanded", !expanded);
+
+                const submenu = button.nextElementSibling;
+                submenu.classList.toggle("open");
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 5: Measurement - Section 5.1: Ratios & Proportions</title>
+    
+      <!-- MathJax configuration -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            },
+            loader: {
+                load: ['input/tex', 'output/chtml']
+            }
+        };
+    </script>
+    <!-- MathJax loader -->
+    <script id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+
+    <style>
+      
+    .nav-button {
+      padding: 10px 20px;
+      background-color: #33AB2B;
+      color: #000000;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+
+    .nav-button:hover,
+    .nav-button:focus {
+      background-color: #33AB2B;
+      outline: none;
+    }     
+/* Layout unchanged */
+.side-toc {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 230px;
+    height: 100vh;
+    background-color: #f0f8ed;
+    border-right: 3px solid #33AB2B;
+    padding: 20px;
+    overflow: hidden;
+}
+
+.toc-title {
+    font-size: 1.4em;
+    margin-bottom: 15px;
+    color: #33AB2B;
+}
+
+/* Chapter buttons */
+.toc-chapter {
+    width: 100%;
+    background: none;
+    border: none;
+    text-align: left;
+    font-size: 1em;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    color: #333;
+}
+
+.toc-chapter:hover,
+.toc-chapter:focus {
+    color: #33AB2B;
+}
+
+.arrow {
+    transition: transform 0.25s ease;
+}
+
+/* Rotated when opened */
+.toc-chapter[aria-expanded="true"] .arrow {
+    transform: rotate(90deg);
+}
+
+/* Submenu collapsed by default */
+.toc-submenu {
+    list-style: none;
+    padding-left: 15px;
+    margin: 5px 0 10px 0;
+    display: none;
+}
+
+/* Visible when expanded */
+.toc-submenu.open {
+    display: block;
+}
+
+.toc-submenu li {
+    margin: 6px 0;
+}
+
+.toc-submenu a {
+    color: #333;
+    text-decoration: none;
+}
+
+.toc-submenu a:hover,
+.toc-submenu a:focus {
+    color: #33AB2B;
+    text-decoration: underline;
+}
+
+/* Push main body over */
+body {
+    margin-left: 250px;
+}
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background-color: #ffffff;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #33AB2B;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            border-bottom: 3px solid #33AB2B;
+            padding-bottom: 15px;
+        }
+
+        h2 {
+            color: #33AB2B;
+            font-size: 1.8em;
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            color: #33AB2B;
+            font-size: 1.2em;
+            margin-top: 20px;
+            margin-bottom: 15px;
+        }
+
+        h4 {
+            color: #33AB2B;
+            font-size: 1.1em;
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+
+        .definition-box {
+            background-color: #f0f8ed;
+            border: 2px solid #33AB2B;
+            border-radius: 6px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .definition-box h3 {
+            color: #33AB2B;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            margin-top: 0;
+        }
+
+        .definition-box p {
+            margin-bottom: 15px;
+        }
+
+        .definition-box ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .definition-box li {
+            margin-bottom: 10px;
+        }
+
+        .conversion-box {
+            background-color: #ffffff;
+            border: 2px solid #b84d7e;
+            border-radius: 6px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .conversion-box h3 {
+            color: #b84d7e;
+            margin-top: 0;
+        }
+
+        .conversion-box table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        .conversion-box table th,
+        .conversion-box table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .conversion-box table th {
+            background-color: #f0f0f0;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .orange-box {
+            background-color: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 6px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+
+        .orange-box h3 {
+            margin-top: 0;
+        }
+
+        .orange-box ol {
+            margin-left: 20px;
+        }
+
+        .orange-box li {
+            margin-bottom: 8px;
+        }
+
+        .example {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            margin: 25px 0;
+            overflow: hidden;
+        }
+
+        .example-problem {
+            padding: 15px 20px;
+        }
+
+        .example-problem h3 {
+            color: #33AB2B;
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .example-problem p {
+            margin-bottom: 10px;
+        }
+
+        .example-problem ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .example-problem li {
+            margin-bottom: 8px;
+        }
+
+        .example-problem ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .solution-header {
+            background-color: #33AB2B;
+            color: white;
+            padding: 12px 20px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+            margin-top: 15px;
+            border-radius: 4px;
+            transition: background-color 0.2s ease;
+            border: none;
+            font-size: 1em;
+        }
+
+        .solution-header:hover {
+            background-color: #2a8922;
+        }
+
+        .toggle-arrow {
+            display: inline-block;
+            margin-right: 12px;
+            transition: transform 0.3s ease;
+            font-size: 1.2em;
+        }
+
+        .toggle-arrow.open {
+            transform: rotate(180deg);
+        }
+
+        .example-content {
+            padding: 0;
+            display: none;
+            overflow: hidden;
+        }
+
+        .example-content.open {
+            display: block;
+        }
+
+        .solution {
+            background-color: #f0f8ed;
+            padding: 20px;
+            border-top: 2px solid #33AB2B;
+        }
+
+        .solution h4 {
+            color: #33AB2B;
+            margin-bottom: 15px;
+            margin-top: 0;
+        }
+
+        .solution p {
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        .solution ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .solution li {
+            margin-bottom: 8px;
+        }
+
+        .solution ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        ul li {
+            margin-bottom: 8px;
+        }
+
+        ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        ol li {
+            margin-bottom: 8px;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        strong {
+            font-weight: bold;
+        }
+
+        em {
+            font-style: italic;
+        }
+
+        .blue-text {
+            color: #0066cc;
+        }
+
+        .divider {
+            border-top: 2px dashed #33AB2B;
+            margin: 30px 0;
+        }
+
+        .image-placeholder {
+            background-color: #e0e0e0;
+            border: 2px dashed #999;
+            padding: 40px;
+            margin: 20px 0;
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            border-radius: 4px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table th {
+            background-color: #f0f8ed;
+            color: #33AB2B;
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ccc;
+            font-weight: bold;
+        }
+
+        table td {
+            padding: 12px;
+            border: 1px solid #ccc;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        table tr.highlighted {
+            background-color: #ffff99;
+        }
+
+        .subsection-title {
+            color: #33AB2B;
+            font-size: 1.3em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+    </style>
+<style>
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+</style>
+</head>
+<body>
+<nav class="side-toc" aria-label="Textbook Navigation">
+    <h2 class="toc-title">Contents</h2>
+
+    <!-- Chapter 1 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 1: Financial Literacy</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="MTH154CH1_1.html">1.1 Introduction</a></li>
+        <li><a href="MTH154CH1_2.html">1.2 Problem Solving</a></li>
+        <li><a href="MTH154CH1_3.html">1.3 Simple Interest</a></li>
+ 	<li><a href="MTH154CH1_4.html">1.4 Compound Interest & Annuities</a></li>
+ 	<li><a href="MTH154CH1_5.html">1.5 Installment Loans</a></li>
+ 	<li><a href="MTH154CH1_6.html">1.6 Loans</a></li>
+ 	<li><a href="MTH154CH1_7.html">1.7 Stocks & Bonds</a></li>
+ 	<li><a href="MTH154CH1_8.html">1.8 Taxes</a></li>
+    </ul>
+
+    <!-- Chapter 2 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 2: Modeling Data</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="Ch2_1.html">2.1 Basics of Graphing</a></li>
+        <li><a href="Ch2_2.html">2.2 Relations & Functions</a></li>
+        <li><a href="Ch2_3.html">2.3 Linear Models</a></li>
+        <li><a href="Ch2_4.html">2.4 Rate of Change</a></li>
+        <li><a href="Ch2_5.html">2.5 Scatterplots</a></li>
+    </ul>
+
+    <!-- Chapter 3 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 3: Set Theory</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="Ch3_1.html">3.1 Set Basics</a></li>
+        <li><a href="Ch3_2.html">3.2 Sets</a></li>
+        <li><a href="Ch3_3.html">3.3 Venn Diagrams</a></li>
+        <li><a href="MTH154CH3_4.html">3.4 More with Venn Diagrams</a></li>
+    </ul>
+
+   <!-- Chapter 4 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 4: Logic</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="MTH154CH4_1.html">4.1 Thinking Logically</a></li>
+        <li><a href="MTH154CH4_2.html">4.2 Introduction to Truth Tables</a></li>
+	<li><a href="MTH154CH4_3.html">4.3 Logical Arguments</a></li>
+	<li><a href="MTH154CH4_4.html">4.4 Variations of Statements</a></li>
+    </ul>
+
+   <!-- Chapter 5 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 5: Measurement</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="MTH154CH5_1.html">5.1 Ratios & Proportions</a></li>
+        <li><a href="MTH154CH5_2.html">5.2 Measurement</a></li>
+	<li><a href="MTH154CH5_3.html">5.3 Area, Volume, and Capacity</a></li>
+	<li><a href="MTH154CH5_4.html">5.4 Weight & Temperature</a></li>
+	<li><a href="MTH154CH5_5.html">5.5 Surface Area & Volume</a></li>
+    </ul>
+</nav>
+
+    <div class="container">
+        <h1>Chapter 5: Measurement</h1>
+
+        <h2>Section 5.1: Ratios & Proportions</h2>
+
+        <p>There are a number of useful ways that a person can compare two numbers. The one that most people use is the difference between two numbers. However, that is not always the best measurement for comparison. In this unit we are going to be comparing a lot of different numbers. But, before we can that we need to discuss <span class="blue-text"><strong>Ratios</strong></span> and <span class="blue-text"><strong>Proportions</strong></span>.</p>
+
+        <div class="definition-box">
+            <h3>Ratio</h3>
+            <p>A <span class="blue-text"><strong>Ratio</strong></span> is a comparison between two quantities. Typically this will look like a fraction. Sometimes we call a ratio a <span class="blue-text"><strong>Rate</strong></span>. A <span class="blue-text"><strong>Unit Rate</strong></span> is a rate with a denominator of one.</p>
+            
+            <table class="ratio-table">
+                <tr>
+                    <th>Format</th>
+                    <th>Comparison a to b</th>
+                </tr>
+                <tr>
+                    <td>Colon</td>
+                    <td>$a:b$</td>
+                </tr>
+                <tr>
+                    <td>Fractional Format</td>
+                    <td>$\dfrac{a}{b}$</td>
+                </tr>
+                <tr>
+                    <td>Words</td>
+                    <td>a to b</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Example 1 -->
+        <div class="example">
+            <div class="example-problem">
+                <h3>Example 1</h3>
+                <p>Your car can drive 300 miles on one tank of gasoline that holds 15 gallons. Express this as a ratio and a unit rate.</p>
+            </div>
+
+            <button class="solution-header" onclick="toggleExample(this)">
+                <span class="toggle-arrow">▼</span>
+                <span>Show Solution</span>
+            </button>
+
+            <div class="example-content">
+                <div class="solution">
+                    <h4>Solution</h4>
+                    <p>First lets express it as a rate of Miles to Gallons. We can do that using any of our formats but rates typically are written as fractions. Meaning our rate would be: $$\dfrac{300\hspace{0.25cm} \text{Miles}}{15\hspace{0.25cm}\text{Gallons}}$$</p>
+                    
+                    <p>Next if we simplify that fraction down meaning divide 300 by 15 we would get our unit rate of: $$\dfrac{20 \hspace{0.25cm} \text{Miles}}{1\hspace{0.25cm} \text{Gallons}}$$</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="definition-box">
+            <h3>Proportion</h3>
+            <p>A <span class="blue-text"><strong>Proportion</strong></span> is the comparison or equation comparing two ratios. The equation shows the equivalence of the two rates or ratios and is used in problem solving.</p>
+            
+            <p style="text-align: center; margin: 20px 0;">$$\dfrac{a}{b}=\dfrac{c}{d}$$</p>
+            
+            <p><em>Note: to solve proportions we use cross multiplication.</em></p>
+        </div>
+
+        <!-- Example 2 -->
+        <div class="example">
+            <div class="example-problem">
+                <h3>Example 2</h3>
+                <p>Solve the proportion $\dfrac{5}{3}=\dfrac{x}{6}$ for the unknown value of x.</p>
+            </div>
+
+            <button class="solution-header" onclick="toggleExample(this)">
+                <span class="toggle-arrow">▼</span>
+                <span>Show Solution</span>
+            </button>
+
+            <div class="example-content">
+                <div class="solution">
+                    <h4>Solution</h4>
+                    <p>To solve this, the question is asking us to find some value $x$ that makes the fraction on the left equal the fraction on the right. To do that we use cross multiplication and solve for $x$.</p>
+                    
+                    <p style="text-align: center;">
+                    \begin{align*}
+                    \dfrac{5}{3}&=\dfrac{x}{6}\\
+                    \\
+                    5(6) &= 3 (x) \\
+                    \\
+                    30 &= 3x \\
+                    \\
+                    \dfrac{30}{{\color{red}3}} &= \dfrac{3x}{{\color{red}3}}\\
+                    \\
+                    10 &= x\\
+                    \end{align*}
+                    </p>
+                    
+                    <p>Thus we can see that $\dfrac{5}{3}=\dfrac{10}{6}$</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Example 3 -->
+        <div class="example">
+            <div class="example-problem">
+                <h3>Example 3</h3>
+                <p>A map scale indicates that $\frac{1}{2}$ inch on the map corresponds with $3$ real miles. How many miles apart are two cities that are $2\dfrac{1}{4}$ inches apart on the map?</p>
+            </div>
+
+            <button class="solution-header" onclick="toggleExample(this)">
+                <span class="toggle-arrow">▼</span>
+                <span>Show Solution</span>
+            </button>
+
+            <div class="example-content">
+                <div class="solution">
+                    <h4>Solution</h4>
+                    <p>We can find the answer to this by setting up our proportion where we compare inches to miles, and allowing the variable $x$ to represent the missing measurement we don't know.</p>
+                    
+                    <p style="text-align: center;">$$\dfrac{\frac{1}{2}\hspace{0.25cm}\text{inches}}{3\hspace{0.25cm}\text{miles}}=\dfrac{2\frac{1}{2}\hspace{0.25cm}\text{inches}}{x\hspace{0.25cm}\text{miles}}$$</p>
+
+                    <p>Once again we start by cross multiplying to get:
+                    $$\left(\frac{1}{2}\right)x=3\left(2\frac{1}{4}\right)$$</p>
+
+                    <p>In order to do this we will need to convert the mixed number of $\left(2\frac{1}{4}\right)$ to an improper fraction. As a refresher this can be done by multiplying the whole number times the denominator $2(4)$ then adding the numerator $1$ and putting that number over the denominator to get $\dfrac{2(4)+1}{4}=\dfrac{9}{4}$. Put that back into our equation now:</p>
+
+                    <p style="text-align: center;">$$\left(\frac{1}{2}\right)x=3\left(\dfrac{9}{4}\right)$$</p>
+
+                    <p>Remember when multiply fractions to whole numbers we assume the whole number is a fraction with a denominator of one and then we multiply numerator to numerator and denominator to denominator.</p>
+
+                    <p style="text-align: center;">
+                    $$\left(\frac{1}{2}\right)x=\dfrac{3}{1}\left(\dfrac{9}{4}\right)$$
+                    $$\left(\frac{1}{2}\right)x=\dfrac{27}{4}$$
+                    </p>
+
+                    <p>Next to finish this problem up we would divide by $\frac{1}{2}$ on both sides to get $x$ alone. Recall that dividing by a fraction is the same as multiplying be its reciprocal (flip the fraction).</p>
+
+                    <p style="text-align: center;">
+                    $$\left({\color{red}\frac{2}{1}}\right)\left(\frac{1}{2}\right)x=\dfrac{27}{4}\left({\color{red}\frac{2}{1}}\right)$$
+                    $$x=\dfrac{54}{4}$$
+                    $$x=\dfrac{27}{2}$$
+                    $$x=13\dfrac{1}{2}$$
+                    </p>
+
+                    <h4 style="margin-top: 25px;">Calculator Tips</h4>
+                    <p>Fractions are hard! Do not get caught up in the fractions you have a calculator that will convert numbers to and from. If you are using a TI-30 family calculator you should have a <strong>PRB</strong> key, this key when you hit the second key <strong>2nd</strong> first will convert a decimal to a fraction or a fraction to a decimal you should see $F\blacktriangleleft\blacktriangleright D$ above the key <strong>PRB</strong>.</p>
+
+                    <p>Additionally you should have a <strong>A $^b/c$</strong> below the <strong>PRB</strong>. This key allows you to input mixed numbers. If you wanted to input $\left(2\frac{1}{4}\right)$ into the calculator you can do so by entering 2 <strong>A $^b/c$</strong> 1 <strong>A $^b/c$</strong> 4 on the screen it will look like $2 \lrcorner 1\lrcorner 4$, then hit the <strong>ENTER</strong> and you should see your mixed number.</p>
+                    
+                    <p>Lastly above the <strong>A $^b/c$</strong> you should see $A ^{b}/{c}\blacktriangleleft\blacktriangleright \frac{d}{e}$ above your <strong>A $^b/c$</strong>. This key allows you convert between a mixed number and an improper fraction. For example is we entered our answer $\dfrac{27}{2}$ into our calculator so <strong>2</strong> <strong>7</strong> <strong>/</strong> <strong>2</strong> <strong>ENTER</strong> followed by <strong>2nd</strong> <strong>PRB</strong> <strong>ENTER</strong> it should convert your fraction to a mixed number. Once you get familiar with these keys your life will be a lot easier!</p>
+                </div>
+            </div>
+        </div>
+
+        <h3>Exercises</h3>
+        <p style="text-align: center; color: #999; font-style: italic;">Exercises section - placeholder for problem set</p>
+
+<nav aria-label="Page navigation">
+  <div class="page-navigation">
+    <div class="page-navigation" style="display:flex; justify-content:space-between; margin-top:40px;">
+        <a href="MTH154CH4_4.html" class="nav-button" aria-label="Go to previous section">&larr; Previous</a>
+        <a href="MTH154CH5_2.html" class="nav-button" aria-label="Go to next section">Next &rarr;</a>
+    </div>
+  </div>
+</nav>
+
+</div>
+<script>
+        function toggleExample(button) {
+            const content = button.nextElementSibling;
+            const arrow = button.querySelector('.toggle-arrow');
+            
+            if (content.classList.contains('open')) {
+                content.classList.remove('open');
+                arrow.classList.remove('open');
+                button.querySelector('span:last-child').textContent = 'Show Solution';
+            } else {
+                content.classList.add('open');
+                arrow.classList.add('open');
+                button.querySelector('span:last-child').textContent = 'Hide Solution';
+            }
+        }
+    </script>
+
+    <script>
+        const chapterButtons = document.querySelectorAll(".toc-chapter");
+
+        chapterButtons.forEach(button => {
+            button.addEventListener("click", () => {
+                const expanded = button.getAttribute("aria-expanded") === "true";
+                button.setAttribute("aria-expanded", !expanded);
+
+                const submenu = button.nextElementSibling;
+                submenu.classList.toggle("open");
+            });
+        });
+    </script>
+</body>
+</html>

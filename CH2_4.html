@@ -1,0 +1,1441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Section 2.4: Modeling Quadratic Data</title>
+
+    <!-- MathJax configuration -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            },
+            loader: {
+                load: ['input/tex', 'output/chtml']
+            }
+        };
+    </script>
+    <!-- MathJax loader -->
+    <script id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+
+    <style>
+      
+    .nav-button {
+      padding: 10px 20px;
+      background-color: #33AB2B;
+      color: #000000;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+
+    .nav-button:hover,
+    .nav-button:focus {
+      background-color: #33AB2B;
+      outline: none;
+    }     
+/* Layout unchanged */
+.side-toc {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 230px;
+    height: 100vh;
+    background-color: #f0f8ed;
+    border-right: 3px solid #33AB2B;
+    padding: 20px;
+    overflow: hidden;
+}
+.diagram-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(150px, 1fr));
+  gap: 2rem;
+  justify-items: center;   /* centers each column item */
+  align-items: start;
+  margin: 1.5rem 0;
+}
+
+.diagram {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.toc-title {
+    font-size: 1.4em;
+    margin-bottom: 15px;
+    color: #33AB2B;
+}
+
+/* Chapter buttons */
+.toc-chapter {
+    width: 100%;
+    background: none;
+    border: none;
+    text-align: left;
+    font-size: 1em;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    color: #333;
+}
+
+.toc-chapter:hover,
+.toc-chapter:focus {
+    color: #33AB2B;
+}
+
+.arrow {
+    transition: transform 0.25s ease;
+}
+
+/* Rotated when opened */
+.toc-chapter[aria-expanded="true"] .arrow {
+    transform: rotate(90deg);
+}
+
+/* Submenu collapsed by default */
+.toc-submenu {
+    list-style: none;
+    padding-left: 15px;
+    margin: 5px 0 10px 0;
+    display: none;
+}
+
+/* Visible when expanded */
+.toc-submenu.open {
+    display: block;
+}
+
+.toc-submenu li {
+    margin: 6px 0;
+}
+
+.toc-submenu a {
+    color: #333;
+    text-decoration: none;
+}
+
+.toc-submenu a:hover,
+.toc-submenu a:focus {
+    color: #33AB2B;
+    text-decoration: underline;
+}
+
+/* Push main body over */
+body {
+    margin-left: 250px;
+}
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background-color: #ffffff;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #33AB2B;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            border-bottom: 3px solid #33AB2B;
+            padding-bottom: 15px;
+        }
+
+        h2 {
+            color: #33AB2B;
+            font-size: 1.8em;
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            color: #33AB2B;
+            font-size: 1.2em;
+            margin-top: 20px;
+            margin-bottom: 15px;
+        }
+
+        h4 {
+            color: #33AB2B;
+            font-size: 1.1em;
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+
+        .definition-box {
+            background-color: #f0f8ed;
+            border: 2px solid #33AB2B;
+            border-radius: 6px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .definition-box h3 {
+            color: #33AB2B;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            margin-top: 0;
+        }
+
+        .definition-box p {
+            margin-bottom: 15px;
+        }
+
+        .definition-box ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .definition-box li {
+            margin-bottom: 10px;
+        }
+
+        .conversion-box {
+            background-color: #ffffff;
+            border: 2px solid #b84d7e;
+            border-radius: 6px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .conversion-box h3 {
+            color: #b84d7e;
+            margin-top: 0;
+        }
+
+        .conversion-box table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        .conversion-box table th,
+        .conversion-box table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .conversion-box table th {
+            background-color: #f0f0f0;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .orange-box {
+            background-color: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 6px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+
+        .orange-box h3 {
+            margin-top: 0;
+        }
+
+        .orange-box ol {
+            margin-left: 20px;
+        }
+
+        .orange-box li {
+            margin-bottom: 8px;
+        }
+
+        .example {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            margin: 25px 0;
+            overflow: hidden;
+        }
+
+        .example-problem {
+            padding: 15px 20px;
+        }
+
+        .example-problem h3 {
+            color: #33AB2B;
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .example-problem p {
+            margin-bottom: 10px;
+        }
+
+        .example-problem ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .example-problem li {
+            margin-bottom: 8px;
+        }
+
+        .example-problem ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .solution-header {
+            background-color: #33AB2B;
+            color: white;
+            padding: 12px 20px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+            margin-top: 15px;
+            border-radius: 4px;
+            transition: background-color 0.2s ease;
+            border: none;
+            font-size: 1em;
+        }
+
+        .solution-header:hover {
+            background-color: #2a8922;
+        }
+
+        .toggle-arrow {
+            display: inline-block;
+            margin-right: 12px;
+            transition: transform 0.3s ease;
+            font-size: 1.2em;
+        }
+
+        .toggle-arrow.open {
+            transform: rotate(180deg);
+        }
+
+        .example-content {
+            padding: 0;
+            display: none;
+            overflow: hidden;
+        }
+
+        .example-content.open {
+            display: block;
+        }
+
+        .solution {
+            background-color: #f0f8ed;
+            padding: 20px;
+            border-top: 2px solid #33AB2B;
+        }
+
+        .solution h4 {
+            color: #33AB2B;
+            margin-bottom: 15px;
+            margin-top: 0;
+        }
+
+        .solution p {
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        .solution ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .solution li {
+            margin-bottom: 8px;
+        }
+
+        .solution ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        ul li {
+            margin-bottom: 8px;
+        }
+
+        ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        ol li {
+            margin-bottom: 8px;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        strong {
+            font-weight: bold;
+        }
+
+        em {
+            font-style: italic;
+        }
+
+        .blue-text {
+            color: #0066cc;
+        }
+
+        .divider {
+            border-top: 2px dashed #33AB2B;
+            margin: 30px 0;
+        }
+
+        .image-placeholder {
+            background-color: #e0e0e0;
+            border: 2px dashed #999;
+            padding: 40px;
+            margin: 20px 0;
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            border-radius: 4px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table th {
+            background-color: #f0f8ed;
+            color: #33AB2B;
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ccc;
+            font-weight: bold;
+        }
+
+        table td {
+            padding: 12px;
+            border: 1px solid #ccc;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        table tr.highlighted {
+            background-color: #ffff99;
+        }
+
+        .subsection-title {
+            color: #33AB2B;
+            font-size: 1.3em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+    </style>
+<style>
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+</style>
+</head>
+<body>
+<nav class="side-toc" aria-label="Textbook Navigation">
+    <h2 class="toc-title">Contents</h2>
+
+    <!-- Chapter 1 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 1: Financial Literacy</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="MTH154CH1_1.html">1.1 Introduction</a></li>
+        <li><a href="MTH154CH1_2.html">1.2 Problem Solving</a></li>
+        <li><a href="MTH154CH1_3.html">1.3 Simple Interest</a></li>
+ 	<li><a href="MTH154CH1_4.html">1.4 Compound Interest & Annuities</a></li>
+ 	<li><a href="MTH154CH1_5.html">1.5 Installment Loans</a></li>
+ 	<li><a href="MTH154CH1_6.html">1.6 Loans</a></li>
+ 	<li><a href="MTH154CH1_7.html">1.7 Stocks & Bonds</a></li>
+ 	<li><a href="MTH154CH1_8.html">1.8 Taxes</a></li>
+    </ul>
+
+    <!-- Chapter 2 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 2: Modeling Data</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="Ch2_1.html">2.1 Basics of Graphing</a></li>
+        <li><a href="Ch2_2.html">2.2 Relations & Functions</a></li>
+        <li><a href="Ch2_3.html">2.3 Linear Models</a></li>
+        <li><a href="Ch2_4.html">2.4 Rate of Change</a></li>
+        <li><a href="Ch2_5.html">2.5 Scatterplots</a></li>
+    </ul>
+
+    <!-- Chapter 3 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 3: Set Theory</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="Ch3_1.html">3.1 Set Basics</a></li>
+        <li><a href="Ch3_2.html">3.2 Sets</a></li>
+        <li><a href="Ch3_3.html">3.3 Venn Diagrams</a></li>
+        <li><a href="MTH154CH3_4.html">3.4 More with Venn Diagrams</a></li>
+    </ul>
+
+   <!-- Chapter 4 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 4: Logic</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="MTH154CH4_1.html">4.1 Thinking Logically</a></li>
+        <li><a href="MTH154CH4_2.html">4.2 Introduction to Truth Tables</a></li>
+	<li><a href="MTH154CH4_3.html">4.3 Logical Arguments</a></li>
+	<li><a href="MTH154CH4_4.html">4.4 Variations of Statements</a></li>
+    </ul>
+
+   <!-- Chapter 5 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 5: Measurement</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="MTH154CH5_1.html">5.1 Ratios & Proportions</a></li>
+        <li><a href="MTH154CH5_2.html">5.2 Measurement</a></li>
+	<li><a href="MTH154CH5_3.html">5.3 Area, Volume, and Capacity</a></li>
+	<li><a href="MTH154CH5_4.html">5.4 Weight & Temperature</a></li>
+	<li><a href="MTH154CH5_5.html">5.5 Surface Area & Volume</a></li>
+    </ul>
+</nav>
+
+    <div class="container">
+        <h1>Section 2.4: Modeling Quadratic Data</h1>
+<div class="intro-section">
+	
+Curved antennas, such as the ones shown in Figure 1, are commonly used to focus microwaves and radio
+waves to transmit television and telephone signals, as well as satellite and spacecraft communication. The
+cross-section of the antenna is in the shape of a parabola, which can be described by a quadratic function.
+In this section, we will investigate quadratic functions, which frequently model problems involving area
+and projectile motion. Working with quadratic functions can be less complex than working with higher
+degree functions, so they provide a good opportunity for a detailed study of function behavior.
+
+</div>
+
+
+<div class="container">
+    <div class="image-container">
+ 	 <img src="images/MTH154 Quadratic models picture.jpg" alt="Photo Credit: Shedinagarden - Retrieved from Flickr.com" 
+style="width: 100%; height: auto; display: block; margin: 0 auto;">
+        <p class="caption" style="text-align: center; margin-top: 10px;">
+            Photo Credit: Shedinagarden — Retrieved from Flickr.com
+        </p>
+    </div>
+</div>
+
+<h2> Recognizing Characteristics of Parabolas   </h2>
+<p>
+The graph of a quadratic function is a U-shaped curve called a parabola. One important feature of the
+graph is that it has an extreme point, called the vertex. If the parabola opens up, the vertex represents the
+lowest point on the graph, or the minimum value of the quadratic function. If the parabola opens down,
+the vertex represents the highest point on the graph, or the maximum value. In either case, the vertex is a
+turning point on the graph. The graph is also symmetric with a vertical line drawn through the vertex, called
+the axis of symmetry. These features are illustrated in <strong> Figure 2.4.1 </strong>.</p>
+	
+
+<div class="container">
+<div role="figure" aria-label="Quadratic graph showing x-intercepts, y-intercepts, vertex, and axis of symmetry">
+    <svg width="100%" height="450" viewBox="-5 -5 10 10" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Graph of a quadratic function, identifying the x-intercepts, y-intercepts, axis of symmetry, and the vertex.">
+        <!-- Grid -->
+        <g stroke="lightgray" stroke-width="0.05">
+            <line x1="-5" y1="-5" x2="5" y2="-5"/>
+            <line x1="-5" y1="-4" x2="5" y2="-4"/>
+            <line x1="-5" y1="-3" x2="5" y2="-3"/>
+            <line x1="-5" y1="-2" x2="5" y2="-2"/>
+            <line x1="-5" y1="-1" x2="5" y2="-1"/>
+            <line x1="-5" y1="0" x2="5" y2="0"/>
+            <line x1="-5" y1="1" x2="5" y2="1"/>
+            <line x1="-5" y1="2" x2="5" y2="2"/>
+            <line x1="-5" y1="3" x2="5" y2="3"/>
+            <line x1="-5" y1="4" x2="5" y2="4"/>
+            <line x1="-5" y1="5" x2="5" y2="5"/>
+            <line x1="-5" y1="-5" x2="-5" y2="5"/>
+            <line x1="-4" y1="-5" x2="-4" y2="5"/>
+            <line x1="-3" y1="-5" x2="-3" y2="5"/>
+            <line x1="-2" y1="-5" x2="-2" y2="5"/>
+            <line x1="-1" y1="-5" x2="-1" y2="5"/>
+            <line x1="0" y1="-5" x2="0" y2="5"/>
+            <line x1="1" y1="-5" x2="1" y2="5"/>
+            <line x1="2" y1="-5" x2="2" y2="5"/>
+            <line x1="3" y1="-5" x2="3" y2="5"/>
+            <line x1="4" y1="-5" x2="4" y2="5"/>
+            <line x1="5" y1="-5" x2="5" y2="5"/>
+        </g>
+
+        <!-- Axes -->
+        <line x1="-5" y1="0" x2="5" y2="0" stroke="black" stroke-width="0.1"/>
+        <line x1="0" y1="-5" x2="0" y2="5" stroke="black" stroke-width="0.1"/>
+
+        <!-- Quadratic curve y = (x-1)^2 - 4 -->
+<polyline
+    fill="none"
+    stroke="blue"
+    stroke-width="0.1"
+    points="
+	-2,-5
+	-1.5,-2.25
+        -1,0
+        -.5,1.75
+       	0,3
+	.5,3.75
+        1,4
+
+      1.5,3.75
+        2,3
+      2.5,1.75
+        3,0
+	4,-5
+    "
+/>
+<!-- X-axis labels -->
+<text x="-4" y="0.3" font-size="0.35" fill="black">-4</text>
+<text x="-3" y="0.3" font-size="0.35" fill="black">-3</text>
+<text x="-2" y="0.3" font-size="0.35" fill="black">-2</text>
+<text x="-1" y="0.3" font-size="0.35" fill="black">-1</text>
+<text x="1" y="0.3" font-size="0.35" fill="black">1</text>
+<text x="2" y="0.3" font-size="0.35" fill="black">2</text>
+<text x="3" y="0.3" font-size="0.35" fill="black">3</text>
+<text x="4" y="0.3" font-size="0.35" fill="black">4</text>
+
+<!-- Y-axis labels -->
+<text x="0.2" y="-4" font-size="0.35" fill="black">4</text>
+<text x="0.2" y="-3" font-size="0.35" fill="black">3</text>
+<text x="0.2" y="-2" font-size="0.35" fill="black">2</text>
+<text x="0.2" y="-1" font-size="0.35" fill="black">1</text>
+
+<text x="0.2" y="1" font-size="0.35" fill="black">-1</text>
+<text x="0.2" y="2" font-size="0.35" fill="black">-2</text>
+<text x="0.2" y="3" font-size="0.35" fill="black">-3</text>
+<text x="0.2" y="4" font-size="0.35" fill="black">-4</text>
+<text x="0.2" y="5" font-size="0.35" fill="black">-5</text>
+
+
+        <!-- Axis of Symmetry -->
+        <line x1="1" y1="-5" x2="1" y2="5" stroke="red" stroke-dasharray="0.3,0.3" stroke-width="0.1"/>
+        <text x="1.1" y="-1" font-size="0.5" fill="black" transform="rotate(90 1.1,-1)">Axis of Symmetry</text>
+
+        <!-- Points -->
+        <circle cx="-1" cy="0" r="0.15" fill="black"/>
+        <circle cx="3" cy="0" r="0.15" fill="black"/>
+        <circle cx="1" cy="4" r="0.15" fill="black"/>
+        <circle cx="0" cy="3" r="0.15" fill="black"/>
+
+        <!-- Labels and arrows -->
+        <text x="-5" y="-1" font-size="0.5" fill="black">x-intercepts</text>
+        <line x1="-2.9" y1="-0.9" x2="-1.1" y2="0" stroke="black" stroke-width="0.05" marker-end="url(#arrow)"/>
+        <line x1="-2.9" y1="-0.9" x2="2.9" y2="0" stroke="black" stroke-width="0.05" marker-end="url(#arrow)"/>
+        <text x="4" y="4" font-size="0.5" fill="black">vertex</text>
+        <line x1="4" y1="3.9" x2="1.1" y2="4" stroke="black" stroke-width="0.05" marker-end="url(#arrow)"/>
+        <text x="-4.5" y="3" font-size="0.5" fill="black">y-intercept</text>
+        <line x1="-2.5" y1="3" x2="-0.5" y2="3" stroke="green" stroke-width="0.05" marker-end="url(#arrow)"/>
+
+        <!-- Arrow marker definition -->
+        <defs>
+            <marker id="arrow" markerWidth="4" markerHeight="4" refX="0" refY="2" orient="auto" markerUnits="strokeWidth">
+                <path d="M0,0 L0,4 L4,2 Z" fill="black"/>
+            </marker>
+        </defs>
+    </svg>
+    <p style="text-align:center; font-weight:bold; margin-top:10px;">
+        Figure 2.4.1: Quadratic descriptive graph
+    </p>
+</div>
+</div>
+
+
+
+<p>
+The <strong> y-intercept </strong> is the point at which the parabola crosses the $y-axis$, $x=0$. The <strong> x-interept(s)</strong> are the point(s) at which the parabola crosses the $x-axis$, $y=0$. If they exist, the x-intercept(s) represent the <strong> zeros</strong>, or <strong> roots </strong>, of the quadratic function. Not all quadratics will cross the $x$-axis. When the graph does not cross the $x$-axis, we call the zeros or roots imaginary.</p>
+
+
+ <!-- Example 1 -->
+        <div class="example">
+            <div class="example-problem">
+                <h3>Example 1</h3>
+		<p>Using the graph below, determine the vertex, axis of symmetry, zeros, and y-intercept of the parabola.</p>
+
+<div role="figure" aria-label="Quadratic graph of $y=(x-2)^2-1$">
+    <svg width="100%" height="450" viewBox="-5 -5 10 10" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Graph of a quadratic function, identifying the x-intercepts, y-intercepts, axis of symmetry, and the vertex.">
+        <!-- Grid -->
+        <g stroke="lightgray" stroke-width="0.05">
+            <line x1="-5" y1="-5" x2="5" y2="-5"/>
+            <line x1="-5" y1="-4" x2="5" y2="-4"/>
+            <line x1="-5" y1="-3" x2="5" y2="-3"/>
+            <line x1="-5" y1="-2" x2="5" y2="-2"/>
+            <line x1="-5" y1="-1" x2="5" y2="-1"/>
+            <line x1="-5" y1="0" x2="5" y2="0"/>
+            <line x1="-5" y1="1" x2="5" y2="1"/>
+            <line x1="-5" y1="2" x2="5" y2="2"/>
+            <line x1="-5" y1="3" x2="5" y2="3"/>
+            <line x1="-5" y1="4" x2="5" y2="4"/>
+            <line x1="-5" y1="5" x2="5" y2="5"/>
+            <line x1="-5" y1="-5" x2="-5" y2="5"/>
+            <line x1="-4" y1="-5" x2="-4" y2="5"/>
+            <line x1="-3" y1="-5" x2="-3" y2="5"/>
+            <line x1="-2" y1="-5" x2="-2" y2="5"/>
+            <line x1="-1" y1="-5" x2="-1" y2="5"/>
+            <line x1="0" y1="-5" x2="0" y2="5"/>
+            <line x1="1" y1="-5" x2="1" y2="5"/>
+            <line x1="2" y1="-5" x2="2" y2="5"/>
+            <line x1="3" y1="-5" x2="3" y2="5"/>
+            <line x1="4" y1="-5" x2="4" y2="5"/>
+            <line x1="5" y1="-5" x2="5" y2="5"/>
+        </g>
+
+        <!-- Axes -->
+        <line x1="-5" y1="0" x2="5" y2="0" stroke="black" stroke-width="0.1"/>
+        <line x1="0" y1="-5" x2="0" y2="5" stroke="black" stroke-width="0.1"/>
+
+        <!-- Quadratic curve y = (x-1)^2 - 4 -->
+<polyline
+    fill="none"
+    stroke="blue"
+    stroke-width="0.1"
+    points="
+	
+        -1,-8
+        -.5,-5.25
+       	0,-3
+	.5,-1.25
+        1,0
+
+      1.5,.75
+        2,1
+      2.5,.75
+        3,0
+	4,-3
+	4.5,-5.25
+    "
+/>
+<!-- X-axis labels -->
+<text x="-4" y="0.3" font-size="0.35" fill="black">-4</text>
+<text x="-3" y="0.3" font-size="0.35" fill="black">-3</text>
+<text x="-2" y="0.3" font-size="0.35" fill="black">-2</text>
+<text x="-1" y="0.3" font-size="0.35" fill="black">-1</text>
+<text x="1" y="0.3" font-size="0.35" fill="black">1</text>
+<text x="2" y="0.3" font-size="0.35" fill="black">2</text>
+<text x="3" y="0.3" font-size="0.35" fill="black">3</text>
+<text x="4" y="0.3" font-size="0.35" fill="black">4</text>
+
+<!-- Y-axis labels -->
+<text x="0.2" y="-4" font-size="0.35" fill="black">4</text>
+<text x="0.2" y="-3" font-size="0.35" fill="black">3</text>
+<text x="0.2" y="-2" font-size="0.35" fill="black">2</text>
+<text x="0.2" y="-1" font-size="0.35" fill="black">1</text>
+
+<text x="0.2" y="1" font-size="0.35" fill="black">-1</text>
+<text x="0.2" y="2" font-size="0.35" fill="black">-2</text>
+<text x="0.2" y="3" font-size="0.35" fill="black">-3</text>
+<text x="0.2" y="4" font-size="0.35" fill="black">-4</text>
+<text x="0.2" y="5" font-size="0.35" fill="black">-5</text>
+    </svg>
+    <p style="text-align:center; font-weight:bold; margin-top:10px;">
+        Figure 2.4.2: Quadratic Graph of $y=(x-2)^2-1$
+    </p>
+</div>
+
+<button class="solution-header" onclick="toggleExample(this)">
+                <span class="toggle-arrow">▼</span>
+                <span>Show Solution</span>
+            </button>
+            <div class="example-content">
+                <div class="solution">
+                    <h4>Solution</h4>
+
+<p>To identify the x-axis of symmetry and the vertex, look at the graph and identify the "turning point", or place where it changes direction. This is your vertex. In this case, it is the point $(2,-1)$. From this, we can also identify the axis of symmetry, which is $x=2$.</p>
+
+<p>Next, identify the intercepts. The points where it crosses the x-axis are $(1,0)$ and $(3,0)$. Lastly, identify where it crosses the y-axis, which would be the point $(0,3)$. All of these can be seen in the figure 2.4.3 below. </p>
+
+
+<div role="figure" aria-label="Quadratic graph showing x-intercepts, y-intercepts, vertex, and axis of symmetry">
+    <svg width="100%" height="450" viewBox="-5 -5 10 10" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Graph of a quadratic function, identifying the x-intercepts, y-intercepts, axis of symmetry, and the vertex.">
+        <!-- Grid -->
+        <g stroke="lightgray" stroke-width="0.05">
+            <line x1="-5" y1="-5" x2="5" y2="-5"/>
+            <line x1="-5" y1="-4" x2="5" y2="-4"/>
+            <line x1="-5" y1="-3" x2="5" y2="-3"/>
+            <line x1="-5" y1="-2" x2="5" y2="-2"/>
+            <line x1="-5" y1="-1" x2="5" y2="-1"/>
+            <line x1="-5" y1="0" x2="5" y2="0"/>
+            <line x1="-5" y1="1" x2="5" y2="1"/>
+            <line x1="-5" y1="2" x2="5" y2="2"/>
+            <line x1="-5" y1="3" x2="5" y2="3"/>
+            <line x1="-5" y1="4" x2="5" y2="4"/>
+            <line x1="-5" y1="5" x2="5" y2="5"/>
+            <line x1="-5" y1="-5" x2="-5" y2="5"/>
+            <line x1="-4" y1="-5" x2="-4" y2="5"/>
+            <line x1="-3" y1="-5" x2="-3" y2="5"/>
+            <line x1="-2" y1="-5" x2="-2" y2="5"/>
+            <line x1="-1" y1="-5" x2="-1" y2="5"/>
+            <line x1="0" y1="-5" x2="0" y2="5"/>
+            <line x1="1" y1="-5" x2="1" y2="5"/>
+            <line x1="2" y1="-5" x2="2" y2="5"/>
+            <line x1="3" y1="-5" x2="3" y2="5"/>
+            <line x1="4" y1="-5" x2="4" y2="5"/>
+            <line x1="5" y1="-5" x2="5" y2="5"/>
+        </g>
+
+        <!-- Axes -->
+        <line x1="-5" y1="0" x2="5" y2="0" stroke="black" stroke-width="0.1"/>
+        <line x1="0" y1="-5" x2="0" y2="5" stroke="black" stroke-width="0.1"/>
+
+        <!-- Quadratic curve y = (x-1)^2 - 4 -->
+<polyline
+    fill="none"
+    stroke="blue"
+    stroke-width="0.1"
+    points="
+	
+        -1,-8
+        -.5,-5.25
+       	0,-3
+	.5,-1.25
+        1,0
+
+      1.5,.75
+        2,1
+      2.5,.75
+        3,0
+	4,-3
+	4.5,-5.25
+    "
+/>
+<!-- X-axis labels -->
+<text x="-4" y="0.3" font-size="0.35" fill="black">-4</text>
+<text x="-3" y="0.3" font-size="0.35" fill="black">-3</text>
+<text x="-2" y="0.3" font-size="0.35" fill="black">-2</text>
+<text x="-1" y="0.3" font-size="0.35" fill="black">-1</text>
+<text x="1" y="0.3" font-size="0.35" fill="black">1</text>
+<text x="2" y="0.3" font-size="0.35" fill="black">2</text>
+<text x="3" y="0.3" font-size="0.35" fill="black">3</text>
+<text x="4" y="0.3" font-size="0.35" fill="black">4</text>
+
+<!-- Y-axis labels -->
+<text x="0.2" y="-4" font-size="0.35" fill="black">4</text>
+<text x="0.2" y="-3" font-size="0.35" fill="black">3</text>
+<text x="0.2" y="-2" font-size="0.35" fill="black">2</text>
+<text x="0.2" y="-1" font-size="0.35" fill="black">1</text>
+
+<text x="0.2" y="1" font-size="0.35" fill="black">-1</text>
+<text x="0.2" y="2" font-size="0.35" fill="black">-2</text>
+<text x="0.2" y="3" font-size="0.35" fill="black">-3</text>
+<text x="0.2" y="4" font-size="0.35" fill="black">-4</text>
+<text x="0.2" y="5" font-size="0.35" fill="black">-5</text>
+
+
+   <!-- Axis of Symmetry -->
+        <line x1="2" y1="-5" x2="2" y2="5" stroke="red" stroke-dasharray="0.3,0.3" stroke-width="0.1"/>
+        
+
+
+        <!-- Points -->
+        <circle cx="1" cy="0" r="0.15" fill="black"/>
+        <circle cx="3" cy="0" r="0.15" fill="black"/>
+        <circle cx="2" cy="1" r="0.15" fill="orange"/>
+	<text x="2.2" y="1.2" font-size="0.5" fill="black">vertex</text>
+        <circle cx="0" cy="-3" r="0.15" fill="green"/>
+    </svg>
+    <p style="text-align:center; font-weight:bold; margin-top:10px;">
+        Figure 2.4.3: Quadratic Graph of $y=(x-2)^2-1$ with Characteristics.
+    </p>
+</div>
+<p>Now that you understand the basic characteristics of a quadratic graph, we can look at how we can use quadratics to model data. </p>
+</div>
+</div>
+</div>
+</div>
+
+<h2>Quadratic Models</h2>
+<div class="intro-section">
+<p>
+In the previous lesson, we learned about linear regression and fitting data to a linear model. However, not all data is linear. When it comes to real-world applications, a quadratic model may be more appropriate. </p>
+
+<p>
+One of America's favorite past times is the game of basketball. On any nice spring day, you could drive through a neighborhood and see people of all ages shooting some hoops. Have you ever thought about the path that ball takes once it leaves a player's hand? Allow us to look at this photo below taken by Dan Meyer.</p>
+</div>
+
+<!-- Figure: Basketball shot path -->
+<div role="figure" aria-label="Picture of a young man shooting a basketball, with the path being outlined by the ball" class="container-figure">
+    <img src="images/Basketball image - Dan Meyer.png" 
+         alt="Picture of a young man shooting a basketball, with the path being outlined by the ball" 
+         style="width:100%; height:auto; display:block; margin:0 auto;">
+    
+    <p style="text-align:center; font-weight:bold; margin-top:10px;">
+        Image 2.4.1: Picture of path taken by a basketball
+    </p>
+</div>
+
+<p>If you where to fit this image onto a set of axes, would this be a linear model or a quadratic model? It really doesn't make a straight line as the ball can be seen starting to turn around. This path could very well be quadratic, but how can we tell? First, start by placing a grid over top of this image.</p>
+
+<!-- Figure: Basketball shot path -->
+<div role="figure" aria-label="Picture of a young man shooting a basketball, with the path being outlined by the ball" class="container-figure">
+    <img src="images/basketball on grid.jpg" 
+         alt="Picture of a young man shooting a basketball, with the path being outlined by the ball, and acoordinate grid affixed on top." 
+         style="width:100%; height:auto; display:block; margin:0 auto;">
+    
+    <p style="text-align:center; font-weight:bold; margin-top:10px;">
+        Image 2.4.1: Picture of path taken by a basketball
+    </p>
+</div>
+
+<p>Now create a table for the points "C" through "E"</p>
+
+
+<!-- Table: Data for points C through E -->
+<div role="table" aria-label="Table displaying x and y values for points C through E" class="container-table">
+    <table>
+        <thead>
+            <tr>
+                <th>x</th>
+                <th>0</th>
+                <th>4</th>
+                <th>6</th>
+                <th>7</th>
+                <th>12</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>y</td>
+                <td>10</td>
+                <td>14</td>
+                <td>17</td>
+                <td>18</td>
+                <td>19</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p style="text-align:center; font-weight:bold; margin-top:10px;">
+        Table: Data for points C through E
+    </p>
+</div>
+
+
+<p style="margin-bottom: 40px;">To create a model, we will now use some type of software such as Google sheets or Microsoft Excel. There are plenty of software's, but these are the ones we primarily use in this course. If you are looking for tutorials on how this can be done in Google sheets or Microsoft excel, please see the Appendix.</p>
+
+<p style="margin-bottom: 40px;">This also could be done the long way, which would be using quadratic regression and some graduate level statistics skills. For the most part, no one does this the long way. After putting this raw data into Excel, you'd find out that the estimated equation that would best model this data would be $\hat{y}=-0.0631x^2+1.5399x+9.7595$ with a coefficient of variation of $r^2=0.9758$, which would produce a correlation coefficient $r=\sqrt{r^2}=\sqrt{0.9758}=0.9878$ rounded to four decimal places(ten thousandths). Recall in section 1.2 that you learned that the closer $|{r}|$ is to $1$, the stronger the relationship. This correlation coefficient $r$ suggests that there is a rather strong quadratic relationship to our data. </p>
+
+<p style="margin-bottom: 40px;">Where would a person use this information and why is it important? A person would use this information if they were trying to make predictions or estimations regarding the data they are interested in. With this particular set of data, our question is, "Will the ball go in the hoop?" To answer this, we will need to go back to graph and find an approximate location for the hoop. Based on our grid, the hoop is approximately at $(22,14)$. Let's check to see if this ball potentially will go in the hoop.</p>
+
+<p> To do this, we need to plug our values into the equation and see if it works out.</p>
+
+\begin{aligned}
+14&\stackrel{?}{=}-0.0631(22)^2+1.5399(22)+9.7595 \\
+14&\stackrel{?}{=}-30.5404+33.8778+9.7595\\
+14&\stackrel{?}{=}13.0969\\
+\end{aligned}
+
+<p>Looking at our solution, $13$ is just slightly below the basket. Thus, it is possible that this ball could go in the hoop at the x-position $22$, the center of the hoop from our graph. This is just an example of one way we can use equations or models to make predictions. Let's look at another example of how models can be applied in the business world. </p>
+
+ <!-- Example 2 -->
+        <div class="example">
+            <div class="example-problem">
+                <h3>Example 2</h3>
+
+<p> After a rough quarter, a company hires an economic consultant to look at their numbers.  The consultant was able to find a model for their data. The consultant found that the profit made $P(x)$ in thousands of dollars from selling $x$ toys (in hundreds) could be approximated by $P(x)=-0.44x^2+4.4x-4$. Using the graph provided, how many toys must the company sell to make a maximum profit? What is their maximum profit, and how many toys must they sell to break-even? </p>
+
+
+<div role="figure" aria-label="Quadratic graph of $P(x)=-0.44x^2+4.4x-4$">
+    <svg width="100%" height="450" viewBox="-5 -8 15 16" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="graph of the profits for a toy company.">
+        <!-- Grid -->
+        <g stroke="lightgray" stroke-width="0.05">
+		<line x1="-5" y1="-6" x2="10" y2="-6"/>
+<line x1="-5" y1="-7" x2="10" y2="-7"/>
+<line x1="-5" y1="-8" x2="10" y2="-8"/>
+            <line x1="-5" y1="-5" x2="10" y2="-5"/>
+            <line x1="-5" y1="-4" x2="10" y2="-4"/>
+            <line x1="-5" y1="-3" x2="10" y2="-3"/>
+            <line x1="-5" y1="-2" x2="10" y2="-2"/>
+            <line x1="-5" y1="-1" x2="10" y2="-1"/>
+            <line x1="-5" y1="0" x2="10" y2="0"/>
+            <line x1="-5" y1="1" x2="10" y2="1"/>
+            <line x1="-5" y1="2" x2="10" y2="2"/>
+            <line x1="-5" y1="3" x2="10" y2="3"/>
+            <line x1="-5" y1="4" x2="10" y2="4"/>
+            <line x1="-5" y1="5" x2="10" y2="5"/>
+            <line x1="-5" y1="-8" x2="-5" y2="5"/>
+            <line x1="-4" y1="-8" x2="-4" y2="5"/>
+            <line x1="-3" y1="-8" x2="-3" y2="5"/>
+            <line x1="-2" y1="-8" x2="-2" y2="5"/>
+            <line x1="-1" y1="-8" x2="-1" y2="5"/>
+            <line x1="0" y1="-8" x2="0" y2="5"/>
+            <line x1="1" y1="-8" x2="1" y2="5"/>
+            <line x1="2" y1="-8" x2="2" y2="5"/>
+            <line x1="3" y1="-8" x2="3" y2="5"/>
+            <line x1="4" y1="-8" x2="4" y2="5"/>
+            <line x1="5" y1="-8" x2="5" y2="5"/>
+	 <line x1="6" y1="-8" x2="6" y2="5"/>
+	 <line x1="7" y1="-8" x2="7" y2="5"/>
+	 <line x1="8" y1="-8" x2="8" y2="5"/>
+	 <line x1="9" y1="-8" x2="9" y2="5"/>
+	 <line x1="10" y1="-8" x2="10" y2="5"/>
+        </g>
+
+        <!-- Axes -->
+        <line x1="-5" y1="0" x2="10" y2="0" stroke="black" stroke-width="0.09"/>
+        <line x1="0" y1="-8" x2="0" y2="5" stroke="black" stroke-width="0.09"/>
+
+        <!-- Quadratic curve y = (x-1)^2 - 4 -->
+<polyline
+    fill="none"
+    stroke="blue"
+    stroke-width="0.1"
+    points="
+	
+       	-.25,5.128
+	0,4
+	0.25,2.928
+	0.5,1.91
+	.75, .9475
+	1,0.04
+	1.25,-.8125
+	1.5,-1.61
+	1.75,-2.3525
+	2,-3.04
+	2.25,-3.6725
+	2.5,-4.25
+	2.75,-4.7725
+	3,-5.24
+	3.25,-5.6525
+	3.5,-6.01
+	3.75,-6.3125
+	4, -6.56
+	4.25,-6.7525
+	4.5,-6.89
+	4.75,-6.9725
+	5,-7
+	5.25,-6.9725
+	5.5,-6.89
+	5.75,-6.7525
+	6,-6.56
+	6.25,-6.3125
+	6.5, -6.01	
+	6.75,-5.6525
+	7,-5.25
+	7.25,-4.7725
+	7.5,-4.25
+	7.75,-3.6725
+	8,-3.04
+	8.25,-2.3525
+	8.5,-1.61
+	8.75,-.8125
+	9,.04
+	9.25, .9475
+	9.5, 1.91
+	9.75,2.928
+	10,4
+
+
+    "
+/>
+<!-- X-axis labels -->
+<text x="-4" y="0.3" font-size="0.35" fill="black">-4</text>
+<text x="-3" y="0.3" font-size="0.35" fill="black">-3</text>
+<text x="-2" y="0.3" font-size="0.35" fill="black">-2</text>
+<text x="-1" y="0.3" font-size="0.35" fill="black">-1</text>
+<text x="1" y="0.3" font-size="0.35" fill="black">1</text>
+<text x="2" y="0.3" font-size="0.35" fill="black">2</text>
+<text x="3" y="0.3" font-size="0.35" fill="black">3</text>
+<text x="4" y="0.3" font-size="0.35" fill="black">4</text>
+<text x="5" y="0.3" font-size="0.35" fill="black">5</text>
+<text x="6" y="0.3" font-size="0.35" fill="black">6</text>
+<text x="7" y="0.3" font-size="0.35" fill="black">7</text>
+<text x="8" y="0.3" font-size="0.35" fill="black">8</text>
+<text x="9" y="0.3" font-size="0.35" fill="black">9</text>
+
+<!-- Y-axis labels -->
+<text x="0.2" y="-8" font-size="0.35" fill="black">8</text>
+<text x="0.2" y="-7" font-size="0.35" fill="black">7</text>
+<text x="0.2" y="-6" font-size="0.35" fill="black">6</text>
+<text x="0.2" y="-5" font-size="0.35" fill="black">5</text>
+<text x="0.2" y="-4" font-size="0.35" fill="black">4</text>
+<text x="0.2" y="-3" font-size="0.35" fill="black">3</text>
+<text x="0.2" y="-2" font-size="0.35" fill="black">2</text>
+<text x="0.2" y="-1" font-size="0.35" fill="black">1</text>
+<text x="0.2" y="1" font-size="0.35" fill="black">-1</text>
+<text x="0.2" y="2" font-size="0.35" fill="black">-2</text>
+<text x="0.2" y="3" font-size="0.35" fill="black">-3</text>
+<text x="0.2" y="4" font-size="0.35" fill="black">-4</text>
+<text x="0.2" y="5" font-size="0.35" fill="black">-5</text>
+    </svg>
+    <p style="text-align:center; font-weight:bold; margin-top:10px;">
+        Figure 2.4.4: Company Profits 
+    </p>
+</div>
+
+ 	<button class="solution-header" onclick="toggleExample(this)">
+                <span class="toggle-arrow">▼</span>
+                <span>Show Solution</span>
+            </button>
+            <div class="example-content">
+                <div class="solution">
+                    <h4>Solution</h4>
+<p>First, let's break down this question into its pieces and see what it is asking us to find. It is looking for the number of toys that need to be sold to maximize profits. We know that the maximum or minimum depending on the equation occurs at the vertex of the parabola or quadratic. In this case, our vertex would be the red point below. </p>
+
+<div role="figure" aria-label="Quadratic graph of $P(x)=-0.44x^2+4.4x-4$">
+    <svg width="100%" height="450" viewBox="-5 -8 15 16" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="graph of the profits for a toy company.">
+        <!-- Grid -->
+        <g stroke="lightgray" stroke-width="0.05">
+		<line x1="-5" y1="-6" x2="10" y2="-6"/>
+<line x1="-5" y1="-7" x2="10" y2="-7"/>
+<line x1="-5" y1="-8" x2="10" y2="-8"/>
+            <line x1="-5" y1="-5" x2="10" y2="-5"/>
+            <line x1="-5" y1="-4" x2="10" y2="-4"/>
+            <line x1="-5" y1="-3" x2="10" y2="-3"/>
+            <line x1="-5" y1="-2" x2="10" y2="-2"/>
+            <line x1="-5" y1="-1" x2="10" y2="-1"/>
+            <line x1="-5" y1="0" x2="10" y2="0"/>
+            <line x1="-5" y1="1" x2="10" y2="1"/>
+            <line x1="-5" y1="2" x2="10" y2="2"/>
+            <line x1="-5" y1="3" x2="10" y2="3"/>
+            <line x1="-5" y1="4" x2="10" y2="4"/>
+            <line x1="-5" y1="5" x2="10" y2="5"/>
+            <line x1="-5" y1="-8" x2="-5" y2="5"/>
+            <line x1="-4" y1="-8" x2="-4" y2="5"/>
+            <line x1="-3" y1="-8" x2="-3" y2="5"/>
+            <line x1="-2" y1="-8" x2="-2" y2="5"/>
+            <line x1="-1" y1="-8" x2="-1" y2="5"/>
+            <line x1="0" y1="-8" x2="0" y2="5"/>
+            <line x1="1" y1="-8" x2="1" y2="5"/>
+            <line x1="2" y1="-8" x2="2" y2="5"/>
+            <line x1="3" y1="-8" x2="3" y2="5"/>
+            <line x1="4" y1="-8" x2="4" y2="5"/>
+            <line x1="5" y1="-8" x2="5" y2="5"/>
+	 <line x1="6" y1="-8" x2="6" y2="5"/>
+	 <line x1="7" y1="-8" x2="7" y2="5"/>
+	 <line x1="8" y1="-8" x2="8" y2="5"/>
+	 <line x1="9" y1="-8" x2="9" y2="5"/>
+	 <line x1="10" y1="-8" x2="10" y2="5"/>
+        </g>
+
+        <!-- Axes -->
+        <line x1="-5" y1="0" x2="10" y2="0" stroke="black" stroke-width="0.09"/>
+        <line x1="0" y1="-8" x2="0" y2="5" stroke="black" stroke-width="0.09"/>
+
+        <!-- Quadratic curve y = (x-1)^2 - 4 -->
+<polyline
+    fill="none"
+    stroke="blue"
+    stroke-width="0.1"
+    points="
+	
+       	-.25,5.128
+	0,4
+	0.25,2.928
+	0.5,1.91
+	.75, .9475
+	1,0.04
+	1.25,-.8125
+	1.5,-1.61
+	1.75,-2.3525
+	2,-3.04
+	2.25,-3.6725
+	2.5,-4.25
+	2.75,-4.7725
+	3,-5.24
+	3.25,-5.6525
+	3.5,-6.01
+	3.75,-6.3125
+	4, -6.56
+	4.25,-6.7525
+	4.5,-6.89
+	4.75,-6.9725
+	5,-7
+	5.25,-6.9725
+	5.5,-6.89
+	5.75,-6.7525
+	6,-6.56
+	6.25,-6.3125
+	6.5, -6.01	
+	6.75,-5.6525
+	7,-5.25
+	7.25,-4.7725
+	7.5,-4.25
+	7.75,-3.6725
+	8,-3.04
+	8.25,-2.3525
+	8.5,-1.61
+	8.75,-.8125
+	9,.04
+	9.25, .9475
+	9.5, 1.91
+	9.75,2.928
+	10,4
+
+
+    "
+/>
+<!-- X-axis labels -->
+<text x="-4" y="0.3" font-size="0.35" fill="black">-4</text>
+<text x="-3" y="0.3" font-size="0.35" fill="black">-3</text>
+<text x="-2" y="0.3" font-size="0.35" fill="black">-2</text>
+<text x="-1" y="0.3" font-size="0.35" fill="black">-1</text>
+<text x="1" y="0.3" font-size="0.35" fill="black">1</text>
+<text x="2" y="0.3" font-size="0.35" fill="black">2</text>
+<text x="3" y="0.3" font-size="0.35" fill="black">3</text>
+<text x="4" y="0.3" font-size="0.35" fill="black">4</text>
+<text x="5" y="0.3" font-size="0.35" fill="black">5</text>
+<text x="6" y="0.3" font-size="0.35" fill="black">6</text>
+<text x="7" y="0.3" font-size="0.35" fill="black">7</text>
+<text x="8" y="0.3" font-size="0.35" fill="black">8</text>
+<text x="9" y="0.3" font-size="0.35" fill="black">9</text>
+
+<!-- Y-axis labels -->
+<text x="0.2" y="-8" font-size="0.35" fill="black">8</text>
+<text x="0.2" y="-7" font-size="0.35" fill="black">7</text>
+<text x="0.2" y="-6" font-size="0.35" fill="black">6</text>
+<text x="0.2" y="-5" font-size="0.35" fill="black">5</text>
+<text x="0.2" y="-4" font-size="0.35" fill="black">4</text>
+<text x="0.2" y="-3" font-size="0.35" fill="black">3</text>
+<text x="0.2" y="-2" font-size="0.35" fill="black">2</text>
+<text x="0.2" y="-1" font-size="0.35" fill="black">1</text>
+<text x="0.2" y="1" font-size="0.35" fill="black">-1</text>
+<text x="0.2" y="2" font-size="0.35" fill="black">-2</text>
+<text x="0.2" y="3" font-size="0.35" fill="black">-3</text>
+<text x="0.2" y="4" font-size="0.35" fill="black">-4</text>
+<text x="0.2" y="5" font-size="0.35" fill="black">-5</text>
+
+<circle cx="5" cy="-7" r="0.15" fill="red"/>
+    </svg>
+    <p style="text-align:center; font-weight:bold; margin-top:10px;">
+        Figure 2.4.5: Maximum Company Profits 
+    </p>
+</div>
+
+
+
+<p>This would be the point $(5,7)$. Recall that the $x-axis$ represents the number of toys sold in hundreds, and the $y-axis$ represents the profit the company can expect from selling $x$ toys in thousands of dollars. The first part of this question just wanted to know how many toys the company must sell to maximize their profit. Since the $x$ value of our coordinate is $5$ and it is in hundreds, that means the company would need to sell $500$ toys to maximize their profit.</p<
+
+<p>The second part of this question asked what is the company's maximum profit from selling those $500$ toys? This would be the $y$ value of our coordinate for the vertex, which is $7$. Remember the $y-axis$ is measured in thousands of dollars, thus the answer would be \$ $7,000$. </p>
+
+
+<p>The last part of this question asks when will the company break-even. The break-even point is when the profit is zero ($y=0$). This occurs when the graph crosses the $x-axis$ or the $x$ intercepts. Looking back at our graph, the blue points below designate where the graph crosses the $x-axis$.</p>
+
+<div role="figure" aria-label="Quadratic graph of $P(x)=-0.44x^2+4.4x-4$">
+    <svg width="100%" height="450" viewBox="-5 -8 15 16" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="graph of the profits for a toy company.">
+        <!-- Grid -->
+        <g stroke="lightgray" stroke-width="0.05">
+		<line x1="-5" y1="-6" x2="10" y2="-6"/>
+<line x1="-5" y1="-7" x2="10" y2="-7"/>
+<line x1="-5" y1="-8" x2="10" y2="-8"/>
+            <line x1="-5" y1="-5" x2="10" y2="-5"/>
+            <line x1="-5" y1="-4" x2="10" y2="-4"/>
+            <line x1="-5" y1="-3" x2="10" y2="-3"/>
+            <line x1="-5" y1="-2" x2="10" y2="-2"/>
+            <line x1="-5" y1="-1" x2="10" y2="-1"/>
+            <line x1="-5" y1="0" x2="10" y2="0"/>
+            <line x1="-5" y1="1" x2="10" y2="1"/>
+            <line x1="-5" y1="2" x2="10" y2="2"/>
+            <line x1="-5" y1="3" x2="10" y2="3"/>
+            <line x1="-5" y1="4" x2="10" y2="4"/>
+            <line x1="-5" y1="5" x2="10" y2="5"/>
+            <line x1="-5" y1="-8" x2="-5" y2="5"/>
+            <line x1="-4" y1="-8" x2="-4" y2="5"/>
+            <line x1="-3" y1="-8" x2="-3" y2="5"/>
+            <line x1="-2" y1="-8" x2="-2" y2="5"/>
+            <line x1="-1" y1="-8" x2="-1" y2="5"/>
+            <line x1="0" y1="-8" x2="0" y2="5"/>
+            <line x1="1" y1="-8" x2="1" y2="5"/>
+            <line x1="2" y1="-8" x2="2" y2="5"/>
+            <line x1="3" y1="-8" x2="3" y2="5"/>
+            <line x1="4" y1="-8" x2="4" y2="5"/>
+            <line x1="5" y1="-8" x2="5" y2="5"/>
+	 <line x1="6" y1="-8" x2="6" y2="5"/>
+	 <line x1="7" y1="-8" x2="7" y2="5"/>
+	 <line x1="8" y1="-8" x2="8" y2="5"/>
+	 <line x1="9" y1="-8" x2="9" y2="5"/>
+	 <line x1="10" y1="-8" x2="10" y2="5"/>
+        </g>
+
+        <!-- Axes -->
+        <line x1="-5" y1="0" x2="10" y2="0" stroke="black" stroke-width="0.09"/>
+        <line x1="0" y1="-8" x2="0" y2="5" stroke="black" stroke-width="0.09"/>
+
+        <!-- Quadratic curve y = (x-1)^2 - 4 -->
+<polyline
+    fill="none"
+    stroke="blue"
+    stroke-width="0.1"
+    points="
+	
+       	-.25,5.128
+	0,4
+	0.25,2.928
+	0.5,1.91
+	.75, .9475
+	1,0.04
+	1.25,-.8125
+	1.5,-1.61
+	1.75,-2.3525
+	2,-3.04
+	2.25,-3.6725
+	2.5,-4.25
+	2.75,-4.7725
+	3,-5.24
+	3.25,-5.6525
+	3.5,-6.01
+	3.75,-6.3125
+	4, -6.56
+	4.25,-6.7525
+	4.5,-6.89
+	4.75,-6.9725
+	5,-7
+	5.25,-6.9725
+	5.5,-6.89
+	5.75,-6.7525
+	6,-6.56
+	6.25,-6.3125
+	6.5, -6.01	
+	6.75,-5.6525
+	7,-5.25
+	7.25,-4.7725
+	7.5,-4.25
+	7.75,-3.6725
+	8,-3.04
+	8.25,-2.3525
+	8.5,-1.61
+	8.75,-.8125
+	9,.04
+	9.25, .9475
+	9.5, 1.91
+	9.75,2.928
+	10,4
+
+
+    "
+/>
+<!-- X-axis labels -->
+<text x="-4" y="0.3" font-size="0.35" fill="black">-4</text>
+<text x="-3" y="0.3" font-size="0.35" fill="black">-3</text>
+<text x="-2" y="0.3" font-size="0.35" fill="black">-2</text>
+<text x="-1" y="0.3" font-size="0.35" fill="black">-1</text>
+<text x="1" y="0.3" font-size="0.35" fill="black">1</text>
+<text x="2" y="0.3" font-size="0.35" fill="black">2</text>
+<text x="3" y="0.3" font-size="0.35" fill="black">3</text>
+<text x="4" y="0.3" font-size="0.35" fill="black">4</text>
+<text x="5" y="0.3" font-size="0.35" fill="black">5</text>
+<text x="6" y="0.3" font-size="0.35" fill="black">6</text>
+<text x="7" y="0.3" font-size="0.35" fill="black">7</text>
+<text x="8" y="0.3" font-size="0.35" fill="black">8</text>
+<text x="9" y="0.3" font-size="0.35" fill="black">9</text>
+
+<!-- Y-axis labels -->
+<text x="0.2" y="-8" font-size="0.35" fill="black">8</text>
+<text x="0.2" y="-7" font-size="0.35" fill="black">7</text>
+<text x="0.2" y="-6" font-size="0.35" fill="black">6</text>
+<text x="0.2" y="-5" font-size="0.35" fill="black">5</text>
+<text x="0.2" y="-4" font-size="0.35" fill="black">4</text>
+<text x="0.2" y="-3" font-size="0.35" fill="black">3</text>
+<text x="0.2" y="-2" font-size="0.35" fill="black">2</text>
+<text x="0.2" y="-1" font-size="0.35" fill="black">1</text>
+<text x="0.2" y="1" font-size="0.35" fill="black">-1</text>
+<text x="0.2" y="2" font-size="0.35" fill="black">-2</text>
+<text x="0.2" y="3" font-size="0.35" fill="black">-3</text>
+<text x="0.2" y="4" font-size="0.35" fill="black">-4</text>
+<text x="0.2" y="5" font-size="0.35" fill="black">-5</text>
+
+<circle cx="1" cy="0" r="0.15" fill="red"/>
+<circle cx="9" cy="0" r="0.15" fill="red"/>
+    </svg>
+    <p style="text-align:center; font-weight:bold; margin-top:10px;">
+        Figure 2.4.5:Company Breakeven points
+    </p>
+</div>
+
+<p>These two points are $(1,0)$ and $(9,0)$. This tells us that the company needs to sell either $100$ toys or $900$ toys to break-even, or have a profit of \$$0$. Just as a side note, profit occurs when the revenue from selling and object is higher than the cost of making the object. Thus the break-even point is when it costs the same amount to make $x$ objects as it does to sell $x$ objects.</p>
+</div>
+</div>
+</div>
+</div>
+
+
+ <nav aria-label="Page navigation">
+  <div class="page-navigation">
+    <div class="page-navigation" style="display:flex; justify-content:space-between; margin-top:40px;">
+        <a href="CH2_3.html" class="nav-button" aria-label="Go to previous section">&larr; Previous</a>
+        <a href="CH2_5.html" class="nav-button" aria-label="Go to next section">Next &rarr;</a>
+    </div>
+  </div>
+</nav>
+
+</div>
+<script>
+        function toggleExample(button) {
+            const content = button.nextElementSibling;
+            const arrow = button.querySelector('.toggle-arrow');
+            
+            if (content.classList.contains('open')) {
+                content.classList.remove('open');
+                arrow.classList.remove('open');
+                button.querySelector('span:last-child').textContent = 'Show Solution';
+            } else {
+                content.classList.add('open');
+                arrow.classList.add('open');
+                button.querySelector('span:last-child').textContent = 'Hide Solution';
+            }
+        }
+    </script>
+
+    <script>
+        const chapterButtons = document.querySelectorAll(".toc-chapter");
+
+        chapterButtons.forEach(button => {
+            button.addEventListener("click", () => {
+                const expanded = button.getAttribute("aria-expanded") === "true";
+                button.setAttribute("aria-expanded", !expanded);
+
+                const submenu = button.nextElementSibling;
+                submenu.classList.toggle("open");
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Section 1.6: Loans</title>
+      <!-- MathJax configuration -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            },
+            loader: {
+                load: ['input/tex', 'output/chtml']
+            }
+        };
+    </script>
+    <!-- MathJax loader -->
+    <script id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+
+    <style>
+      
+    .nav-button {
+      padding: 10px 20px;
+      background-color: #33AB2B;
+      color: #000000;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+
+    .nav-button:hover,
+    .nav-button:focus {
+      background-color: #33AB2B;
+      outline: none;
+    }     
+/* Layout unchanged */
+.side-toc {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 230px;
+    height: 100vh;
+    background-color: #f0f8ed;
+    border-right: 3px solid #33AB2B;
+    padding: 20px;
+    overflow: hidden;
+}
+.diagram-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(150px, 1fr));
+  gap: 2rem;
+  justify-items: center;   /* centers each column item */
+  align-items: start;
+  margin: 1.5rem 0;
+}
+
+.diagram {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.toc-title {
+    font-size: 1.4em;
+    margin-bottom: 15px;
+    color: #33AB2B;
+}
+
+/* Chapter buttons */
+.toc-chapter {
+    width: 100%;
+    background: none;
+    border: none;
+    text-align: left;
+    font-size: 1em;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    color: #333;
+}
+
+.toc-chapter:hover,
+.toc-chapter:focus {
+    color: #33AB2B;
+}
+
+.arrow {
+    transition: transform 0.25s ease;
+}
+
+/* Rotated when opened */
+.toc-chapter[aria-expanded="true"] .arrow {
+    transform: rotate(90deg);
+}
+
+/* Submenu collapsed by default */
+.toc-submenu {
+    list-style: none;
+    padding-left: 15px;
+    margin: 5px 0 10px 0;
+    display: none;
+}
+
+/* Visible when expanded */
+.toc-submenu.open {
+    display: block;
+}
+
+.toc-submenu li {
+    margin: 6px 0;
+}
+
+.toc-submenu a {
+    color: #333;
+    text-decoration: none;
+}
+
+.toc-submenu a:hover,
+.toc-submenu a:focus {
+    color: #33AB2B;
+    text-decoration: underline;
+}
+
+/* Push main body over */
+body {
+    margin-left: 250px;
+}
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background-color: #ffffff;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #33AB2B;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            border-bottom: 3px solid #33AB2B;
+            padding-bottom: 15px;
+        }
+
+        h2 {
+            color: #33AB2B;
+            font-size: 1.8em;
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            color: #33AB2B;
+            font-size: 1.2em;
+            margin-top: 20px;
+            margin-bottom: 15px;
+        }
+
+        h4 {
+            color: #33AB2B;
+            font-size: 1.1em;
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+
+        .definition-box {
+            background-color: #f0f8ed;
+            border: 2px solid #33AB2B;
+            border-radius: 6px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .definition-box h3 {
+            color: #33AB2B;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            margin-top: 0;
+        }
+
+        .definition-box p {
+            margin-bottom: 15px;
+        }
+
+        .definition-box ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .definition-box li {
+            margin-bottom: 10px;
+        }
+
+        .conversion-box {
+            background-color: #ffffff;
+            border: 2px solid #b84d7e;
+            border-radius: 6px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .conversion-box h3 {
+            color: #b84d7e;
+            margin-top: 0;
+        }
+
+        .conversion-box table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        .conversion-box table th,
+        .conversion-box table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .conversion-box table th {
+            background-color: #f0f0f0;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .orange-box {
+            background-color: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 6px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+
+        .orange-box h3 {
+            margin-top: 0;
+        }
+
+        .orange-box ol {
+            margin-left: 20px;
+        }
+
+        .orange-box li {
+            margin-bottom: 8px;
+        }
+
+        .example {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            margin: 25px 0;
+            overflow: hidden;
+        }
+
+        .example-problem {
+            padding: 15px 20px;
+        }
+
+        .example-problem h3 {
+            color: #33AB2B;
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .example-problem p {
+            margin-bottom: 10px;
+        }
+
+        .example-problem ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .example-problem li {
+            margin-bottom: 8px;
+        }
+
+        .example-problem ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .solution-header {
+            background-color: #33AB2B;
+            color: white;
+            padding: 12px 20px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+            margin-top: 15px;
+            border-radius: 4px;
+            transition: background-color 0.2s ease;
+            border: none;
+            font-size: 1em;
+        }
+
+        .solution-header:hover {
+            background-color: #2a8922;
+        }
+
+        .toggle-arrow {
+            display: inline-block;
+            margin-right: 12px;
+            transition: transform 0.3s ease;
+            font-size: 1.2em;
+        }
+
+        .toggle-arrow.open {
+            transform: rotate(180deg);
+        }
+
+        .example-content {
+            padding: 0;
+            display: none;
+            overflow: hidden;
+        }
+
+        .example-content.open {
+            display: block;
+        }
+
+        .solution {
+            background-color: #f0f8ed;
+            padding: 20px;
+            border-top: 2px solid #33AB2B;
+        }
+
+        .solution h4 {
+            color: #33AB2B;
+            margin-bottom: 15px;
+            margin-top: 0;
+        }
+
+        .solution p {
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        .solution ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .solution li {
+            margin-bottom: 8px;
+        }
+
+        .solution ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        ul li {
+            margin-bottom: 8px;
+        }
+
+        ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        ol li {
+            margin-bottom: 8px;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        strong {
+            font-weight: bold;
+        }
+
+        em {
+            font-style: italic;
+        }
+
+        .blue-text {
+            color: #0066cc;
+        }
+
+        .divider {
+            border-top: 2px dashed #33AB2B;
+            margin: 30px 0;
+        }
+
+        .image-placeholder {
+            background-color: #e0e0e0;
+            border: 2px dashed #999;
+            padding: 40px;
+            margin: 20px 0;
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            border-radius: 4px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table th {
+            background-color: #f0f8ed;
+            color: #33AB2B;
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ccc;
+            font-weight: bold;
+        }
+
+        table td {
+            padding: 12px;
+            border: 1px solid #ccc;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        table tr.highlighted {
+            background-color: #ffff99;
+        }
+
+        .subsection-title {
+            color: #33AB2B;
+            font-size: 1.3em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+    </style>
+<style>
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+</style>
+</head>
+<body>
+<nav class="side-toc" aria-label="Textbook Navigation">
+    <h2 class="toc-title">Contents</h2>
+
+    <!-- Chapter 1 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 1: Financial Literacy</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="MTH154CH1_1.html">1.1 Introduction</a></li>
+        <li><a href="MTH154CH1_2.html">1.2 Problem Solving</a></li>
+        <li><a href="MTH154CH1_3.html">1.3 Simple Interest</a></li>
+ 	<li><a href="MTH154CH1_4.html">1.4 Compound Interest & Annuities</a></li>
+ 	<li><a href="MTH154CH1_5.html">1.5 Installment Loans</a></li>
+ 	<li><a href="MTH154CH1_6.html">1.6 Loans</a></li>
+ 	<li><a href="MTH154CH1_7.html">1.7 Stocks & Bonds</a></li>
+ 	<li><a href="MTH154CH1_8.html">1.8 Taxes</a></li>
+    </ul>
+
+    <!-- Chapter 2 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 2: Modeling Data</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="Ch2_1.html">2.1 Basics of Graphing</a></li>
+        <li><a href="Ch2_2.html">2.2 Relations & Functions</a></li>
+        <li><a href="Ch2_3.html">2.3 Linear Models</a></li>
+        <li><a href="Ch2_4.html">2.4 Rate of Change</a></li>
+        <li><a href="Ch2_5.html">2.5 Scatterplots</a></li>
+    </ul>
+
+    <!-- Chapter 3 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 3: Set Theory</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="Ch3_1.html">3.1 Set Basics</a></li>
+        <li><a href="Ch3_2.html">3.2 Sets</a></li>
+        <li><a href="Ch3_3.html">3.3 Venn Diagrams</a></li>
+        <li><a href="MTH154CH3_4.html">3.4 More with Venn Diagrams</a></li>
+    </ul>
+
+   <!-- Chapter 4 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 4: Logic</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="MTH154CH4_1.html">4.1 Thinking Logically</a></li>
+        <li><a href="MTH154CH4_2.html">4.2 Introduction to Truth Tables</a></li>
+	<li><a href="MTH154CH4_3.html">4.3 Logical Arguments</a></li>
+	<li><a href="MTH154CH4_4.html">4.4 Variations of Statements</a></li>
+    </ul>
+
+   <!-- Chapter 5 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 5: Measurement</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="MTH154CH5_1.html">5.1 Ratios & Proportions</a></li>
+        <li><a href="MTH154CH5_2.html">5.2 Measurement</a></li>
+	<li><a href="MTH154CH5_3.html">5.3 Area, Volume, and Capacity</a></li>
+	<li><a href="MTH154CH5_4.html">5.4 Weight & Temperature</a></li>
+	<li><a href="MTH154CH5_5.html">5.5 Surface Area & Volume</a></li>
+    </ul>
+</nav>
+<body>
+    <div class="container">
+        <h1>Section 1.6: Loans</h1>
+
+        <div class="intro-section">
+            <p>In the last section, you learned about payout annuities. In this section, you will learn about conventional loans (also called amortized loans or installment loans). Examples include auto loans and home mortgages. These techniques do not apply to payday loans, add-on loans, or other loan types where the interest is calculated up front.</p>
+
+            <p>One great thing about loans is that they use exactly the same formula as a payout annuity. To see why, imagine that you had \$10,000 invested at a bank and started taking out payments while earning interest as part of a payout annuity. After 5 years, your balance was zero. Flip that around, and imagine that you are acting as the bank, and a car lender is acting as you. The car lender invests \$10,000 in you. Since you are acting as the bank, you pay interest. The car lender takes payments until the balance is zero.</p>
+        </div>
+
+        <h2>Student Loans</h2>
+
+        <div class="intro-section">
+            <p>When it comes to taking out loans for college, there are three major options: federal loans made by the government, federal loans made by banks or other lenders, or private loans. A student's first choice should be the federal loans, since they have the greatest stability. Federal loans have fixed interest rates for life and are regulated by Congress. To be eligible for these types of loans, a student must file their FAFSA yearly.</p>
+
+            <p>Student loans differ from traditional loans in the fact that in most cases, payments are <strong>deferred</strong> until after graduation. Meaning that payments don't start until after you graduate college. However, that doesn't mean that it won't accrue interest during that time. Typically speaking, the standard term on a student loan is 10 years with payments deferred until 6 months after graduation.</p>
+
+            <p>One nice thing about student loans is that the interest only accrues on the principal balance (simple interest). In a <strong>subsidized</strong> federal loan, the federal government covers the interest while the student is still in college. But, if interest accrues while the student is still in college, this is called an <strong>unsubsidized</strong> loan.</p>
+
+            <p>Unsubsidized loans will accrue interest while the student is still in college as stated above. When this happens, the loan can either be capitalized or not capitalized. In a <strong>capitalized</strong> loan, the student is not expected to pay for the interest while attending college. Instead, that interest is added onto the principle balance and will be paid after graduation. If the loan is not capitalized, then the student is required to pay for only the interest while they attend college. Both of these options have their advantages and disadvantages. It all really depends on the student.</p>
+        </div>
+
+        <!-- Example 1 -->
+        <div class="example">
+            <div class="example-problem">
+                <h3>Example 1: Student Loan Analysis</h3>
+                <p>Max borrows \$6,500 for her last 3 years of college, acquiring an unsubsidized federal student loan at 6.2% interest.</p>
+                <ul>
+                    <li>How much interest does Max accrue while attending college?</li>
+                    <li>What would Max's monthly payment and total amount paid be if the loan was capitalized?</li>
+                    <li>What would Max's monthly payment and total amount paid be if the loan was uncapitalized?</li>
+                </ul>
+            </div>
+            <button class="solution-header" onclick="toggleExample(this)">
+                <span class="toggle-arrow">▼</span>
+                <span>Show Solution</span>
+            </button>
+            <div class="example-content">
+                <div class="solution">
+                    <h4>Solution</h4>
+                    <p><strong>Part 1: Interest During College</strong></p>
+                    <p>Since interest that accrues on a student loan while in college is simple interest, we'd use the formula $I = Prt$</p>
+                    <div class="variable-list">
+                        <p><strong>$P = \$6,500$</strong></p>
+                        <p><strong>$r = 0.062$</strong> (6.2% as a decimal)</p>
+                        <p><strong>$t = 3$</strong> years</p>
+                    </div>
+                    $$I = Prt = \$6,500(0.062)(3) = \$1,209$$
+                    <p>Max accrued $1,209 in interest over the 3 years from the loan not being subsidized.</p>
+
+                    <p><strong>Part 2: Capitalized Loan</strong></p>
+                    <p>Capitalized means that Max does not have to pay the interest while attending college. When she starts to make payments, her new principal would be the amount that she originally borrowed plus the interest that accrued while attending college:</p>
+                    $$P = \$6,500 + \$1,209 = \$7,709$$
+                    <p>The interest rate would stay the same at $r = 0.062$ and the time would be ten years, as that is the traditional student loan length. Substituting this all into the monthly payment formula would yield:</p>
+                    $$M = \frac{P\left(\frac{r}{12}\right)}{1 - \left(1 + \frac{r}{12}\right)^{-12t}}$$
+                    $$M = \frac{7,709\left(\frac{0.062}{12}\right)}{1 - \left(1 + \frac{0.062}{12}\right)^{-12(10)}}$$
+                    $$M = \frac{39.82983\overline{3}}{1 - (1.00516\overline{6})^{-120}}$$
+                    $$M = \frac{39.82983\overline{3}}{1 - 0.5388037746}$$
+                    $$M = \frac{39.82983\overline{3}}{0.4611962254}$$
+                    $$M = \$86.36$$
+                    <p>With the capitalized loan, Max would pay a total of $86.36 a month for 10 years:</p>
+                    $$12(10)(86.36) = \$10,363.20$$
+                    <p>Meaning that Max would have paid back a total of $10,363.20 by the time she pays off her loan.</p>
+
+                    <p><strong>Part 3: Uncapitalized Loan</strong></p>
+                    <p>If Max's loan was not capitalized, meaning she paid for the interest while she was attending college, the amount she has to pay back after graduation would be her original loan amount of $P = \$6,500$. When substituted into the monthly payment formula, her monthly payment would be:</p>
+                    $$M = \frac{\$6,500\left(\frac{0.062}{12}\right)}{1 - \left(1 + \frac{0.062}{12}\right)^{-12(10)}}$$
+                    $$M = \frac{33.5833\overline{3}}{1 - (1.00516\overline{6})^{-120}}$$
+                    $$M = \frac{33.5833\overline{3}}{1 - 0.5388037746}$$
+                    $$M = \frac{33.5833\overline{3}}{0.4611962254}$$
+                    $$M = \$72.82$$
+                    <p>Since she paid the interest while attending college, the total amount she paid back for the loan would be:</p>
+                    $$12(10)(72.82) + 1,209 = \$9,947.40$$
+                    <p>This option would save Max $\$10,363.20 - \$9,947.40 = \$415.80$.</p>
+                </div>
+            </div>
+        </div>
+
+        <h2>Home Loans</h2>
+
+        <div class="intro-section">
+            <p>At some point in time, you will most likely need to take out a loan for a home, known as a <strong>mortgage</strong>. A mortgage is a long-term loan with terms typically being 15 years or 30 years long, but could be a number of different lengths from 10 to 30 years. If you fail to make the payments during that time, the lender has the right to seize the property.</p>
+
+            <p>When acquiring a mortgage, there are two different types to consider. A <strong>fixed-rate mortgage</strong> is a mortgage in which the interest rate remains constant for the entire term of the loan. You may also consider an <strong>adjustable-rate mortgage</strong>, in which the interest rate can fluctuate during the period of the loan. Both types have their pros and cons. It all really depends on your credit score, down payment, and finances. Interests on mortgages are calculated using simple interest.</p>
+        </div>
+
+        <!-- Example 2 -->
+        <div class="example">
+            <div class="example-problem">
+                <h3>Example 2: Home Mortgage Calculation</h3>
+                <p>The Conner family is looking to purchase a home for $159,000, and have been offered a 30-year fixed-rate mortgage at 5.5% interest with a 20% down payment. Calculate their down payment and monthly payment.</p>
+            </div>
+            <button class="solution-header" onclick="toggleExample(this)">
+                <span class="toggle-arrow">▼</span>
+                <span>Show Solution</span>
+            </button>
+            <div class="example-content">
+                <div class="solution">
+                    <h4>Solution</h4>
+                    <p>First, we need to calculate the down payment:</p>
+                    $$0.20(\$159,000) = \$31,800$$
+                    <p>Once we have that amount, we can figure out how much money we need to ask the bank to borrow. After all, you don't want to have to pay interest on a payment you already made. The Conners will need to finance $\$159,000 - \$31,800 = \$127,200$.</p>
+                    <p>Next, we will calculate their monthly payment:</p>
+                    $$M = \frac{P\left(\frac{r}{12}\right)}{1 - \left(1 + \frac{r}{12}\right)^{-12t}}$$
+                    $$M = \frac{\$127,200\left(\frac{0.055}{12}\right)}{1 - \left(1 + \frac{0.055}{12}\right)^{-12(30)}}$$
+                    $$M = \frac{583}{1 - (1.00458\overline{3})^{-360}}$$
+                    $$M = \frac{583}{1 - 0.1927752523}$$
+                    $$M = \frac{583}{0.8072247477}$$
+                    $$M = \$722.23$$
+                    <p>This means by the end of the 30 year term, the Conners will have paid $360(\$722.23) + \$31,800 = \$291,802.80$ for their $159,000 home.</p>
+                </div>
+            </div>
+        </div>
+
+        <h2>Remaining Loan Balance</h2>
+
+        <div class="intro-section">
+            <p>With loans, it is often desirable to determine what the remaining loan balance will be after some number of years. For example, if you purchase a home and plan to sell it in five years, you might want to know how much of the loan balance you will have paid off and how much you have to pay from the sale.</p>
+
+            <p>To determine the remaining loan balance after some number of years, we first need to know the loan payments. Remember that only a portion of your loan payments goes towards the loan balance and another portion goes towards interest. For example, if your payments were $1,000 a month, after a year you will <em>not</em> have paid off $12,000 of the loan balance.</p>
+        </div>
+
+        <div class="definition-box">
+            <h3>Remaining Loan Balance Formula</h3>
+            <div class="equation">
+                $$P_0 = \frac{M\left[1 - \left(1 + \frac{r}{12}\right)^{-12n}\right]}{\frac{r}{12}}$$
+            </div>
+            <div class="variable-list">
+                <p><strong>$P_0$:</strong> The remaining balance owed on the loan</p>
+                <p><strong>$M$:</strong> The monthly payment</p>
+                <p><strong>$n$:</strong> The length of the remaining loan in years</p>
+                <p><strong>$r$:</strong> The interest rate as a decimal</p>
+            </div>
+        </div>
+
+        <!-- Example 3 -->
+        <div class="example">
+            <div class="example-problem">
+                <h3>Example 3: Remaining Loan Balance</h3>
+                <p>If a mortgage at 6% interest has a monthly payment of $1,000, how much will the borrower still owe when there is 10 years left of the loan?</p>
+            </div>
+            <button class="solution-header" onclick="toggleExample(this)">
+                <span class="toggle-arrow">▼</span>
+                <span>Show Solution</span>
+            </button>
+            <div class="example-content">
+                <div class="solution">
+                    <h4>Solution</h4>
+                    <p>This question is asking us to find $P$ the amount of money still owed on the loan, when there is $n = 10$ years left, when the monthly payment $M = \$1,000$ at $r = 0.06$ interest. Substitute these numbers into our equation and simplify:</p>
+                    $$P = \frac{M\left[1 - \left(1 + \frac{r}{12}\right)^{-12n}\right]}{\frac{r}{12}}$$
+                    $$P = \frac{\$1,000\left[1 - \left(1 + \frac{0.06}{12}\right)^{-12(10)}\right]}{\frac{0.06}{12}}$$
+                    $$P = \frac{\$1,000(1 - (1.005)^{-120})}{0.005}$$
+                    $$P = \frac{\$1,000(1 - 0.5496)}{0.005}$$
+                    $$P = \$90,073.45$$
+                    <p>Thus, the person still owes $90,073.45 on their home. It is important to note that we currently don't know how much the initial loan or term was, but that is alright. That wasn't what this question was inquiring about.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Example 4 -->
+        <div class="example">
+            <div class="example-problem">
+                <h3>Example 4: Remaining Balance After Years of Payments</h3>
+                <p>A couple purchases a home with a $180,000 mortgage at 4% interest for 30 years. What will the remaining balance on their mortgage be after 5 years?</p>
+            </div>
+            <button class="solution-header" onclick="toggleExample(this)">
+                <span class="toggle-arrow">▼</span>
+                <span>Show Solution</span>
+            </button>
+            <div class="example-content">
+                <div class="solution">
+                    <h4>Solution</h4>
+                    <p>Before getting into the problem too much, identify the variables given:</p>
+                    <div class="variable-list">
+                        <p><strong>$r = 0.04$</strong></p>
+                        <p><strong>$n = 30$</strong></p>
+                        <p><strong>$P_0 = \$180,000$</strong> (note the use of the sub-zero meaning initial value)</p>
+                    </div>
+                    <p>With these three variables, we are missing a key variable to use the remaining balance formula. That means we need to first find our monthly payment.</p>
+                    $$M = \frac{P\left(\frac{r}{12}\right)}{1 - \left(1 + \frac{r}{12}\right)^{-12n}}$$
+                    $$M = \frac{\$180,000\left(\frac{0.04}{12}\right)}{1 - \left(1 + \frac{0.04}{12}\right)^{-12(30)}}$$
+                    $$M = \frac{600}{1 - (1.00333\overline{3})^{-360}}$$
+                    $$M = \frac{600}{1 - 0.3017958652}$$
+                    $$M = \frac{600}{0.6982041348}$$
+                    $$M = \$859.35$$
+                    <p>Now we know that the monthly payment that the couple will make is $859.35 for the next 30 years. Assuming the couple is diligent in their payments, we want to find how much they'd still owe after 5 years. That means they would have 25 years of left on their loan.</p>
+                    $$P = \frac{M\left[1 - \left(1 + \frac{r}{12}\right)^{-12n}\right]}{\frac{r}{12}}$$
+                    $$P = \frac{\$859.35\left[1 - \left(1.00333\overline{3}\right)^{-300}\right]}{0.00333\overline{3}}$$
+                    $$P = \frac{\$859.35(1 - 0.369)}{0.00333\overline{3}}$$
+                    $$P = \frac{\$859.35(0.631)}{0.00333\overline{3}}$$
+                    $$P = \$162,830.21$$
+                    <p>Meaning that after making a payment of $859.35 monthly for 5 years, the couple will still owe $162,830.21.</p>
+                </div>
+            </div>
+        </div>
+
+        <h2>Amortization Schedule</h2>
+
+        <div class="intro-section">
+            <p>When a person decides they are going to purchase a home, the lender will prepare an <strong>amortization schedule</strong>. This "schedule" helps break down how each monthly payment will be dispersed. It surprises most first time home buyers when they find out how an amortization schedule works. When you first start making monthly payments, more of your payment goes towards interest than it does towards the principal of the house. The reason for this is the bank (lender) is ensuring they are getting their money back. As time progresses, the borrower will start to pay more for the principal than the interest.</p>
+        </div>
+
+        <div class="definition-box">
+            <h3>Preparing an Amortization Schedule</h3>
+            <ol style="margin-left: 20px;">
+                <li>Calculate Monthly Interest = (Old Balance)(Annual Interest Rate)$({\frac{1}{12}})$</li>
+                <li>Calculate Payment on Principal = (Monthly Payment) - (Interest Payment)</li>
+                <li>New Balance of Principal = (Old Balance) - (Payment: Step 2)</li>
+            </ol>
+        </div>
+
+        <!-- Example 5 -->
+        <div class="example">
+            <div class="example-problem">
+                <h3>Example 5: Amortization Schedule</h3>
+                <p>The Prestons have a $160,000 mortgage with a 30 year term and a 4.5% interest rate. Prepare the amortization schedule for the first 3 months.</p>
+            </div>
+            <button class="solution-header" onclick="toggleExample(this)">
+                <span class="toggle-arrow">▼</span>
+                <span>Show Solution</span>
+            </button>
+            <div class="example-content">
+                <div class="solution">
+                    <h4>Solution</h4>
+                    <p>First, we need to find their monthly payment:</p>
+                    $$M = \frac{P\left(\frac{r}{12}\right)}{1 - \left(1 + \frac{r}{12}\right)^{-12n}}$$
+                    $$M = \frac{\$160,000\left(\frac{0.045}{12}\right)}{1 - \left(1 + \frac{0.045}{12}\right)^{-12(30)}}$$
+                    $$M = \frac{600}{1 - (1.00375)^{-360}}$$
+                    $$M = \frac{600}{1 - 0.259896}$$
+                    $$M = \$810.70$$
+
+                    <p><strong>Month 1</strong></p>
+                    <ol style="margin-left: 20px;">
+                        <li>Monthly Interest: $I = \$160,000(0.045)(\frac{1}{12}) = \$600$</li>
+                        <li>Payment on Principal: $\$810.70 - \$600 = \$210.70$</li>
+                        <li>New Balance: $\$160,000 - \$210.70 = \$159,789.30$</li>
+                    </ol>
+
+                    <p><strong>Month 2</strong></p>
+                    <ol style="margin-left: 20px;">
+                        <li>Monthly Interest: $I = \$159,789.30(0.045)(\frac{1}{12}) = \$599.21$</li>
+                        <li>Payment on Principal: $\$810.70 - \$599.21 = \$211.49$</li>
+                        <li>New Balance: $\$159,789.30 - \$211.49 = \$159,577.81$</li>
+                    </ol>
+
+                    <p><strong>Month 3</strong></p>
+                    <ol style="margin-left: 20px;">
+                        <li>Monthly Interest: $I = \$159,577.81(0.045)(\frac{1}{12}) = \$598.42$</li>
+                        <li>Payment on Principal: $\$810.70 - \$598.42 = \$212.28$</li>
+                        <li>New Balance: $\$159,577.81 - \$212.28 = \$159,365.53$</li>
+                    </ol>
+
+                    <p>Each month, the amount that goes towards the interest (Step 1) decreases, while the amount that goes towards the principal (Step 2) increases. This process will continue for 357 more months.</p>
+                </div>
+            </div>
+        </div>
+
+        <h2>Extra Home Expenses</h2>
+
+        <div class="intro-section">
+            <p>With a fixed-rate mortgage, the monthly payment can still change, but it's not because of the amount that you're paying for the home. It has to do with the extras that the borrower can choose to include. These extras can be <strong>escrowed</strong> into the monthly payment. What this means is that the borrower pays a bit more each month to account for things like yearly taxes and homeowner's insurance. Both of these are additional costs required by the borrower would typically be paid either semi-annually or annually. While a borrower can have a "fixed-rate mortgage," that only keeps the interest rate from changing on their loan. It doesn't take into account the fluctuation in the other costs.</p>
+
+  <!-- Example6 -->
+        <div class="example">
+            <div class="example-problem">
+                <h3>Example 6</h3>
+
+  <p>
+    Jose has a monthly payment of $$\$695.89$$ for his $$\$159,000$$ home that he recently purchased. He has found insurance for $$\$742$$ a year, and he knows that taxes are going to run him about $$\$1,890$$ semi-annually. Jose has chosen to have these expenses escrowed into his monthly payment. What can he expect his new monthly payment to be?
+  </p>
+
+</div>
+
+<button class="solution-header" onclick="toggleExample(this)">
+                <span class="toggle-arrow">▼</span>
+                <span>Show Solution</span>
+            </button>
+
+            <div class="example-content">
+                <div class="solution">
+                    <h4>Solution</h4>
+
+  <p>
+    First, we need to find the total extra expenses for the year:
+    <br>
+    $$\$742 + 2(\$1,890) = \$4,522$$
+  </p>
+
+  <p>
+    Then, divide it by 12 to find the monthly amount:
+    <br>
+    $$\dfrac{\$4,522}{12} = \$376.83$$
+  </p>
+
+  <p>
+    Now add that to his monthly payment:
+    <br>
+    $$\$695.89 + \$376.83 = \$1,072.72$$
+  </p>
+
+  <p>
+    This means that Jose is looking at a monthly payment of $$\$1,072.72$$ so his mortgage company can make those extra payments for him and he doesn't have to worry about saving that extra money for the entire year.
+  </p>
+ </div>
+            </div>
+        </div>
+
+<p>
+  Having the lender create an escrow account for the extra expenses is completely optional but should be highly considered. However, the borrower also needs to take the extras into consideration when making a budget. If your budget only allows for you to spend \$700 a month, then your total monthly payment needs to be under that guideline.
+</p>
+ <nav aria-label="Page navigation">
+  <div class="page-navigation">
+    <div class="page-navigation" style="display:flex; justify-content:space-between; margin-top:40px;">
+        <a href="MTH154CH1_5.html" class="nav-button" aria-label="Go to previous section">&larr; Previous</a>
+        <a href="MTH154CH1_7.html" class="nav-button" aria-label="Go to next section">Next &rarr;</a>
+    </div>
+  </div>
+</nav>
+
+</div>
+<script>
+        function toggleExample(button) {
+            const content = button.nextElementSibling;
+            const arrow = button.querySelector('.toggle-arrow');
+            
+            if (content.classList.contains('open')) {
+                content.classList.remove('open');
+                arrow.classList.remove('open');
+                button.querySelector('span:last-child').textContent = 'Show Solution';
+            } else {
+                content.classList.add('open');
+                arrow.classList.add('open');
+                button.querySelector('span:last-child').textContent = 'Hide Solution';
+            }
+        }
+    </script>
+
+    <script>
+        const chapterButtons = document.querySelectorAll(".toc-chapter");
+
+        chapterButtons.forEach(button => {
+            button.addEventListener("click", () => {
+                const expanded = button.getAttribute("aria-expanded") === "true";
+                button.setAttribute("aria-expanded", !expanded);
+
+                const submenu = button.nextElementSibling;
+                submenu.classList.toggle("open");
+            });
+        });
+    </script>
+</body>
+</html>

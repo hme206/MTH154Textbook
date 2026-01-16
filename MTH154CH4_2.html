@@ -1,0 +1,1612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 4: Logic - Section 4.2: Introduction to Truth Tables</title>
+    
+   <!-- MathJax configuration -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            },
+            loader: {
+                load: ['input/tex', 'output/chtml']
+            }
+        };
+    </script>
+    <!-- MathJax loader -->
+    <script id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+
+    <style>
+      
+    .nav-button {
+      padding: 10px 20px;
+      background-color: #33AB2B;
+      color: #000000;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+
+    .nav-button:hover,
+    .nav-button:focus {
+      background-color: #33AB2B;
+      outline: none;
+    }     
+/* Layout unchanged */
+.side-toc {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 230px;
+    height: 100vh;
+    background-color: #f0f8ed;
+    border-right: 3px solid #33AB2B;
+    padding: 20px;
+    overflow: hidden;
+}
+.diagram-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(150px, 1fr));
+  gap: 2rem;
+  justify-items: center;   /* centers each column item */
+  align-items: start;
+  margin: 1.5rem 0;
+}
+
+.diagram {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.toc-title {
+    font-size: 1.4em;
+    margin-bottom: 15px;
+    color: #33AB2B;
+}
+
+/* Chapter buttons */
+.toc-chapter {
+    width: 100%;
+    background: none;
+    border: none;
+    text-align: left;
+    font-size: 1em;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    color: #333;
+}
+
+.toc-chapter:hover,
+.toc-chapter:focus {
+    color: #33AB2B;
+}
+
+.arrow {
+    transition: transform 0.25s ease;
+}
+
+/* Rotated when opened */
+.toc-chapter[aria-expanded="true"] .arrow {
+    transform: rotate(90deg);
+}
+
+/* Submenu collapsed by default */
+.toc-submenu {
+    list-style: none;
+    padding-left: 15px;
+    margin: 5px 0 10px 0;
+    display: none;
+}
+
+/* Visible when expanded */
+.toc-submenu.open {
+    display: block;
+}
+
+.toc-submenu li {
+    margin: 6px 0;
+}
+
+.toc-submenu a {
+    color: #333;
+    text-decoration: none;
+}
+
+.toc-submenu a:hover,
+.toc-submenu a:focus {
+    color: #33AB2B;
+    text-decoration: underline;
+}
+
+/* Push main body over */
+body {
+    margin-left: 250px;
+}
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background-color: #ffffff;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #33AB2B;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            border-bottom: 3px solid #33AB2B;
+            padding-bottom: 15px;
+        }
+
+        h2 {
+            color: #33AB2B;
+            font-size: 1.8em;
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            color: #33AB2B;
+            font-size: 1.2em;
+            margin-top: 20px;
+            margin-bottom: 15px;
+        }
+
+        h4 {
+            color: #33AB2B;
+            font-size: 1.1em;
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+
+        .definition-box {
+            background-color: #f0f8ed;
+            border: 2px solid #33AB2B;
+            border-radius: 6px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .definition-box h3 {
+            color: #33AB2B;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            margin-top: 0;
+        }
+
+        .definition-box p {
+            margin-bottom: 15px;
+        }
+
+        .definition-box ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .definition-box li {
+            margin-bottom: 10px;
+        }
+
+        .conversion-box {
+            background-color: #ffffff;
+            border: 2px solid #b84d7e;
+            border-radius: 6px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .conversion-box h3 {
+            color: #b84d7e;
+            margin-top: 0;
+        }
+
+        .conversion-box table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        .conversion-box table th,
+        .conversion-box table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .conversion-box table th {
+            background-color: #f0f0f0;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .orange-box {
+            background-color: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 6px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+
+        .orange-box h3 {
+            margin-top: 0;
+        }
+
+        .orange-box ol {
+            margin-left: 20px;
+        }
+
+        .orange-box li {
+            margin-bottom: 8px;
+        }
+
+        .example {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            margin: 25px 0;
+            overflow: hidden;
+        }
+
+        .example-problem {
+            padding: 15px 20px;
+        }
+
+        .example-problem h3 {
+            color: #33AB2B;
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .example-problem p {
+            margin-bottom: 10px;
+        }
+
+        .example-problem ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .example-problem li {
+            margin-bottom: 8px;
+        }
+
+        .example-problem ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .solution-header {
+            background-color: #33AB2B;
+            color: white;
+            padding: 12px 20px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+            margin-top: 15px;
+            border-radius: 4px;
+            transition: background-color 0.2s ease;
+            border: none;
+            font-size: 1em;
+        }
+
+        .solution-header:hover {
+            background-color: #2a8922;
+        }
+
+        .toggle-arrow {
+            display: inline-block;
+            margin-right: 12px;
+            transition: transform 0.3s ease;
+            font-size: 1.2em;
+        }
+
+        .toggle-arrow.open {
+            transform: rotate(180deg);
+        }
+
+        .example-content {
+            padding: 0;
+            display: none;
+            overflow: hidden;
+        }
+
+        .example-content.open {
+            display: block;
+        }
+
+        .solution {
+            background-color: #f0f8ed;
+            padding: 20px;
+            border-top: 2px solid #33AB2B;
+        }
+
+        .solution h4 {
+            color: #33AB2B;
+            margin-bottom: 15px;
+            margin-top: 0;
+        }
+
+        .solution p {
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        .solution ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .solution li {
+            margin-bottom: 8px;
+        }
+
+        .solution ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        ul li {
+            margin-bottom: 8px;
+        }
+
+        ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        ol li {
+            margin-bottom: 8px;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        strong {
+            font-weight: bold;
+        }
+
+        em {
+            font-style: italic;
+        }
+
+        .blue-text {
+            color: #0066cc;
+        }
+
+        .divider {
+            border-top: 2px dashed #33AB2B;
+            margin: 30px 0;
+        }
+
+        .image-placeholder {
+            background-color: #e0e0e0;
+            border: 2px dashed #999;
+            padding: 40px;
+            margin: 20px 0;
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            border-radius: 4px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table th {
+            background-color: #f0f8ed;
+            color: #33AB2B;
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ccc;
+            font-weight: bold;
+        }
+
+        table td {
+            padding: 12px;
+            border: 1px solid #ccc;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        table tr.highlighted {
+            background-color: #ffff99;
+        }
+
+        .subsection-title {
+            color: #33AB2B;
+            font-size: 1.3em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+    </style>
+<style>
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+</style>
+</head>
+<body>
+<nav class="side-toc" aria-label="Textbook Navigation">
+    <h2 class="toc-title">Contents</h2>
+
+    <!-- Chapter 1 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 1: Financial Literacy</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="MTH154CH1_1.html">1.1 Introduction</a></li>
+        <li><a href="MTH154CH1_2.html">1.2 Problem Solving</a></li>
+        <li><a href="MTH154CH1_3.html">1.3 Simple Interest</a></li>
+ 	<li><a href="MTH154CH1_4.html">1.4 Compound Interest & Annuities</a></li>
+ 	<li><a href="MTH154CH1_5.html">1.5 Installment Loans</a></li>
+ 	<li><a href="MTH154CH1_6.html">1.6 Loans</a></li>
+ 	<li><a href="MTH154CH1_7.html">1.7 Stocks & Bonds</a></li>
+ 	<li><a href="MTH154CH1_8.html">1.8 Taxes</a></li>
+    </ul>
+
+    <!-- Chapter 2 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 2: Modeling Data</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="Ch2_1.html">2.1 Basics of Graphing</a></li>
+        <li><a href="Ch2_2.html">2.2 Relations & Functions</a></li>
+        <li><a href="Ch2_3.html">2.3 Linear Models</a></li>
+        <li><a href="Ch2_4.html">2.4 Rate of Change</a></li>
+        <li><a href="Ch2_5.html">2.5 Scatterplots</a></li>
+    </ul>
+
+    <!-- Chapter 3 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 3: Set Theory</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="Ch3_1.html">3.1 Set Basics</a></li>
+        <li><a href="Ch3_2.html">3.2 Sets</a></li>
+        <li><a href="Ch3_3.html">3.3 Venn Diagrams</a></li>
+        <li><a href="MTH154CH3_4.html">3.4 More with Venn Diagrams</a></li>
+    </ul>
+
+   <!-- Chapter 4 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 4: Logic</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="MTH154CH4_1.html">4.1 Thinking Logically</a></li>
+        <li><a href="MTH154CH4_2.html">4.2 Introduction to Truth Tables</a></li>
+	<li><a href="MTH154CH4_3.html">4.3 Logical Arguments</a></li>
+	<li><a href="MTH154CH4_4.html">4.4 Variations of Statements</a></li>
+    </ul>
+
+   <!-- Chapter 5 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 5: Measurement</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="MTH154CH5_1.html">5.1 Ratios & Proportions</a></li>
+        <li><a href="MTH154CH5_2.html">5.2 Measurement</a></li>
+	<li><a href="MTH154CH5_3.html">5.3 Area, Volume, and Capacity</a></li>
+	<li><a href="MTH154CH5_4.html">5.4 Weight & Temperature</a></li>
+	<li><a href="MTH154CH5_5.html">5.5 Surface Area & Volume</a></li>
+    </ul>
+</nav>
+
+    <div class="container">
+        <h1>Chapter 4: Logic</h1>
+
+        <h2>Section 4.2: Introduction to Truth Tables</h2>
+
+        <p>In the previous section, it was mentioned that a statement has a truth value. However, it wasn't really discussed what a truth value is. When it is a simple statement, the truth value is easy to declare. However, in compound statements, or even complex Boolean statements, it can get tricky to think about. In these situations, we need to create something known as a <span class="blue-text"><strong>truth table</strong></span> to keep track of the truth value that makes up the individual simple statements that make up the complex statement, and tell us if the complex statement is true or false.</p>
+
+        <div class="basic-truth-tables">
+            <h3>Basic Truth Tables</h3>
+            
+            <div class="truth-tables-grid">
+
+  <figure class="truth-table-item">
+    <figcaption><strong>Conjunction</strong> — outcomes for \(A \wedge B\)</figcaption>
+    <table aria-describedby="conj-desc">
+      <caption class="visually-hidden">Truth table for conjunction (A and B)</caption>
+      <thead>
+        <tr>
+          <th scope="col">A</th>
+          <th scope="col">B</th>
+          <th scope="col">A \( \wedge \) B</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>T</td><td>T</td><td>T</td></tr>
+        <tr><td>T</td><td>F</td><td>F</td></tr>
+        <tr><td>F</td><td>T</td><td>F</td></tr>
+        <tr><td>F</td><td>F</td><td>F</td></tr>
+      </tbody>
+    </table>
+    <figcaption id="conj-desc";margin-top:.25rem;">Table 4.2.1-Conjunction outcomes</figcaption>
+  </figure>
+
+  <figure class="truth-table-item">
+    <figcaption><strong>Disjunction</strong> — outcomes for \(A \vee B\)</figcaption>
+    <table aria-describedby="disj-desc">
+      <caption class="visually-hidden">Truth table for disjunction (A or B)</caption>
+      <thead>
+        <tr>
+          <th scope="col">A</th>
+          <th scope="col">B</th>
+          <th scope="col">A \( \vee \) B</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>T</td><td>T</td><td>T</td></tr>
+        <tr><td>T</td><td>F</td><td>T</td></tr>
+        <tr><td>F</td><td>T</td><td>T</td></tr>
+        <tr><td>F</td><td>F</td><td>F</td></tr>
+      </tbody>
+    </table>
+    <figcaption id="disj-desc";margin-top:.25rem;">Table 4.2.2-Disjunction outcomes</figcaption>
+  </figure>
+
+  <figure class="truth-table-item">
+    <figcaption><strong>Conditional</strong> — outcomes for \(A \rightarrow B\)</figcaption>
+    <table aria-describedby="cond-desc">
+      <caption class="visually-hidden">Truth table for conditional (if A then B)</caption>
+      <thead>
+        <tr>
+          <th scope="col">A</th>
+          <th scope="col">B</th>
+          <th scope="col">A \( \rightarrow \) B</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>T</td><td>T</td><td>T</td></tr>
+        <tr><td>T</td><td>F</td><td>F</td></tr>
+        <tr><td>F</td><td>T</td><td>T</td></tr>
+        <tr><td>F</td><td>F</td><td>T</td></tr>
+      </tbody>
+    </table>
+    <figcaption id="cond-desc";margin-top:.25rem;">Table 4.2.3-Conditional outcomes</figcaption>
+  </figure>
+
+  <figure class="truth-table-item">
+    <figcaption><strong>Biconditional</strong> — outcomes for \(A \leftrightarrow B\)</figcaption>
+    <table aria-describedby="bicond-desc">
+      <caption class="visually-hidden">Truth table for biconditional (A iff B)</caption>
+      <thead>
+        <tr>
+          <th scope="col">A</th>
+          <th scope="col">B</th>
+          <th scope="col">A \( \leftrightarrow \) B</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>T</td><td>T</td><td>T</td></tr>
+        <tr><td>T</td><td>F</td><td>F</td></tr>
+        <tr><td>F</td><td>T</td><td>F</td></tr>
+        <tr><td>F</td><td>F</td><td>T</td></tr>
+      </tbody>
+    </table>
+    <figcaption id="bicond-desc";margin-top:.25rem;">Table 4.2.4-Biconditional outcomes</figcaption>
+  </figure>
+
+</div>
+
+            <p><strong>Negation:</strong> A negation will change the truth value of the statement. That means if the statement was true, the negation would be false, and vice-versa.</p>
+        </div>
+
+        <p>Moving forward in this chapter we will continue to reflect back to the basic truth tables above, in order to help us answer complex statements. Think of these as the rules for each of the different combinations.</p>
+
+        <!-- Example 1 -->
+        <div class="example">
+            <div class="example-problem">
+                <h3>Example 1</h3>
+                <p>Suppose you and your significant other are picking out a new couch and your significant other says to you, "I want to get a sectional or something with a chaise." Under what circumstances are they going to be happy with your selection?</p>
+            </div>
+
+            <button class="solution-header" onclick="toggleExample(this)">
+                <span class="toggle-arrow">▼</span>
+                <span>Show Solution</span>
+            </button>
+
+            <div class="example-content">
+                <div class="solution">
+                    <h4>Solution</h4>
+                    <p>First, let's look at what this statement would look like symbolically. If we allow p to represent "I want a sectional" and q be "I want a chaise", our complex statement symbolically would be p $\vee$ q. This is an example of a disjunction, meaning we need to look at the disjunction table:</p>
+
+                <figure>
+  <figcaption id="tbl-5"><strong>Table 4.2.5</strong> — Example 1 Truth Table</figcaption>
+
+  <table aria-describedby="tbl-5">
+    <caption class="visually-hidden">Truth table displaying columns p,q, and p or q and their truth values for each combination of True/False.</caption>
+                        <tr>
+                            <th>p</th>
+                            <th>q</th>
+                            <th>p $\vee$ q</th>
+                        </tr>
+                        <tr>
+                            <td>T</td>
+                            <td>T</td>
+                            <td>T</td>
+                        </tr>
+                        <tr>
+                            <td>T</td>
+                            <td>F</td>
+                            <td>T</td>
+                        </tr>
+                        <tr>
+                            <td>F</td>
+                            <td>T</td>
+                            <td>T</td>
+                        </tr>
+                        <tr>
+                            <td>F</td>
+                            <td>F</td>
+                            <td>F</td>
+                        </tr>
+                    </table>
+		</figure>
+
+                    <p>Looking at the table, we can see that your significant other will be happy as long as you get both the sectional and the chaise, just the sectional, or just the chaise. But, if you do not purchase either, they will be upset.</p>
+                </div>
+            </div>
+        </div>
+
+        <h3>Setting up Truth Tables</h3>
+
+        <p>What if in the previous example our significant other said, "I want a sectional or not a chaise." This would change our entire symbolic statement to make it p $\vee\sim$ q. How would you find the different options of the truth value for that complex statement? The first thing we would need to do is set up the truth table with the first two columns for "p" and "q". When we start this table, we are trying to set up every possible combination that true or false may take on. We could think of this like a tree diagram if we wanted to before putting it into the table.</p>
+
+      <figure style="display:block; text-align:center; margin:20px 0;">
+  <svg width="350" height="260" viewBox="-3 -4 8 4"
+       xmlns="http://www.w3.org/2000/svg"
+       role="img">
+    <title>Tree diagram showing Statement 1 branching into True and False, each further branching for Statement 2 with true and false outcomes.</title>
+
+    <!-- Statement labels -->
+    <text x="0" y="-3.8" text-anchor="middle" font-size="0.4">Statement 1</text>
+    <text x="3" y="-3.8" text-anchor="middle" font-size="0.4">Statement 2</text>
+    
+
+    <!-- Statement 1 True/False -->
+    <text x="-0.1" y="-2.7" text-anchor="middle" font-size="0.4">True</text>
+    <text x="0" y="-.5" text-anchor="middle" font-size="0.4">False</text>
+
+    <!-- Arrows from True -->
+    <line x1="0.5" y1="-2.8" x2="3" y2="-3" stroke="black" stroke-width="0.05"
+          marker-end="url(#arrow)" />
+    <text x="3.1" y="-3" font-size="0.4">True</text>
+
+    <line x1="0.5" y1="-2.8" x2="3" y2="-2.0" stroke="black" stroke-width="0.05"
+          marker-end="url(#arrow)" />
+    <text x="3.1" y="-1.8" font-size="0.4">False</text>
+
+    <!-- Arrows from False -->
+    <line x1="0.7" y1="-.7" x2="3" y2="-1.0" stroke="black" stroke-width="0.05"
+          marker-end="url(#arrow)" />
+    <text x="3.1" y="-1.0" font-size="0.4">True</text>
+
+    <line x1="0.7" y1="-.7" x2="3" y2="-0.3" stroke="black" stroke-width="0.05"
+          marker-end="url(#arrow)" />
+    <text x="3.1" y="0" font-size="0.4">False</text>
+
+    
+
+    <!-- Arrowhead marker definition -->
+    <defs>
+      <marker id="arrow" markerWidth="6" markerHeight="6" refX="5" refY="3"
+              orient="auto" markerUnits="strokeWidth">
+        <path d="M 0 0 L 6 3 L 0 6 z" fill="black" />
+      </marker>
+    </defs>
+  </svg>
+
+  <figcaption>Figure 4.2.1 — Tree diagram of True/False outcomes for two statements.</figcaption>
+</figure>
+
+
+        <p>Now we can start to construct the table:</p>
+
+        <figure>
+  <figcaption id="tbl-6"><strong>Table 4.2.6</strong> — Basic set up of True, False values in a tabular format for two statements.</figcaption>
+
+  <table aria-describedby="tbl-6">
+    <caption class="visually-hidden">Truth table displaying columns p,q, and their truth values for each combination of True/False.</caption>
+
+            <tr>
+                <th>p</th>
+                <th>q</th>
+            </tr>
+            <tr>
+                <td>T</td>
+                <td>T</td>
+            </tr>
+            <tr>
+                <td>T</td>
+                <td>F</td>
+            </tr>
+            <tr>
+                <td>F</td>
+                <td>T</td>
+            </tr>
+            <tr>
+                <td>F</td>
+                <td>F</td>
+            </tr>
+        </table>
+	</figure>
+
+        <p>This is just the initial set-up. This is the same set-up we will use for all truth tables for compound statements that only contain two simple statements. Next, we need to look back at what the symbolic statement was and ask ourselves, "What do we need to build or construct our compound statement?" Our symbolic statement is p $\vee\sim$ q. To complete this statement, we are missing the $\sim$ q. That means we need to construct that statement next in our truth table. To do this, we will need to add a new column to get:</p>
+
+   <figure>
+  <figcaption id="tbl-7"><strong>Table 4.2.7</strong> — Constructing a Truth Table part 2.</figcaption>
+
+  <table aria-describedby="tbl-7">
+    <caption class="visually-hidden">Truth table displaying columns p,q,not q, and their truth values for each combination of True/False.</caption>
+            <tr>
+                <th>p</th>
+                <th>q</th>
+                <th>$\sim$ q</th>
+            </tr>
+            <tr>
+                <td>T</td>
+                <td>T</td>
+                <td>F</td>
+            </tr>
+            <tr>
+                <td>T</td>
+                <td>F</td>
+                <td>T</td>
+            </tr>
+            <tr>
+                <td>F</td>
+                <td>T</td>
+                <td>F</td>
+            </tr>
+            <tr>
+                <td>F</td>
+                <td>F</td>
+                <td>T</td>
+            </tr>
+        </table>
+</figure>
+
+        <p>Notice that we get the values for the new column by simply negating the value in the q column. To finish up this truth table, we need to complete our truth table by finding p $\vee\sim$ q. To do this, we would use our tables in the Basic Truth Tables section to find the value between the columns p and $\sim$ q to find:</p>
+
+         <figure>
+  <figcaption id="tbl-8"><strong>Table 4.2.8</strong> — Constructing a Truth Table part 3.</figcaption>
+
+  <table aria-describedby="tbl-8">
+    <caption class="visually-hidden">Truth table displaying columns p,q,not q,  and "p or not q" and their truth values for each combination of True/False.</caption>
+            <tr>
+                <th>p</th>
+                <th>q</th>
+                <th>$\sim$ q</th>
+                <th>p$\vee\sim$ q</th>
+            </tr>
+            <tr>
+                <td>T</td>
+                <td>T</td>
+                <td>F</td>
+                <td>T</td>
+            </tr>
+            <tr>
+                <td>T</td>
+                <td>F</td>
+                <td>T</td>
+                <td>T</td>
+            </tr>
+            <tr>
+                <td>F</td>
+                <td>T</td>
+                <td>F</td>
+                <td>F</td>
+            </tr>
+            <tr>
+                <td>F</td>
+                <td>F</td>
+                <td>T</td>
+                <td>T</td>
+            </tr>
+        </table>
+</figure>
+
+        <p>Looking at the table above, we can see that there is only one instance in which this statement is false. We allowed this statement to verbally represent, "I want a sectional or not a chaise." Looking at the outcome of the table, we can see that the only time our significant other will not be happy is the fourth row of the table, where we don't purchase the sectional but we purchase the chaise. Logically if you think about this, it makes sense because our significant other specifically said they did not want the chaise.</p>
+
+        <!-- Example 2 -->
+        <div class="example">
+            <div class="example-problem">
+                <h3>Example 2</h3>
+                <p>Complete the truth table for the symbolic statement $(\text{q}\rightarrow\sim\text{p})\wedge q$.</p>
+            </div>
+
+            <button class="solution-header" onclick="toggleExample(this)">
+                <span class="toggle-arrow">▼</span>
+                <span>Show Solution</span>
+            </button>
+
+            <div class="example-content">
+                <div class="solution">
+                    <h4>Solution</h4>
+                    <p>Sometimes it's easiest to think about what this would be verbally. Let's allow p = "I have a cat" and q = "My cat is calico." This would make our compound statement $(\text{q}\rightarrow\sim\text{p})\wedge q$ = "If my cat is calico, then I don't have a cat, and it's calico." Let's set up our table. To start, we know what our first two columns will be. It's the same as the other problem. Next, look at our statement and identify the pieces we don't have to complete this. In this case, we are missing $\sim$ p. Adding that column to our initial table would give us:</p>
+
+                     <figure>
+  <figcaption id="tbl-9"><strong>Table 4.2.9</strong> — Constructing a Truth Table Example 2.</figcaption>
+
+  <table aria-describedby="tbl-9">
+    <caption class="visually-hidden">Truth table displaying columns p,q,not q, and their truth values for each combination of True/False.</caption>
+                        <tr>
+                            <th>p</th>
+                            <th>q</th>
+                            <th>$\sim$ p</th>
+                        </tr>
+                        <tr>
+                            <td>T</td>
+                            <td>T</td>
+                            <td>F</td>
+                        </tr>
+                        <tr>
+                            <td>T</td>
+                            <td>F</td>
+                            <td>F</td>
+                        </tr>
+                        <tr>
+                            <td>F</td>
+                            <td>T</td>
+                            <td>T</td>
+                        </tr>
+                        <tr>
+                            <td>F</td>
+                            <td>F</td>
+                            <td>T</td>
+                        </tr>
+                    </table>
+	</figure>
+                    <p>Now we work through our compound statement, as if we were following Order of Operations, or PEMDAS. Starting with our parenthesis, we need to construct the truth values for the statement q $\rightarrow\sim$ p. Once again, we will use our rules from the Basic Truth Tables section using the "conditional" table.</p>
+
+                   <figure>
+  <figcaption id="tbl-10"><strong>Table 4.2.10</strong> — Constructing a Truth Table Example 2 step 2.</figcaption>
+
+  <table aria-describedby="tbl-10">
+    <caption class="visually-hidden">Truth table displaying columns p,q,not q,  and "if q then not p, and q" and their truth values for each combination of True/False.</caption>
+                        <tr>
+                            <th>p</th>
+                            <th>q</th>
+                            <th>$\sim$ p</th>
+                            <th>q $\rightarrow\sim$ p</th>
+			    <th>(q $\rightarrow\sim$ p)$\wedge$ q</th>
+                        </tr>
+                        <tr>
+                            <td>T</td>
+                            <td>T</td>
+                            <td>F</td>
+                            <td>F</td>
+			    <td>F</td>
+
+                        </tr>
+                        <tr>
+                            <td>T</td>
+                            <td>F</td>
+                            <td>F</td>
+                            <td>T</td>
+                            <td>F</td>
+                        </tr>
+                        <tr>
+                            <td>F</td>
+                            <td>T</td>
+                            <td>T</td>
+                            <td>T</td>
+                            <td>T</td>
+                        </tr>
+                        <tr>
+                            <td>F</td>
+                            <td>F</td>
+                            <td>T</td>
+                            <td>T</td>
+                            <td>F</td>
+                        </tr>
+                    </table>
+	</figure>
+                    <p>For this example, we can see that this statement is only true if p is false and q is true. Or using the context of the problem we made up, it's only true if you don't own a cat, and the cat is calico.</p>
+                </div>
+            </div>
+        </div>
+
+        <p>What if you needed to create a truth table that had a compound statement made up of three different simple statements? This means that it is no longer just p and q. What if we wanted to create a truth table for the following compound statement, "The sky is blue and it is not the case that the grass is green or the ocean is salty." First, allow us to symbolically identify this statement. Symbolically, this would be p$\wedge\sim$(q$\vee$r). Notice how we have a third statement. This will change our first couple columns considerably. Let's look back at that tree-diagram again.</p>
+
+      <figure style="display:block; text-align:center; margin:20px 0;">
+  <svg width="350" height="260" viewBox="-3 -4 12 8"
+       xmlns="http://www.w3.org/2000/svg"
+       role="img">
+    <title>Tree diagram showing Statements 1, 2, and 3 branching into true and false outcomes.</title>
+
+    <!-- ===== STATEMENT LABELS ===== -->
+    <text x="0" y="-3.8" text-anchor="middle" font-size="0.4">Statement 1</text>
+    <text x="3" y="-3.8" text-anchor="middle" font-size="0.4">Statement 2</text>
+    <text x="6" y="-3.8" text-anchor="middle" font-size="0.4">Statement 3</text>
+
+    <!-- ===== STATEMENT 1 TRUE/FALSE ===== -->
+    <text x="0" y="-1" text-anchor="middle" font-size="0.4">True</text>
+    <text x="0" y="2" text-anchor="middle" font-size="0.4">False</text>
+
+    <!-- ===== BRANCHES STATEMENT 1 -> STATEMENT 2 ===== -->
+
+    <!-- True branch -->
+    <line x1="0.5" y1="-1" x2="3" y2="-2" stroke="black" stroke-width="0.05" marker-end="url(#arrow)"/>
+    <text x="3.15" y="-2" font-size="0.4">True</text>
+
+    <line x1="0.5" y1="-1" x2="3" y2="0" stroke="black" stroke-width="0.05" marker-end="url(#arrow)"/>
+    <text x="3.15" y="0" font-size="0.4">False</text>
+
+    <!-- False branch -->
+    <line x1="0.5" y1="2" x2="3" y2="1" stroke="black" stroke-width="0.05" marker-end="url(#arrow)"/>
+    <text x="3.15" y="1" font-size="0.4">True</text>
+
+    <line x1="0.5" y1="2" x2="3" y2="3" stroke="black" stroke-width="0.05" marker-end="url(#arrow)"/>
+    <text x="3.15" y="3" font-size="0.4">False</text>
+
+    <!-- ===== BRANCHES STATEMENT 2 -> STATEMENT 3 ===== -->
+    <!-- Parent y-values: -2, 0, 1, 3 -->
+
+    <!-- From y = -2 -->
+    <line x1="4" y1="-2"   x2="6" y2="-3"   stroke="black" stroke-width="0.05" marker-end="url(#arrow)"/>
+    <text x="6.15" y="-3" font-size="0.4">True</text>
+
+    <line x1="4" y1="-2"   x2="6" y2="-2"   stroke="black" stroke-width="0.05" marker-end="url(#arrow)"/>
+    <text x="6.15" y="-2" font-size="0.4">False</text>
+
+    <!-- From y = 0 -->
+    <line x1="4" y1="0"    x2="6" y2="-1"   stroke="black" stroke-width="0.05" marker-end="url(#arrow)"/>
+    <text x="6.15" y="-1" font-size="0.4">True</text>
+
+    <line x1="4" y1="0"    x2="6" y2="0"    stroke="black" stroke-width="0.05" marker-end="url(#arrow)"/>
+    <text x="6.15" y="0" font-size="0.4">False</text>
+
+    <!-- From y = 1 -->
+    <line x1="4" y1="1"    x2="6" y2="1"    stroke="black" stroke-width="0.05" marker-end="url(#arrow)"/>
+    <text x="6.15" y="1" font-size="0.4">True</text>
+
+    <line x1="4" y1="1"    x2="6" y2="2"    stroke="black" stroke-width="0.05" marker-end="url(#arrow)"/>
+    <text x="6.15" y="2" font-size="0.4">False</text>
+
+    <!-- From y = 3 -->
+    <line x1="4" y1="3"    x2="6" y2="3"    stroke="black" stroke-width="0.05" marker-end="url(#arrow)"/>
+    <text x="6.15" y="3" font-size="0.4">True</text>
+
+    <line x1="4" y1="3"    x2="6" y2="4"    stroke="black" stroke-width="0.05" marker-end="url(#arrow)"/>
+    <text x="6.15" y="4" font-size="0.4">False</text>
+
+    <!-- ===== ARROWHEAD MARKER ===== -->
+    <defs>
+      <marker id="arrow" markerWidth="6" markerHeight="6" refX="5" refY="3"
+              orient="auto" markerUnits="strokeWidth">
+        <path d="M 0 0 L 6 3 L 0 6 z" fill="black"/>
+      </marker>
+    </defs>
+  </svg>
+
+  <figcaption>Figure 4.2.2 — Tree diagram of True/False outcomes for three statements.</figcaption>
+</figure>
+
+
+        <p>We can see from looking at the tree diagram that it's really going to add to our rows in our truth table. Where in the previous examples, we used four rows not including the title row, now we will need eight rows, not including the title row. Thus if we set our table up, we would find:</p>
+
+         <figure>
+  <figcaption id="tbl-11"><strong>Table 4.2.11</strong> — Basic Truth Table Setup: Three Statements.</figcaption>
+
+  <table aria-describedby="tbl-11">
+    <caption class="visually-hidden">Truth table displaying columns p,q,and r with their truth values for each combination of True/False.</caption>
+            <tr>
+                <th>p</th>
+                <th>q</th>
+                <th>r</th>
+            </tr>
+            <tr>
+                <td>T</td>
+                <td>T</td>
+                <td>T</td>
+            </tr>
+            <tr>
+                <td>T</td>
+                <td>T</td>
+                <td>F</td>
+            </tr>
+            <tr>
+                <td>T</td>
+                <td>F</td>
+                <td>T</td>
+            </tr>
+            <tr>
+                <td>T</td>
+                <td>F</td>
+                <td>F</td>
+            </tr>
+            <tr>
+                <td>F</td>
+                <td>T</td>
+                <td>T</td>
+            </tr>
+            <tr>
+                <td>F</td>
+                <td>T</td>
+                <td>F</td>
+            </tr>
+            <tr>
+                <td>F</td>
+                <td>F</td>
+                <td>T</td>
+            </tr>
+            <tr>
+                <td>F</td>
+                <td>F</td>
+                <td>F</td>
+            </tr>
+        </table>
+	</figure>
+        <p>Next, we can move right into finishing up all the columns building out the title row to get:</p>
+
+         <figure>
+  <figcaption id="tbl-12"><strong>Table 4.2.12</strong> — Constructing a Truth Table three statements.</figcaption>
+
+  <table aria-describedby="tbl-12">
+    <caption class="visually-hidden">Truth table displaying columns p,q,r,q or r, not(q or r), p and not ( q or r), displaying the set up of the header column.</caption>
+            <tr>
+                <th>p</th>
+                <th>q</th>
+                <th>r</th>
+                <th>q $\vee$ r</th>
+                <th>$\sim$(q $\vee$ r)</th>
+                <th>p$\wedge\sim$(q $\vee$ r)</th>
+            </tr>
+            <tr>
+                <td>T</td>
+                <td>T</td>
+                <td>T</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>T</td>
+                <td>T</td>
+                <td>F</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>T</td>
+                <td>F</td>
+                <td>T</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>T</td>
+                <td>F</td>
+                <td>F</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>F</td>
+                <td>T</td>
+                <td>T</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>F</td>
+                <td>T</td>
+                <td>F</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>F</td>
+                <td>F</td>
+                <td>T</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>F</td>
+                <td>F</td>
+                <td>F</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+	</figure>
+        <p>Lastly, complete the table:</p>
+
+       <figure>
+  <figcaption id="tbl-13"><strong>Table 4.2.13</strong> — Truth Table Solution.</figcaption>
+
+  <table aria-describedby="tbl-13">
+    <caption class="visually-hidden">Truth table from table 4.2.12 displaying the true/false values and the solution highlighted in the 5th row down from the top. </caption>
+            <tr>
+                <th>p</th>
+                <th>q</th>
+                <th>r</th>
+                <th>q $\vee$ r</th>
+                <th>$\sim$(q $\vee$ r)</th>
+                <th>p$\wedge\sim$(q $\vee$ r)</th>
+            </tr>
+            <tr>
+                <td>T</td>
+                <td>T</td>
+                <td>T</td>
+                <td>T</td>
+                <td>F</td>
+                <td>F</td>
+            </tr>
+            <tr>
+                <td>T</td>
+                <td>T</td>
+                <td>F</td>
+                <td>T</td>
+                <td>F</td>
+                <td>F</td>
+            </tr>
+            <tr>
+                <td>T</td>
+                <td>F</td>
+                <td>T</td>
+                <td>T</td>
+                <td>F</td>
+                <td>F</td>
+            </tr>
+            <tr class="highlighted">
+                <td>T</td>
+                <td>F</td>
+                <td>F</td>
+                <td>F</td>
+                <td>T</td>
+                <td>T</td>
+            </tr>
+            <tr>
+                <td>F</td>
+                <td>T</td>
+                <td>T</td>
+                <td>T</td>
+                <td>F</td>
+                <td>F</td>
+            </tr>
+            <tr>
+                <td>F</td>
+                <td>T</td>
+                <td>F</td>
+                <td>T</td>
+                <td>F</td>
+                <td>F</td>
+            </tr>
+            <tr>
+                <td>F</td>
+                <td>F</td>
+                <td>T</td>
+                <td>T</td>
+                <td>F</td>
+                <td>F</td>
+            </tr>
+            <tr>
+                <td>F</td>
+                <td>F</td>
+                <td>F</td>
+                <td>F</td>
+                <td>T</td>
+                <td>F</td>
+            </tr>
+        </table>
+</figure>
+        <p>It turns out this complex expression is true for only one case, and that is when P is true, q is false, and r is false. The row in the table has been highlighted.</p>
+
+        <!-- Example 3 -->
+        <div class="example">
+            <div class="example-problem">
+                <h3>Example 3</h3>
+                <p>Construct the truth table for the statement (m $\wedge\sim$ n)$\rightarrow$ p.</p>
+            </div>
+
+            <button class="solution-header" onclick="toggleExample(this)">
+                <span class="toggle-arrow">▼</span>
+                <span>Show Solution</span>
+            </button>
+
+            <div class="example-content">
+                <div class="solution">
+                    <h4>Solution</h4>
+                    <p>First, don't allow the difference in the letters to confuse you. We can use any letters we want to signify statements. Typically, in symbolic logic, the letters "p", "q", and "r" are used, but they don't have to be. But, since this compound statement contains three variables, we need eight rows in our table past our title row. Then we can concentrate on what we need to construct the (m $\wedge\sim$ n), which is $\sim$ n, and then we can construct that statement. The series of tables below show that progression:</p>
+
+                    <h4 style="margin-top: 25px;">Step 1 - Initial Truth Table</h4>
+ <figure>
+  <figcaption id="tbl-14"><strong>Table 4.2.14</strong> — Intitial Truth Table Example 3.</figcaption>
+
+  <table aria-describedby="tbl-14">
+    <caption class="visually-hidden">Initial Truth table showing statements m,n, and p and their corresponding truth value combinations.</caption>
+                    <table>
+                        <tr>
+                            <th>m</th>
+                            <th>n</th>
+                            <th>p</th>
+                        </tr>
+                        <tr>
+                            <td>T</td>
+                            <td>T</td>
+                            <td>T</td>
+                        </tr>
+                        <tr>
+                            <td>T</td>
+                            <td>T</td>
+                            <td>F</td>
+                        </tr>
+                        <tr>
+                            <td>T</td>
+                            <td>F</td>
+                            <td>T</td>
+                        </tr>
+                        <tr>
+                            <td>T</td>
+                            <td>F</td>
+                            <td>F</td>
+                        </tr>
+                        <tr>
+                            <td>F</td>
+                            <td>T</td>
+                            <td>T</td>
+                        </tr>
+                        <tr>
+                            <td>F</td>
+                            <td>T</td>
+                            <td>F</td>
+                        </tr>
+                        <tr>
+                            <td>F</td>
+                            <td>F</td>
+                            <td>T</td>
+                        </tr>
+                        <tr>
+                            <td>F</td>
+                            <td>F</td>
+                            <td>F</td>
+                        </tr>
+                    </table>
+		</figure>
+                    <h4 style="margin-top: 25px;">Step 2 - Add column $\sim n$</h4>
+                     <figure>
+  <figcaption id="tbl-15"><strong>Table 4.2.15</strong> — Constructing a Truth Table Add Column $\sim$ n.</figcaption>
+
+  <table aria-describedby="tbl-15">
+    <caption class="visually-hidden">Continuing the work from the previous table displaying the next column to be added which is not n.</caption>
+                        <tr>
+                            <th>m</th>
+                            <th>n</th>
+                            <th>p</th>
+                            <th>$\sim$n</th>
+                        </tr>
+                        <tr>
+                            <td>T</td>
+                            <td>T</td>
+                            <td>T</td>
+                            <td>F</td>
+                        </tr>
+                        <tr>
+                            <td>T</td>
+                            <td>T</td>
+                            <td>F</td>
+                            <td>F</td>
+                        </tr>
+                        <tr>
+                            <td>T</td>
+                            <td>F</td>
+                            <td>T</td>
+                            <td>T</td>
+                        </tr>
+                        <tr>
+                            <td>T</td>
+                            <td>F</td>
+                            <td>F</td>
+                            <td>T</td>
+                        </tr>
+                        <tr>
+                            <td>F</td>
+                            <td>T</td>
+                            <td>T</td>
+                            <td>F</td>
+                        </tr>
+                        <tr>
+                            <td>F</td>
+                            <td>T</td>
+                            <td>F</td>
+                            <td>F</td>
+                        </tr>
+                        <tr>
+                            <td>F</td>
+                            <td>F</td>
+                            <td>T</td>
+                            <td>T</td>
+                        </tr>
+                        <tr>
+                            <td>F</td>
+                            <td>F</td>
+                            <td>F</td>
+                            <td>T</td>
+                        </tr>
+                    </table>
+		</figure>
+                    <h4 style="margin-top: 25px;">Step 3 - Add Column $m \wedge \sim n$</h4>
+                   <figure>
+  <figcaption id="tbl-16"><strong>Table 4.2.16</strong> — Constructing a Truth Table adding the next column of m$\wedge\sim$ n.</figcaption>
+
+  <table aria-describedby="tbl-16">
+    <caption class="visually-hidden">Continuing the construction of the truth table moving on to the next column with m and not n, along with its correspoding truth values.</caption>
+                        <tr>
+                            <th>m</th>
+                            <th>n</th>
+                            <th>p</th>
+                            <th>$\sim$n</th>
+                            <th>$m \wedge \sim n$</th>
+                        </tr>
+                        <tr>
+                            <td>T</td>
+                            <td>T</td>
+                            <td>T</td>
+                            <td>F</td>
+                            <td>F</td>
+                        </tr>
+                        <tr>
+                            <td>T</td>
+                            <td>T</td>
+                            <td>F</td>
+                            <td>F</td>
+                            <td>F</td>
+                        </tr>
+                        <tr>
+                            <td>T</td>
+                            <td>F</td>
+                            <td>T</td>
+                            <td>T</td>
+                            <td>T</td>
+                        </tr>
+                        <tr>
+                            <td>T</td>
+                            <td>F</td>
+                            <td>F</td>
+                            <td>T</td>
+                            <td>T</td>
+                        </tr>
+                        <tr>
+                            <td>F</td>
+                            <td>T</td>
+                            <td>T</td>
+                            <td>F</td>
+                            <td>F</td>
+                        </tr>
+                        <tr>
+                            <td>F</td>
+                            <td>T</td>
+                            <td>F</td>
+                            <td>F</td>
+                            <td>F</td>
+                        </tr>
+                        <tr>
+                            <td>F</td>
+                            <td>F</td>
+                            <td>T</td>
+                            <td>T</td>
+                            <td>F</td>
+                        </tr>
+                        <tr>
+                            <td>F</td>
+                            <td>F</td>
+                            <td>F</td>
+                            <td>T</td>
+                            <td>F</td>
+                        </tr>
+                    </table>
+</figure>
+                    <h4 style="margin-top: 25px;">Step 4 - Completed truth table showing the solution for (m $\wedge\sim$ n)$\rightarrow$ p</h4>
+                     <figure>
+  <figcaption id="tbl-17"><strong>Table 4.2.17</strong> — Completed Truth Table for Example 3.</figcaption>
+
+  <table aria-describedby="tbl-17">
+    <caption class="visually-hidden">Completed truth table for Example 3 denoting the solution in row 5.</caption>
+                        <tr>
+                            <th>m</th>
+                            <th>n</th>
+                            <th>p</th>
+                            <th>$\sim$n</th>
+                            <th>m $\wedge\sim$ n</th>
+                            <th>(m $\wedge\sim$ n)$\rightarrow$ p</th>
+                        </tr>
+                        <tr>
+                            <td>T</td>
+                            <td>T</td>
+                            <td>T</td>
+                            <td>F</td>
+                            <td>F</td>
+                            <td>T</td>
+                        </tr>
+                        <tr>
+                            <td>T</td>
+                            <td>T</td>
+                            <td>F</td>
+                            <td>F</td>
+                            <td>F</td>
+                            <td>T</td>
+                        </tr>
+                        <tr>
+                            <td>T</td>
+                            <td>F</td>
+                            <td>T</td>
+                            <td>T</td>
+                            <td>T</td>
+                            <td>T</td>
+                        </tr>
+                        <tr class="highlighted">
+                            <td>T</td>
+                            <td>F</td>
+                            <td>F</td>
+                            <td>T</td>
+                            <td>T</td>
+                            <td>F</td>
+                        </tr>
+                        <tr>
+                            <td>F</td>
+                            <td>T</td>
+                            <td>T</td>
+                            <td>F</td>
+                            <td>F</td>
+                            <td>T</td>
+                        </tr>
+                        <tr>
+                            <td>F</td>
+                            <td>T</td>
+                            <td>F</td>
+                            <td>F</td>
+                            <td>F</td>
+                            <td>T</td>
+                        </tr>
+                        <tr>
+                            <td>F</td>
+                            <td>F</td>
+                            <td>T</td>
+                            <td>T</td>
+                            <td>F</td>
+                            <td>T</td>
+                        </tr>
+                        <tr>
+                            <td>F</td>
+                            <td>F</td>
+                            <td>F</td>
+                            <td>T</td>
+                            <td>F</td>
+                            <td>T</td>
+                        </tr>
+                    </table>
+</figure>
+                    <p>We can see from the table that this compound statement is true in most cases except for when m is true statement, n is a false statement, and p is a false statement. Additionally, it has been highlighted in the table. </p>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     <nav aria-label="Page navigation">
+  <div class="page-navigation">
+    <div class="page-navigation" style="display:flex; justify-content:space-between; margin-top:40px;">
+        <a href="MTH154CH4_1.html" class="nav-button" aria-label="Go to previous section">&larr; Previous</a>
+        <a href="MTH154CH4_3.html" class="nav-button" aria-label="Go to next section">Next &rarr;</a>
+    </div>
+  </div>
+</nav>
+
+</div>
+<script>
+        function toggleExample(button) {
+            const content = button.nextElementSibling;
+            const arrow = button.querySelector('.toggle-arrow');
+            
+            if (content.classList.contains('open')) {
+                content.classList.remove('open');
+                arrow.classList.remove('open');
+                button.querySelector('span:last-child').textContent = 'Show Solution';
+            } else {
+                content.classList.add('open');
+                arrow.classList.add('open');
+                button.querySelector('span:last-child').textContent = 'Hide Solution';
+            }
+        }
+    </script>
+
+    <script>
+        const chapterButtons = document.querySelectorAll(".toc-chapter");
+
+        chapterButtons.forEach(button => {
+            button.addEventListener("click", () => {
+                const expanded = button.getAttribute("aria-expanded") === "true";
+                button.setAttribute("aria-expanded", !expanded);
+
+                const submenu = button.nextElementSibling;
+                submenu.classList.toggle("open");
+            });
+        });
+    </script>
+</body>
+</html>
+                      
+                     

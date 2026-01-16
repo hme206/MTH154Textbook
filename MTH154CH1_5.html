@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Section 1.5: Installment Loans</title>
+       <!-- MathJax configuration -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            },
+            loader: {
+                load: ['input/tex', 'output/chtml']
+            }
+        };
+    </script>
+    <!-- MathJax loader -->
+    <script id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+
+    <style>
+      
+    .nav-button {
+      padding: 10px 20px;
+      background-color: #33AB2B;
+      color: #000000;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+
+    .nav-button:hover,
+    .nav-button:focus {
+      background-color: #33AB2B;
+      outline: none;
+    }     
+/* Layout unchanged */
+.side-toc {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 230px;
+    height: 100vh;
+    background-color: #f0f8ed;
+    border-right: 3px solid #33AB2B;
+    padding: 20px;
+    overflow: hidden;
+}
+.diagram-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(150px, 1fr));
+  gap: 2rem;
+  justify-items: center;   /* centers each column item */
+  align-items: start;
+  margin: 1.5rem 0;
+}
+
+.diagram {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.toc-title {
+    font-size: 1.4em;
+    margin-bottom: 15px;
+    color: #33AB2B;
+}
+
+/* Chapter buttons */
+.toc-chapter {
+    width: 100%;
+    background: none;
+    border: none;
+    text-align: left;
+    font-size: 1em;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    color: #333;
+}
+
+.toc-chapter:hover,
+.toc-chapter:focus {
+    color: #33AB2B;
+}
+
+.arrow {
+    transition: transform 0.25s ease;
+}
+
+/* Rotated when opened */
+.toc-chapter[aria-expanded="true"] .arrow {
+    transform: rotate(90deg);
+}
+
+/* Submenu collapsed by default */
+.toc-submenu {
+    list-style: none;
+    padding-left: 15px;
+    margin: 5px 0 10px 0;
+    display: none;
+}
+
+/* Visible when expanded */
+.toc-submenu.open {
+    display: block;
+}
+
+.toc-submenu li {
+    margin: 6px 0;
+}
+
+.toc-submenu a {
+    color: #333;
+    text-decoration: none;
+}
+
+.toc-submenu a:hover,
+.toc-submenu a:focus {
+    color: #33AB2B;
+    text-decoration: underline;
+}
+
+/* Push main body over */
+body {
+    margin-left: 250px;
+}
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background-color: #ffffff;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #33AB2B;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            border-bottom: 3px solid #33AB2B;
+            padding-bottom: 15px;
+        }
+
+        h2 {
+            color: #33AB2B;
+            font-size: 1.8em;
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            color: #33AB2B;
+            font-size: 1.2em;
+            margin-top: 20px;
+            margin-bottom: 15px;
+        }
+
+        h4 {
+            color: #33AB2B;
+            font-size: 1.1em;
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+
+        .definition-box {
+            background-color: #f0f8ed;
+            border: 2px solid #33AB2B;
+            border-radius: 6px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .definition-box h3 {
+            color: #33AB2B;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            margin-top: 0;
+        }
+
+        .definition-box p {
+            margin-bottom: 15px;
+        }
+
+        .definition-box ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .definition-box li {
+            margin-bottom: 10px;
+        }
+
+        .conversion-box {
+            background-color: #ffffff;
+            border: 2px solid #b84d7e;
+            border-radius: 6px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .conversion-box h3 {
+            color: #b84d7e;
+            margin-top: 0;
+        }
+
+        .conversion-box table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        .conversion-box table th,
+        .conversion-box table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .conversion-box table th {
+            background-color: #f0f0f0;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .orange-box {
+            background-color: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 6px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+
+        .orange-box h3 {
+            margin-top: 0;
+        }
+
+        .orange-box ol {
+            margin-left: 20px;
+        }
+
+        .orange-box li {
+            margin-bottom: 8px;
+        }
+
+        .example {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            margin: 25px 0;
+            overflow: hidden;
+        }
+
+        .example-problem {
+            padding: 15px 20px;
+        }
+
+        .example-problem h3 {
+            color: #33AB2B;
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .example-problem p {
+            margin-bottom: 10px;
+        }
+
+        .example-problem ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .example-problem li {
+            margin-bottom: 8px;
+        }
+
+        .example-problem ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .solution-header {
+            background-color: #33AB2B;
+            color: white;
+            padding: 12px 20px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+            margin-top: 15px;
+            border-radius: 4px;
+            transition: background-color 0.2s ease;
+            border: none;
+            font-size: 1em;
+        }
+
+        .solution-header:hover {
+            background-color: #2a8922;
+        }
+
+        .toggle-arrow {
+            display: inline-block;
+            margin-right: 12px;
+            transition: transform 0.3s ease;
+            font-size: 1.2em;
+        }
+
+        .toggle-arrow.open {
+            transform: rotate(180deg);
+        }
+
+        .example-content {
+            padding: 0;
+            display: none;
+            overflow: hidden;
+        }
+
+        .example-content.open {
+            display: block;
+        }
+
+        .solution {
+            background-color: #f0f8ed;
+            padding: 20px;
+            border-top: 2px solid #33AB2B;
+        }
+
+        .solution h4 {
+            color: #33AB2B;
+            margin-bottom: 15px;
+            margin-top: 0;
+        }
+
+        .solution p {
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        .solution ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .solution li {
+            margin-bottom: 8px;
+        }
+
+        .solution ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        ul li {
+            margin-bottom: 8px;
+        }
+
+        ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        ol li {
+            margin-bottom: 8px;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        strong {
+            font-weight: bold;
+        }
+
+        em {
+            font-style: italic;
+        }
+
+        .blue-text {
+            color: #0066cc;
+        }
+
+        .divider {
+            border-top: 2px dashed #33AB2B;
+            margin: 30px 0;
+        }
+
+        .image-placeholder {
+            background-color: #e0e0e0;
+            border: 2px dashed #999;
+            padding: 40px;
+            margin: 20px 0;
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            border-radius: 4px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table th {
+            background-color: #f0f8ed;
+            color: #33AB2B;
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ccc;
+            font-weight: bold;
+        }
+
+        table td {
+            padding: 12px;
+            border: 1px solid #ccc;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        table tr.highlighted {
+            background-color: #ffff99;
+        }
+
+        .subsection-title {
+            color: #33AB2B;
+            font-size: 1.3em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+    </style>
+<style>
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+</style>
+</head>
+<body>
+<nav class="side-toc" aria-label="Textbook Navigation">
+    <h2 class="toc-title">Contents</h2>
+
+    <!-- Chapter 1 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 1: Financial Literacy</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="MTH154CH1_1.html">1.1 Introduction</a></li>
+        <li><a href="MTH154CH1_2.html">1.2 Problem Solving</a></li>
+        <li><a href="MTH154CH1_3.html">1.3 Simple Interest</a></li>
+ 	<li><a href="MTH154CH1_4.html">1.4 Compound Interest & Annuities</a></li>
+ 	<li><a href="MTH154CH1_5.html">1.5 Installment Loans</a></li>
+ 	<li><a href="MTH154CH1_6.html">1.6 Loans</a></li>
+ 	<li><a href="MTH154CH1_7.html">1.7 Stocks & Bonds</a></li>
+ 	<li><a href="MTH154CH1_8.html">1.8 Taxes</a></li>
+    </ul>
+
+    <!-- Chapter 2 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 2: Modeling Data</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="Ch2_1.html">2.1 Basics of Graphing</a></li>
+        <li><a href="Ch2_2.html">2.2 Relations & Functions</a></li>
+        <li><a href="Ch2_3.html">2.3 Linear Models</a></li>
+        <li><a href="Ch2_4.html">2.4 Rate of Change</a></li>
+        <li><a href="Ch2_5.html">2.5 Scatterplots</a></li>
+    </ul>
+
+    <!-- Chapter 3 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 3: Set Theory</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="Ch3_1.html">3.1 Set Basics</a></li>
+        <li><a href="Ch3_2.html">3.2 Sets</a></li>
+        <li><a href="Ch3_3.html">3.3 Venn Diagrams</a></li>
+        <li><a href="MTH154CH3_4.html">3.4 More with Venn Diagrams</a></li>
+    </ul>
+
+   <!-- Chapter 4 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 4: Logic</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="MTH154CH4_1.html">4.1 Thinking Logically</a></li>
+        <li><a href="MTH154CH4_2.html">4.2 Introduction to Truth Tables</a></li>
+	<li><a href="MTH154CH4_3.html">4.3 Logical Arguments</a></li>
+	<li><a href="MTH154CH4_4.html">4.4 Variations of Statements</a></li>
+    </ul>
+
+   <!-- Chapter 5 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 5: Measurement</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="MTH154CH5_1.html">5.1 Ratios & Proportions</a></li>
+        <li><a href="MTH154CH5_2.html">5.2 Measurement</a></li>
+	<li><a href="MTH154CH5_3.html">5.3 Area, Volume, and Capacity</a></li>
+	<li><a href="MTH154CH5_4.html">5.4 Weight & Temperature</a></li>
+	<li><a href="MTH154CH5_5.html">5.5 Surface Area & Volume</a></li>
+    </ul>
+</nav>
+<body>
+    <div class="container">
+        <h1>Section 1.5: Installment Loans</h1>
+
+        <div class="intro-section">
+            <p>We've almost all been there at one point in time. Something breaks down and you need it fixed ASAP, but you don't have money to purchase the items you need. You decide that you'll use a purchase plan or put it on your credit card. But honestly, is that the best option? This lesson will look at the workings of installment loans and credit cards.</p>
+        </div>
+
+        <h2>Fixed Installment Loans</h2>
+
+        <div class="intro-section">
+            <p>A <strong>Fixed Installment Loan</strong> is a loan of a specific amount of money that must be paid back over a given time period, in equal payments. Typically speaking, a person who is going to go with a fixed installment loan will put down money first that will be deducted from the full amount. This amount is known as a <strong>down payment</strong>.</p>
+        </div>
+
+        <div class="key-terms-box">
+            <h3>Key Terms</h3>
+            <p><strong>Amount Financed:</strong> The amount of money that is borrowed from the lender after the down payment. This is the amount interest will be charged on.</p>
+            <p><strong>Finance Charge:</strong> How much interest you'll end up being charged by the lender. Think of it as a fee for them lending you money.</p>
+            <p><strong>Total Installment Price:</strong> The total amount you'd pay for the object including the down payment and finance charge.</p>
+        </div>
+
+        <!-- Example 1 -->
+        <div class="example">
+            <div class="example-problem">
+                <h3>Example 1: Calculating Loan Components</h3>
+                <p>John decides that he is going to purchase a car. He saved up \$3,000 for his down payment, and he knows the car costs \$12,260. If he makes 48 monthly payments of \$231.50, find the following:</p>
+                <ul>
+                    <li>How much did John need to finance?</li>
+                    <li>What was John's total installment price?</li>
+                    <li>What was John's finance charge?</li>
+                </ul>
+            </div>
+            <button class="solution-header" onclick="toggleExample(this)">
+                <span class="toggle-arrow">▼</span>
+                <span>Show Solution</span>
+            </button>
+            <div class="example-content">
+                <div class="solution">
+                    <h4>Solution</h4>
+                    <p><strong>1. Amount Financed:</strong> The amount John would need to finance would be the cost of the car minus his down payment.</p>
+                    $$\$12,260 - \$3,000 = \$9,260$$
+
+                    <p><strong>2. Total Installment Price:</strong> John's total installment price would be the number of payments multiplied by his monthly payment plus his down payment.</p>
+                    $$\$231.50(48) + \$3,000 = \$11,112 + \$3,000 = \$14,112.00$$
+
+                    <p><strong>3. Finance Charge:</strong> John's finance charge would be the total installment price minus the cost of the car.</p>
+                    $$\$14,112.00 - \$12,260 = \$1,852.00$$
+                </div>
+            </div>
+        </div>
+
+        <h2>Calculating the Monthly Payment</h2>
+
+        <div class="intro-section">
+            <p>How do you know that the dealership isn't trying to rip you off? Have you ever calculated the monthly payment you'd owe if you were taking out a fixed installment loan? It is good to know how to calculate these things. To do that, we use the equation below.</p>
+        </div>
+
+        <div class="definition-box">
+            <h3>Monthly Payment Formula</h3>
+            <div class="equation">
+                $$M = \frac{P\left(\frac{r}{12}\right)}{1 - \left(1 + \frac{r}{12}\right)^{-12n}}$$
+            </div>
+            <div class="variable-list">
+                <p><strong>$P$:</strong> The initial loan amount</p>
+                <p><strong>$M$:</strong> The monthly payment</p>
+                <p><strong>$n$:</strong> The length of the loan in years</p>
+                <p><strong>$r$:</strong> The interest rate as a decimal</p>
+            </div>
+        </div>
+
+        <!-- Example 2 -->
+        <div class="example">
+            <div class="example-problem">
+                <h3>Example 2: Finding Monthly Payment</h3>
+                <p>A local dealership advertises a used 2017 Chevy Equinox for \$19,995. They're currently running an event with a 4.1% APR for 60 months. You've decided to trade in your vehicle and they're offering you \$4,500. How much would your monthly payment be?</p>
+            </div>
+            <button class="solution-header" onclick="toggleExample(this)">
+                <span class="toggle-arrow">▼</span>
+                <span>Show Solution</span>
+            </button>
+            <div class="example-content">
+                <div class="solution">
+                    <h4>Solution</h4>
+                    <p>We first will need to figure out how much you'll need to finance from the bank/dealership, and identify all the pieces before we substitute them into the formula.</p>
+                    <div class="variable-list">
+                        <p><strong>Amount Financed:</strong> $P = \$19,995 - \$4,500 = \$15,495$</p>
+                        <p><strong>APR:</strong> $4.1\% = 0.041$</p>
+                        <p><strong>Number of Payments:</strong> $60$ which $\frac{60}{12} = 5$ years</p>
+                    </div>
+                    <p>Now substitute the pieces into the formula and simplify:</p>
+                    $$M = \frac{\$15,495\left(\frac{0.041}{12}\right)}{1 - \left(1 + \frac{0.041}{12}\right)^{-12(5)}}$$
+                    $$= \frac{52.94125}{1 - (1.003416667)^{-60}}$$
+                    $$= \frac{52.94125}{1 - 0.8149320142}$$
+                    $$= \frac{52.94125}{0.1850679858}$$
+                    $$= \$286.06$$
+                    <p>This means you would pay \$286.06 for 60 months. Your total installment price would be $\$286.06(60) + \$4,500 = \$21,663.60$, and you would have paid $\$21,663.60 - \$19,995 = \$1,668.60$ in interest. <em>It is important to note that this is an extremely low interest rate on a vehicle.</em></p>
+                </div>
+            </div>
+        </div>
+
+        <h2>Ways to Save on Installment Loans</h2>
+
+        <ul>
+            <li>Increase the down payment</li>
+            <li>Decrease the length of the loan</li>
+            <li>Increase the monthly payment</li>
+            <li>Make extra payments between payments</li>
+        </ul>
+
+        <h2>Credit Cards and Open-Ended Credit</h2>
+
+        <div class="intro-section">
+            <p>Installment loans are a type of <strong>closed ended credit</strong>, meaning that once you've taken out a specific amount, you cannot decide to take out more down the road. You will have to wait until the loan is paid off and take out another one. This is unlike <strong>open ended credit</strong>, where you can continue to borrow more and more money until you've reached a particular limit. An example of an open ended credit is a credit card.</p>
+
+            <p>With <strong>open ended credit</strong>, there is no specific number of payments or time in which you have to make all the payments. Typically speaking, you can still use open ended credit as long as you are making the minimum payment each month. However, this doesn't mean you won't pay interest on what you've borrowed. Depending on the type of credit card or open ended credit depends on the way interest is calculated monthly. Some credit card companies use a method known as the <strong>unpaid balance method</strong> in order to calculate interest. Other companies use something known as the <strong>average daily balance method</strong>.</p>
+        </div>
+
+        <h3>Unpaid Balance Method</h3>
+
+        <div class="intro-section">
+            <p>The unpaid balance method calculates your finance charge at the end of each billing period based on the amount of revolving balance you still owe. The revolving balance is the amount of money that you still owe the lender. This method uses simple interest to calculate the finance charge and then adds that amount to the new month's statement.</p>
+        </div>
+
+        <!-- Example 3 -->
+        <div class="example">
+            <div class="example-problem">
+                <h3>Example 3: Unpaid Balance Method</h3>
+                <p>Kitty had an unpaid balance of \$356.75 on her November credit card statement. She makes a $200 payment on the card, but then decides to purchase some groceries for \$236.50 a few weeks later. This particular credit card has a 25.6% APR. What would Kitty's finance charge be? What is her new balance come December?</p>
+            </div>
+            <button class="solution-header" onclick="toggleExample(this)">
+                <span class="toggle-arrow">▼</span>
+                <span>Show Solution</span>
+            </button>
+            <div class="example-content">
+                <div class="solution">
+                    <h4>Solution</h4>
+                    <p>First, we would need to figure out the new balance on Kitty's card come the end of her billing cycle.</p>
+                    $$\$356.75 - \$200.00 + \$236.50 = \$393.25$$
+                    <p>Next we need to calculate the finance charge on that "unpaid balance". Recall her interest rate is 25.6% APR, which means annually, so we will need to divide it by 12 to get what we need for one month.</p>
+                    $$\$393.25\left(\frac{0.256}{12}\right)(1 \text{ month}) = \$8.39$$
+                    <p>Lastly, to find her new balance, we add the finance charge to her unpaid balance to find:</p>
+                    $$\$393.25 + \$8.39 = \$401.64$$
+                </div>
+            </div>
+        </div>
+
+        <h3>Average Daily Balance Method</h3>
+
+        <div class="intro-section">
+            <p>Most credit card companies actually use a method known as the average daily balance method because it makes them more money in the long run. The average daily balance method takes a look at the average amount you owe over how many days it's been since you made a transaction. So the longer that amount has been sitting there, the more it tends to count in how much interest you'll be charged.</p>
+        </div>
+
+        <!-- Example 4 -->
+        <div class="example">
+            <div class="example-problem">
+                <h3>Example 4: Average Daily Balance Method</h3>
+                <p>Kitty's credit card activity for the month is outlined in the table below. Her credit card has a 25.6% APR. Calculate her finance charge using the average daily balance method.</p>
+                <table>
+                    <tr>
+                        <th>Date</th>
+                        <th>Transaction</th>
+                        <th>Amount</th>
+                    </tr>
+                    <tr>
+                        <td>November 1</td>
+                        <td>Previous Balance</td>
+                        <td>$356.75</td>
+                    </tr>
+                    <tr>
+                        <td>November 7</td>
+                        <td>Purchase Kroger</td>
+                        <td>$236.50</td>
+                    </tr>
+                    <tr>
+                        <td>November 18</td>
+                        <td>Payment</td>
+                        <td>$200.00</td>
+                    </tr>
+                </table>
+            </div>
+            <button class="solution-header" onclick="toggleExample(this)">
+                <span class="toggle-arrow">▼</span>
+                <span>Show Solution</span>
+            </button>
+            <div class="example-content">
+                <div class="solution">
+                    <h4>Solution</h4>
+                    <p><strong>Step 1:</strong> Figure out how many days are there between each transaction:</p>
+                    <table>
+                        <tr>
+                            <th>Date</th>
+                            <th>Running Balance</th>
+                            <th>Days</th>
+                        </tr>
+                        <tr>
+                            <td>November 1</td>
+                            <td>$356.75</td>
+                            <td>7 - 1 = 6</td>
+                        </tr>
+                        <tr>
+                            <td>November 7</td>
+                            <td>$356.75 + $236.50 = $593.25</td>
+                            <td>18 - 7 = 11</td>
+                        </tr>
+                        <tr>
+                            <td>November 18</td>
+                            <td>$593.25 - $200.00 = $393.25</td>
+                            <td>32 - 18 = 14</td>
+                        </tr>
+                    </table>
+                    <p>Note that there are 31 days in November plus the 1 that goes into December to end the billing cycle.</p>
+
+                    <p><strong>Step 2:</strong> Multiply the running balance by the total number of days and then add that up.</p>
+                    <table>
+                        <tr>
+                            <th>Date</th>
+                            <th>Running Balance × Days</th>
+                            <th>Amount</th>
+                        </tr>
+                        <tr>
+                            <td>November 1</td>
+                            <td>$356.75 × 6</td>
+                            <td>$2,146.56</td>
+                        </tr>
+                        <tr>
+                            <td>November 7</td>
+                            <td>$593.25 × 11</td>
+                            <td>$6,525.75</td>
+                        </tr>
+                        <tr>
+                            <td>November 18</td>
+                            <td>$393.25 × 14</td>
+                            <td>$5,505.50</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">Sum =</td>
+                            <td>$14,177.81</td>
+                        </tr>
+                    </table>
+
+                    <p><strong>Step 3:</strong> Divide that sum by the total number of days in the billing cycle:</p>
+                    $$\frac{\$14,177.81}{32} = \$443.06$$
+                    <p>Which means our average daily balance was $443.06.</p>
+
+                    <p><strong>Step 4:</strong> Calculate the finance charge using simple interest:</p>
+                    $$\$443.06\left(\frac{0.256}{12}\right) = \$9.47$$
+                </div>
+            </div>
+        </div>
+
+        <div class="note-box">
+            <p><strong>Important:</strong> With credit cards, there are few things to keep in mind. As you can see, the method in which interest is calculated matters. Also, pay close attention to the fine print in the agreement section of the credit card. A credit card is something that in one aspect can be great for your credit score, but at the same time it can destroy it. It is very hard to rebuild credit after you've destroyed it. However, it's rather easy to fall victim to credit card debt.</p>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="try-it">
+            <h3>Try It!</h3>
+            <p>You want to purchase a laptop for \$1,200. You have $300 saved for a down payment. The store offers financing at 6.5% APR for 24 months. Calculate your monthly payment and the total finance charge.</p>
+        </div>
+
+     <nav aria-label="Page navigation">
+  <div class="page-navigation">
+    <div class="page-navigation" style="display:flex; justify-content:space-between; margin-top:40px;">
+        <a href="MTH154CH1_4.html" class="nav-button" aria-label="Go to previous section">&larr; Previous</a>
+        <a href="MTH154CH1_6.html" class="nav-button" aria-label="Go to next section">Next &rarr;</a>
+    </div>
+  </div>
+</nav>
+
+</div>
+<script>
+        function toggleExample(button) {
+            const content = button.nextElementSibling;
+            const arrow = button.querySelector('.toggle-arrow');
+            
+            if (content.classList.contains('open')) {
+                content.classList.remove('open');
+                arrow.classList.remove('open');
+                button.querySelector('span:last-child').textContent = 'Show Solution';
+            } else {
+                content.classList.add('open');
+                arrow.classList.add('open');
+                button.querySelector('span:last-child').textContent = 'Hide Solution';
+            }
+        }
+    </script>
+
+    <script>
+        const chapterButtons = document.querySelectorAll(".toc-chapter");
+
+        chapterButtons.forEach(button => {
+            button.addEventListener("click", () => {
+                const expanded = button.getAttribute("aria-expanded") === "true";
+                button.setAttribute("aria-expanded", !expanded);
+
+                const submenu = button.nextElementSibling;
+                submenu.classList.toggle("open");
+            });
+        });
+    </script>
+</body>
+</html>

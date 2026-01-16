@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 5: Measurement - Section 5.3: Area, Volume, and Capacity</title>
+    
+    <!-- MathJax configuration -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            },
+            loader: {
+                load: ['input/tex', 'output/chtml']
+            }
+        };
+    </script>
+    <!-- MathJax loader -->
+    <script id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+
+    <style>
+      
+    .nav-button {
+      padding: 10px 20px;
+      background-color: #33AB2B;
+      color: #000000;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+
+    .nav-button:hover,
+    .nav-button:focus {
+      background-color: #33AB2B;
+      outline: none;
+    }     
+/* Layout unchanged */
+.side-toc {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 230px;
+    height: 100vh;
+    background-color: #f0f8ed;
+    border-right: 3px solid #33AB2B;
+    padding: 20px;
+    overflow: hidden;
+}
+.diagram-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(150px, 1fr));
+  gap: 2rem;
+  justify-items: center;   /* centers each column item */
+  align-items: start;
+  margin: 1.5rem 0;
+}
+
+.diagram {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.toc-title {
+    font-size: 1.4em;
+    margin-bottom: 15px;
+    color: #33AB2B;
+}
+
+/* Chapter buttons */
+.toc-chapter {
+    width: 100%;
+    background: none;
+    border: none;
+    text-align: left;
+    font-size: 1em;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    color: #333;
+}
+
+.toc-chapter:hover,
+.toc-chapter:focus {
+    color: #33AB2B;
+}
+
+.arrow {
+    transition: transform 0.25s ease;
+}
+
+/* Rotated when opened */
+.toc-chapter[aria-expanded="true"] .arrow {
+    transform: rotate(90deg);
+}
+
+/* Submenu collapsed by default */
+.toc-submenu {
+    list-style: none;
+    padding-left: 15px;
+    margin: 5px 0 10px 0;
+    display: none;
+}
+
+/* Visible when expanded */
+.toc-submenu.open {
+    display: block;
+}
+
+.toc-submenu li {
+    margin: 6px 0;
+}
+
+.toc-submenu a {
+    color: #333;
+    text-decoration: none;
+}
+
+.toc-submenu a:hover,
+.toc-submenu a:focus {
+    color: #33AB2B;
+    text-decoration: underline;
+}
+
+/* Push main body over */
+body {
+    margin-left: 250px;
+}
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background-color: #ffffff;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #33AB2B;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            border-bottom: 3px solid #33AB2B;
+            padding-bottom: 15px;
+        }
+
+        h2 {
+            color: #33AB2B;
+            font-size: 1.8em;
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            color: #33AB2B;
+            font-size: 1.2em;
+            margin-top: 20px;
+            margin-bottom: 15px;
+        }
+
+        h4 {
+            color: #33AB2B;
+            font-size: 1.1em;
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+
+        .definition-box {
+            background-color: #f0f8ed;
+            border: 2px solid #33AB2B;
+            border-radius: 6px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .definition-box h3 {
+            color: #33AB2B;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            margin-top: 0;
+        }
+
+        .definition-box p {
+            margin-bottom: 15px;
+        }
+
+        .definition-box ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .definition-box li {
+            margin-bottom: 10px;
+        }
+
+        .conversion-box {
+            background-color: #ffffff;
+            border: 2px solid #b84d7e;
+            border-radius: 6px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .conversion-box h3 {
+            color: #b84d7e;
+            margin-top: 0;
+        }
+
+        .conversion-box table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        .conversion-box table th,
+        .conversion-box table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .conversion-box table th {
+            background-color: #f0f0f0;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .orange-box {
+            background-color: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 6px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+
+        .orange-box h3 {
+            margin-top: 0;
+        }
+
+        .orange-box ol {
+            margin-left: 20px;
+        }
+
+        .orange-box li {
+            margin-bottom: 8px;
+        }
+
+        .example {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            margin: 25px 0;
+            overflow: hidden;
+        }
+
+        .example-problem {
+            padding: 15px 20px;
+        }
+
+        .example-problem h3 {
+            color: #33AB2B;
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .example-problem p {
+            margin-bottom: 10px;
+        }
+
+        .example-problem ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .example-problem li {
+            margin-bottom: 8px;
+        }
+
+        .example-problem ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .solution-header {
+            background-color: #33AB2B;
+            color: white;
+            padding: 12px 20px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+            margin-top: 15px;
+            border-radius: 4px;
+            transition: background-color 0.2s ease;
+            border: none;
+            font-size: 1em;
+        }
+
+        .solution-header:hover {
+            background-color: #2a8922;
+        }
+
+        .toggle-arrow {
+            display: inline-block;
+            margin-right: 12px;
+            transition: transform 0.3s ease;
+            font-size: 1.2em;
+        }
+
+        .toggle-arrow.open {
+            transform: rotate(180deg);
+        }
+
+        .example-content {
+            padding: 0;
+            display: none;
+            overflow: hidden;
+        }
+
+        .example-content.open {
+            display: block;
+        }
+
+        .solution {
+            background-color: #f0f8ed;
+            padding: 20px;
+            border-top: 2px solid #33AB2B;
+        }
+
+        .solution h4 {
+            color: #33AB2B;
+            margin-bottom: 15px;
+            margin-top: 0;
+        }
+
+        .solution p {
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        .solution ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .solution li {
+            margin-bottom: 8px;
+        }
+
+        .solution ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        ul li {
+            margin-bottom: 8px;
+        }
+
+        ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        ol li {
+            margin-bottom: 8px;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        strong {
+            font-weight: bold;
+        }
+
+        em {
+            font-style: italic;
+        }
+
+        .blue-text {
+            color: #0066cc;
+        }
+
+        .divider {
+            border-top: 2px dashed #33AB2B;
+            margin: 30px 0;
+        }
+
+        .image-placeholder {
+            background-color: #e0e0e0;
+            border: 2px dashed #999;
+            padding: 40px;
+            margin: 20px 0;
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            border-radius: 4px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table th {
+            background-color: #f0f8ed;
+            color: #33AB2B;
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ccc;
+            font-weight: bold;
+        }
+
+        table td {
+            padding: 12px;
+            border: 1px solid #ccc;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        table tr.highlighted {
+            background-color: #ffff99;
+        }
+
+        .subsection-title {
+            color: #33AB2B;
+            font-size: 1.3em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+    </style>
+<style>
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+</style>
+</head>
+<body>
+<nav class="side-toc" aria-label="Textbook Navigation">
+    <h2 class="toc-title">Contents</h2>
+
+    <!-- Chapter 1 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 1: Financial Literacy</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="MTH154CH1_1.html">1.1 Introduction</a></li>
+        <li><a href="MTH154CH1_2.html">1.2 Problem Solving</a></li>
+        <li><a href="MTH154CH1_3.html">1.3 Simple Interest</a></li>
+ 	<li><a href="MTH154CH1_4.html">1.4 Compound Interest & Annuities</a></li>
+ 	<li><a href="MTH154CH1_5.html">1.5 Installment Loans</a></li>
+ 	<li><a href="MTH154CH1_6.html">1.6 Loans</a></li>
+ 	<li><a href="MTH154CH1_7.html">1.7 Stocks & Bonds</a></li>
+ 	<li><a href="MTH154CH1_8.html">1.8 Taxes</a></li>
+    </ul>
+
+    <!-- Chapter 2 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 2: Modeling Data</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="Ch2_1.html">2.1 Basics of Graphing</a></li>
+        <li><a href="Ch2_2.html">2.2 Relations & Functions</a></li>
+        <li><a href="Ch2_3.html">2.3 Linear Models</a></li>
+        <li><a href="Ch2_4.html">2.4 Rate of Change</a></li>
+        <li><a href="Ch2_5.html">2.5 Scatterplots</a></li>
+    </ul>
+
+    <!-- Chapter 3 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 3: Set Theory</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="Ch3_1.html">3.1 Set Basics</a></li>
+        <li><a href="Ch3_2.html">3.2 Sets</a></li>
+        <li><a href="Ch3_3.html">3.3 Venn Diagrams</a></li>
+        <li><a href="MTH154CH3_4.html">3.4 More with Venn Diagrams</a></li>
+    </ul>
+
+   <!-- Chapter 4 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 4: Logic</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="MTH154CH4_1.html">4.1 Thinking Logically</a></li>
+        <li><a href="MTH154CH4_2.html">4.2 Introduction to Truth Tables</a></li>
+	<li><a href="MTH154CH4_3.html">4.3 Logical Arguments</a></li>
+	<li><a href="MTH154CH4_4.html">4.4 Variations of Statements</a></li>
+    </ul>
+
+   <!-- Chapter 5 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 5: Measurement</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="MTH154CH5_1.html">5.1 Ratios & Proportions</a></li>
+        <li><a href="MTH154CH5_2.html">5.2 Measurement</a></li>
+	<li><a href="MTH154CH5_3.html">5.3 Area, Volume, and Capacity</a></li>
+	<li><a href="MTH154CH5_4.html">5.4 Weight & Temperature</a></li>
+	<li><a href="MTH154CH5_5.html">5.5 Surface Area & Volume</a></li>
+    </ul>
+</nav>
+
+   <div class="container">
+        <h1>Chapter 5: Measurement</h1>
+        <h2>Section 5.5: Surface Area & Volume</h2>
+        
+
+    <h2>Volume, Surface Area, and Efficiency</h2>
+
+    <p>
+        Have you ever wondered why cereal comes in a box, and soup in a can? This is a question that can be somewhat answered by finding the volume and surface area of products and evaluating their efficiency.
+    </p>
+
+    <p>
+        If we are talking about food packaging the <strong>Volume</strong> is the amount of food the container can hold. Whereas <strong>Surface Area</strong> is the amount of material that it takes to make the package, and just to recap the <strong>Perimeter</strong> is the distance around the outside of an object. Essentially, the surface area is the sum of all the areas of all the individual sides.
+    </p>
+
+    <h3 style="color:#3a6;">Surface Area Formulas</h3>
+
+   <table aria-label="Area formulas">
+        <tbody>
+            <tr>
+                <th scope="row"><strong>Shape Name</strong></th>
+                <td>Rectangle/Square</td>
+                <td>Circle</td>
+                <td>Cylinder</td>
+            </tr>
+            <tr>
+                <th scope="row"><strong>Shape</strong></th>
+                <td style="text-align: center; vertical-align: middle; height:150px;">
+                    <svg width="120" height="80" aria-labelledby="title rectangle-desc" role="img">
+                    <!-- Rectangle -->
+                    <rect x="20" y="20" width="80" height="40" fill="none" stroke="black" stroke-width="2"/>
+
+                    <!-- Labels -->
+                    <text x="60" y="15" font-size="12" text-anchor="middle">l</text>
+                    <text x="5" y="40" font-size="12" text-anchor="middle" transform="rotate(-90 5,40)">w</text>
+                    </svg>
+                </td>
+                <td style="text-align: center; vertical-align: middle; height:150px;">
+                    <svg width="100" height="100" aria-labelledby="title circle-desc" role="img">  
+                    <title id="circle-title">Circle diagram</title>
+                    <!-- Circle -->
+                    <circle cx="50" cy="50" r="30" fill="none" stroke="black" stroke-width="2"/>
+                    <!-- Radius line -->
+                    <line x1="50" y1="50" x2="80" y2="50" stroke="black" stroke-width="1" marker-end="url(#arrow)"/>
+                    <!-- Label for radius -->
+                    <text x="65" y="45" font-size="12">r</text>
+                    </svg>
+                </td>
+                <td style="text-align: center; vertical-align: middle; height:150px;">
+                    <svg width="150" height="200" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Top ellipse -->
+                    <ellipse cx="75" cy="50" rx="40" ry="15" fill="lightblue" stroke="black" stroke-width="2"/>
+  
+                    <!-- Radius line -->
+                    <line x1="75" y1="50" x2="115" y2="50" stroke="black" stroke-width="1"/>
+                    <text x="95" y="45" font-size="12">r</text>
+
+                    <!-- Side lines -->
+                    <line x1="115" y1="50" x2="115" y2="150" stroke="black" stroke-width="2"/>
+                    <line x1="35" y1="50" x2="35" y2="150" stroke="black" stroke-width="2"/>
+
+                    <!-- Height line (dashed) -->
+                    <line x1="75" y1="50" x2="75" y2="150" stroke="black" stroke-width="1" stroke-dasharray="4"/>
+                    <text x="80" y="100" font-size="12">h</text>
+
+                    <!-- Bottom ellipse -->
+                    <ellipse cx="75" cy="150" rx="40" ry="15" fill="lightblue" stroke="black" stroke-width="2"/>
+                     </svg>
+                </td>
+
+             
+            </tr>
+            <tr>
+                <th scope="row"><strong>Formula</strong></th>
+                <td>Perimeter $p=2l+2w$</td>
+                <td>Circumference $c = 2\pi r$</td>
+                <td>Surface Area $S= 2\pi r^2+2\pi rh$</td>
+            </tr>
+          
+        </tbody>
+    </table>
+
+   <table aria-label="Area formulas" border="1" style="border-collapse: collapse; width: 100%;">
+  <tbody>
+    <!-- Header row -->
+    <tr>
+      <th scope="row"><strong>Shape Name</strong></th>
+      <td>Box</td>
+      <td>Sphere</td>
+      <td>Cone</td>
+    </tr>
+
+    <!-- Shape row -->
+    <tr>
+      <th scope="row"><strong>Shape</strong></th>
+
+      <!-- Box -->
+      <td style="text-align: center; vertical-align: middle; height:200px;">
+        <svg width="150" height="150" role="img" aria-labelledby="boxTitle boxDesc" xmlns="http://www.w3.org/2000/svg">
+          <title id="boxTitle">3D box diagram</title>
+          <desc id="boxDesc">A 3D rectangular box with length labeled l, width labeled w, and height labeled h.</desc>
+          <!-- Front face -->
+          <polygon points="20,100 100,100 100,50 20,50" fill="lightblue" stroke="black" stroke-width="2"/>
+          <!-- Top face -->
+          <polygon points="20,50 100,50 110,40 30,40" fill="skyblue" stroke="black" stroke-width="2"/>
+          <!-- Right face -->
+          <polygon points="100,100 110,90 110,40 100,50" fill="steelblue" stroke="black" stroke-width="2"/>
+          <!-- Depth lines -->
+          <line x1="20" y1="100" x2="30" y2="90" stroke="black" stroke-width="2"/>
+          <line x1="100" y1="100" x2="110" y2="90" stroke="black" stroke-width="2"/>
+          <line x1="20" y1="50" x2="30" y2="40" stroke="black" stroke-width="2"/>
+          <line x1="100" y1="50" x2="110" y2="40" stroke="black" stroke-width="2"/>
+          <line x1="30" y1="40" x2="110" y2="40" stroke="black" stroke-width="2"/>
+          <line x1="30" y1="40" x2="30" y2="90" stroke="black" stroke-width="2"/>
+          <line x1="110" y1="40" x2="110" y2="90" stroke="black" stroke-width="2"/>
+          <!-- Labels -->
+          <text x="60" y="105" font-size="12" text-anchor="middle">l</text>
+          <text x="115" y="95" font-size="12" text-anchor="middle">w</text>
+          <text x="115" y="60" font-size="12" text-anchor="middle">h</text>
+        </svg>
+      </td>
+
+       <!-- Sphere -->
+      <td style="text-align: center; vertical-align: middle; height:150px;">
+        <svg width="150" height="150" role="img" aria-labelledby="sphereTitle sphereDesc" xmlns="http://www.w3.org/2000/svg">
+          <title id="sphereTitle">Sphere diagram</title>
+          <desc id="sphereDesc">A sphere with radius labeled r, showing horizontal and vertical ellipses for perspective.</desc>
+          <!-- Circle (sphere) -->
+          <circle cx="75" cy="75" r="50" fill="lightblue" stroke="black" stroke-width="2"/>
+          <!-- Horizontal ellipse -->
+          <ellipse cx="75" cy="75" rx="50" ry="12" fill="none" stroke="black" stroke-dasharray="4"/>
+          <!-- Vertical ellipse -->
+          <ellipse cx="75" cy="75" rx="12" ry="50" fill="none" stroke="black" stroke-dasharray="4"/>
+          <!-- Radius line -->
+          <line x1="75" y1="75" x2="125" y2="75" stroke="black" stroke-width="1"/>
+          <!-- Radius label -->
+          <text x="100" y="70" font-size="12">r</text>
+        </svg>
+      </td>
+
+      <!-- Cone -->
+      <td style="text-align: center; vertical-align: middle; height:150px;">
+        <svg width="150" height="150" role="img" aria-labelledby="coneTitle coneDesc" xmlns="http://www.w3.org/2000/svg">
+          <title id="coneTitle">Cone diagram</title>
+          <desc id="coneDesc">A cone with height labeled h and base radius labeled r, showing dashed lines for hidden edges.</desc>
+          <!-- Base ellipse -->
+          <ellipse cx="75" cy="125" rx="50" ry="12" fill="lightblue" stroke="black" stroke-width="2"/>
+          <!-- Sides -->
+          <line x1="25" y1="125" x2="75" y2="25" stroke="black" stroke-width="2"/>
+          <line x1="125" y1="125" x2="75" y2="25" stroke="black" stroke-width="2"/>
+          <!-- Hidden back edge of base -->
+          <path d="M25,125 A50,12 0 0 1 125,125" fill="none" stroke="black" stroke-width="1" stroke-dasharray="4"/>
+          <!-- Height line -->
+          <line x1="75" y1="125" x2="75" y2="25" stroke="black" stroke-width="1" stroke-dasharray="4"/>
+          <text x="80" y="75" font-size="12">h</text>
+          <!-- Radius label -->
+          <line x1="75" y1="125" x2="125" y2="125" stroke="black" stroke-width="1"/>
+          <text x="100" y="120" font-size="12">r</text>
+        </svg>
+      </td>
+    </tr>
+
+    <!-- Formula row -->
+    <tr>
+      <th scope="row"><strong>Formula</strong></th>
+      <td>Surface Area $S = 2lw + 2lh + 2wh$</td>
+      <td>Surface Area $S = 4\pi r^2$</td>
+      <td>Surface Area $S = \pi r^2 + \pi r l$</td>
+    </tr>
+  </tbody>
+</table>
+
+    <p>
+        The efficiency for packages comes in when you start to compare the volume to the surface area. Efficiency basically means how can
+         we maximize volume while minimizing price to create the packaging. For maximum efficiency we need to make the volume as large as
+          possible while making the surface area as small as possible. Typically the higher the volume to surface area ratio the more 
+          efficient the package. In order to actually find measurements for this you'd need to do rather complex mathematics. But, for the sake of this lesson we will just use trial and error.
+    </p>
+
+   <!-- Example 1 -->
+<div class="example">
+
+  <div class="example-problem">
+    <h3>Example 1</h3>
+
+    <div class="example-box">
+      <p>
+        A company has hired you to figure out what would be the most efficient
+        packaging for their new protein pancake mix. They want to determine if
+        a box or a canister would be a more efficient packaging. Pictures of both
+        with dimensions are outlined below. Which package is more efficient and why?
+      </p>
+
+      <div class="diagram-row">
+
+        <!-- Cylinder -->
+        <div class="diagram">
+          <svg width="150" height="200" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="75" cy="50" rx="40" ry="15" fill="lightblue" stroke="black" stroke-width="2"/>
+            <line x1="75" y1="50" x2="115" y2="50" stroke="black" stroke-width="1"/>
+            <text x="95" y="45" font-size="12">r</text>
+
+            <line x1="115" y1="50" x2="115" y2="150" stroke="black" stroke-width="2"/>
+            <line x1="35" y1="50" x2="35" y2="150" stroke="black" stroke-width="2"/>
+
+            <line x1="75" y1="50" x2="75" y2="150" stroke="black" stroke-width="1" stroke-dasharray="4"/>
+            <text x="80" y="100" font-size="12">h</text>
+
+            <ellipse cx="75" cy="150" rx="40" ry="15" fill="lightblue" stroke="black" stroke-width="2"/>
+          </svg>
+        </div>
+
+        <!-- Box -->
+        <div class="diagram">
+          <svg width="150" height="150" role="img" aria-labelledby="boxTitle boxDesc" xmlns="http://www.w3.org/2000/svg">
+            <title id="boxTitle">3D box diagram</title>
+            <desc id="boxDesc">
+              A 3D rectangular box with length labeled l, width labeled w, and height labeled h.
+            </desc>
+
+            <polygon points="20,100 100,100 100,50 20,50" fill="lightblue" stroke="black" stroke-width="2"/>
+            <polygon points="20,50 100,50 110,40 30,40" fill="skyblue" stroke="black" stroke-width="2"/>
+            <polygon points="100,100 110,90 110,40 100,50" fill="steelblue" stroke="black" stroke-width="2"/>
+
+            <line x1="20" y1="100" x2="30" y2="90" stroke="black" stroke-width="2"/>
+            <line x1="100" y1="100" x2="110" y2="90" stroke="black" stroke-width="2"/>
+            <line x1="20" y1="50" x2="30" y2="40" stroke="black" stroke-width="2"/>
+            <line x1="100" y1="50" x2="110" y2="40" stroke="black" stroke-width="2"/>
+
+            <text x="60" y="105" font-size="12" text-anchor="middle">l</text>
+            <text x="115" y="95" font-size="12" text-anchor="middle">w</text>
+            <text x="115" y="60" font-size="12" text-anchor="middle">h</text>
+          </svg>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Solution toggle -->
+  <button class="solution-header" onclick="toggleExample(this)" aria-expanded="false">
+    <span class="toggle-arrow">▼</span>
+    <span>Show Solution</span>
+  </button>
+
+  <div class="example-content">
+         <div class="solution">
+    <div class="solution-box">
+
+      <p>To determine the efficiency we need to find the volume and the surface area of each shape:</p>
+
+      <div class="diagram-row">
+        <div class="calculation-box">
+          <strong>Cylinder</strong><br>
+          Volume: \( \pi (4.2)^2(5.6) = 310.18 \, \text{in}^3 \)<br>
+          Surface Area: \( 258.49 \, \text{in}^2 \)<br>
+          Efficiency: \( \approx 1.2 \)
+        </div>
+
+        <div class="calculation-box">
+          <strong>Box</strong><br>
+          Volume: \( 310.64 \, \text{in}^3 \)<br>
+          Surface Area: \( 416.64 \, \text{in}^2 \)<br>
+          Efficiency: \( \approx 0.75 \)
+        </div>
+      </div>
+
+      <p>
+        The cylinder has the smaller surface area while holding the same volume,
+        making it the more efficient packaging choice.
+      </p>
+
+    </div>
+  </div>
+  </div>
+</div>
+ 
+
+    
+    
+   
+
+
+
+
+
+
+
+
+        <nav aria-label="Page navigation">
+  <div class="page-navigation">
+    <div class="page-navigation" style="display:flex; justify-content:space-between; margin-top:40px;">
+        <a href="MTH154CH5_4.html" class="nav-button" aria-label="Go to previous section">&larr; Previous</a>
+
+    </div>
+  </div>
+</nav>
+   </div>
+</div>
+<script>
+        function toggleExample(button) {
+            const content = button.nextElementSibling;
+            const arrow = button.querySelector('.toggle-arrow');
+            
+            if (content.classList.contains('open')) {
+                content.classList.remove('open');
+                arrow.classList.remove('open');
+                button.querySelector('span:last-child').textContent = 'Show Solution';
+            } else {
+                content.classList.add('open');
+                arrow.classList.add('open');
+                button.querySelector('span:last-child').textContent = 'Hide Solution';
+            }
+        }
+    </script>
+
+    <script>
+        const chapterButtons = document.querySelectorAll(".toc-chapter");
+
+        chapterButtons.forEach(button => {
+            button.addEventListener("click", () => {
+                const expanded = button.getAttribute("aria-expanded") === "true";
+                button.setAttribute("aria-expanded", !expanded);
+
+                const submenu = button.nextElementSibling;
+                submenu.classList.toggle("open");
+            });
+        });
+    </script>
+</body>
+</html>

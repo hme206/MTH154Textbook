@@ -1,0 +1,1262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 4: Logic - Section 4.3: Logical Arguments</title>
+    
+    <!-- MathJax configuration -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            },
+            loader: {
+                load: ['input/tex', 'output/chtml']
+            }
+        };
+    </script>
+    <!-- MathJax loader -->
+    <script id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+
+    <style>
+      
+    .nav-button {
+      padding: 10px 20px;
+      background-color: #33AB2B;
+      color: #000000;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+
+    .nav-button:hover,
+    .nav-button:focus {
+      background-color: #33AB2B;
+      outline: none;
+    }     
+/* Layout unchanged */
+.side-toc {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 230px;
+    height: 100vh;
+    background-color: #f0f8ed;
+    border-right: 3px solid #33AB2B;
+    padding: 20px;
+    overflow: hidden;
+}
+.diagram-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(150px, 1fr));
+  gap: 2rem;
+  justify-items: center;   /* centers each column item */
+  align-items: start;
+  margin: 1.5rem 0;
+}
+
+.diagram {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.toc-title {
+    font-size: 1.4em;
+    margin-bottom: 15px;
+    color: #33AB2B;
+}
+
+/* Chapter buttons */
+.toc-chapter {
+    width: 100%;
+    background: none;
+    border: none;
+    text-align: left;
+    font-size: 1em;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    color: #333;
+}
+
+.toc-chapter:hover,
+.toc-chapter:focus {
+    color: #33AB2B;
+}
+
+.arrow {
+    transition: transform 0.25s ease;
+}
+
+/* Rotated when opened */
+.toc-chapter[aria-expanded="true"] .arrow {
+    transform: rotate(90deg);
+}
+
+/* Submenu collapsed by default */
+.toc-submenu {
+    list-style: none;
+    padding-left: 15px;
+    margin: 5px 0 10px 0;
+    display: none;
+}
+
+/* Visible when expanded */
+.toc-submenu.open {
+    display: block;
+}
+
+.toc-submenu li {
+    margin: 6px 0;
+}
+
+.toc-submenu a {
+    color: #333;
+    text-decoration: none;
+}
+
+.toc-submenu a:hover,
+.toc-submenu a:focus {
+    color: #33AB2B;
+    text-decoration: underline;
+}
+
+/* Push main body over */
+body {
+    margin-left: 250px;
+}
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background-color: #ffffff;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #33AB2B;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            border-bottom: 3px solid #33AB2B;
+            padding-bottom: 15px;
+        }
+
+        h2 {
+            color: #33AB2B;
+            font-size: 1.8em;
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            color: #33AB2B;
+            font-size: 1.2em;
+            margin-top: 20px;
+            margin-bottom: 15px;
+        }
+
+        h4 {
+            color: #33AB2B;
+            font-size: 1.1em;
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+
+        .definition-box {
+            background-color: #f0f8ed;
+            border: 2px solid #33AB2B;
+            border-radius: 6px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .definition-box h3 {
+            color: #33AB2B;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            margin-top: 0;
+        }
+
+        .definition-box p {
+            margin-bottom: 15px;
+        }
+
+        .definition-box ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .definition-box li {
+            margin-bottom: 10px;
+        }
+
+        .conversion-box {
+            background-color: #ffffff;
+            border: 2px solid #b84d7e;
+            border-radius: 6px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .conversion-box h3 {
+            color: #b84d7e;
+            margin-top: 0;
+        }
+
+        .conversion-box table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        .conversion-box table th,
+        .conversion-box table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .conversion-box table th {
+            background-color: #f0f0f0;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .orange-box {
+            background-color: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 6px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+
+        .orange-box h3 {
+            margin-top: 0;
+        }
+
+        .orange-box ol {
+            margin-left: 20px;
+        }
+
+        .orange-box li {
+            margin-bottom: 8px;
+        }
+
+        .example {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            margin: 25px 0;
+            overflow: hidden;
+        }
+
+        .example-problem {
+            padding: 15px 20px;
+        }
+
+        .example-problem h3 {
+            color: #33AB2B;
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .example-problem p {
+            margin-bottom: 10px;
+        }
+
+        .example-problem ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .example-problem li {
+            margin-bottom: 8px;
+        }
+
+        .example-problem ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .solution-header {
+            background-color: #33AB2B;
+            color: white;
+            padding: 12px 20px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+            margin-top: 15px;
+            border-radius: 4px;
+            transition: background-color 0.2s ease;
+            border: none;
+            font-size: 1em;
+        }
+
+        .solution-header:hover {
+            background-color: #2a8922;
+        }
+
+        .toggle-arrow {
+            display: inline-block;
+            margin-right: 12px;
+            transition: transform 0.3s ease;
+            font-size: 1.2em;
+        }
+
+        .toggle-arrow.open {
+            transform: rotate(180deg);
+        }
+
+        .example-content {
+            padding: 0;
+            display: none;
+            overflow: hidden;
+        }
+
+        .example-content.open {
+            display: block;
+        }
+
+        .solution {
+            background-color: #f0f8ed;
+            padding: 20px;
+            border-top: 2px solid #33AB2B;
+        }
+
+        .solution h4 {
+            color: #33AB2B;
+            margin-bottom: 15px;
+            margin-top: 0;
+        }
+
+        .solution p {
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        .solution ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .solution li {
+            margin-bottom: 8px;
+        }
+
+        .solution ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        ul li {
+            margin-bottom: 8px;
+        }
+
+        ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        ol li {
+            margin-bottom: 8px;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        strong {
+            font-weight: bold;
+        }
+
+        em {
+            font-style: italic;
+        }
+
+        .blue-text {
+            color: #0066cc;
+        }
+
+        .divider {
+            border-top: 2px dashed #33AB2B;
+            margin: 30px 0;
+        }
+
+        .image-placeholder {
+            background-color: #e0e0e0;
+            border: 2px dashed #999;
+            padding: 40px;
+            margin: 20px 0;
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            border-radius: 4px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table th {
+            background-color: #f0f8ed;
+            color: #33AB2B;
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ccc;
+            font-weight: bold;
+        }
+
+        table td {
+            padding: 12px;
+            border: 1px solid #ccc;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        table tr.highlighted {
+            background-color: #ffff99;
+        }
+
+        .subsection-title {
+            color: #33AB2B;
+            font-size: 1.3em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+    </style>
+<style>
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+</style>
+</head>
+<body>
+<nav class="side-toc" aria-label="Textbook Navigation">
+    <h2 class="toc-title">Contents</h2>
+
+    <!-- Chapter 1 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 1: Financial Literacy</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="MTH154CH1_1.html">1.1 Introduction</a></li>
+        <li><a href="MTH154CH1_2.html">1.2 Problem Solving</a></li>
+        <li><a href="MTH154CH1_3.html">1.3 Simple Interest</a></li>
+ 	<li><a href="MTH154CH1_4.html">1.4 Compound Interest & Annuities</a></li>
+ 	<li><a href="MTH154CH1_5.html">1.5 Installment Loans</a></li>
+ 	<li><a href="MTH154CH1_6.html">1.6 Loans</a></li>
+ 	<li><a href="MTH154CH1_7.html">1.7 Stocks & Bonds</a></li>
+ 	<li><a href="MTH154CH1_8.html">1.8 Taxes</a></li>
+    </ul>
+
+    <!-- Chapter 2 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 2: Modeling Data</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="Ch2_1.html">2.1 Basics of Graphing</a></li>
+        <li><a href="Ch2_2.html">2.2 Relations & Functions</a></li>
+        <li><a href="Ch2_3.html">2.3 Linear Models</a></li>
+        <li><a href="Ch2_4.html">2.4 Rate of Change</a></li>
+        <li><a href="Ch2_5.html">2.5 Scatterplots</a></li>
+    </ul>
+
+    <!-- Chapter 3 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 3: Set Theory</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="Ch3_1.html">3.1 Set Basics</a></li>
+        <li><a href="Ch3_2.html">3.2 Sets</a></li>
+        <li><a href="Ch3_3.html">3.3 Venn Diagrams</a></li>
+        <li><a href="MTH154CH3_4.html">3.4 More with Venn Diagrams</a></li>
+    </ul>
+
+   <!-- Chapter 4 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 4: Logic</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="MTH154CH4_1.html">4.1 Thinking Logically</a></li>
+        <li><a href="MTH154CH4_2.html">4.2 Introduction to Truth Tables</a></li>
+	<li><a href="MTH154CH4_3.html">4.3 Logical Arguments</a></li>
+	<li><a href="MTH154CH4_4.html">4.4 Variations of Statements</a></li>
+    </ul>
+
+   <!-- Chapter 5 -->
+    <button class="toc-chapter" aria-expanded="false">
+        <span>Chapter 5: Measurement</span>
+        <span class="arrow">▶</span>
+    </button>
+    <ul class="toc-submenu">
+        <li><a href="MTH154CH5_1.html">5.1 Ratios & Proportions</a></li>
+        <li><a href="MTH154CH5_2.html">5.2 Measurement</a></li>
+	<li><a href="MTH154CH5_3.html">5.3 Area, Volume, and Capacity</a></li>
+	<li><a href="MTH154CH5_4.html">5.4 Weight & Temperature</a></li>
+	<li><a href="MTH154CH5_5.html">5.5 Surface Area & Volume</a></li>
+    </ul>
+</nav>
+  <div class="container">
+        <h1>Chapter 4: Logic</h1>
+
+        <h2>Section 4.3: Logical Arguments</h2>
+
+  <h2>Logical Arguments</h2>
+
+  <p>
+    A logical <strong class="blue">argument</strong> is a claim that a set of premises
+    supports a conclusion. When it comes to an argument, the argument can be either
+    <strong class="blue">valid</strong>, suggesting that the conclusion follows the premises,
+    or <strong class="blue">invalid</strong>, meaning that the premises do not lead to the
+    conclusion. We call invalid arguments <strong class="blue">fallacies</strong>.
+  </p>
+
+  <!-- Example 1 -->
+        <div class="example">
+            <div class="example-problem">
+                <h3>Example 1</h3>
+    <p>
+      Given the inductive argument, “When I went to the store last week, I forgot my purse,
+      and when I went today, I forgot my purse. Therefore, I always forget my purse when I go
+      to the store.” Identify the premises and conclusion.
+    </p>
+</div>
+
+ <button class="solution-header" onclick="toggleExample(this)">
+                <span class="toggle-arrow">▼</span>
+                <span>Show Solution</span>
+            </button>
+
+            <div class="example-content">
+                <div class="solution">
+                    <h4>Solution</h4>
+
+
+    <p><u>Premises:</u></p>
+    <ol>
+      <li>I forgot my purse last week when I went to the store.</li>
+      <li>I forgot my purse today when I went to the store.</li>
+    </ol>
+
+    <p><u>Conclusion:</u> I always forget my purse when I go to the store.</p>
+
+    <p>
+      Notice that the premises are specific situations, while the conclusion is a general
+      statement. In this case, this is a fairly weak argument, since it is based on only two
+      instances.
+    </p>
+    </div>
+            </div>
+        </div>
+
+  <p>
+    Deciding if an argument is valid or not can be determined in two manners. If the symbolic
+    form of the argument matches one of the specific rules, then we can easily determine
+    validity. However, if the symbolic form does not match one of the special rules, a truth
+    table must be constructed to evaluate the argument.
+  </p>
+
+  <h3>Forms of Valid Arguments</h3>
+
+  <figure class="logic-box">
+    <figcaption>The Law of Detachment (Modus Ponens)</figcaption>
+    <p>
+      The law of detachment applies when a conditional and its antecedent are given as
+      premises, and the consequent is the conclusion.
+    </p>
+
+    <table>
+      <caption class="visually-hidden">Modus Ponens structure</caption>
+      <tbody>
+        <tr><td>Premise:</td><td>\(p \rightarrow q\)</td></tr>
+        <tr><td>Premise:</td><td>\(p\)</td></tr>
+        <tr><td>Conclusion:</td><td>\(q\)</td></tr>
+      </tbody>
+    </table>
+
+    <p>The Latin name, <em>Modus Ponens</em>, translates to “mode that affirms.”</p>
+  </figure>
+
+  <figure class="logic-box">
+    <figcaption>The Law of Contraposition (Modus Tollens)</figcaption>
+    <p>
+      This law applies when a conditional and the negation of its consequent are given as
+      premises, and the negation of its antecedent is the conclusion.
+    </p>
+
+    <table>
+      <caption class="visually-hidden">Modus Tollens structure</caption>
+      <tbody>
+        <tr><td>Premise:</td><td>\(p \rightarrow q\)</td></tr>
+        <tr><td>Premise:</td><td>\(\sim q\)</td></tr>
+        <tr><td>Conclusion:</td><td>\(\sim p\)</td></tr>
+      </tbody>
+    </table>
+  </figure>
+
+  <figure class="logic-box">
+    <figcaption>The Law of Syllogism (Transitive Property)</figcaption>
+
+    <table>
+      <caption class="visually-hidden">Law of Syllogism structure</caption>
+      <tbody>
+        <tr><td>Premise:</td><td>\(p \rightarrow q\)</td></tr>
+        <tr><td>Premise:</td><td>\(q \rightarrow r\)</td></tr>
+        <tr><td>Conclusion:</td><td>\(p \rightarrow r\)</td></tr>
+      </tbody>
+    </table>
+  </figure>
+
+  <figure class="logic-box">
+    <figcaption>The Law of Disjunctive Syllogism</figcaption>
+
+    <table>
+      <caption class="visually-hidden">Disjunctive syllogism structure</caption>
+      <tbody>
+        <tr><td>Premise:</td><td>\(p \vee q\)</td></tr>
+        <tr><td>Premise:</td><td>\(\sim p\) or \(\sim q\)</td></tr>
+        <tr><td>Conclusion:</td><td>\(q\) or \(p\)</td></tr>
+      </tbody>
+    </table>
+  </figure>
+
+  <h3>Forms of Invalid Arguments</h3>
+
+  <figure class="logic-box">
+    <figcaption>Fallacy of the Converse</figcaption>
+    <table>
+      <caption class="visually-hidden">Fallacy of the Converse structure</caption>
+      <tbody>
+        <tr><td>Premise:</td><td>\(p \rightarrow q\)</td></tr>
+        <tr><td>Premise:</td><td>\(q\)</td></tr>
+        <tr><td>Conclusion:</td><td>\(p\)</td></tr>
+      </tbody>
+    </table>
+  </figure>
+
+  <figure class="logic-box">
+    <figcaption>Fallacy of the Inverse</figcaption>
+    <table>
+      <caption class="visually-hidden">Fallacy of the Inverse structure</caption>
+      <tbody>
+        <tr><td>Premise:</td><td>\(p \rightarrow q\)</td></tr>
+        <tr><td>Premise:</td><td>\(\sim p\)</td></tr>
+        <tr><td>Conclusion:</td><td>\(\sim q\)</td></tr>
+      </tbody>
+    </table>
+  </figure>
+
+  <figure class="logic-box">
+    <figcaption>Fallacy of the Inclusive “Or”</figcaption>
+    <table>
+      <caption class="visually-hidden">Inclusive or fallacy structure</caption>
+      <tbody>
+        <tr><td>Premise:</td><td>\(p \vee q\)</td></tr>
+        <tr><td>Premise:</td><td>\(q\)</td></tr>
+        <tr><td>Conclusion:</td><td>\(\sim p\)</td></tr>
+      </tbody>
+    </table>
+  </figure>
+
+  <!-- Example2 -->
+        <div class="example">
+            <div class="example-problem">
+                <h3>Example 2</h3>
+
+<p>Given the following logical arguments, identify which of our common forms for invalid arguments each follows.</p>
+
+<ol>
+  <li>
+    If Paul gets an "A" in Science, then he will become a vet. He didn't get an "A" in Science. Therefore he will not become a vet.
+  </li>
+  <li>
+    If the sun is shining, then it's a beautiful day. It's a beautiful day. Therefore the sun is shining.
+  </li>
+  <li>
+    When I go to dinner, I will order a steak or a side salad. I ordered a side salad. Therefore I did not order a steak.
+  </li>
+</ol>
+
+</div>
+
+<button class="solution-header" onclick="toggleExample(this)">
+                <span class="toggle-arrow">▼</span>
+                <span>Show Solution</span>
+            </button>
+
+            <div class="example-content">
+                <div class="solution">
+                    <h4>Solution</h4>
+<ol>
+  <li>
+If Paul gets an "A" in Science, then he will become a vet. He didn't get an "A" in Science. Therefore he will not become a vet. 
+
+For this example, allow p $=$ "Paul gets an "A" in Science" and q $=$ "Paul becomes a vet". Symbolically, it would give us the form:
+<p>
+  $$ 
+  \begin{array}{l r}
+  p \rightarrow q & \\  
+  p & \\                
+  \hline
+  \therefore q &        
+  \end{array} 
+  $$
+</p>
+<p>That means this an example of an invalid argument by Fallacy of the Inverse.</p>
+</li>
+<li>
+<p> If the sun is shining, then it's a beautiful day. It's a beautiful day. Therefore the sun is shining.</p>
+
+<p>For this example allow p $=$ "The sun is shinning" then q $=$ "It's a beautiful day". Symbolically, it would give us the form:</p>
+<p>
+  $$ 
+  \begin{array}{l}
+  p \rightarrow q  \\  
+  q \rightarrow r \\                
+  \hline
+  \therefore p\rightarrow r        
+  \end{array} 
+  $$
+</p>
+<p>That means this an example of an invalid argument by Fallacy of the Converse.</p>
+</li>
+<li>
+<p>When I go to dinner, I will order a steak or a side salad. I ordered a side salad. Therefore I did not order a steak.</p>
+
+<p>For this example allow p $=$ "I order steak" and q $=$ "I order a side salad". Symbolically, it would give us the form:</p>
+<p>
+  $$ 
+  \begin{array}{l}
+  p \wedge q  \\  
+  \sim q  \\                
+  \hline
+  \therefore p        
+  \end{array} 
+  $$
+</p>
+<p>That means this an example of an invalid argument by Fallacy of the the Inclusive "or". We have to remember with "or" statements, it can be one, the other, or both. Thus we cannot just say it's not the one because it's the other. We always have that both option.</p>
+</li>
+</ol>
+		</div>
+       </div>
+</div>
+
+<div class="subsection-title">Forms that Require Truth Tables</div>
+
+
+<p>
+Not all logical arguments fit into one of our common forms. When that is the case, we must construct a truth table to determine the validity of the argument. It is important to note that validity plays no role in the truth value behind the statement. All that validity tells us is that we can logically arrive at this conclusion with the premises we've been presented, regardless if those premises are true or false.
+</p>
+
+<div class="tcolorbox blue-red">
+  <strong style="color:#ff4d4d;">Analyzing an Argument Using Truth Tables</strong>
+  <ol>
+    <li>Represent each of the premises symbolically.</li>
+    <li>Create a conditional statement that joins all the premises to form the antecedent, and use the conclusion as the consequent.</li>
+    <li>Create a truth table for the statement. If the last column of the table is always true, then the argument is valid.</li>
+  </ol>
+</div>
+
+<!-- Example 3 -->
+        <div class="example">
+            <div class="example-problem">
+                <h3>Example 3</h3>
+  <p> Identify if the following argument is valid or invalid. "You went out to eat and ordered chicken. You also ordered french fries. Therefore if you go out to eat, you order French Fries."</p>
+</div>
+
+ <button class="solution-header" onclick="toggleExample(this)">
+                <span class="toggle-arrow">▼</span>
+                <span>Show Solution</span>
+            </button>
+
+            <div class="example-content">
+                <div class="solution">
+                    <h4>Solution</h4>
+  First, identify your premises and the symbolic form of your argument.
+  </p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Premise</th>
+        <th>Description</th>
+        <th>Symbolic Form</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Premise 1</td>
+        <td>You went out to eat and ordered chicken.</td>
+        <td>p ∧ q</td>
+      </tr>
+      <tr>
+        <td>Premise 2</td>
+        <td>You ordered French Fries.</td>
+        <td>r</td>
+      </tr>
+      <tr>
+        <td>Conclusion</td>
+        <td>If you go out to eat, you order French Fries.</td>
+        <td>∴ p → r</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>
+  Next we need to start building the truth table. We will start by creating our columns for p, q, and r as there are three different simple statements.
+  </p>
+
+  <table border="1" style="text-align:center;">
+    <thead>
+      <tr><th>p</th><th>q</th><th>r</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>T</td><td>T</td><td>T</td></tr>
+      <tr><td>T</td><td>T</td><td>F</td></tr>
+      <tr><td>T</td><td>F</td><td>T</td></tr>
+      <tr><td>T</td><td>F</td><td>F</td></tr>
+      <tr><td>F</td><td>T</td><td>T</td></tr>
+      <tr><td>F</td><td>T</td><td>F</td></tr>
+      <tr><td>F</td><td>F</td><td>T</td></tr>
+      <tr><td>F</td><td>F</td><td>F</td></tr>
+    </tbody>
+  </table>
+
+  <p>
+  Now we need to look at what our argument would look like as a complete symbolic argument. To put this all together, we create a conditional statement between all of the premises and an implication(conditional) for the conclusion. That would symbolically give us:
+  </p>
+
+  <p>
+    $$
+    [ ( \text{p} \wedge \text{q} ) \wedge \text{r} ] \rightarrow (\text{p} \rightarrow \text{r})
+    $$
+  </p>
+
+  <p>
+  Once we've identified that argument, we need to "build" it out in our logic table.
+  </p>
+
+  <div style="display:flex; gap:1em; flex-wrap:wrap;">
+
+    <div>
+      <p>Table 1</p>
+      <table border="1" style="text-align:center;">
+        <thead>
+          <tr><th>p</th><th>q</th><th>r</th><th>p ∧ q</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>T</td><td>T</td><td>T</td><td>T</td></tr>
+          <tr><td>T</td><td>T</td><td>F</td><td>T</td></tr>
+          <tr><td>T</td><td>F</td><td>T</td><td>F</td></tr>
+          <tr><td>T</td><td>F</td><td>F</td><td>F</td></tr>
+          <tr><td>F</td><td>T</td><td>T</td><td>F</td></tr>
+          <tr><td>F</td><td>T</td><td>F</td><td>F</td></tr>
+          <tr><td>F</td><td>F</td><td>T</td><td>F</td></tr>
+          <tr><td>F</td><td>F</td><td>F</td><td>F</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div>
+      <p>Table 2</p>
+      <table border="1" style="text-align:center;">
+        <thead>
+          <tr><th>p</th><th>q</th><th>r</th><th>p ∧ q</th><th>(p ∧ q) ∧ r</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>T</td><td>T</td><td>T</td><td>T</td><td>T</td></tr>
+          <tr><td>T</td><td>T</td><td>F</td><td>T</td><td>F</td></tr>
+          <tr><td>T</td><td>F</td><td>T</td><td>F</td><td>F</td></tr>
+          <tr><td>T</td><td>F</td><td>F</td><td>F</td><td>F</td></tr>
+          <tr><td>F</td><td>T</td><td>T</td><td>F</td><td>F</td></tr>
+          <tr><td>F</td><td>T</td><td>F</td><td>F</td><td>F</td></tr>
+          <tr><td>F</td><td>F</td><td>T</td><td>F</td><td>F</td></tr>
+          <tr><td>F</td><td>F</td><td>F</td><td>F</td><td>F</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div>
+      <p>Table 3</p>
+      <table border="1" style="text-align:center;">
+        <thead>
+          <tr><th>p</th><th>q</th><th>r</th><th>p ∧ q</th><th>(p ∧ q) ∧ r</th><th>p → r</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>T</td><td>T</td><td>T</td><td>T</td><td>T</td><td>T</td></tr>
+          <tr><td>T</td><td>T</td><td>F</td><td>T</td><td>F</td><td>F</td></tr>
+          <tr><td>T</td><td>F</td><td>T</td><td>F</td><td>F</td><td>T</td></tr>
+          <tr><td>T</td><td>F</td><td>F</td><td>F</td><td>F</td><td>F</td></tr>
+          <tr><td>F</td><td>T</td><td>T</td><td>F</td><td>F</td><td>T</td></tr>
+          <tr><td>F</td><td>T</td><td>F</td><td>F</td><td>F</td><td>T</td></tr>
+          <tr><td>F</td><td>F</td><td>T</td><td>F</td><td>F</td><td>T</td></tr>
+          <tr><td>F</td><td>F</td><td>F</td><td>F</td><td>F</td><td>T</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <div>
+    <p>Table 4</p>
+    <table border="1" style="text-align:center;">
+      <thead>
+        <tr>
+          <th>p</th><th>q</th><th>r</th><th>p ∧ q</th><th>(p ∧ q) ∧ r</th><th>p → r</th><th>((p ∧ q) ∧ r) → (p → r)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>T</td><td>T</td><td>T</td><td>T</td><td>T</td><td>T</td><td>T</td></tr>
+        <tr><td>T</td><td>T</td><td>F</td><td>T</td><td>F</td><td>F</td><td>T</td></tr>
+        <tr><td>T</td><td>F</td><td>T</td><td>F</td><td>F</td><td>T</td><td>T</td></tr>
+        <tr><td>T</td><td>F</td><td>F</td><td>F</td><td>F</td><td>F</td><td>T</td></tr>
+        <tr><td>F</td><td>T</td><td>T</td><td>F</td><td>F</td><td>T</td><td>T</td></tr>
+        <tr><td>F</td><td>T</td><td>F</td><td>F</td><td>F</td><td>T</td><td>T</td></tr>
+        <tr><td>F</td><td>F</td><td>T</td><td>F</td><td>F</td><td>T</td><td>T</td></tr>
+        <tr><td>F</td><td>F</td><td>F</td><td>F</td><td>F</td><td>T</td><td>T</td></tr>
+      </tbody>
+    </table>
+
+    <p>
+      Looking through each table, we can see that in Table 1 we started by finding the validity behind the first premise. From there, we moved to table two where we found the conjunction between the first and second premise. It is important to note that at this point, we did not need to build out a second premise as it was just a simple statement. Next, we moved to Table 3 where we first had to find the validity of the conclusion since it was a compound statement.
+    </p>
+
+    <p>
+      Finally, we moved to Table 4 where we used the conjunction of the premises to imply the conclusion, which we can see it all true making it a valid argument. Some things that are important to note are that when you're doing this on your own, you will not make 4 different tables. Table 4 is what your table will look like once completed. You just keep adding columns until you've completed the table. Another thing to note is that the validity of the argument does not imply the truth value of the argument. We do not know if this argument is true or false. All we know is that it is acceptable to arrive at this conclusion from the premises we were presented.
+    </p>
+  </div>
+    </div>
+        </div>
+
+</div>
+
+<!-- Subsection: Equivalence, Tautologies, and Self-Contradictions -->
+<h3>Equivalence, Tautologies, and Self-Contradictions</h3>
+
+<p>In the English language, we can phrase our speech in a number of ways to say the same thing. Equally the language allows us to completely contradict ourselves too. In logic, two statements are equivalent if the two statements have the same exact truth values.</p>
+
+<!-- Example 4-->
+<div class="example">
+    <div class="example-problem">
+        <h3>Example 4</h3>
+        <p>Determine if the following statements are logically equivalent:<br>
+        Statement 1: If I get my nails done, I'll go on a date Friday.<br>
+        Statement 2: If I don't go on a date Friday, then I won't get my nails done.</p>
+    </div> 
+    <button class="solution-header" onclick="toggleExample(this)">
+        <span class="toggle-arrow">▼</span>
+        <span>Show Solution</span>
+    </button>
+    <div class="example-content">
+        <div class="solution">
+            <h4>Solution</h4>
+            <p>First, we need to look at each statement in their symbolic form:<br>
+            Statement 1: $$p \rightarrow q$$<br>
+            Statement 2: $$\sim q \rightarrow \sim p$$</p>
+            <p>Next, we need to construct a truth table for each statement and compare the solutions:</p>
+
+            <div style="display:flex; flex-wrap:wrap; gap:1em;">
+                <!-- Statement 1 Table -->
+                <div style="flex:1;" role="region" aria-label="Truth values for Statement 1: p implies q">
+                    <table border="1" style="width:100%; border-collapse:collapse; text-align:center;">
+                        <thead>
+                            <tr>
+                                <th scope="col">p</th>
+                                <th scope="col">q</th>
+                                <th scope="col">p → q</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>T</td><td>T</td><td>T</td></tr>
+                            <tr><td>T</td><td>F</td><td>F</td></tr>
+                            <tr><td>F</td><td>T</td><td>T</td></tr>
+                            <tr><td>F</td><td>F</td><td>T</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Statement 2 Table -->
+                <div style="flex:1;" role="region" aria-label="Truth values for Statement 2: not q implies not p">
+                    <table border="1" style="width:100%; border-collapse:collapse; text-align:center;">
+                        <thead>
+                            <tr>
+                                <th scope="col">p</th>
+                                <th scope="col">q</th>
+                                <th scope="col">¬q</th>
+                                <th scope="col">¬p</th>
+                                <th scope="col">¬q → ¬p</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>T</td><td>T</td><td>F</td><td>F</td><td>T</td></tr>
+                            <tr><td>T</td><td>F</td><td>T</td><td>F</td><td>F</td></tr>
+                            <tr><td>F</td><td>T</td><td>F</td><td>T</td><td>T</td></tr>
+                            <tr><td>F</td><td>F</td><td>T</td><td>T</td><td>T</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <p>Looking at the last column of both tables, we can see that in each situation they are exactly the same truth values. This means that these two statements are logically equivalent to each other.</p>
+        </div>
+    </div>
+</div>
+
+<p>Occasionally in compound statements, we may run across something known as a <strong style="color:blue;">tautology</strong> or <strong style="color:blue;">self-contradiction</strong>.</p>
+
+<div class="tcolorbox white-bg" role="region" aria-label="Definitions of Tautology and Self-Contradiction">
+    <p><strong>Tautology:</strong> A logical statement that is never false, regardless of the truth of the original simple statements.</p>
+    <p><strong>Self-Contradiction:</strong> A logical statement that is never true, regardless of the truth of the original simple statements.</p>
+</div>
+
+<!-- Example 5 -->
+<div class="example">
+    <div class="example-problem">
+        <h3>Example 5</h3>
+        <p>Determine if the following compound statements are a tautology, self-contradiction or neither:</p>
+        <ol>
+            <li>If I order a pizza and I order dessert, then I'll order a pizza.</li>
+            <li>If I order a pizza or I order a dessert, then I'll order a dessert.</li>
+            <li>I'm going to order a pizza and dessert and I'm not going to order a pizza and I'm not going to order dessert.</li>
+        </ol>
+    </div> 
+    <button class="solution-header" onclick="toggleExample(this)">
+        <span class="toggle-arrow">▼</span>
+        <span>Show Solution</span>
+    </button>
+    <div class="example-content">
+        <div class="solution">
+            <h4>Solution</h4>
+            <p>First, identify the symbolic form of each statement:</p>
+            <ol>
+                <li>$$(p \wedge q) \rightarrow p$$</li>
+                <li>$$(p \vee q) \rightarrow q$$</li>
+                <li>$$(p \wedge q) \wedge (\sim p \wedge \sim q)$$</li>
+            </ol>
+
+            <p>Next, construct the truth tables:</p>
+
+            <!-- Table 1 -->
+            <p>1. $$(p \wedge q) \rightarrow p$$</p>
+            <table border="1" style="width:100%; border-collapse:collapse; text-align:center;" aria-label="Truth table for (p AND q) implies p">
+                <thead>
+                    <tr>
+                        <th scope="col">p</th>
+                        <th scope="col">q</th>
+                        <th scope="col">p ∧ q</th>
+                        <th scope="col">→ p</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>T</td><td>T</td><td>T</td><td>T</td></tr>
+                    <tr><td>T</td><td>F</td><td>F</td><td>T</td></tr>
+                    <tr><td>F</td><td>T</td><td>F</td><td>T</td></tr>
+                    <tr><td>F</td><td>F</td><td>F</td><td>T</td></tr>
+                </tbody>
+            </table>
+            <p>Since the last column is all true, this statement is a tautology.</p>
+
+            <!-- Table 2 -->
+            <p>2. $$(p \vee q) \rightarrow q$$</p>
+            <table border="1" style="width:100%; border-collapse:collapse; text-align:center;" aria-label="Truth table for (p OR q) implies q">
+                <thead>
+                    <tr>
+                        <th scope="col">p</th>
+                        <th scope="col">q</th>
+                        <th scope="col">p ∨ q</th>
+                        <th scope="col">→ q</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>T</td><td>T</td><td>T</td><td>T</td></tr>
+                    <tr><td>T</td><td>F</td><td>T</td><td>F</td></tr>
+                    <tr><td>F</td><td>T</td><td>T</td><td>T</td></tr>
+                    <tr><td>F</td><td>F</td><td>F</td><td>T</td></tr>
+                </tbody>
+            </table>
+            <p>Since the last column is not all true or all false, this statement is neither a tautology nor a self-contradiction.</p>
+
+            <!-- Table 3 -->
+            <p>3. $$(p \wedge q) \wedge (\sim p \wedge \sim q)$$</p>
+            <table border="1" style="width:100%; border-collapse:collapse; text-align:center;" aria-label="Truth table for (p AND q) AND (not p AND not q)">
+                <thead>
+                    <tr>
+                        <th scope="col">p</th>
+                        <th scope="col">q</th>
+                        <th scope="col">p ∧ q</th>
+                        <th scope="col">¬p</th>
+                        <th scope="col">¬q</th>
+                        <th scope="col">¬p ∧ ¬q</th>
+                        <th scope="col">(p ∧ q) ∧ (¬p ∧ ¬q)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>T</td><td>T</td><td>T</td><td>F</td><td>F</td><td>F</td><td>F</td></tr>
+                    <tr><td>T</td><td>F</td><td>F</td><td>F</td><td>T</td><td>F</td><td>F</td></tr>
+                    <tr><td>F</td><td>T</td><td>F</td><td>T</td><td>F</td><td>F</td><td>F</td></tr>
+                    <tr><td>F</td><td>F</td><td>F</td><td>T</td><td>T</td><td>F</td><td>F</td></tr>
+                </tbody>
+            </table>
+            <p>Since the last column is all false, this statement is a self-contradiction.</p>
+        </div>
+    </div>
+</div>
+
+<h3>De Morgan's Law</h3>
+<p>Augustus De Morgan (1772-1816), a British mathematician and a contemporary of Boole, formalized two rules of logic that had previously been known informally. They allow us to rewrite the negation of a conjunction as a disjunction, and vice-versa.</p>
+
+<div class="tcolorbox white-bg" role="region" aria-label="De Morgan's Law definitions" style="display: flex; gap: 1em; align-items: flex-start;">
+    
+    <!-- Left side: definitions -->
+    <div style="flex: 1; min-width: 250px;">
+        <p><strong>De Morgan's Law:</strong></p>
+        <p>The negation of a conjunction is equivalent to the disjunction of the negation of the statements making up the conjunction:</p>
+        <p>$$\sim (p \wedge q) \equiv \sim p \vee \sim q$$</p>
+        <p>The negation of a disjunction is equivalent to the conjunction of the negation of the statements making up the disjunction:</p>
+        <p>$$\sim (p \vee q) \equiv \sim p \wedge \sim q$$</p>
+    </div>
+    
+    <!-- Right side: image -->
+    <div style="flex: 0 0 auto;">
+        <figure role="img" aria-label="Image of Augustus De Morgan, British Mathematician" style="margin: 0;">
+            <img src="images/DeMorganImage.jpg" alt="British Mathematician Augustus De Morgan" style="max-width: 350px; height: auto; display: block;">
+            <figcaption style="text-align: center; font-size: 0.9em;">British Mathematician Augustus De Morgan</figcaption>
+        </figure>
+    </div>
+</div>
+
+
+<!-- Example 6 -->
+<div class="example">
+    <div class="example-problem">
+        <h3>Example 6</h3>
+        <p>Write the negation of the statement "For Valentine's Day, you did not get your sweetie flowers or candy."</p>
+    </div> 
+    <button class="solution-header" onclick="toggleExample(this)">
+        <span class="toggle-arrow">▼</span>
+        <span>Show Solution</span>
+    </button>
+    <div class="example-content">
+        <div class="solution">
+            <h4>Solution</h4>
+            <p>In this situation, p would be "You did not get your sweetie flowers" and q would be "You did not get your sweetie candy". This makes the negation:</p>
+            <p>"For Valentine's Day, you got your sweetie flowers and not candy." Since the variation of De Morgan's Law would be $$\sim (p \vee q) \equiv \sim p \wedge \sim q$$.</p>
+        </div>
+    </div>
+</div>
+
+<div class="tcolorbox blue-red" role="region" aria-label="Negation of a Conditional Statement">
+    <p><strong style="color:#ff4d4d;">The Negation of a Conditional</strong></p>
+    <p>The negation of a conditional statement is logically equivalent to a conjunction of the antecedent and the negation of the consequent:</p>
+    <p>$$\sim (p \rightarrow q) \equiv p \wedge \sim q$$</p>
+</div>
+
+<!-- Example 7 -->
+<div class="example">
+    <div class="example-problem">
+        <h3>Example 7</h3>
+        <p>Write the negation to the statement, "If you don't grease the pan, then the food will stick to it."</p>
+    </div> 
+    <button class="solution-header" onclick="toggleExample(this)">
+        <span class="toggle-arrow">▼</span>
+        <span>Show Solution</span>
+    </button>
+    <div class="example-content">
+        <div class="solution">
+            <h4>Solution</h4>
+            <p>For our example, p = "You don't grease the pan" and q = "Food will stick to it". To find the negation, we negate q to get "Food will not stick to it". Then the negation of the conditional is:</p>
+            <p>"You don't grease the pan and food will not stick to it".</p>
+        </div>
+    </div>
+</div>
+ <nav aria-label="Page navigation">
+  <div class="page-navigation">
+    <div class="page-navigation" style="display:flex; justify-content:space-between; margin-top:40px;">
+        <a href="MTH154CH4_2.html" class="nav-button" aria-label="Go to previous section">&larr; Previous</a>
+        <a href="MTH154CH4_4.html" class="nav-button" aria-label="Go to next section">Next &rarr;</a>
+    </div>
+  </div>
+</nav>
+</div>
+</div>
+<script>
+        function toggleExample(button) {
+            const content = button.nextElementSibling;
+            const arrow = button.querySelector('.toggle-arrow');
+            
+            if (content.classList.contains('open')) {
+                content.classList.remove('open');
+                arrow.classList.remove('open');
+                button.querySelector('span:last-child').textContent = 'Show Solution';
+            } else {
+                content.classList.add('open');
+                arrow.classList.add('open');
+                button.querySelector('span:last-child').textContent = 'Hide Solution';
+            }
+        }
+    </script>
+
+    <script>
+        const chapterButtons = document.querySelectorAll(".toc-chapter");
+
+        chapterButtons.forEach(button => {
+            button.addEventListener("click", () => {
+                const expanded = button.getAttribute("aria-expanded") === "true";
+                button.setAttribute("aria-expanded", !expanded);
+
+                const submenu = button.nextElementSibling;
+                submenu.classList.toggle("open");
+            });
+        });
+    </script>
+</body>
+</html>
